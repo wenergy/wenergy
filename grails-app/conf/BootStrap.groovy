@@ -32,7 +32,6 @@ class BootStrap {
                 c.save()
                 h.addToConsumptions(c)
             }
-            log.error h.validate()
             h.save()
 
             if (!h.authorities.contains(adminRole)) {
