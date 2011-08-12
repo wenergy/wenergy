@@ -8,11 +8,13 @@ import org.kit.im.Role
 
 class BootStrap {
 
+    def springSecurityService
+
+
     def init = { servletContext ->
         def userRole = Role.findByAuthority('ROLE_USER') ?: new Role(authority: 'ROLE_USER').save(failOnError: true)
         def adminRole = Role.findByAuthority('ROLE_ADMIN') ?: new Role(authority: 'ROLE_ADMIN').save(failOnError: true)
 
-        def SpringSecurityService
 
 
         int i = 1

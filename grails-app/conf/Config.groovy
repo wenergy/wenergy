@@ -10,6 +10,8 @@
 //    grails.config.locations << "file:" + System.properties["${appName}.config.location"]
 // }
 
+import grails.plugins.springsecurity.SecurityConfigType
+
 grails.project.groupId = appName // change this to alter the default package name and Maven publishing destination
 grails.mime.file.extensions = true // enables the parsing of file extensions from URLs into the request format
 grails.mime.use.accept.header = false
@@ -93,3 +95,13 @@ log4j = {
 grails.plugins.springsecurity.userLookup.userDomainClassName = 'org.kit.im.Household'
 grails.plugins.springsecurity.userLookup.authorityJoinClassName = 'org.kit.im.HouseholdRole'
 grails.plugins.springsecurity.authority.className = 'org.kit.im.Role'
+
+
+grails.plugins.springsecurity.securityConfigType = SecurityConfigType.InterceptUrlMap
+grails.plugins.springsecurity.interceptUrlMap = [
+    // Block main page, device and website controllers
+    '/*': ["hasRole('ROLE_ADMIN')"]
+]
+
+
+// todo :    ARDUINO Script Zugriff erlauben!!!
