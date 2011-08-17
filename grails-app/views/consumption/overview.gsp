@@ -19,8 +19,11 @@
         var data = [${data}];
         var stack = 0, bars = true, lines = false, steps = false;
         var options = {
-                series: {stack: {show: true}},
-                bars: {show: bars, barWidth: 0.6}
+            series: {
+                stack: stack,
+                lines: { show: lines, fill: true, steps: steps },
+                bars: { show: bars, barWidth: 0.6 }
+            }
         };
 </g:javascript>
 
