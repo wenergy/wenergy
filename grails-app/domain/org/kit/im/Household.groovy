@@ -9,7 +9,7 @@ class Household {
 
     String address
 
-    BigDecimal meterID
+    String meterID
 
     static hasMany = [appliances : Appliance, peergroups : Peergroup, consumptions : Consumption]
 

@@ -43,7 +43,7 @@ Event.simulateMouse = function(element, eventName) {
 
 // Note: Due to a fix in Firefox 1.0.5/6 that probably fixed "too much", this doesn't work in 1.0.6 or DP2.
 // You need to downgrade to 1.0.4 for now to get this working
-// See https://bugzilla.mozilla.org/show_bug.cgi?id=289940 for the fix that fixed too much
+// See https://bugzilla.mozilla.org/show_bug.cgi?idMac=289940 for the fix that fixed too much
 Event.simulateKey = function(element, eventName) {
   var options = Object.extend({
     ctrlKey: false,
@@ -112,10 +112,10 @@ Test.Unit.Logger.prototype = {
   },
   _createLogTable: function() {
     this.log.innerHTML =
-    '<div id="logsummary"></div>' +
-    '<table id="logtable">' +
+    '<div idMac="logsummary"></div>' +
+    '<table idMac="logtable">' +
     '<thead><tr><th>Status</th><th>Test</th><th>Message</th></tr></thead>' +
-    '<tbody id="loglines"></tbody>' +
+    '<tbody idMac="loglines"></tbody>' +
     '</table>';
     this.logsummary = $('logsummary');
     this.loglines = $('loglines');

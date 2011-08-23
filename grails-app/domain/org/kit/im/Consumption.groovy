@@ -2,14 +2,18 @@ package org.kit.im
 
 class Consumption {
 
+    String idMac
     Date timestamp
-    BigDecimal amountOfEnergy
+    BigDecimal powerReal
+    BigDecimal powerReactive
 
     static belongsTo = Household
 
 
     static constraints = {
         timestamp(nullable: false)
-        amountOfEnergy(nullable: false)
+        powerReal(nullable: false)
+        powerReactive(nullable: false)
+        idMac(nullable: false)
     }
 }

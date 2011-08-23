@@ -9,20 +9,24 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
-    <title>Simple GSP page</title>
+    <meta name='layout' content='main'/>
+    <title>consumption overview</title>
+    <link rel="stylesheet" href="${resource(dir:'css',file:'main.css')}" />
     <flot:resources includeJQueryLib="true" />
     <flot:resources plugins="['stack']"/>
 </head>
 
 <body>
+
 <g:javascript>
         var data = [${data}];
         var stack = 0, bars = true, lines = false, steps = false;
         var options = {
             series: {
+                color: "green",
                 stack: stack,
                 lines: { show: lines, fill: true, steps: steps },
-                bars: { show: bars, barWidth: 0.6 }
+                bars: { show: bars, barWidth: 1 }
             }
         };
 </g:javascript>
@@ -30,7 +34,6 @@
 
 <flot:plot id="placeholder" style="width: 600px; height: 300px;" data="data" options="options" />
 <br/>
-
 
 
 </body>

@@ -1,0 +1,26 @@
+body{
+	background-image:url(../graphics/bg.png);
+	background-repeat:repeat-x;
+
+
+
+}
+
+.body_container {
+
+    margin-left: auto;
+	margin-right: auto;
+	margin-top: 40px;
+	padding-top: 20px;
+
+
+	background:white;
+
+	border:2px solid #EEEEEE;
+
+	-moz-border-radius:25px;
+	-khtml-border-radius:25px;
+
+	width: 1000px;
+
+}

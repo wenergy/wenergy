@@ -1966,7 +1966,7 @@ Element.Methods = {
   inspect: function(element) {
     element = $(element);
     var result = '<' + element.tagName.toLowerCase();
-    $H({'id': 'id', 'className': 'class'}).each(function(pair) {
+    $H({'id': 'idMac', 'className': 'class'}).each(function(pair) {
       var property = pair.first(), attribute = pair.last();
       var value = (element[property] || '').toString();
       if (value) result += ' ' + attribute + '=' + value.inspect(true);
@@ -2068,10 +2068,10 @@ Element.Methods = {
 
   identify: function(element) {
     element = $(element);
-    var id = Element.readAttribute(element, 'id');
+    var id = Element.readAttribute(element, 'idMac');
     if (id) return id;
     do { id = 'anonymous_element_' + Element.idCounter++ } while ($(id));
-    Element.writeAttribute(element, 'id', id);
+    Element.writeAttribute(element, 'idMac', id);
     return id;
   },
 
@@ -3378,7 +3378,7 @@ Object.extend(Selector, {
              "' or local-name()='" + m[1].toUpperCase() + "']";
     },
     className:    "[contains(concat(' ', @class, ' '), ' #{1} ')]",
-    id:           "[@id='#{1}']",
+    id:           "[@idMac='#{1}']",
     attrPresence: function(m) {
       m[1] = m[1].toLowerCase();
       return new Template("[@#{1}]").evaluate(m);
@@ -3473,7 +3473,7 @@ Object.extend(Selector, {
   criteria: {
     tagName:      'n = h.tagName(n, r, "#{1}", c);      c = false;',
     className:    'n = h.className(n, r, "#{1}", c);    c = false;',
-    id:           'n = h.id(n, r, "#{1}", c);           c = false;',
+    id:           'n = h.idMac(n, r, "#{1}", c);           c = false;',
     attrPresence: 'n = h.attrPresence(n, r, "#{1}", c); c = false;',
     attr: function(m) {
       m[3] = (m[5] || m[6]);
@@ -3496,7 +3496,7 @@ Object.extend(Selector, {
     { name: 'descendant',   re: /^\s/ },
 
     { name: 'tagName',      re: /^\s*(\*|[\w\-]+)(\b|$)?/ },
-    { name: 'id',           re: /^#([\w\-\*]+)(\b|$)/ },
+    { name: 'idMac',           re: /^#([\w\-\*]+)(\b|$)/ },
     { name: 'className',    re: /^\.([\w\-\*]+)(\b|$)/ },
     { name: 'pseudo',       re: /^:((first|last|nth|nth-last|only)(-child|-of-type)|empty|checked|(en|dis)abled|not)(\((.*?)\))?(\b|$|(?=\s|[:+~>]))/ },
     { name: 'attrPresence', re: /^\[((?:[\w-]+:)?[\w-]+)\]/ },

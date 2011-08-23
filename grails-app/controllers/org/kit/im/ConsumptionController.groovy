@@ -1,10 +1,5 @@
 package org.kit.im
 
-import grails.plugins.springsecurity.SpringSecurityService
-
-
-
-
 class ConsumptionController {
 
     def springSecurityService
@@ -19,7 +14,7 @@ class ConsumptionController {
         List formattedConsumptions = []
 
         consumptions.eachWithIndex { c,i->
-            formattedConsumptions.add([i, c.amountOfEnergy])
+            formattedConsumptions.add([i, c.powerReal])
         }
 
         return [data: formattedConsumptions]

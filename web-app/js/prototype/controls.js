@@ -28,7 +28,7 @@
 // Tokenized incremental autocompletion is enabled automatically
 // when an autocompleter is instantiated with the 'tokens' option
 // in the options parameter, e.g.:
-// new Ajax.Autocompleter('id','upd', '/url/', { tokens: ',' });
+// new Ajax.Autocompleter('idMac','upd', '/url/', { tokens: ',' });
 // will incrementally autocomplete with a comma as the token.
 // Additionally, ',' in the above example can be replaced with
 // a token array, e.g. { tokens: [',', '\n'] } which
@@ -97,7 +97,7 @@ Autocompleter.Base = Class.create({
       (Prototype.Browser.IE) &&
       (Element.getStyle(this.update, 'position')=='absolute')) {
       new Insertion.After(this.update,
-       '<iframe id="' + this.update.id + '_iefix" '+
+       '<iframe idMac="' + this.update.id + '_iefix" '+
        'style="display:none;position:absolute;filter:progid:DXImageTransform.Microsoft.Alpha(opacity=0);" ' +
        'src="javascript:false;" frameborder="0" scrolling="no"></iframe>');
       this.iefix = $(this.update.id+'_iefix');
@@ -376,7 +376,7 @@ Ajax.Autocompleter = Class.create(Autocompleter.Base, {
 // than sending out Ajax queries, which can be quite slow sometimes.
 //
 // The constructor takes four parameters. The first two are, as usual,
-// the id of the monitored textbox, and id of the autocompletion menu.
+// the idMac of the monitored textbox, and idMac of the autocompletion menu.
 // The third is the array you want to autocomplete from, and the fourth
 // is the options block.
 //
@@ -875,11 +875,11 @@ Object.extend(Ajax.InPlaceEditor, {
     cancelControl: 'link',                      // 'link'|'button'|false
     cancelText: 'cancel',
     clickToEditText: 'Click to edit',
-    externalControl: null,                      // id|elt
+    externalControl: null,                      // idMac|elt
     externalControlOnly: false,
     fieldPostCreation: 'activate',              // 'activate'|'focus'|false
     formClassName: 'inplaceeditor-form',
-    formId: null,                               // id|elt
+    formId: null,                               // idMac|elt
     highlightColor: '#ffff99',
     highlightEndColor: '#ffffff',
     hoverClassName: '',

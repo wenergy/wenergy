@@ -15,23 +15,24 @@ class BootStrap {
         def userRole = Role.findByAuthority('ROLE_USER') ?: new Role(authority: 'ROLE_USER').save(failOnError: true)
         def adminRole = Role.findByAuthority('ROLE_ADMIN') ?: new Role(authority: 'ROLE_ADMIN').save(failOnError: true)
 
-
-
-        int i = 1
         Peergroup peergroup = new Peergroup(groupName: "homies")
         peergroup.save()
-        5.times {
+        Household h = new Household(enabled: true, firstname: "arduino1", lastname: "dalen", username: "id1", email: "dalen@kit.edu", password: springSecurityService.encodePassword('password'), address: "address", meterID: "de:ad:be:ef:fe:ed")
+        h.addToPeergroups(peergroup)
+        h.save()
+        if (!h.authorities.contains(adminRole))
+         {
+	            HouseholdRole.create h, adminRole
+	     }
+
+/*        int i = 1
+        Peergroup peergroup = new Peergroup(groupName: "homies")
+        peergroup.save()
+        2.times {
 
             Household h = new Household(enabled: true, firstname: "firstname"+i, lastname: "lastname"+i, username: "id"+i, email: "$i@kit.edu", password: springSecurityService.encodePassword('password'), address: "address"+i, meterID: i)
 
             h.addToPeergroups(peergroup)
-
-
-            100.times {
-                Consumption c = new Consumption(timestamp: new Date(), amountOfEnergy: Math.random())
-                c.save()
-                h.addToConsumptions(c)
-            }
             h.save()
 
             if (!h.authorities.contains(adminRole)) {
@@ -40,7 +41,7 @@ class BootStrap {
 
 
             i++
-        }
+        }*/
 
 
 
