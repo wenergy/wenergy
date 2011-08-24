@@ -16,7 +16,7 @@ class Household {
   static hasMany = [appliances: Appliance, peergroups: Peergroup, consumptions: Consumption]
 
   static constraints = {
-    macAddress(nullable: false)
+    macAddress(nullable: false, unique: true)
     firstName(nullable: false)
     lastName(nullable: false)
     eMail(nullable: false)
