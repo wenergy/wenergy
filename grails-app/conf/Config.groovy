@@ -68,13 +68,19 @@ environments {
 }
 
 // log4j configuration
+def catalinaBase = System.properties.getProperty('catalina.base')
+if (!catalinaBase) catalinaBase = '.'   // just in case
+def logDirectory = "${catalinaBase}/logs"
+
 log4j = {
   // Example of changing the log pattern for the default console
   // appender:
   //
-  //appenders {
-  //    console name:'stdout', layout:pattern(conversionPattern: '%c{2} %m%n')
-  //}
+  appenders {
+    //    console name:'stdout', layout:pattern(conversionPattern: '%c{2} %m%n')
+    rollingFile name: 'stdout', file: "${logDirectory}/${appName}.log".toString(), maxFileSize: '1500KB', layout: pattern(conversionPattern: "%d [%t] %-5p %c %x - %m%n")
+    rollingFile name: 'stacktrace', file: "${logDirectory}/${appName}_stack.log".toString(), maxFileSize: '1500KB', layout: pattern(conversionPattern: "%d [%t] %-5p %c %x - %m%n")
+  }
 
   error 'org.codehaus.groovy.grails.web.servlet',  //  controllers
       'org.codehaus.groovy.grails.web.pages', //  GSP
@@ -89,6 +95,10 @@ log4j = {
       'net.sf.ehcache.hibernate'
 
   warn 'org.mortbay.log'
+
+  info 'grails.app'
+
+  root.level = org.apache.log4j.Level.INFO
 }
 
 // Added by the Spring Security Core plugin:
