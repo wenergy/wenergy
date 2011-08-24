@@ -9,7 +9,7 @@ class Peergroup {
   static belongsTo = Household
 
   static constraints = {
-    name(nullable: false)
+    name(nullable: false, unique: true)
     dateCreated()
   }
 }
