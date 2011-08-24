@@ -1,42 +1,44 @@
 package edu.kit.im
 
 class Household {
+  // Adriuno MAC Address
+  String macAddress
 
-    String firstname
-    String lastname
+  String firstName
+  String lastName
+  String eMail
+  String address
+  Date dateCreated
 
-    String email
+  // default type is Set but we need List
+  List consumptions
 
-    String address
+  static hasMany = [appliances: Appliance, peergroups: Peergroup, consumptions: Consumption]
 
-    String meterID
+  static constraints = {
+    macAddress(nullable: false)
+    firstName(nullable: false)
+    lastName(nullable: false)
+    eMail(nullable: false)
+    address(nullable: false)
+    username(blank: false, unique: true)
+    password(blank: false)
+    dateCreated()
+  }
 
-    static hasMany = [appliances : Appliance, peergroups : Peergroup, consumptions : Consumption]
+  // Spring Security variables
+  String username
+  String password
+  boolean enabled
+  boolean accountExpired
+  boolean accountLocked
+  boolean passwordExpired
 
+  static mapping = {
+    password column: '`password`'
+  }
 
-    static constraints = {
-        firstname(nullable: false)
-        lastname(nullable: false)
-        email(nullable: false)
-        address(nullable: false)
-        meterID(nullable: false)
-        username blank: false, unique: true
-		password blank: false
-    }
-
-	String username
-	String password
-	boolean enabled
-	boolean accountExpired
-	boolean accountLocked
-	boolean passwordExpired
-
-
-	static mapping = {
-		password column: '`password`'
-	}
-
-	Set<Role> getAuthorities() {
-		HouseholdRole.findAllByHousehold(this).collect { it.role } as Set
-	}
+  Set<Role> getAuthorities() {
+    HouseholdRole.findAllByHousehold(this).collect { it.role } as Set
+  }
 }

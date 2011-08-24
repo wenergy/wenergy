@@ -2,18 +2,19 @@ package edu.kit.im
 
 class Consumption {
 
-    String idMac
-    Date timestamp
-    BigDecimal powerReal
-    BigDecimal powerReactive
+  String macAddress
+  Date timestamp
+  BigDecimal powerReal
+  BigDecimal powerReactive
+  Date dateCreated
 
-    static belongsTo = Household
+  static belongsTo = Household
 
-
-    static constraints = {
-        timestamp(nullable: false)
-        powerReal(nullable: false)
-        powerReactive(nullable: false)
-        idMac(nullable: false)
-    }
+  static constraints = {
+    macAddress(nullable: false)
+    timestamp(nullable: false)
+    powerReal(nullable: false)
+    powerReactive(nullable: false)
+    dateCreated()
+  }
 }

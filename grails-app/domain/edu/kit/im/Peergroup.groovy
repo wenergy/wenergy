@@ -2,12 +2,14 @@ package edu.kit.im
 
 class Peergroup {
 
-    String groupName
+  String name
+  Date dateCreated
 
-    static hasMany = [households : Household]
-    static belongsTo = Household
+  static hasMany = [households: Household]
+  static belongsTo = Household
 
-    static constraints = {
-        groupName(nullable: false)
-    }
+  static constraints = {
+    name(nullable: false)
+    dateCreated()
+  }
 }

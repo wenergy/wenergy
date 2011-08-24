@@ -2,15 +2,17 @@ package edu.kit.im
 
 class Appliance {
 
-    String applianceName
-    BigDecimal deltaRealPower
-    BigDecimal deltaReactivePower
+  String name
+  BigDecimal deltaRealPower
+  BigDecimal deltaReactivePower
+  Date dateCreated
 
-    static belongsTo = Household
+  static belongsTo = Household
 
-    static constraints = {
-        applianceName(nullable: false)
-        deltaRealPower(nullable: false)
-        deltaReactivePower(nullable: false)
-    }
+  static constraints = {
+    name(nullable: false)
+    deltaRealPower(nullable: false)
+    deltaReactivePower(nullable: false)
+    dateCreated()
+  }
 }
