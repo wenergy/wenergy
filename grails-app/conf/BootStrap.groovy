@@ -1,10 +1,10 @@
-import org.kit.im.Appliance
-import org.kit.im.Consumption
-import org.kit.im.Household
-import org.kit.im.Peergroup
-import org.kit.im.HouseholdRole
+import edu.kit.im.Appliance
+import edu.kit.im.Consumption
+import edu.kit.im.Household
+import edu.kit.im.Peergroup
+import edu.kit.im.HouseholdRole
 import grails.plugins.springsecurity.SpringSecurityService
-import org.kit.im.Role
+import edu.kit.im.Role
 
 class BootStrap {
 

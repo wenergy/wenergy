@@ -92,9 +92,9 @@ log4j = {
 }
 
 // Added by the Spring Security Core plugin:
-grails.plugins.springsecurity.userLookup.userDomainClassName = 'org.kit.im.Household'
-grails.plugins.springsecurity.userLookup.authorityJoinClassName = 'org.kit.im.HouseholdRole'
-grails.plugins.springsecurity.authority.className = 'org.kit.im.Role'
+grails.plugins.springsecurity.userLookup.userDomainClassName = 'edu.kit.im.Household'
+grails.plugins.springsecurity.userLookup.authorityJoinClassName = 'edu.kit.im.HouseholdRole'
+grails.plugins.springsecurity.authority.className = 'edu.kit.im.Role'
 
 
 grails.plugins.springsecurity.securityConfigType = SecurityConfigType.InterceptUrlMap
