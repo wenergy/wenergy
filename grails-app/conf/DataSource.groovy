@@ -36,7 +36,7 @@ environments {
       dbCreate = "update" // one of 'create', 'create-drop','update'
       username = "wattsoever"
       password = "Vs4QYp2uaF"
-      url = "jdbc:mysql://localhost/wattsoever_prod"
+      url = "jdbc:mysql://localhost/wattsoever_prod?useUnicode=yes&characterEncoding=UTF-8"
       dialect = "org.hibernate.dialect.MySQL5InnoDBDialect"
     }
   }
