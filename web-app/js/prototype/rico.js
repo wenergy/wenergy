@@ -474,7 +474,7 @@ Rico.AjaxEngine.prototype = {
             continue;
 
          var responseType = responseElement.getAttribute("type");
-         var responseId   = responseElement.getAttribute("idMac");
+         var responseId   = responseElement.getAttribute("id");
 
          if ( responseType == "object" )
             this._processAjaxObjectUpdate( this.ajaxObjects[ responseId ], responseElement );
@@ -2281,7 +2281,7 @@ Rico.LiveGrid.prototype = {
       var partialLoaded = false;
       var callParms = []; 
       callParms.push(this.tableId + '_request');
-      callParms.push('idMac='        + this.tableId);
+      callParms.push('id='        + this.tableId);
       callParms.push('page_size=' + fetchSize);
       callParms.push('offset='    + bufferStartPos);
       if ( this.sortCol) {
@@ -2383,7 +2383,7 @@ Rico.LiveGridSort.prototype = {
          cell.id            = this.headerTableId + '_' + n;
          cell.style.cursor  = 'pointer';
          cell.onclick       = this.headerCellClicked.bindAsEventListener(this);
-         cell.innerHTML     = cell.innerHTML + '<span idMac="' + this.headerTableId + '_img_' + n + '">'
+         cell.innerHTML     = cell.innerHTML + '<span id="' + this.headerTableId + '_img_' + n + '">'
                            + '&nbsp;&nbsp;&nbsp;</span>';
       }
    },

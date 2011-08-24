@@ -11,7 +11,7 @@ Sound = {
   tracks: {},
   _enabled: true,
   template:
-    new Template('<embed style="height:0" idMac="sound_#{track}_#{idMac}" src="#{url}" loop="false" autostart="true" hidden="true"/>'),
+    new Template('<embed style="height:0" id="sound_#{track}_#{id}" src="#{url}" loop="false" autostart="true" hidden="true"/>'),
   enable: function(){
     Sound._enabled = true;
   },
@@ -49,11 +49,11 @@ Sound = {
 
 if(Prototype.Browser.Gecko && navigator.userAgent.indexOf("Win") > 0){
   if(navigator.plugins && $A(navigator.plugins).detect(function(p){ return p.name.indexOf('QuickTime') != -1 }))
-    Sound.template = new Template('<object idMac="sound_#{track}_#{idMac}" width="0" height="0" type="audio/mpeg" data="#{url}"/>');
+    Sound.template = new Template('<object id="sound_#{track}_#{id}" width="0" height="0" type="audio/mpeg" data="#{url}"/>');
   else if(navigator.plugins && $A(navigator.plugins).detect(function(p){ return p.name.indexOf('Windows Media') != -1 }))
-    Sound.template = new Template('<object idMac="sound_#{track}_#{idMac}" type="application/x-mplayer2" data="#{url}"></object>');
+    Sound.template = new Template('<object id="sound_#{track}_#{id}" type="application/x-mplayer2" data="#{url}"></object>');
   else if(navigator.plugins && $A(navigator.plugins).detect(function(p){ return p.name.indexOf('RealPlayer') != -1 }))
-    Sound.template = new Template('<embed type="audio/x-pn-realaudio-plugin" style="height:0" idMac="sound_#{track}_#{idMac}" src="#{url}" loop="false" autostart="true" hidden="true"/>');
+    Sound.template = new Template('<embed type="audio/x-pn-realaudio-plugin" style="height:0" id="sound_#{track}_#{id}" src="#{url}" loop="false" autostart="true" hidden="true"/>');
   else
     Sound.play = function(){};
 } 

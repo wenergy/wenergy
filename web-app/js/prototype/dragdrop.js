@@ -631,7 +631,7 @@ var Sortable = {
       treeTag:     'ul',
       overlap:     'vertical', // one of 'vertical', 'horizontal'
       constraint:  'vertical', // one of 'vertical', 'horizontal', false
-      containment: element,    // also takes array of elements (or idMac's); or false
+      containment: element,    // also takes array of elements (or id's); or false
       handle:      false,      // or a CSS class
       only:        false,
       delay:       0,
@@ -933,7 +933,7 @@ var Sortable = {
 
     if (options.tree) {
       return Sortable.tree(element, arguments[1]).children.map( function (item) {
-        return [name + Sortable._constructIndex(item) + "[idMac]=" +
+        return [name + Sortable._constructIndex(item) + "[id]=" +
                 encodeURIComponent(item.id)].concat(item.children.map(arguments.callee));
       }).flatten().join('&');
     } else {
