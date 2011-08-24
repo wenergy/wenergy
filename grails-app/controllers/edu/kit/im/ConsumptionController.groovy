@@ -20,7 +20,7 @@ class ConsumptionController {
     def lastElements
     int numberOfLastElements = 100
     if (formattedConsumptions.size() > numberOfLastElements) {
-      lastElements = formattedConsumptions.subList(formattedConsumptions.size()-(numberOfLastElements+1), formattedConsumptions.size()-1)
+      lastElements = formattedConsumptions.subList(formattedConsumptions.size()-numberOfLastElements, formattedConsumptions.size())
     } else {
       lastElements = formattedConsumptions
     }

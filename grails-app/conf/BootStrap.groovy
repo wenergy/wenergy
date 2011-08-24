@@ -1,29 +1,26 @@
-import edu.kit.im.Appliance
 import edu.kit.im.Consumption
 import edu.kit.im.Household
 import edu.kit.im.Peergroup
 import edu.kit.im.HouseholdRole
-import grails.plugins.springsecurity.SpringSecurityService
 import edu.kit.im.Role
 
 class BootStrap {
 
-    def springSecurityService
+  def springSecurityService
 
+  def init = { servletContext ->
+    def userRole = Role.findByAuthority('ROLE_USER') ?: new Role(authority: 'ROLE_USER').save(failOnError: true)
+    def adminRole = Role.findByAuthority('ROLE_ADMIN') ?: new Role(authority: 'ROLE_ADMIN').save(failOnError: true)
 
-    def init = { servletContext ->
-        def userRole = Role.findByAuthority('ROLE_USER') ?: new Role(authority: 'ROLE_USER').save(failOnError: true)
-        def adminRole = Role.findByAuthority('ROLE_ADMIN') ?: new Role(authority: 'ROLE_ADMIN').save(failOnError: true)
-
-        Peergroup peergroup = new Peergroup(name: "homies")
-        peergroup.save()
-        Household h = new Household(enabled: true, firstName: "arduino1", lastName: "dalen", username: "id1", eMail: "dalen@kit.edu", password: springSecurityService.encodePassword('password'), address: "address", macAddress: "de:ad:be:ef:fe:ed")
-        h.addToPeergroups(peergroup)
-        h.save()
-        if (!h.authorities.contains(adminRole))
-         {
-	            HouseholdRole.create h, adminRole
-	     }
+    Peergroup peergroup = new Peergroup(name: "homies")
+    peergroup.save()
+    Household h = new Household(macAddress: "de:ad:be:ef:fe:ed", firstName: "arduino1", lastName: "dalen",  eMail: "dalen@kit.edu", address: "address",
+        username: "id1", password: springSecurityService.encodePassword('password'), enabled: true)
+    h.addToPeergroups(peergroup)
+    h.save()
+    if (!h.authorities.contains(adminRole)) {
+      HouseholdRole.create h, adminRole
+    }
 
 /*        int i = 1
         Peergroup peergroup = new Peergroup(name: "homies")
@@ -43,9 +40,18 @@ class BootStrap {
             i++
         }*/
 
+    /* Debug consumptions */
+//    int j = 0
+//    150.times {
+//
+//      Consumption consumption = new Consumption(macAddress: "de:ad:be:ef:fe:ed", powerReactive: new BigDecimal(j), powerReal: new BigDecimal(j), timestamp: new Date(j as long))
+//      h.addToConsumptions(consumption)
+//
+//      j++
+//    }
+//    h.save()
 
-
-    }
-    def destroy = {
-    }
+  }
+  def destroy = {
+  }
 }
