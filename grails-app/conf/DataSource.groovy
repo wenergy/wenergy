@@ -38,6 +38,15 @@ environments {
       password = "Vs4QYp2uaF"
       url = "jdbc:mysql://localhost/wattsoever_prod?useUnicode=true&characterEncoding=UTF-8"
       dialect = "org.hibernate.dialect.MySQL5InnoDBDialect"
+      properties {
+        validationQuery = "SELECT 1"
+        testOnBorrow = true
+        testOnReturn = true
+        testWhileIdle = true
+        timeBetweenEvictionRunsMillis = 1000 * 60 * 30
+        numTestsPerEvictionRun = 3
+        minEvictableIdleTimeMillis = 1000 * 60 * 30
+      }
     }
   }
 
