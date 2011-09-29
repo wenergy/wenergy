@@ -1,7 +1,5 @@
 package edu.kit.im
 
-import java.text.DateFormat
-
 class ApiController {
 
     //def allowedMethods = [saveConsumption: "POST"]
@@ -16,9 +14,9 @@ class ApiController {
 
         def json = request.JSON
         def household
-        household = Household.findByMeterID(json?.id)
+        household = Household.findByMacAddress(json?.id)
 
-        Consumption consumption= new Consumption(idMac: json?.id,powerReactive: new BigDecimal(json?.q),powerReal: new BigDecimal(json?.p),timestamp: new Date(json?.t as long ))
+        Consumption consumption= new Consumption(macAddress: json?.id,powerReactive: new BigDecimal(json?.q),powerReal: new BigDecimal(json?.p),timestamp: new Date(json?.t as long ))
         consumption.save()
         household.addToConsumptions(consumption)
 
