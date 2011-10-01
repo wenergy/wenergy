@@ -29,6 +29,7 @@ modules = {
   bootstrapjs {
     dependsOn "jquery, wattsoeverjs"
     resource url:[dir:"js",file:"bootstrap-tabs.js"], disposition: "head"
+    resource url:[dir:"js",file:"bootstrap-dropdown.js"], disposition: "head"
   }
 
 }

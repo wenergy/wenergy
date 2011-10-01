@@ -18,7 +18,7 @@
 <html>
 <head>
   <title><g:layoutTitle default="wattsoever"/></title>
-  <r:require modules="core"/>
+  <r:require modules="core, bootstrapjs"/>
   <r:layoutResources/>
 </head>
 

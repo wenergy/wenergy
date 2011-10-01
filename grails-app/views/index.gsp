@@ -53,7 +53,7 @@
         <li>Enjoy monitoring your energy consumption</li>
       </ul>
 
-      <div class="woe-info"><button class="btn primary icon right alternative arrowright">Apply Now!</button></div>
+      <div class="woe-info"><button class="btn primary icon right alternative arrowright">Apply Now &raquo;</button></div>
     </div>
   </div><!-- /row -->
 </section>
