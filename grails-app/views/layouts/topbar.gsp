@@ -27,22 +27,28 @@
         <li><a href="#appliances">My Appliances</a></li>
         <li><a href="#peergroup">My Peer Group</a></li>
       </ul>
-      <ul class="nav secondary-nav">
-        <li class="dropdown" data-dropdown="dropdown">
-          <a href="#" class="dropdown-toggle">Username</a>
-          <ul class="dropdown-menu">
-            <li><a href="#">Settings</a></li>
-            <li class="divider"></li>
-            <li><a href="#">Log out</a></li>
-          </ul>
-        </li>
-      </ul>
-      %{--<form action="#" class="pull-right">--}%
-      %{--<input class="input-small" type="text" placeholder="Username">--}%
-      %{--<input class="input-small" type="password" placeholder="Password">--}%
-      %{--<button class="btn" type="submit">Sign in</button>--}%
-      %{--</form>--}%
-
+      <sec:ifNotLoggedIn>
+        <form action="#" class="pull-right">
+          <input class="input-small" type="text" placeholder="Username">
+          <input class="input-small" type="password" placeholder="Password">
+          <button class="btn" type="submit">Sign in</button>
+        </form>
+      </sec:ifNotLoggedIn>
+      <sec:ifLoggedIn>
+        <ul class="nav secondary-nav">
+          <li class="dropdown" data-dropdown="dropdown">
+            <a href="#" class="dropdown-toggle">Username</a>
+            <ul class="dropdown-menu">
+              <li><a href="#">Settings</a></li>
+              <sec:ifAllGranted roles="ROLE_ADMIN">
+                <li><a href="#">Admin Tools</a></li>
+              </sec:ifAllGranted>
+              <li class="divider"></li>
+              <li><a href="#">Log out</a></li>
+            </ul>
+          </li>
+        </ul>
+      </sec:ifLoggedIn>
     </div>
   </div>
 </div>

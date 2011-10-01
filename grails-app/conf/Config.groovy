@@ -10,6 +10,7 @@
 //    grails.config.locations << "file:" + System.properties["${appName}.config.location"]
 // }
 
+import grails.plugins.springsecurity.SecurityConfigType
 
 grails.project.groupId = appName // change this to alter the default package name and Maven publishing destination
 grails.mime.file.extensions = true // enables the parsing of file extensions from URLs into the request format
@@ -88,3 +89,21 @@ log4j = {
            'org.hibernate',
            'net.sf.ehcache.hibernate'
 }
+
+// Added by the Spring Security Core plugin:
+grails.plugins.springsecurity.userLookup.userDomainClassName = 'edu.kit.im.Household'
+grails.plugins.springsecurity.userLookup.authorityJoinClassName = 'edu.kit.im.HouseholdRole'
+grails.plugins.springsecurity.authority.className = 'edu.kit.im.Role'
+
+grails.plugins.springsecurity.securityConfigType = SecurityConfigType.InterceptUrlMap
+grails.plugins.springsecurity.interceptUrlMap = [
+    // Allow unrestricted access to API
+    '/api/**': ["permitAll"],
+    '/*': ["permitAll"],
+    // Block controllers
+    '/applicane/**': ["hasRole('ROLE_USER')"],
+    '/clearDatabase/**': ["hasRole('ROLE_ADMIN')"],
+    '/consumption/**': ["hasRole('ROLE_USER')"],
+    '/household/**': ["hasRole('ROLE_USER')"],
+    '/peergroup/**': ["hasRole('ROLE_USER')"]
+]
