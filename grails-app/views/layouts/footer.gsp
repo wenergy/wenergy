@@ -14,7 +14,8 @@
   - See the License for the specific language governing permissions and
   - limitations under the License.
   --}%
-
+<!-- Footer
+================================================== -->
 <footer class="footer">
   <div class="container">
     <p class="pull-right"><a href="#">Back to top</a></p>

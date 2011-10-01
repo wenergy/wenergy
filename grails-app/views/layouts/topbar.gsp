@@ -14,15 +14,17 @@
   - See the License for the specific language governing permissions and
   - limitations under the License.
   --}%
+<!-- Top bar
+================================================== -->
 <div class="topbar">
   <div class="topbar-inner">
     <div class="container">
       <a class="brand wattsoever-brand" href="#"><span class="wattsoever-watt">watt</span><span class="wattsoever-so">so</span><span class="wattsoever-ever">ever</span></a>
       <ul class="nav">
         <li class="active"><a href="#home">Home</a></li>
-        <li><a href="#consumption">Consumption</a></li>
-        <li><a href="#appliances">Appliances</a></li>
-        <li><a href="#peergroup">Peergroup</a></li>
+        <li><a href="#consumption">My Consumption</a></li>
+        <li><a href="#appliances">My Appliances</a></li>
+        <li><a href="#peergroup">My Peergroup</a></li>
       </ul>
     </div>
   </div>

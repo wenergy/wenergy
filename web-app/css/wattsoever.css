@@ -28,12 +28,8 @@ body {
 
 /* Wattsoever text
 -------------------------------------------------- */
-.topbar .wattsoever-brand {
+.wattsoever-brand {
   letter-spacing: 2px;
-}
-
-.topbar .wattsoever-brand a:hover {
-  text-decoration: none;
 }
 
 .topbar .wattsoever-watt {

@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta name="layout" content="main"/>
-  <title>Welcome to Wattsoever</title>
+  <title>Wattsoever</title>
 </head>
 
 <body>
@@ -10,7 +10,7 @@
 ================================================== -->
 <section id="about">
   <div class="page-header">
-    <h1>About <span class="wattsoever-watt">watt</span><span class="wattsoever-so">so</span><span class="wattsoever-ever">ever</span> <small>About the platform, the device and more</small></h1>
+    <h1>Welcome to <span class="wattsoever-watt">watt</span><span class="wattsoever-so">so</span><span class="wattsoever-ever">ever</span> <small>About the platform, the device and more</small></h1>
   </div>
 
   <div class="row">
@@ -24,7 +24,7 @@
     </div>
 
     <div class="span-one-third">
-      <h3>Device</h3>
+      <h3>The device</h3>
       <p><span class="wattsoever-watt">Watt</span><span class="wattsoever-so">so</span><span class="wattsoever-ever">ever</span> only works with a custom-made decive built by the team at IM.</p>
       <p>IMAGE here</p>
     </div>
@@ -40,6 +40,8 @@
       </ul>
     </div>
   </div><!-- /row -->
+
+
 </section>
 </body>
 </html>
