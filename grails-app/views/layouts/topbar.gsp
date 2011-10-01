@@ -14,25 +14,16 @@
   - See the License for the specific language governing permissions and
   - limitations under the License.
   --}%
-<%@ page contentType="text/html;charset=UTF-8" %>
-<html>
-<head>
-  <title><g:layoutTitle default="wattsoever"/></title>
-  <r:require modules="core"/>
-  <r:layoutResources/>
-</head>
-
-<body>
-
-<g:applyLayout name="topbar"/>
-
-<div class="container">
-  <g:layoutBody/>
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="container">
+      <a class="brand wattsoever-brand" href="#"><span class="wattsoever-watt">watt</span><span class="wattsoever-so">so</span><span class="wattsoever-ever">ever</span></a>
+      <ul class="nav">
+        <li class="active"><a href="#home">Home</a></li>
+        <li><a href="#consumption">Consumption</a></li>
+        <li><a href="#appliances">Appliances</a></li>
+        <li><a href="#peergroup">Peergroup</a></li>
+      </ul>
+    </div>
+  </div>
 </div>
-
-<r:layoutResources/>
-
-<g:applyLayout name="footer"/>
-
-</body>
-</html>

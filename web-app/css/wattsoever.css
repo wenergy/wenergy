@@ -19,15 +19,38 @@
 -------------------------------------------------- */
 body {
   background-color: #fff;
-  position: relative;
-}
-
-section {
   padding-top: 60px;
 }
 
-section > .row {
-  margin-bottom: 10px;
+/*section > .row {*/
+  /*margin-bottom: 10px;*/
+/*}*/
+
+/* Wattsoever text
+-------------------------------------------------- */
+.topbar .wattsoever-brand {
+  letter-spacing: 2px;
+}
+
+.topbar .wattsoever-brand a:hover {
+  text-decoration: none;
+}
+
+.topbar .wattsoever-watt {
+  color: #ffffff;
+}
+
+.wattsoever-watt {
+  color: #404040;
+}
+
+.wattsoever-so {
+  color: #9bbb59;
+  font-weight: bold;
+}
+
+.wattsoever-ever {
+  color: #999999;
 }
 
 /* Footer

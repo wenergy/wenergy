@@ -14,25 +14,15 @@
   - See the License for the specific language governing permissions and
   - limitations under the License.
   --}%
-<%@ page contentType="text/html;charset=UTF-8" %>
-<html>
-<head>
-  <title><g:layoutTitle default="wattsoever"/></title>
-  <r:require modules="core"/>
-  <r:layoutResources/>
-</head>
 
-<body>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right"><a href="#">Back to top</a></p>
 
-<g:applyLayout name="topbar"/>
-
-<div class="container">
-  <g:layoutBody/>
-</div>
-
-<r:layoutResources/>
-
-<g:applyLayout name="footer"/>
-
-</body>
-</html>
+    <p>Copyright 2011 <a href="http://www.im.uni-karlsruhe.de/" target="_blank">Institute of Information Systems and Management (IISM)</a> at <a href="http://www.kit.edu/" target="_blank">KIT</a>. <a href="#">Imprint</a>.<br/>
+      Code licensed under the <a href="http://www.apache.org/licenses/LICENSE-2.0" target="_blank">Apache License v2.0</a>
+      and available at <a href="https://github.com/wattsoever" target="_blank">GitHub</a>.
+      %{--Uses <a href="http://twitter.github.com/bootstrap/" target="_blank">Bootstrap</a>.--}%
+    </p>
+  </div>
+</footer>
