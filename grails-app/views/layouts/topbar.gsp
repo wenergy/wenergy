@@ -24,7 +24,7 @@
         <li class="active"><a href="#home">Home</a></li>
         <li><a href="#consumption">My Consumption</a></li>
         <li><a href="#appliances">My Appliances</a></li>
-        <li><a href="#peergroup">My Peergroup</a></li>
+        <li><a href="#peergroup">My Peer Group</a></li>
       </ul>
     </div>
   </div>

@@ -15,6 +15,8 @@
  * limitations under the License.
  */
 
+@import url(http://fonts.googleapis.com/css?family=Indie+Flower);
+
 /* Body and structure
 -------------------------------------------------- */
 body {
@@ -28,8 +30,14 @@ body {
 
 /* Wattsoever text
 -------------------------------------------------- */
+
 .wattsoever-brand {
+  font-family: 'Indie Flower', cursive;
+}
+
+.topbar .wattsoever-brand {
   letter-spacing: 2px;
+  vertical-align: bottom;
 }
 
 .topbar .wattsoever-watt {
@@ -47,6 +55,10 @@ body {
 
 .wattsoever-ever {
   color: #999999;
+}
+
+.woe-info {
+  text-align: center;
 }
 
 /* Footer
