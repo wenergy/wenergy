@@ -72,8 +72,7 @@
         <li>Enjoy monitoring your energy consumption and tell your friends!</li>
       </ul>
 
-      <div class="infobtn"><button class="btn primary icon right alternative arrowright">Apply Now &raquo;</button>
-      </div>
+      <div class="btncenter"><g:link controller="registration" class="btn primary">More information &raquo;</g:link></div>
     </div>
   </div><!-- /row -->
 </section>

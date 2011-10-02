@@ -28,21 +28,31 @@
 ================================================== -->
 <section id="registration">
   <div class="page-header">
-    <h1>Registration <small>Join the project here</small></h1>
+    <h1>Registration <small>Join <span class="wattsoever-brand"><span class="wattsoever-watt">watt</span><span
+        class="wattsoever-so">so</span><span class="wattsoever-ever">ever</span></span> here</small></h1>
   </div>
 
   <div class="row">
     <div class="span8">
       <h2>Step 1: Application</h2>
 
-      <p>Before you can continue, you need to fill out an application form. We'll review your information and contact you with further information.</p>
+      <p>Before you can continue, you'll need to fill out an application form. We'll review your information and contact you with further information.</p>
 
-      <p>If you have alredy completed this step and received the device, you can continue with step 2.</p>
+      <p>If you have already completed this step and received the device, you can continue with step 2.</p>
     </div><!-- /col -->
     <div class="span8">
       <h2>Step 2: Registration</h2>
 
       <p>You're almost done! Please have your activation key ready.</p>
+    </div><!-- /col -->
+  </div><!-- /row -->
+  %{-- Align buttons --}%
+  <div class="row">
+    <div class="span8">
+      <div class="btncenter"><g:link controller="registration" action="application" class="btn primary">Apply now &raquo;</g:link></div>
+    </div><!-- /col -->
+    <div class="span8">
+      <div class="btncenter"><g:link controller="registration" action="form" class="btn success">Continue &raquo;</g:link></div>
     </div><!-- /col -->
   </div><!-- /row -->
 </section>

@@ -64,9 +64,9 @@ body {
   color: #999999;
 }
 
-/* Welcome Page
+/* Buttons
 -------------------------------------------------- */
-#welcome .infobtn {
+.btncenter {
   text-align: center;
 }
 
