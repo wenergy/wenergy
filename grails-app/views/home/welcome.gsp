@@ -24,9 +24,9 @@
 
 <body>
 
-<!-- About wattsoever
+<!-- Welcome
 ================================================== -->
-<section id="about">
+<section id="welcome">
   <div class="page-header">
     <h1>Welcome to <span class="wattsoever-brand"><span class="wattsoever-watt">watt</span><span
         class="wattsoever-so">so</span><span class="wattsoever-ever">ever</span>
@@ -55,7 +55,9 @@
           class="wattsoever-so">so</span><span class="wattsoever-ever">ever</span>
       </span> only works with a custom-made decive built by the team at IM.</p>
 
-      <p>IMAGE HERE</p>
+      <div class="promo">
+        <img class="thumbnail promoimg" src="http://placehold.it/210x150" alt="">
+      </div>
     </div>
 
     <div class="span-one-third">
@@ -70,14 +72,15 @@
         <li>Enjoy monitoring your energy consumption and tell your friends!</li>
       </ul>
 
-      <div class="woe-info"><button class="btn primary icon right alternative arrowright">Apply Now &raquo;</button></div>
+      <div class="infobtn"><button class="btn primary icon right alternative arrowright">Apply Now &raquo;</button>
+      </div>
     </div>
   </div><!-- /row -->
 </section>
 
-<!-- About wattsoever
+<!-- Overview
 ================================================== -->
-<section id="">
+<section id="overview">
   <div class="page-header">
     <h1>Monitor your energy usage <small>Smart Metering done right</small></h1>
   </div>
@@ -87,8 +90,6 @@
       <h3>Consumption</h3>
 
       <p>Track your overall consumption with the highest granularity possible. View data at at daily, weekly or monthly basis.</p>
-
-      <p>IMAGE HERE</p>
     </div>
 
     <div class="span-one-third">
@@ -98,20 +99,35 @@
           class="wattsoever-so">so</span><span class="wattsoever-ever">ever</span>
       </span> automatically knows which appliances are turned on and how much energy they use. You can inspect the consumption of every appliance in detail.
       </p>
-
-      <p>IMAGE HERE</p>
     </div>
 
     <div class="span-one-third">
       <h3>Peer groups</h3>
 
       <p>Be part of a peer group and compare yourself to your friends. See who's saving the most money!</p>
-
-      <p>IMAGE HERE</p>
-
     </div>
   </div><!-- /row -->
 
+%{-- In order for the images to have the same top alignment, they need to be in an additional row --}%
+  <div class="row">
+    <div class="span-one-third">
+      <div class="promo">
+        <img class="thumbnail promoimg" src="http://placehold.it/210x150" alt="">
+      </div>
+    </div>
+
+    <div class="span-one-third">
+      <div class="promo">
+        <img class="thumbnail promoimg" src="http://placehold.it/210x150" alt="">
+      </div>
+    </div>
+
+    <div class="span-one-third">
+      <div class="promo">
+        <img class="thumbnail promoimg" src="http://placehold.it/210x150" alt="">
+      </div>
+    </div>
+  </div><!-- /row -->
 </section>
 </body>
 </html>

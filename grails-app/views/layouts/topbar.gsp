@@ -24,7 +24,7 @@
       <ul class="nav">
         <sec:ifNotLoggedIn>
           <li class="active"><a href="#home">Home</a></li>
-          <li><a href="#apply">Apply now</a></li>
+          <li><a href="#registration">Registration</a></li>
         </sec:ifNotLoggedIn>
         <sec:ifLoggedIn>
           <li class="active"><a href="#dashboard">Dashboard</a></li>
