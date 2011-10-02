@@ -19,8 +19,8 @@
 <div class="topbar">
   <div class="topbar-inner">
     <div class="container">
-      <a class="brand wattsoever-brand" href="#"><span class="wattsoever-watt">watt</span><span
-          class="wattsoever-so">so</span><span class="wattsoever-ever">ever</span></a>
+      <g:link controller="home" class="brand wattsoever-brand"><span class="wattsoever-watt">watt</span><span
+          class="wattsoever-so">so</span><span class="wattsoever-ever">ever</span></g:link>
       <ul class="nav">
         <sec:ifNotLoggedIn>
           <li<g:if test="${nav == 'welcome'}"> class="active"</g:if>><g:link controller="home">Home</g:link></li>
