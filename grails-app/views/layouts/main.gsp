@@ -15,6 +15,7 @@
   - limitations under the License.
   --}%
 <%@ page contentType="text/html;charset=UTF-8" %>
+<!doctype html>
 <html>
 <head>
   <title>Wattsoever - <g:layoutTitle/></title>

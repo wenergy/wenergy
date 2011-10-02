@@ -15,7 +15,6 @@
   - limitations under the License.
   --}%
 
-<!doctype html>
 <html>
 <head>
   <meta name="layout" content="main"/>
@@ -29,6 +28,22 @@
 <section id="registration">
   <div class="page-header">
     <h1>Registration <small>Tell us about yourself</small></h1>
+  </div>
+
+  <div class="row">
+    <form>
+      <fieldset>
+        <legend>Personal information</legend>
+
+        <div class="clearfix">
+          <label for="firstName">First name</label>
+
+          <div class="input">
+            <input class="xlarge" id="firstName" name="firstName" size="30" type="text"/>
+          </div>
+        </div><!-- /clearfix -->
+      </fieldset>
+    </form>
   </div>
 
 </section>

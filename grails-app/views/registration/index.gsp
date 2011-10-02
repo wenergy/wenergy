@@ -15,7 +15,6 @@
   - limitations under the License.
   --}%
 
-<!doctype html>
 <html>
 <head>
   <meta name="layout" content="main"/>

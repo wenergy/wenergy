@@ -88,13 +88,6 @@ body {
   padding: 4px;
 }
 
-/* Top Bar Additions
--------------------------------------------------- */
-/* TODO: Issue: input fields too narrow. should be fixed in later version of bootstrap. */
-.topbar input {
-  height: 25px;
-}
-
 /* Footer
 -------------------------------------------------- */
 .footer {
