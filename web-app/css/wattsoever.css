@@ -15,7 +15,14 @@
  * limitations under the License.
  */
 
-@import url(http://fonts.googleapis.com/css?family=Indie+Flower);
+/* Webfont from Google web fonts
+-------------------------------------------------- */
+@font-face {
+  font-family: 'Indie Flower';
+  font-style: normal;
+  font-weight: normal;
+  src: local('Indie Flower'), local('IndieFlower'), url('fonts/indieflower.woff') format('woff');
+}
 
 /* Body and structure
 -------------------------------------------------- */
