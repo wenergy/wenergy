@@ -44,8 +44,8 @@ class AggregatedConsumption {
     type(nullable: false)
     intervalBegin(nullable: false)
     intervalEnd(nullable: false)
-    sumPowerReal(nullable: false)
-    avgPowerReal(nullable: false)
+    sumPowerReal(nullable: false, scale: 3)
+    avgPowerReal(nullable: false, scale: 3)
     dateCreated()
   }
 

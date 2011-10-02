@@ -37,8 +37,8 @@ class Consumption {
   static constraints = {
     macAddress(blank: false)
     timestamp(nullable: false)
-    powerReal(nullable: false)
-    powerReactive(nullable: false)
+    powerReal(nullable: false, scale: 3)
+    powerReactive(nullable: false, scale: 3)
     dateCreated()
   }
 }
