@@ -15,6 +15,6 @@
   - limitations under the License.
   --}%
 
-<div class="alert-message warning">
-  <p><strong>Warning</strong> ${flash.warning}</p>
+<div class="alert-message info">
+  <p><strong>Info</strong> ${flash.message}</p>
 </div>
