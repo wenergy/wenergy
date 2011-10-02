@@ -14,32 +14,7 @@
   - See the License for the specific language governing permissions and
   - limitations under the License.
   --}%
-<%@ page contentType="text/html;charset=UTF-8" %>
-<html>
-<head>
-  <title><g:layoutTitle default="wattsoever"/></title>
-  <r:require modules="core, bootstrapjs"/>
-  <r:layoutResources/>
-</head>
 
-<body>
-
-<g:applyLayout name="topbar"/>
-
-<div class="container">
-  <g:if test="${flash.message}">
-    <g:render template="/messages/warning"/>
-  </g:if>
-  <g:elseif test="${flash.error}">
-    <g:render template="/messages/error"/>
-  </g:elseif>
-
-  <g:layoutBody/>
+<div class="alert-message error">
+  <p><strong>Error</strong> ${flash.message}</p>
 </div>
-
-<r:layoutResources/>
-
-<g:applyLayout name="footer"/>
-
-</body>
-</html>

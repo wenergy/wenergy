@@ -47,10 +47,10 @@
       <p>You can get the <span class="wattsoever-brand"><span class="wattsoever-watt">Watt</span><span
           class="wattsoever-so">so</span><span class="wattsoever-ever">ever</span></span> device directly from us.</p>
       <ul>
-        <li>Agree to some waiver</li>
-        <li>We'll ship the device fast and free</li>
+        <li>Fill out a questionnaire</li>
+        <li>Once approved, you can pick up your device or we'll ship it to you</li>
         <li>Follow the installation instructions</li>
-        <li>Enjoy monitoring your energy consumption</li>
+        <li>Enjoy monitoring your energy consumption and tell your friends!</li>
       </ul>
 
       <div class="woe-info"><button class="btn primary icon right alternative arrowright">Apply Now &raquo;</button></div>

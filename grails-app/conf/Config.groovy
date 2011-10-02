@@ -95,6 +95,9 @@ grails.plugins.springsecurity.userLookup.userDomainClassName = 'edu.kit.im.House
 grails.plugins.springsecurity.userLookup.authorityJoinClassName = 'edu.kit.im.HouseholdRole'
 grails.plugins.springsecurity.authority.className = 'edu.kit.im.Role'
 
+grails.plugins.springsecurity.auth.loginFormUrl = '/'
+//grails.plugins.springsecurity.failureHandler.defaultFailureUrl = '/'
+
 grails.plugins.springsecurity.securityConfigType = SecurityConfigType.InterceptUrlMap
 grails.plugins.springsecurity.interceptUrlMap = [
     // Allow unrestricted access to API
