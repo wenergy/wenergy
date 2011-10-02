@@ -17,25 +17,34 @@
 
 package edu.kit.im
 
-class HomeController {
+class RegistrationController {
 
   def springSecurityService
 
   def index() {
     if (springSecurityService.isLoggedIn()) {
-      redirect(action: "dashboard")
-    } else {
-      redirect(action: "welcome")
+      flash.message = "You are already registered."
+      redirect(controller: "home", action: "dashboard")
+      return
     }
+    [nav: "registration"]
   }
 
-  // Displayed to users that are not logged in
-  def welcome() {
-    [nav: "welcome"]
+  def application() {
+    if (springSecurityService.isLoggedIn()) {
+      flash.message = "You are already registered."
+      redirect(controller: "home", action: "dashboard")
+      return
+    }
+    [nav: "registration"]
   }
 
-  // Displayed to logged in users
-  def dashboard() {
-    [nav: "dashboard"]
+  def form() {
+    if (springSecurityService.isLoggedIn()) {
+      flash.message = "You are already registered."
+      redirect(controller: "home", action: "dashboard")
+      return
+    }
+    [nav: "registration"]
   }
 }

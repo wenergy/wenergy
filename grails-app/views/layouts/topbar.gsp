@@ -23,14 +23,14 @@
           class="wattsoever-so">so</span><span class="wattsoever-ever">ever</span></a>
       <ul class="nav">
         <sec:ifNotLoggedIn>
-          <li class="active"><a href="#home">Home</a></li>
-          <li><a href="#registration">Registration</a></li>
+          <li<g:if test="${nav == 'welcome'}"> class="active"</g:if>><g:link controller="home">Home</g:link></li>
+          <li<g:if test="${nav == 'registration'}"> class="active"</g:if>><g:link controller="registration">Registration</g:link></li>
         </sec:ifNotLoggedIn>
         <sec:ifLoggedIn>
-          <li class="active"><a href="#dashboard">Dashboard</a></li>
-          <li><a href="#consumption">My Consumption</a></li>
-          <li><a href="#appliances">My Appliances</a></li>
-          <li><a href="#peergroup">My Peer Group</a></li>
+          <li<g:if test="${nav == 'dashboard'}"> class="active"</g:if>><g:link controller="home">Dashboard</g:link></li>
+          <li<g:if test="${nav == 'consumption'}"> class="active"</g:if>><a href="#consumption">My Consumption</a></li>
+          <li><g:if test="${nav == 'appliances'}"> class="active"</g:if><a href="#appliances">My Appliances</a></li>
+          <li<g:if test="${nav == 'peergroup'}"> class="active"</g:if>><a href="#peergroup">My Peer Group</a></li>
         </sec:ifLoggedIn>
       </ul>
       <sec:ifNotLoggedIn>
