@@ -27,7 +27,7 @@ class WattsoeverTagLib {
   def fullName = {
     if (springSecurityService.isLoggedIn()) {
       Household user = springSecurityService.currentUser
-      out << "${user.firstName} ${user.lastName}".encodeAsHTML()
+      out << user.fullName.encodeAsHTML()
     }
   }
 

@@ -40,14 +40,23 @@
     <div class="span11">
       <form>
         <fieldset>
-          <div class="clearfix ${hasErrors(bean: householdInstance, field: 'firstName', 'error')}">
-            <label for="firstName">First name</label>
+          <div class="clearfix ${hasErrors(bean: householdInstance, field: 'fullName', 'error')}">
+            <label for="fullName">Full name</label>
 
             <div class="input">
-              <g:textField name="firstName" class="span6" id="firstName" size="30"
-                           value="${householdInstance?.firstName}"/>
+              <g:textField name="fullName" class="span6" id="fullName" size="30"
+                           value="${householdInstance?.fullName}"/>
             </div>
           </div><!-- /clearfix -->
+          <div class="clearfix ${hasErrors(bean: householdInstance, field: 'fullName', 'error')}">
+            <label for="fullName">Full name</label>
+
+            <div class="input">
+              <g:textField name="fullName" class="span6" id="fullName" size="30"
+                           value="${householdInstance?.fullName}"/>
+            </div>
+          </div><!-- /clearfix -->
+
 
         </fieldset>
       </form>

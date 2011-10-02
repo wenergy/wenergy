@@ -22,10 +22,9 @@ class Household {
   String macAddress
 
   // User information
-  String firstName
-  String lastName
+  String fullName
   String eMail
-  String street
+  String address
   String zipCode
   String city
 
@@ -40,10 +39,9 @@ class Household {
 
   static constraints = {
     macAddress(blank: true, unique: true)
-    firstName(blank: false)
-    lastName(blank: false)
+    fullName(blank: false)
     eMail(blank: false)
-    street(blank: false)
+    address(blank: false)
     zipCode(blank: false)
     city(blank: false)
     username(blank: false, unique: true)
