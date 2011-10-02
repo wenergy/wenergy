@@ -19,7 +19,7 @@
 <html>
 <head>
   <meta name="layout" content="main"/>
-  <title>Wattsoever</title>
+  <title>Dashboard</title>
 </head>
 
 <body>

@@ -19,12 +19,12 @@
 <html>
 <head>
   <meta name="layout" content="main"/>
-  <title>Wattsoever</title>
+  <title>Registration</title>
 </head>
 
 <body>
 
-<!-- Welcome
+<!-- Registration
 ================================================== -->
 <section id="registration">
   <div class="page-header">

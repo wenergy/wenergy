@@ -17,7 +17,7 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
-  <title><g:layoutTitle default="wattsoever"/></title>
+  <title>Wattsoever - <g:layoutTitle/></title>
   <r:require modules="core, bootstrapjs"/>
   <r:layoutResources/>
 </head>
