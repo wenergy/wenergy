@@ -80,7 +80,7 @@
 ================================================== -->
 <section id="overview">
   <div class="page-header">
-    <h1>Monitor your energy usage <small>Smart Metering done right</small></h1>
+    <h1>Monitor your energy usage <small>High frequency smart metering</small></h1>
   </div>
 
   <div class="row">
