@@ -35,7 +35,7 @@ class Consumption {
   static belongsTo = Household
 
   static constraints = {
-    macAddress(nullable: false)
+    macAddress(blank: false)
     timestamp(nullable: false)
     powerReal(nullable: false)
     powerReactive(nullable: false)

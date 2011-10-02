@@ -40,7 +40,7 @@ class AggregatedConsumption {
   Date dateCreated
 
   static constraints = {
-    macAddress(nullable: false)
+    macAddress(blank: false)
     type(nullable: false)
     intervalBegin(nullable: false)
     intervalEnd(nullable: false)

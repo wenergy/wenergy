@@ -25,7 +25,9 @@ class Household {
   String firstName
   String lastName
   String eMail
-  String address
+  String street
+  String zipCode
+  String city
 
   // Grails information
   Date dateCreated
@@ -37,11 +39,13 @@ class Household {
   static hasMany = [appliances: Appliance, peergroups: Peergroup, consumptions: Consumption]
 
   static constraints = {
-    macAddress(nullable: false, unique: true)
-    firstName(nullable: false)
-    lastName(nullable: false)
-    eMail(nullable: false)
-    address(nullable: false)
+    macAddress(blank: true, unique: true)
+    firstName(blank: false)
+    lastName(blank: false)
+    eMail(blank: false)
+    street(blank: false)
+    zipCode(blank: false)
+    city(blank: false)
     username(blank: false, unique: true)
     password(blank: false)
     dateCreated()

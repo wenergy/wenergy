@@ -31,7 +31,7 @@ class Appliance {
   static belongsTo = Household
 
   static constraints = {
-    name(nullable: false)
+    name(blank: false)
     deltaRealPower(nullable: false)
     deltaReactivePower(nullable: false)
     dateCreated()

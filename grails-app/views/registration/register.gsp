@@ -31,19 +31,27 @@
   </div>
 
   <div class="row">
-    <form>
-      <fieldset>
-        <legend>Personal information</legend>
+    <div class="span5">
+      <h2>Personal information</h2>
 
-        <div class="clearfix">
-          <label for="firstName">First name</label>
+      <p>Please note that all fields are required.</p>
+    </div>
 
-          <div class="input">
-            <input class="xlarge" id="firstName" name="firstName" size="30" type="text"/>
-          </div>
-        </div><!-- /clearfix -->
-      </fieldset>
-    </form>
+    <div class="span11">
+      <form>
+        <fieldset>
+          <div class="clearfix ${hasErrors(bean: householdInstance, field: 'firstName', 'error')}">
+            <label for="firstName">First name</label>
+
+            <div class="input">
+              <g:textField name="firstName" class="span6" id="firstName" size="30"
+                           value="${householdInstance?.firstName}"/>
+            </div>
+          </div><!-- /clearfix -->
+
+        </fieldset>
+      </form>
+    </div>
   </div>
 
 </section>
