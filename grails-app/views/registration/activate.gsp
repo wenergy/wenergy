@@ -15,8 +15,22 @@
   - limitations under the License.
   --}%
 
-<%@ page contentType="text/html;charset=UTF-8" %>
+<!doctype html>
 <html>
-  <head><title>Simple GSP page</title></head>
-  <body>Place your content here</body>
+<head>
+  <meta name="layout" content="main"/>
+  <title>Activation</title>
+</head>
+
+<body>
+
+<!-- Activation
+================================================== -->
+<section id="activation">
+  <div class="page-header">
+    <h1>Activation <small>Almost done</small></h1>
+  </div>
+
+</section>
+</body>
 </html>
