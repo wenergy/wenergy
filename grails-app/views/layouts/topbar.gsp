@@ -37,7 +37,7 @@
         <form method="POST" action="${resource(file: 'j_spring_security_check')}" class="pull-right">
           <input class="input-small" type="text" placeholder="Username" name="j_username" value="id1">
           <input class="input-small" type="password" placeholder="Password" name="j_password" value="pw">
-          <button class="btn" type="submit" name="login">Log in</button>
+          <button class="btn" type="submit" name="login">Login</button>
         </form>
       </sec:ifNotLoggedIn>
       <sec:ifLoggedIn>

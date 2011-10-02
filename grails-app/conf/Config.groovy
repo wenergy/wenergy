@@ -96,7 +96,7 @@ grails.plugins.springsecurity.userLookup.authorityJoinClassName = 'edu.kit.im.Ho
 grails.plugins.springsecurity.authority.className = 'edu.kit.im.Role'
 
 grails.plugins.springsecurity.auth.loginFormUrl = '/'
-//grails.plugins.springsecurity.failureHandler.defaultFailureUrl = '/'
+//grails.plugins.springsecurity.failureHandler.defaultFailureUrl = '/home/index'
 
 grails.plugins.springsecurity.securityConfigType = SecurityConfigType.InterceptUrlMap
 grails.plugins.springsecurity.interceptUrlMap = [

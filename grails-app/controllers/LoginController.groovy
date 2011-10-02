@@ -130,8 +130,8 @@ class LoginController {
       render([error: msg] as JSON)
     }
     else {
-      flash.message = msg
-      redirect action: auth, params: params
+      flash.error = exception.toString()
+      redirect controller: "home", action: "welcome"//, params: params
     }
   }
 

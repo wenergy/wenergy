@@ -16,5 +16,5 @@
   --}%
 
 <div class="alert-message error">
-  <p><strong>Error</strong> ${flash.message}</p>
+  <p><strong>Error</strong> ${flash.error}</p>
 </div>
