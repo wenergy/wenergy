@@ -40,7 +40,7 @@ class Household {
   static constraints = {
     macAddress(blank: true, unique: true)
     fullName(blank: false)
-    eMail(blank: false, email: true)
+    eMail(blank: false, unique: true, email: true)
     address(blank: false)
     zipCode(blank: false)
     city(blank: false)
