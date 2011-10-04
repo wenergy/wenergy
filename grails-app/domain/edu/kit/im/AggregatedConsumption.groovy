@@ -17,6 +17,8 @@
 
 package edu.kit.im
 
+import org.joda.time.DateTime
+
 class AggregatedConsumption {
 
   // Arduino MAC Address
@@ -26,8 +28,8 @@ class AggregatedConsumption {
   ConsumptionType type
 
   // Aggregation interval dates
-  Date intervalBegin
-  Date intervalEnd
+  DateTime intervalBegin
+  DateTime intervalEnd
 
   // Aggregated values
   BigDecimal sumPowerReal
@@ -37,7 +39,7 @@ class AggregatedConsumption {
   static hasMany = [consumptions: Consumption]
 
   // Grails information
-  Date dateCreated
+  DateTime dateCreated
 
   static constraints = {
     macAddress(blank: false)

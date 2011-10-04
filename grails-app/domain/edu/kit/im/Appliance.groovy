@@ -17,6 +17,8 @@
 
 package edu.kit.im
 
+import org.joda.time.DateTime
+
 class Appliance {
 
   // Appliance information
@@ -25,7 +27,7 @@ class Appliance {
   BigDecimal deltaReactivePower
 
   // Grails information
-  Date dateCreated
+  DateTime dateCreated
 
   // Relationships
   static belongsTo = Household

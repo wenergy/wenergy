@@ -17,19 +17,21 @@
 
 package edu.kit.im
 
+import org.joda.time.DateTime
+
 class Consumption {
   // Arduino MAC Address
   String macAddress
 
   // Date and time at which the consumption data was collected
-  Date timestamp
+  DateTime timestamp
 
   // Power values
   BigDecimal powerReal
   BigDecimal powerReactive
 
   // Grails information
-  Date dateCreated
+  DateTime dateCreated
 
   // Relationships
   static belongsTo = Household

@@ -17,10 +17,12 @@
 
 package edu.kit.im
 
+import org.joda.time.DateTime
+
 class Peergroup {
 
   String name
-  Date dateCreated
+  DateTime dateCreated
 
   static hasMany = [households: Household]
   static belongsTo = Household

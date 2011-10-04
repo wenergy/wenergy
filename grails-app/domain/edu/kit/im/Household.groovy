@@ -17,6 +17,8 @@
 
 package edu.kit.im
 
+import org.joda.time.DateTime
+
 class Household {
   // Arduino MAC Address
   String macAddress
@@ -29,7 +31,7 @@ class Household {
   String city
 
   // Grails information
-  Date dateCreated
+  DateTime dateCreated
 
   // Default type is Set but we need List
   List consumptions
