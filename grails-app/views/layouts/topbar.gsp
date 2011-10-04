@@ -35,8 +35,8 @@
       </ul>
       <sec:ifNotLoggedIn>
         <form method="POST" action="${resource(file: 'j_spring_security_check')}" class="pull-right">          
-          <g:textField class="input-small" type="text" placeholder="Username" name="j_username" value="id1"/>
-          <g:passwordField class="input-small" type="password" placeholder="Password" name="j_password" value="pw"/>
+          <g:textField class="input-small" type="text" placeholder="Username" name="j_username" value="test"/>
+          <g:passwordField class="input-small" type="password" placeholder="Password" name="j_password" value="pass"/>
           %{--<g:hiddenField name="_spring_security_remember_me" value="true"/>--}%
           <button class="btn" type="submit" name="login">Login</button>
         </form>

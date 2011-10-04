@@ -44,8 +44,8 @@ class Household {
     address(blank: false)
     zipCode(blank: false)
     city(blank: false)
-    username(blank: false, unique: true)
-    password(blank: false)
+    username(blank: false, unique: true, minSize: 3)
+    password(blank: false, password: true, minSize: 3)
     dateCreated()
   }
 
