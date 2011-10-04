@@ -29,17 +29,19 @@
         <sec:ifLoggedIn>
           <li<g:if test="${nav == 'dashboard'}"> class="active"</g:if>><g:link controller="home">Dashboard</g:link></li>
           <li<g:if test="${nav == 'consumption'}"> class="active"</g:if>><a href="#consumption">My Consumption</a></li>
-          <li><g:if test="${nav == 'appliances'}"> class="active"</g:if><a href="#appliances">My Appliances</a></li>
+          <li<g:if test="${nav == 'appliances'}"> class="active"</g:if>><a href="#appliances">My Appliances</a></li>
           <li<g:if test="${nav == 'peergroup'}"> class="active"</g:if>><a href="#peergroup">My Peer Group</a></li>
         </sec:ifLoggedIn>
       </ul>
       <sec:ifNotLoggedIn>
-        <form method="POST" action="${resource(file: 'j_spring_security_check')}" class="pull-right">          
-          <g:textField class="input-small" type="text" placeholder="Username" name="j_username" value="test"/>
-          <g:passwordField class="input-small" type="password" placeholder="Password" name="j_password" value="pass"/>
-          %{--<g:hiddenField name="_spring_security_remember_me" value="true"/>--}%
-          <button class="btn" type="submit" name="login">Login</button>
-        </form>
+        <g:if test="${nav != 'login'}">
+          <form method="POST" action="${request.contextPath}/j_spring_security_check" class="pull-right">
+            <g:textField class="input-small" type="text" placeholder="Username" name="j_username" value="test"/>
+            <g:passwordField class="input-small" type="password" placeholder="Password" name="j_password" value="pass"/>
+            %{--<g:hiddenField name="_spring_security_remember_me" value="true"/>--}%
+            <button class="btn" type="submit" name="login">Login</button>
+          </form>
+        </g:if>
       </sec:ifNotLoggedIn>
       <sec:ifLoggedIn>
         <ul class="nav secondary-nav">
