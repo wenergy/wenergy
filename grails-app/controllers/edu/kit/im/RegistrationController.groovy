@@ -36,6 +36,20 @@ class RegistrationController {
       redirect(controller: "home", action: "dashboard")
       return
     }
+
+    if (params.submit) {
+      def householdInstance = new Household(params)
+      if (!householdInstance.save(flush: true)) {
+        return [nav: "registration", householdInstance: householdInstance]
+      }
+
+//      TODO: Include Mail Plugin
+//      http://www.grails.org/plugin/mail
+
+      render(view: "confirm", model: [nav: "registration", householdInstance: householdInstance])
+      return
+    }
+
     [nav: "registration"]
   }
 

@@ -32,7 +32,18 @@
 
   <div class="row">
     <div class="span10 offset3">
-      <form>
+      <g:hasErrors bean="${householdInstance}">
+        <div class="alert-message block-message error">
+          <p><strong>Error</strong></p>
+          <g:renderErrors bean="${householdInstance}" as="list"/>
+          %{--<ul>--}%
+            %{--<g:eachError var="err" bean="${householdInstance}">--}%
+              %{--<li>${err}</li>--}%
+            %{--</g:eachError>--}%
+          %{--</ul>--}%
+        </div>
+      </g:hasErrors>
+      <g:form action="register">
         <fieldset>
           <legend>Personal information</legend>
 
@@ -115,7 +126,7 @@
                                                                                   class="btn primary"/>
           </div>
         </fieldset>
-      </form>
+      </g:form>
     </div>
   </div>
 

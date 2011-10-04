@@ -38,11 +38,11 @@ class Household {
   static hasMany = [appliances: Appliance, peergroups: Peergroup, consumptions: Consumption]
 
   static constraints = {
-    macAddress(blank: true, unique: true)
+    macAddress(nullable: true, unique: true)
     fullName(blank: false)
     eMail(blank: false, unique: true, email: true)
     address(blank: false)
-    zipCode(blank: false)
+    zipCode(blank: false, matches: "[0-9]{5}")
     city(blank: false)
     username(blank: false, unique: true, minSize: 3)
     password(blank: false, password: true, minSize: 3)
@@ -52,10 +52,10 @@ class Household {
   // Spring Security variables
   String username
   String password
-  boolean enabled
-  boolean accountExpired
-  boolean accountLocked
-  boolean passwordExpired
+  boolean enabled = false
+  boolean accountExpired = false
+  boolean accountLocked = false
+  boolean passwordExpired = false
 
   static mapping = {
     password column: '`password`'

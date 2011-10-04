@@ -38,7 +38,7 @@ class BootStrap {
       Peergroup peergroup = Peergroup.findOrSaveByName("homies")
 
       household = new Household(macAddress: macAddress, fullName: "Test User",
-          eMail: "arduino@kit.edu", address: "street", zipCode: "1000", city: "KA",
+          eMail: "arduino@kit.edu", address: "street", zipCode: "76128", city: "KA",
           username: "test", password: springSecurityService.encodePassword('pass'), enabled: true)
 
       household.addToPeergroups(peergroup)
