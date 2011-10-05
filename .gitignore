@@ -2,7 +2,7 @@
 *.iml
 *.ipr
 *.iws
-#.idea/
+.idea/
 
 # Deployment directories
 target/

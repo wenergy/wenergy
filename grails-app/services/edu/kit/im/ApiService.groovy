@@ -20,8 +20,11 @@ package edu.kit.im
 import org.joda.time.DateTime
 import org.codehaus.groovy.runtime.typehandling.GroovyCastException
 import grails.validation.ValidationException
+import org.joda.time.Period
 
 class ApiService {
+
+  def dateService
 
   def processConsumption(def jsonPayload) {
 
@@ -89,67 +92,45 @@ class ApiService {
 
     // Post processing
     try {
-      determineAggregation(consumption)
+      determineAggregation(consumption, ConsumptionType.MIN5)
+      determineAggregation(consumption, ConsumptionType.MIN30)
+      determineAggregation(consumption, ConsumptionType.H3)
     } catch (Exception e) {
       throw new ApiException("Post processing error", 500)
     }
   }
 
-  // Determine several aggregated values used for graphs (main reason is caching)
-  def determineAggregation(Consumption consumption) {
-    determine5minAggregation(consumption)
-    determine30minAggregation(consumption)
-    determine3hAggregation(consumption)
-  }
-
-  def determine5minAggregation(Consumption consumption) {
+  // Determine aggregated values used for graphs (main reason is caching)
+  def determineAggregation(Consumption consumption, ConsumptionType type) {
     // Check if consumption fits into existing aggregation interval
     def aggregatedConsumption = AggregatedConsumption.withCriteria(uniqueResult: true) {
       le("intervalStart", consumption.date)
       gt("intervalEnd", consumption.date)
-      eq("type", ConsumptionType.MIN5)
+      eq("type", type)
       eq("macAddress", consumption.macAddress)
       maxResults(1)
     }
 
     if (aggregatedConsumption) {
+      // Already exists, so just save and update power values
       aggregatedConsumption.addToConsumptions(consumption)
       aggregatedConsumption.sumPowerReal += consumption.powerReal
       aggregatedConsumption.avgPowerReal = aggregatedConsumption.sumPowerReal / aggregatedConsumption.consumptions.size()
       aggregatedConsumption.save()
     }
     else {
-      // Floor minutes
-      def intervalStart = consumption.date.toMutableDateTime()
-      int minutes = (int)(Math.floor(intervalStart.minuteOfHour / 5) * 5)
-      intervalStart.setMinuteOfHour(minutes)
-      intervalStart.setSecondOfMinute(0)
-
-      // Ceil minutes
-      def intervalEnd = consumption.date.toMutableDateTime()
-      minutes = (int)(Math.floor((intervalEnd.minuteOfHour + 5) / 5) * 5)
-      if (minutes >= 60) {
-        minutes = 0
-        intervalEnd.addHours(1)
-      }
-      intervalEnd.setMinuteOfHour(minutes)
-      intervalEnd.setSecondOfMinute(0)
-
-      def newConsumption = new AggregatedConsumption(type: ConsumptionType.MIN5, macAddress: consumption.macAddress)
-      newConsumption.intervalStart = intervalStart.toDateTime()
-      newConsumption.intervalEnd = intervalEnd.toDateTime()
-      newConsumption.sumPowerReal = consumption.powerReal
-      newConsumption.avgPowerReal = consumption.powerReal // / 1
-      newConsumption.addToConsumptions(consumption)
-      newConsumption.save()
+      // Determine interval
+      int period = type.minutes()
+      def intervalStart = dateService.floorDateMinutes(consumption.date, period)
+      def intervalEnd = dateService.ceilDateMinutes(consumption.date, period)
+      // Save new aggregated consumption
+      def newAggregatedConsumption = new AggregatedConsumption(type: type, macAddress: consumption.macAddress)
+      newAggregatedConsumption.intervalStart = intervalStart
+      newAggregatedConsumption.intervalEnd = intervalEnd
+      newAggregatedConsumption.sumPowerReal = consumption.powerReal
+      newAggregatedConsumption.avgPowerReal = consumption.powerReal // / 1
+      newAggregatedConsumption.addToConsumptions(consumption)
+      newAggregatedConsumption.save()
     }
-  }
-
-  def determine30minAggregation(Consumption consumption) {
-
-  }
-
-  def determine3hAggregation(Consumption consumption) {
-
   }
 }

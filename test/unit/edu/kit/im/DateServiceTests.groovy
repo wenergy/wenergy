@@ -17,18 +17,13 @@
 
 package edu.kit.im
 
-public enum ConsumptionType {
-  MIN5(5), // 5 minute interval
-  MIN30(30), // 30 minutes interval
-  H3(180) // 3 hour interval
+import grails.test.mixin.*
+import org.junit.*
 
-  private final int minutes
+/**
+ * See the API for {@link grails.test.mixin.services.ServiceUnitTestMixin} for usage instructions
+ */
+@TestFor(DateService)
+class DateServiceTests {
 
-  ConsumptionType(int minutes) {
-    this.minutes = minutes
-  }
-
-  public int minutes() {
-    return minutes
-  }
 }
