@@ -92,9 +92,10 @@ class ApiService {
 
     // Post processing
     try {
-      determineAggregation(consumption, ConsumptionType.MIN5)
-      determineAggregation(consumption, ConsumptionType.MIN30)
-      determineAggregation(consumption, ConsumptionType.H3)
+      // Automatically aggregate all defined interval types
+      for (type in ConsumptionType.values()) {
+        determineAggregation(consumption, type)
+      }
     } catch (Exception e) {
       throw new ApiException("Post processing error", 500)
     }
