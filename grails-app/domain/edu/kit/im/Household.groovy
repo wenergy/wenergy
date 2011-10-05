@@ -33,8 +33,8 @@ class Household {
   // Grails information
   DateTime dateCreated
 
-  // Default type is Set but we need List
-  List consumptions
+  // Default type is Set but we need Collection (Hibernate Bag) for performance reasons
+  Collection consumptions
 
   // Relationships
   static hasMany = [appliances: Appliance, peergroups: Peergroup, consumptions: Consumption]
