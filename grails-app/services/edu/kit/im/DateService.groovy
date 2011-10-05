@@ -32,11 +32,12 @@ class DateService {
       minutes = Period.minutes(minutes).toStandardHours().hours
       return floorDateHours(date, minutes)
     }
+    // ----------
     int unroundedMinutes = date.minuteOfHour
     int mod = unroundedMinutes % minutes
     DateTime newDate = date.minusMinutes(mod)
     // Clear seconds and return new date
-    newDate.withSecondOfMinute(0)
+    return newDate.withSecondOfMinute(0)
   }
 
   // Round up to upper minutes
@@ -47,11 +48,12 @@ class DateService {
       minutes = Period.minutes(minutes).toStandardHours().hours
       return ceilDateHours(date, minutes)
     }
+    // ----------
     int unroundedMinutes = date.minuteOfHour
     int mod = unroundedMinutes % minutes
     DateTime newDate = date.plusMinutes((mod == 0) ? minutes : minutes - mod)
     // Clear seconds and return new date
-    newDate.withSecondOfMinute(0)
+    return newDate.withSecondOfMinute(0)
   }
 
   // Round down to lower hours
@@ -61,7 +63,7 @@ class DateService {
     DateTime newDate = date.minusHours(mod)
     // Clear minutes and seconds and return new date
     newDate = newDate.withMinuteOfHour(0)
-    newDate.withSecondOfMinute(0)
+    return newDate.withSecondOfMinute(0)
   }
 
   // Round up to upper hours
@@ -71,6 +73,6 @@ class DateService {
     DateTime newDate = date.plusHours((mod == 0) ? hours : (hours - mod))
     // Clear minutes and seconds and return new date
     newDate = newDate.withMinuteOfHour(0)
-    newDate.withSecondOfMinute(0)
+    return newDate.withSecondOfMinute(0)
   }
 }
