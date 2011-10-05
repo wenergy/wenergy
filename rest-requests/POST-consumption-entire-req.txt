@@ -1,0 +1,1 @@
+{"requestUrl":"http://localhost:8080/wattsoever/api/consumption","requestMethod":"POST","requestBody":" {\"id\":\"de:ad:be:ef:fe:ed\",\"t\":1317251999000,\"p\":123,\"q\":456}","headers":[]}
