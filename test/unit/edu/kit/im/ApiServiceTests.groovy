@@ -17,30 +17,14 @@
 
 package edu.kit.im
 
-import org.joda.time.DateTime
+import grails.test.mixin.*
+import org.junit.*
 
-class Consumption {
-  // Arduino MAC Address
-  String macAddress
+/**
+ * See the API for {@link grails.test.mixin.services.ServiceUnitTestMixin} for usage instructions
+ */
+@TestFor(ApiService)
+class ApiServiceTests {
 
-  // Date and time at which the consumption data was collected
-  DateTime date
 
-  // Power values
-  BigDecimal powerReal
-  BigDecimal powerReactive
-
-  // Grails information
-  DateTime dateCreated
-
-  // Relationships
-  static belongsTo = Household
-
-  static constraints = {
-    macAddress(blank: false, matches: "([0-9a-f]{2}[:]){5}([0-9a-f]{2})")
-    date(nullable: false)
-    powerReal(nullable: false, scale: 3)
-    powerReactive(nullable: false, scale: 3)
-    dateCreated()
-  }
 }

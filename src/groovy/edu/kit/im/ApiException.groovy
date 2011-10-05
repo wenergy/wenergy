@@ -17,30 +17,12 @@
 
 package edu.kit.im
 
-import org.joda.time.DateTime
+public class ApiException extends RuntimeException {
+  // HTTP status code
+  int code
 
-class Consumption {
-  // Arduino MAC Address
-  String macAddress
-
-  // Date and time at which the consumption data was collected
-  DateTime date
-
-  // Power values
-  BigDecimal powerReal
-  BigDecimal powerReactive
-
-  // Grails information
-  DateTime dateCreated
-
-  // Relationships
-  static belongsTo = Household
-
-  static constraints = {
-    macAddress(blank: false, matches: "([0-9a-f]{2}[:]){5}([0-9a-f]{2})")
-    date(nullable: false)
-    powerReal(nullable: false, scale: 3)
-    powerReactive(nullable: false, scale: 3)
-    dateCreated()
+  ApiException(String message, int code) {
+    super(message)
+    this.code = code
   }
 }

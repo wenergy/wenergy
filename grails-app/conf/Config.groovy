@@ -74,7 +74,7 @@ log4j = {
     // appender:
     //
     appenders {
-        console name:'stdout', layout:pattern(conversionPattern: '%c{2} %m%n')
+        console name:'stdout', layout:pattern(conversionPattern: '%d [%t] %-5p %c{4} %x - %m%n')
     }
 
     error  'org.codehaus.groovy.grails.web.servlet',  //  controllers
@@ -104,11 +104,12 @@ grails.plugins.springsecurity.interceptUrlMap = [
     '/api/**': ["permitAll"],
     '/*': ["permitAll"],
     // Block controllers
-    '/applicane/**': ["hasRole('ROLE_USER')"],
+    '/aggregatedConsumption/**': ["hasRole('ROLE_ADMIN')"],
+    '/applicane/**': ["hasRole('ROLE_ADMIN')"],
     '/clearDatabase/**': ["hasRole('ROLE_ADMIN')"],
-    '/consumption/**': ["hasRole('ROLE_USER')"],
-    '/household/**': ["hasRole('ROLE_USER')"],
-    '/peergroup/**': ["hasRole('ROLE_USER')"]
+    '/consumption/**': ["hasRole('ROLE_ADMIN')"],
+    '/household/**': ["hasRole('ROLE_ADMIN')"],
+    '/peergroup/**': ["hasRole('ROLE_ADMIN')"]
 ]
 
 // Added by the Joda-Time plugin:
