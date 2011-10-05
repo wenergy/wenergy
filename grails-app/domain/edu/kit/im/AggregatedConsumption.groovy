@@ -28,7 +28,8 @@ class AggregatedConsumption {
   ConsumptionType type
 
   // Aggregation interval dates
-  DateTime intervalBegin
+  // Project-wide assumption is half open interval [0:00, 0:05)
+  DateTime intervalStart
   DateTime intervalEnd
 
   // Aggregated values
@@ -44,7 +45,7 @@ class AggregatedConsumption {
   static constraints = {
     macAddress(blank: false, matches: "([0-9a-f]{2}[:]){5}([0-9a-f]{2})")
     type(nullable: false)
-    intervalBegin(nullable: false)
+    intervalStart(nullable: false)
     intervalEnd(nullable: false)
     sumPowerReal(nullable: false, scale: 3)
     avgPowerReal(nullable: false, scale: 3)
