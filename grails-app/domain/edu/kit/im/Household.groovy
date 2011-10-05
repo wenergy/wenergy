@@ -40,7 +40,7 @@ class Household {
   static hasMany = [appliances: Appliance, peergroups: Peergroup, consumptions: Consumption]
 
   static constraints = {
-    macAddress(nullable: true, unique: true)
+    macAddress(nullable: true, unique: true, matches: "([0-9a-f]{2}[:]){5}([0-9a-f]{2})")
     fullName(blank: false)
     eMail(blank: false, unique: true, email: true)
     address(blank: false)

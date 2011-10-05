@@ -42,7 +42,7 @@ class AggregatedConsumption {
   DateTime dateCreated
 
   static constraints = {
-    macAddress(blank: false)
+    macAddress(blank: false, matches: "([0-9a-f]{2}[:]){5}([0-9a-f]{2})")
     type(nullable: false)
     intervalBegin(nullable: false)
     intervalEnd(nullable: false)

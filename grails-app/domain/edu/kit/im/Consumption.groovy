@@ -37,7 +37,7 @@ class Consumption {
   static belongsTo = Household
 
   static constraints = {
-    macAddress(blank: false)
+    macAddress(blank: false, matches: "([0-9a-f]{2}[:]){5}([0-9a-f]{2})")
     timestamp(nullable: false)
     powerReal(nullable: false, scale: 3)
     powerReactive(nullable: false, scale: 3)
