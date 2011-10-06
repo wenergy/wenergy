@@ -2,6 +2,7 @@ import edu.kit.im.Role
 import edu.kit.im.Household
 import edu.kit.im.Peergroup
 import edu.kit.im.HouseholdRole
+import org.joda.time.DateTimeZone
 
 /*
 * Copyright 2011 Institute of Information Engineering and Management,
@@ -25,6 +26,9 @@ class BootStrap {
   def springSecurityService
 
   def init = { servletContext ->
+    // Work only on UTC by default - necessary since flot uses UTC as well
+    DateTimeZone.setDefault(DateTimeZone.UTC)
+
     // Define security roles
     def userRole = Role.findOrSaveByAuthority("ROLE_USER")
     def adminRole = Role.findOrSaveByAuthority("ROLE_ADMIN")
