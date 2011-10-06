@@ -18,8 +18,11 @@
 package edu.kit.im
 
 import grails.converters.JSON
+import org.joda.time.DateTime
 
 class DataController {
+
+  def dataService
 
   def index() {
     def jsonStatus = [status: [code: 400, message: "Invalid request"]] as JSON
@@ -28,7 +31,23 @@ class DataController {
   }
 
   def daily() {
+    try {
+      // Parse params
+      long jsDate = params.date as long
+      def date = new DateTime(jsDate)
+      def dailyData = dataService.getDailyData(date)
 
+      log.error dailyData
+
+      def json = [status: [code: 200, message: "blaha"]] as JSON
+      response.status = 200
+      render json
+
+    } catch (Exception e) {
+      def json = [status: [code: 500, message: "Could not load daily data"]] as JSON
+      response.status = 500
+      render json
+    }
   }
 
   def weekly() {

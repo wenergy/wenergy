@@ -117,3 +117,15 @@ body {
 #consumption .form-stacked {
   padding-left: 0;
 }
+
+#consumption #consumptionGraph {
+  margin-top: 15px;
+  margin-left: 0;
+  height: 350px;
+  display: none;
+}
+
+#consumption #consumptionGraphLoader {
+  margin-top: 100px;
+  text-align: center;
+}

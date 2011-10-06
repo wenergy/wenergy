@@ -35,7 +35,7 @@
     <div class="span3">
       <h3>Options</h3>
 
-      <form class="form-stacked">
+      <form id="optionsForm" class="form-stacked">
         <fieldset>
           <div class="clearfix">
             <label id="rangeLabel">Range</label>
@@ -119,6 +119,7 @@
     <div class="span13">
       <h3>Consumption data from DATE</h3>
 
+      <div id="consumptionGraphLoader"><r:img dir="images" file="spinner.gif"/><br/>Loading...</div>
       <div id="consumptionGraph" class="span13"></div>
     </div>
   </div><!-- /row -->
