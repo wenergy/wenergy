@@ -112,8 +112,7 @@
             </div>
           </div><!-- /clearfix -->
         </fieldset>
-        <span class="help-block">
-          <strong>Note:</strong> Cookies are required for these options to persist.</span>
+        <span class="help-block"><strong>Note:</strong> Cookies are required for these options to persist.</span>
       </form>
     </div>
 
