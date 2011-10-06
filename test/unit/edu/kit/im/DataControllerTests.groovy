@@ -17,8 +17,6 @@
 
 package edu.kit.im
 
-
-
 import grails.test.mixin.*
 import org.junit.*
 
