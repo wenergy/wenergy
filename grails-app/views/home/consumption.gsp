@@ -35,10 +35,69 @@
     <div class="span3">
       <h3>Options</h3>
 
-      <p>Mode</p>
+      <form class="form-stacked">
+        <fieldset>
+          <div class="clearfix">
+            <label id="rangeOption">Range</label>
+
+            <div class="input">
+              <ul class="inputs-list">
+                <li>
+                  <label>
+                    <input type="radio" name="rangeOption" value="daily" checked/>
+                    <span>Daily</span>
+                  </label>
+                </li>
+                <li>
+                  <label>
+                    <input type="radio" name="rangeOption" value="weekly"/>
+                    <span>Weekly</span>
+                  </label>
+                </li>
+                <li>
+                  <label>
+                    <input type="radio" name="rangeOption" value="monthly"/>
+                    <span>Monthly</span>
+                  </label>
+                </li>
+              </ul>
+            </div>
+          </div><!-- /clearfix -->
+          %{--<div class="clearfix">--}%
+            %{--<label id="dateOption">Go to</label>--}%
+
+            %{--<div class="input">--}%
+              %{--<ul class="inputs-list">--}%
+                %{--<li>--}%
+                  %{--<label>--}%
+                    %{--<input type="date" class="small" name="dateOption" value=""/>--}%
+                    %{--<span>Date</span>--}%
+                  %{--</label>--}%
+                %{--</li>--}%
+              %{--</ul>--}%
+            %{--</div>--}%
+          %{--</div><!-- /clearfix -->--}%
+          <div class="clearfix">
+            <label id="liveOption">Live data</label>
+
+            <div class="input">
+              <ul class="inputs-list">
+                <li>
+                  <label>
+                    <input type="checkbox" name="liveOption" value="daily" checked/>
+                    <span>Live data stream</span>
+                  </label>
+                </li>
+              </ul>
+            </div>
+          </div><!-- /clearfix -->
+        </fieldset>
+      </form>
     </div>
 
     <div class="span13">
+      <h3>Contumption data from DATE</h3>
+
       <p>Graph</p>
     </div>
   </div><!-- /row -->

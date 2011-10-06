@@ -110,3 +110,10 @@ body {
 .footer p {
   color: #555;
 }
+
+/* Consumption
+-------------------------------------------------- */
+
+#consumption .form-stacked {
+  padding-left: 0;
+}
