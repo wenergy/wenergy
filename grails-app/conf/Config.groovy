@@ -108,6 +108,7 @@ grails.plugins.springsecurity.interceptUrlMap = [
     '/applicane/**': ["hasRole('ROLE_ADMIN')"],
     '/clearDatabase/**': ["hasRole('ROLE_ADMIN')"],
     '/consumption/**': ["hasRole('ROLE_ADMIN')"],
+    '/data/**': ["hasRole('ROLE_USER')"],
     '/household/**': ["hasRole('ROLE_ADMIN')"],
     '/peergroup/**': ["hasRole('ROLE_ADMIN')"]
 ]
