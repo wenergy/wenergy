@@ -26,4 +26,16 @@ class DataController {
     response.status = 400
     render jsonStatus
   }
+
+  def daily() {
+
+  }
+
+  def weekly() {
+
+  }
+
+  def monthly() {
+
+  }
 }

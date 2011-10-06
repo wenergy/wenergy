@@ -38,4 +38,9 @@ class HomeController {
   def dashboard() {
     [nav: "dashboard"]
   }
+
+  // My Consumption
+  def consumption() {
+    [nav: "consumption"]
+  }
 }
