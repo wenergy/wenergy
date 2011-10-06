@@ -52,7 +52,7 @@ class ApiController {
     } catch (ApiException e) {
 
       log.error e
-      response.status = 400 // Bad Request
+      response.status = e.code // Bad Request
       jsonStatus = [status: [code: e.code, message: e.message]] as JSON
 
     } catch (Exception e) {
