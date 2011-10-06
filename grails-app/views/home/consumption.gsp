@@ -38,7 +38,7 @@
       <form class="form-stacked">
         <fieldset>
           <div class="clearfix">
-            <label id="rangeOption">Range</label>
+            <label id="rangeLabel">Range</label>
 
             <div class="input">
               <ul class="inputs-list">
@@ -63,29 +63,49 @@
               </ul>
             </div>
           </div><!-- /clearfix -->
-          %{--<div class="clearfix">--}%
-            %{--<label id="dateOption">Go to</label>--}%
+        %{--<div class="clearfix">--}%
+        %{--<label id="dateOption">Go to</label>--}%
 
-            %{--<div class="input">--}%
-              %{--<ul class="inputs-list">--}%
-                %{--<li>--}%
-                  %{--<label>--}%
-                    %{--<input type="date" class="small" name="dateOption" value=""/>--}%
-                    %{--<span>Date</span>--}%
-                  %{--</label>--}%
-                %{--</li>--}%
-              %{--</ul>--}%
-            %{--</div>--}%
-          %{--</div><!-- /clearfix -->--}%
+        %{--<div class="input">--}%
+        %{--<ul class="inputs-list">--}%
+        %{--<li>--}%
+        %{--<label>--}%
+        %{--<input type="date" class="small" name="dateOption" value=""/>--}%
+        %{--<span>Date</span>--}%
+        %{--</label>--}%
+        %{--</li>--}%
+        %{--</ul>--}%
+        %{--</div>--}%
+        %{--</div><!-- /clearfix -->--}%
           <div class="clearfix">
-            <label id="liveOption">Live data</label>
+            <label id="dataLabel">Data</label>
 
             <div class="input">
               <ul class="inputs-list">
                 <li>
                   <label>
+                    <input type="checkbox" name="averageOption" value="daily" checked/>
+                    <span>Show average values</span>
+                  </label>
+                </li>
+                <li>
+                  <label>
                     <input type="checkbox" name="liveOption" value="daily" checked/>
                     <span>Live data stream</span>
+                  </label>
+                </li>
+              </ul>
+            </div>
+          </div><!-- /clearfix -->
+          <div class="clearfix">
+            <label id="graphLabel">Graph</label>
+
+            <div class="input">
+              <ul class="inputs-list">
+                <li>
+                  <label>
+                    <input type="checkbox" name="legendOption" value="daily" checked/>
+                    <span>Show legend</span>
                   </label>
                 </li>
               </ul>
@@ -96,9 +116,9 @@
     </div>
 
     <div class="span13">
-      <h3>Contumption data from DATE</h3>
+      <h3>Consumption data from DATE</h3>
 
-      <p>Graph</p>
+      <div id="consumptionGraph" class="span13"></div>
     </div>
   </div><!-- /row -->
 </section>
