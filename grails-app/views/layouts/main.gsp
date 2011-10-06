@@ -19,7 +19,7 @@
 <html>
 <head>
   <title>Wattsoever - <g:layoutTitle/></title>
-  <r:require modules="core, bootstrapjs"/>
+  <r:require modules="core, bootstrapjs, wattsoeverjs"/>
   <r:layoutResources/>
 </head>
 

@@ -22,12 +22,8 @@ modules = {
     resource url:[dir:"css",file:"wattsoever.css"], attrs:[media:'screen, projection'], disposition: "head"
   }
 
-  wattsoeverjs {
-    resource url:[dir:"js",file:"wattsoever.js"], disposition: "head"
-  }
-
   bootstrapjs {
-    dependsOn "jquery, wattsoeverjs"
+    dependsOn "jquery"
     resource url:[dir:"js/bootstrap",file:"bootstrap-tabs.js"], disposition: "head"
     resource url:[dir:"js/bootstrap",file:"bootstrap-dropdown.js"], disposition: "head"
   }
@@ -36,6 +32,16 @@ modules = {
     dependsOn "jquery"
     resource url:[dir:"js/flot",file:"excanvas.js"], wrapper: { s -> "<!--[if lt IE 9]>$s<![endif]-->" }, disposition: "head"
     resource url:[dir:"js/flot",file:"jquery.flot.js"], disposition: "head"
+  }
+
+  wattsoeverjs {
+    dependsOn "bootstrapjs"
+    resource url:[dir:"js",file:"wattsoever.js"], disposition: "head"
+  }
+
+  consumptionjs {
+    dependsOn "flotjs, wattsoeverjs"
+    resource url:[dir:"js",file:"consumption.js"], disposition: "head"
   }
 
 }

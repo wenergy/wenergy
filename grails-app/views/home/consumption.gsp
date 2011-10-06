@@ -19,7 +19,7 @@
 <head>
   <meta name="layout" content="main"/>
   <title>My Consumption</title>
-  <r:require modules="flotjs"/>
+  <r:require modules="flotjs, consumptionjs"/>
 </head>
 
 <body>
