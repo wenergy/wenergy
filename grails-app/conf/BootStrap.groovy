@@ -3,6 +3,8 @@ import edu.kit.im.Household
 import edu.kit.im.Peergroup
 import edu.kit.im.HouseholdRole
 import org.joda.time.DateTimeZone
+import org.joda.time.DateTime
+import edu.kit.im.Consumption
 
 /*
 * Copyright 2011 Institute of Information Engineering and Management,
@@ -24,6 +26,7 @@ import org.joda.time.DateTimeZone
 class BootStrap {
 
   def springSecurityService
+  def apiService
 
   def init = { servletContext ->
     // Work only on UTC by default - necessary since flot uses UTC as well
@@ -56,6 +59,33 @@ class BootStrap {
         HouseholdRole.create(household, userRole)
       }
     }
+
+    return
+
+    // Debug
+    // Create some data
+    def startDate = new DateTime(2011, 10, 6, 0, 0, 0)
+    def i = 0
+    def j = 0
+    2000.times {
+      def power = 1 + Math.sin(i)
+      def consumption = new Consumption(macAddress: macAddress, powerReal: power, powerReactive: power, date: startDate);
+      household.addToConsumptions(consumption)
+      household.save(failOnError:true)
+
+      apiService.determineAggregation(consumption)
+
+      startDate = startDate.plusMinutes(5)
+      i+=0.1
+      j++
+
+      if (j%100 == 0) {
+        log.error j
+      }
+
+    }
+
+
   }
   def destroy = {
   }
