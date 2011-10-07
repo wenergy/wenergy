@@ -110,6 +110,7 @@
             </div>
           </div><!-- /clearfix -->
         </fieldset>
+        <span class="help-block"><strong>Note:</strong> Bookmark this page or copy the page URL to save these options.</span>
       </form>
     </div>
 
