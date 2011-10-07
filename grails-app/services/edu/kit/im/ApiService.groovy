@@ -20,11 +20,8 @@ package edu.kit.im
 import org.joda.time.DateTime
 import org.codehaus.groovy.runtime.typehandling.GroovyCastException
 import grails.validation.ValidationException
-import org.joda.time.Period
 
 class ApiService {
-
-  def dateService
 
   def processConsumption(def jsonPayload) {
 
@@ -126,8 +123,8 @@ class ApiService {
     else {
       // Determine interval
       int period = type.minutes()
-      def intervalStart = dateService.floorDateMinutes(consumption.date, period)
-      def intervalEnd = dateService.ceilDateMinutes(consumption.date, period)
+      def intervalStart = DateUtils.floorDateMinutes(consumption.date, period)
+      def intervalEnd = DateUtils.ceilDateMinutes(consumption.date, period)
       // Save new aggregated consumption
       def newAggregatedConsumption = new AggregatedConsumption(type: type, macAddress: consumption.macAddress)
       newAggregatedConsumption.intervalStart = intervalStart

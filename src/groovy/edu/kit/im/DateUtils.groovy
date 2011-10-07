@@ -20,12 +20,10 @@ package edu.kit.im
 import org.joda.time.DateTime
 import org.joda.time.Period
 
-class DateService {
-
-  static transactional = false
+class DateUtils {
 
   // Round down to lower minutes
-  def floorDateMinutes(DateTime date, int minutes) {
+  static DateTime floorDateMinutes(DateTime date, int minutes) {
     // Special treatment for hours
     if (minutes > 59 && minutes % 60 == 0) {
       // Convert minutes to hours
@@ -41,7 +39,7 @@ class DateService {
   }
 
   // Round up to upper minutes
-  def ceilDateMinutes(DateTime date, int minutes) {
+  static DateTime ceilDateMinutes(DateTime date, int minutes) {
     // Special treatment for hours
     if (minutes > 59 && minutes % 60 == 0) {
       // Convert minutes to hours
@@ -57,7 +55,7 @@ class DateService {
   }
 
   // Round down to lower hours
-  def floorDateHours(DateTime date, int hours) {
+  static DateTime floorDateHours(DateTime date, int hours) {
     int unroundedHours = date.hourOfDay
     int mod = unroundedHours % hours
     DateTime newDate = date.minusHours(mod)
@@ -67,7 +65,7 @@ class DateService {
   }
 
   // Round up to upper hours
-  def ceilDateHours(DateTime date, int hours) {
+  static DateTime ceilDateHours(DateTime date, int hours) {
     int unroundedHours = date.hourOfDay
     int mod = unroundedHours % hours
     DateTime newDate = date.plusHours((mod == 0) ? hours : (hours - mod))
@@ -75,4 +73,5 @@ class DateService {
     newDate = newDate.withMinuteOfHour(0)
     return newDate.withSecondOfMinute(0)
   }
+
 }
