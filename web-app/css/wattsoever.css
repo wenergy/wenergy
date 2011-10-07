@@ -122,10 +122,18 @@ body {
   margin-top: 15px;
   margin-left: 0;
   height: 350px;
+}
+
+#consumption #consumptionCentralLoader {
+  margin-top: 125px;
+  text-align: center;
   display: none;
 }
 
-#consumption #consumptionGraphLoader {
-  margin-top: 100px;
-  text-align: center;
+#consumption #consumptionLoader {
+  display: none;
+}
+
+#consumption #consumptionLoader img {
+  vertical-align: text-bottom;
 }

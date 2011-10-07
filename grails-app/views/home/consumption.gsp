@@ -117,10 +117,14 @@
     </div>
 
     <div class="span13">
-      <h3>Consumption data from DATE</h3>
+      <h3>Consumption data from DATE<span id="consumptionLoader" class="pull-right"><small><r:img dir="images"
+                                                                                                  file="spinner_16.gif"/> Loading...</small>
+      </span></h3>
 
-      <div id="consumptionGraphLoader"><r:img dir="images" file="spinner.gif"/><br/>Loading...</div>
-      <div id="consumptionGraph" class="span13"></div>
+      <div id="consumptionGraph" class="span13">
+        %{-- Needs to be nested to avoid sudden jumps --}%
+        <div id="consumptionCentralLoader"><r:img dir="images" file="spinner_24.gif"/><br/>Loading...</div>
+      </div>
     </div>
   </div><!-- /row -->
 </section>
