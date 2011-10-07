@@ -130,6 +130,11 @@ body {
   display: none;
 }
 
+#consumption #consumptionCentralLoaderError {
+  margin-top: 125px;
+  display: none;
+}
+
 #consumption #consumptionLoader {
   display: none;
 }

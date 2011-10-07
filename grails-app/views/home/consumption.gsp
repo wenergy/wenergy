@@ -121,6 +121,8 @@
       <div id="consumptionGraph" class="span13">
         %{-- Needs to be nested to avoid sudden jumps --}%
         <div id="consumptionCentralLoader"><r:img dir="images" file="spinner_24.gif"/><br/>Loading...</div>
+
+        <div id="consumptionCentralLoaderError" class="alert-message block-message error"></div>
       </div>
     </div>
   </div><!-- /row -->

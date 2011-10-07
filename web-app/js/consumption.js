@@ -25,10 +25,6 @@ $(function () {
   loadDailyData();
 
   function loadDailyData() {
-    // Disable options while loading
-    disableAllOptions(true);
-    showCentralAjaxLoader(true);
-
     // Get today
     var today = Date.today();
     // Set timezone to UTC (aka GMT)
@@ -40,8 +36,13 @@ $(function () {
       data: {
         date: today.getTime()
       },
-      success: function(json) {
+      beforeSend: function() {
+        // Disable options while loading
+        disableAllOptions(true);
+        showCentralAjaxLoader(true);
 
+      },
+      success: function(json) {
         // Reset data and extract new values from json
         consumptionData = [];
         consumptionData = json.data.daily;
@@ -55,6 +56,13 @@ $(function () {
 
         // Plot
         plotConsumption(true, json.time.low, json.time.high);
+      },
+      error: function(jqXHR, textStatus, errorThrown) {
+        showCentralAjaxLoader(false);
+
+        var json = $.parseJSON(jqXHR.responseText );console.log(json);
+        $("#consumptionCentralLoaderError").html("<p><strong>Error " + jqXHR.status + " (" + errorThrown + ")</strong></p><p>" + json.status.message + "</p>");
+        $("#consumptionCentralLoaderError").show();
       }
     });
   }
@@ -137,7 +145,6 @@ $(function () {
     }
 
     //console.log("d is " + dt);
-
 
 
   }
