@@ -19,7 +19,7 @@ package edu.kit.im
 
 import org.joda.time.DateTime
 
-class Peergroup {
+class Peergroup implements Serializable {
 
   String name
   DateTime dateCreated
@@ -30,5 +30,9 @@ class Peergroup {
   static constraints = {
     name(blank: false, unique: true)
     dateCreated()
+  }
+
+  static mapping = {
+    cache(true)
   }
 }

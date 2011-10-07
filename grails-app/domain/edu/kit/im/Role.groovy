@@ -17,7 +17,7 @@
 
 package edu.kit.im
 
-class Role {
+class Role implements Serializable {
 
   String authority
 

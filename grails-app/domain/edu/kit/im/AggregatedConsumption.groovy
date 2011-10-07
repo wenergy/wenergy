@@ -19,7 +19,7 @@ package edu.kit.im
 
 import org.joda.time.DateTime
 
-class AggregatedConsumption {
+class AggregatedConsumption implements Serializable {
 
   // Arduino MAC Address
   String macAddress
@@ -50,6 +50,10 @@ class AggregatedConsumption {
     sumPowerReal(nullable: false, scale: 3)
     avgPowerReal(nullable: false, scale: 3)
     dateCreated()
+  }
+
+  static mapping = {
+    cache(true)
   }
 
 }

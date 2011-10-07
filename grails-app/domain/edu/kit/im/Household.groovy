@@ -19,7 +19,7 @@ package edu.kit.im
 
 import org.joda.time.DateTime
 
-class Household {
+class Household implements Serializable {
   // Arduino MAC Address
   String macAddress
 
@@ -60,6 +60,7 @@ class Household {
   boolean passwordExpired = false
 
   static mapping = {
+    cache(true)
     password column: '`password`'
   }
 

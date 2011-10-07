@@ -19,7 +19,7 @@ package edu.kit.im
 
 import org.joda.time.DateTime
 
-class Consumption {
+class Consumption implements Serializable {
   // Arduino MAC Address
   String macAddress
 
@@ -42,5 +42,9 @@ class Consumption {
     powerReal(nullable: false, scale: 3)
     powerReactive(nullable: false, scale: 3)
     dateCreated()
+  }
+
+  static mapping = {
+    cache(true)
   }
 }

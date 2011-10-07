@@ -19,7 +19,7 @@ package edu.kit.im
 
 import org.joda.time.DateTime
 
-class Appliance {
+class Appliance implements Serializable {
 
   // Appliance information
   String name
@@ -37,5 +37,9 @@ class Appliance {
     deltaRealPower(nullable: false)
     deltaReactivePower(nullable: false)
     dateCreated()
+  }
+
+  static mapping = {
+    cache(true)
   }
 }

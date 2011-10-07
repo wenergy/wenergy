@@ -63,6 +63,7 @@ class HouseholdRole implements Serializable {
   }
 
   static mapping = {
+    cache true
     id composite: ['role', 'household']
     version false
   }
