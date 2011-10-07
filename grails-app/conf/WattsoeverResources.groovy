@@ -38,13 +38,18 @@ modules = {
     resource url: [dir: "js", file: "date.js"], disposition: "head"
   }
 
+  jqbbq {
+    dependsOn "jquery"
+    resource url: [dir: "js", file: "jquery.ba-bbq.js"], disposition: "head"
+  }
+
   wattsoeverjs {
     dependsOn "bootstrapjs"
     resource url: [dir: "js", file: "wattsoever.js"], disposition: "head"
   }
 
   consumptionjs {
-    dependsOn "datejs, flotjs, wattsoeverjs"
+    dependsOn "jqbbq, datejs, flotjs, wattsoeverjs"
     resource url: [dir: "js", file: "consumption.js"], disposition: "head"
   }
 
