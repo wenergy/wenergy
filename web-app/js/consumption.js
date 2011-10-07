@@ -44,7 +44,10 @@ $(function () {
 
         // Reset data and extract new values from json
         consumptionData = [];
-        consumptionData = json.daily;
+        consumptionData = json.data.daily;
+
+        averageData = [];
+        averageData = json.data.average;
 
         // UI updates
         showCentralAjaxLoader(false);
@@ -91,10 +94,8 @@ $(function () {
     }
 
     var data = [];
-    //data.push({ label: "Average", data: d1, color: "#808080"});
+    data.push({ label: "Average", data: averageData, color: "#808080"});
     data.push({ label: "Current", data: consumptionData, color: "#990000"});
-
-    console.log(data);
 
     $.plot($("#consumptionGraph"), data, options);
   }

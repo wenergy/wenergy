@@ -18,75 +18,82 @@
 package edu.kit.im
 
 import org.joda.time.DateTime
+import org.joda.time.LocalTime
+import java.math.RoundingMode
 
 class DataService {
 
   def springSecurityService
 
   // Get formatted list of daily consumption data for given date
-  def getDailyData(DateTime date) {
+  def getDailyData(DateTime date, boolean averages) {
 
     // Set lower end to midnight 00:00:00
     def low = date.withTimeAtStartOfDay()
     // Set upper end to midnight next day 00:00:00
     // Note that this technically wrong because is should be set to one second before midnight 23:59:59
     // However, for flot not to display an empty spot (line/bar rounding issue), this additional value is included
-    def high = low.plusDays(1)//.minusSeconds(1) // 23:59:59
+    def high = low.plusDays(1).minusSeconds(1) // 23:59:59
 
-    def aggregatedConsumptions = AggregatedConsumption.withCriteria() {
-      between("intervalStart", low, high)
-      eq("type", ConsumptionType.MIN5)
-      eq("macAddress", macAddress())
-      order("intervalStart", "asc")
-    }
-
-    // Format data as [timestamp, powerValue]
-    return aggregatedConsumptions.collect { [it.intervalStart.getMillis(), it.avgPowerReal] }
-  }
-
-  def getDailyAverageData(DateTime date) {
-
-    // Set lower end to midnight 00:00:00
-    def low = date.withTimeAtStartOfDay()
-    // Set upper end to midnight next day 00:00:00
-    // Note that this technically wrong because is should be set to one second before midnight 23:59:59
-    // However, for flot not to display an empty spot (line/bar rounding issue), this additional value is included
-    def high = low.plusDays(1)//.minusSeconds(1) // 23:59:59
-
-    try {
-    def aggregatedConsumptions = AggregatedConsumption.withCriteria() {
+    def dailyConsumptions = AggregatedConsumption.withCriteria() {
       between("intervalStart", low, high)
       eq("type", ConsumptionType.MIN5)
       eq("macAddress", macAddress())
       order("intervalStart", "asc")
       projections {
-        property("historicConsumption")
+        property("intervalStart")
+        property("avgPowerReal")
       }
     }
 
-      /*
+    // Format data as [timestamp, powerValue]
+    def formattedDailyConsumptions = dailyConsumptions.collect {
+      DateTime intervalStart = (DateTime) it[0]
+      BigDecimal avgPowerReal = (BigDecimal) it[1]
 
-      daily     WeekdayConsumption - same weekday(1-7), same startInterval time
-      weekly
-      monthy
-
-       */
-
-      log.error aggregatedConsumptions
-
-
-
-
-    } catch (Exception e) {
-      log.error e
+      [intervalStart.getMillis(), avgPowerReal]
     }
 
+    // Create data for json
+    def dataMap = ["daily": formattedDailyConsumptions]
 
-    // Format data as [timestamp, powerValue]
-    //return aggregatedConsumptions.collect { [it.intervalStart.getMillis(), it.avgPowerReal] }
+    // Additionally load average values
+    if (averages) {
+      // Collect all existing data from the same day, does not include current week
+      // Use between() in to limit data range to a year or so with appropriate parameters
+      def averageConsumptions = AggregatedConsumption.withCriteria() {
+        lt("intervalStart", low)
+        eq("dayOfWeek", low.dayOfWeek)
+        eq("type", ConsumptionType.MIN5)
+        eq("macAddress", macAddress())
+        order("intervalStartTime", "asc")
+        projections {
+          groupProperty("intervalStartTime")
+          avg("avgPowerReal")
+        }
+      }
+
+      def formattedAverageConsumptions = averageConsumptions.collect {
+        // Merge intervalStart with intervalStartTime
+        LocalTime intervalStart = (LocalTime) it[0]
+        DateTime mergedDate = low.withTime(intervalStart.hourOfDay, intervalStart.minuteOfHour, intervalStart.secondOfMinute, intervalStart.millisOfSecond)
+
+        // Format date
+        BigDecimal avgPowerReal = new BigDecimal((Double) it[1])
+        avgPowerReal.setScale(3, RoundingMode.HALF_UP)
+
+        // Format data as [timestamp, powerValue]
+        [mergedDate.getMillis(), avgPowerReal]
+      }
+
+      dataMap["average"] = formattedAverageConsumptions
+    }
+
+    dataMap
   }
 
   def macAddress() {
     Household.get(springSecurityService.principal?.id)?.macAddress
   }
+
 }

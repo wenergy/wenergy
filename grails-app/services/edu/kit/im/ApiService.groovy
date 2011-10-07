@@ -129,6 +129,9 @@ class ApiService {
       def newAggregatedConsumption = new AggregatedConsumption(type: type, macAddress: consumption.macAddress)
       newAggregatedConsumption.intervalStart = intervalStart
       newAggregatedConsumption.intervalEnd = intervalEnd
+      newAggregatedConsumption.intervalStartTime = intervalStart.toLocalTime()
+      newAggregatedConsumption.intervalEndTime = intervalEnd.toLocalTime()
+      newAggregatedConsumption.dayOfWeek = intervalStart.dayOfWeek
       newAggregatedConsumption.sumPowerReal = consumption.powerReal
       newAggregatedConsumption.avgPowerReal = consumption.powerReal // / 1
       newAggregatedConsumption.addToConsumptions(consumption)

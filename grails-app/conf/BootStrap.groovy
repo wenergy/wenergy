@@ -27,6 +27,9 @@ class BootStrap {
 
   def springSecurityService
   def apiService
+  def sessionFactory
+  def propertyInstanceMap = org.codehaus.groovy.grails.plugins.DomainClassGrailsPlugin.PROPERTY_INSTANCE_MAP
+
 
   def init = { servletContext ->
     // Work only on UTC by default - necessary since flot uses UTC as well
@@ -60,27 +63,27 @@ class BootStrap {
       }
     }
 
-    return
+    return;
 
     // Debug
     // Create some data
-    def startDate = new DateTime(2011, 10, 6, 0, 0, 0)
+    def startDate = new DateTime(2011, 9, 16, 0, 0, 0)
     def i = 0
     def j = 0
-    2000.times {
-      def power = 1 + Math.sin(i)
+    10000.times {
+      def power = (startDate.weekOfWeekyear % 2 == 0) ? (1.0 + Math.sin(i)) : (2.0 + Math.cos(i))
       def consumption = new Consumption(macAddress: macAddress, powerReal: power, powerReactive: power, date: startDate);
       household.addToConsumptions(consumption)
-      household.save(failOnError:true)
 
       apiService.determineAggregation(consumption)
 
       startDate = startDate.plusMinutes(5)
-      i+=0.1
+      i += 0.1
       j++
 
-      if (j%100 == 0) {
+      if (j % 100 == 0) {
         log.error j
+        cleanUpGorm()
       }
 
     }
@@ -89,4 +92,12 @@ class BootStrap {
   }
   def destroy = {
   }
+
+  def cleanUpGorm() {
+    def session = sessionFactory.currentSession
+    session.flush()
+    session.clear()
+    propertyInstanceMap.get().clear()
+  }
+
 }

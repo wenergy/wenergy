@@ -37,13 +37,16 @@ class DataController {
       def date = new DateTime(jsDate)
 
       // Get consumption data
-      def dailyData = dataService.getDailyData(date)
+      def data = dataService.getDailyData(date, true)
 
       // Determine time window
-      def low = date.withTimeAtStartOfDay() // 0:00
-      def high = low.plusDays(1).minusSeconds(1) // 23:59
+      def low = date.withTimeAtStartOfDay() // 00:00:00
+      def high = low.plusDays(1).minusMinutes(5) // 23:55:00 // last start time for 5-min interval
 
-      def json = [status: [code: 200], daily: dailyData, time: [low: low.getMillis(), high: high.getMillis()]] as JSON
+      def json = [status: [code: 200],
+          data: data,
+          time: [low: low.getMillis(), high: high.getMillis()]] as JSON
+
       response.status = 200
       render json
 

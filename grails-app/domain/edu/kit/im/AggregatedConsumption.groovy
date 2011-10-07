@@ -18,6 +18,7 @@
 package edu.kit.im
 
 import org.joda.time.DateTime
+import org.joda.time.LocalTime
 
 class AggregatedConsumption implements Serializable {
 
@@ -31,6 +32,12 @@ class AggregatedConsumption implements Serializable {
   // Project-wide assumption is half open interval [0:00, 0:05)
   DateTime intervalStart
   DateTime intervalEnd
+
+  // Extracted time values from intervalStart and intervalEnd for querying
+  LocalTime intervalStartTime
+  LocalTime intervalEndTime
+  // Date values of start date, also for querying
+  int dayOfWeek
 
   // Aggregated values
   BigDecimal sumPowerReal
@@ -47,6 +54,9 @@ class AggregatedConsumption implements Serializable {
     type(nullable: false)
     intervalStart(nullable: false)
     intervalEnd(nullable: false)
+    intervalStartTime(nullable: false)
+    intervalEndTime(nullable: false)
+    dayOfWeek(nullable: false)
     sumPowerReal(nullable: false, scale: 3)
     avgPowerReal(nullable: false, scale: 3)
     dateCreated()
