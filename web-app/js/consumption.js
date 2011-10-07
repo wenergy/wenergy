@@ -21,7 +21,7 @@ $(function () {
   var consumptionData = [];
   var averageData = [];
 
-  // Determine what to do on page-load based on cookies
+  // Determine what to do on page load
   loadDailyData();
 
   function loadDailyData() {
