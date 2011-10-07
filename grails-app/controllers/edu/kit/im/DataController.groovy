@@ -35,11 +35,15 @@ class DataController {
       // Parse params
       long jsDate = params.date as long
       def date = new DateTime(jsDate)
+
+      // Get consumption data
       def dailyData = dataService.getDailyData(date)
 
-      log.error dailyData
+      // Determine time window
+      def low = date.withTimeAtStartOfDay() // 0:00
+      def high = low.plusDays(1).minusSeconds(1) // 23:59
 
-      def json = [status: [code: 200, message: "blaha"]] as JSON
+      def json = [status: [code: 200], daily: dailyData, time: [low: low.getMillis(), high: high.getMillis()]] as JSON
       response.status = 200
       render json
 

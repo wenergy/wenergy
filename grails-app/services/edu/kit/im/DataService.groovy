@@ -21,12 +21,72 @@ import org.joda.time.DateTime
 
 class DataService {
 
+  def springSecurityService
+
   // Get formatted list of daily consumption data for given date
   def getDailyData(DateTime date) {
 
+    // Set lower end to midnight 00:00:00
+    def low = date.withTimeAtStartOfDay()
+    // Set upper end to midnight next day 00:00:00
+    // Note that this technically wrong because is should be set to one second before midnight 23:59:59
+    // However, for flot not to display an empty spot (line/bar rounding issue), this additional value is included
+    def high = low.plusDays(1)//.minusSeconds(1) // 23:59:59
+
+    def aggregatedConsumptions = AggregatedConsumption.withCriteria() {
+      between("intervalStart", low, high)
+      eq("type", ConsumptionType.MIN5)
+      eq("macAddress", macAddress())
+      order("intervalStart", "asc")
+    }
+
+    // Format data as [timestamp, powerValue]
+    return aggregatedConsumptions.collect { [it.intervalStart.getMillis(), it.avgPowerReal] }
   }
 
   def getDailyAverageData(DateTime date) {
 
+    // Set lower end to midnight 00:00:00
+    def low = date.withTimeAtStartOfDay()
+    // Set upper end to midnight next day 00:00:00
+    // Note that this technically wrong because is should be set to one second before midnight 23:59:59
+    // However, for flot not to display an empty spot (line/bar rounding issue), this additional value is included
+    def high = low.plusDays(1)//.minusSeconds(1) // 23:59:59
+
+    try {
+    def aggregatedConsumptions = AggregatedConsumption.withCriteria() {
+      between("intervalStart", low, high)
+      eq("type", ConsumptionType.MIN5)
+      eq("macAddress", macAddress())
+      order("intervalStart", "asc")
+      projections {
+        property("historicConsumption")
+      }
+    }
+
+      /*
+
+      daily     WeekdayConsumption - same weekday(1-7), same startInterval time
+      weekly
+      monthy
+
+       */
+
+      log.error aggregatedConsumptions
+
+
+
+
+    } catch (Exception e) {
+      log.error e
+    }
+
+
+    // Format data as [timestamp, powerValue]
+    //return aggregatedConsumptions.collect { [it.intervalStart.getMillis(), it.avgPowerReal] }
+  }
+
+  def macAddress() {
+    Household.get(springSecurityService.principal?.id)?.macAddress
   }
 }
