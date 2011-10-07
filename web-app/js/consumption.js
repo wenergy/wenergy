@@ -42,6 +42,7 @@ $(function () {
       },
       success: function(json) {
 
+        // Reset data and extract new values from json
         consumptionData = [];
         consumptionData = json.daily;
 

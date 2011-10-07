@@ -63,20 +63,18 @@
               </ul>
             </div>
           </div><!-- /clearfix -->
-        %{--<div class="clearfix">--}%
-        %{--<label id="dateOption">Go to</label>--}%
+          <div class="clearfix">
+            <label id="navigation">Navigation</label>
 
-        %{--<div class="input">--}%
-        %{--<ul class="inputs-list">--}%
-        %{--<li>--}%
-        %{--<label>--}%
-        %{--<input type="date" class="small" name="dateOption" value=""/>--}%
-        %{--<span>Date</span>--}%
-        %{--</label>--}%
-        %{--</li>--}%
-        %{--</ul>--}%
-        %{--</div>--}%
-        %{--</div><!-- /clearfix -->--}%
+            <div class="input">
+              <ul class="inputs-list">
+                <li>
+                  <input type="button" class="btn" name="navigationButton" value="&larr;"/>
+                  <input type="button" class="btn" name="navigationButton" value="&rarr;"/>
+                </li>
+              </ul>
+            </div>
+          </div><!-- /clearfix -->
           <div class="clearfix">
             <label id="dataLabel">Data</label>
 
