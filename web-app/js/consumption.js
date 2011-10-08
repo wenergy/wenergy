@@ -115,7 +115,7 @@ $(function () {
   function validateHash() {
     // Use cache for default values
     var cache = $("#consumption").data("bbq");
-    console.log("validating");
+
     // Store parameters for removal in array
     var invalidHashValues = [];
 
@@ -190,7 +190,6 @@ $(function () {
   $(window).bind('hashchange', function(e) {
     // Sanity check
     if (!validateHash()) {
-      console.log("not valid");
       return;
     }
 
@@ -228,15 +227,13 @@ $(function () {
       if (avg != cache.avg) {
         // Update cache
         cache.avg = avg;
-        plotConsumption(false, 0, 0);
-        console.log("avg changed to " + avg);
+        plotConsumption(false, 0, 0);    // TODO: change this...
       }
 
       // Update timer
       if (live != cache.live) {
         // Update cache
         cache.live = live;
-        console.log("live changed to " + live);
       }
 
     }
@@ -280,7 +277,6 @@ $(function () {
           showCentralAjaxLoader(false);
 
           var json = $.parseJSON(jqXHR.responseText);
-          console.log(json);
           $("#consumptionCentralLoaderError").html("<p><strong>Error " + jqXHR.status + " (" + errorThrown + ")</strong></p><p>" + json.status.message + "</p>");
           $("#consumptionCentralLoaderError").show();
         }
