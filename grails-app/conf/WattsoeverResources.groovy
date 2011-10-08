@@ -43,6 +43,12 @@ modules = {
     resource url: [dir: "js/date", file: "extras.js"], disposition: "head"
   }
 
+  jqui {
+    dependsOn "jquery"
+    resource url: [dir: "js", file: "jquery-ui-1.8.16.custom.min.js"], disposition: "head"
+    resource url: [dir: "css", file: "jquery-ui-1.8.16.custom.css"], attrs: [media: 'screen, projection'], disposition: "head"
+  }
+
   jqbbq {
     dependsOn "jquery"
     resource url: [dir: "js", file: "jquery.ba-bbq.js"], disposition: "head"
