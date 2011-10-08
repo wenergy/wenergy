@@ -69,8 +69,9 @@
             <div class="input">
               <ul class="inputs-list">
                 <li>
-                  <input type="button" class="btn" name="dateMinus" value="&larr;"/>
-                  <input type="button" class="btn" name="datePlus" value="&rarr;"/>
+                  <a class="btn small" name="dateMinus" href="#"><r:img dir="images" file="arrow-left.png"/></a>
+                  <a class="btn small" name="datePlus" href="#"><r:img dir="images" file="arrow-right.png"/></a>
+                  <a class="btn small" name="dateCalendar" href="#"><r:img dir="images" file="calendar.png"/></a>
                 </li>
               </ul>
             </div>

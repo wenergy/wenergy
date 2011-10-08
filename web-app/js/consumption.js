@@ -51,12 +51,16 @@ $(function () {
     });
 
     // Navigation - Back
-    $("#optionsForm input[name='dateMinus']").click(function() {
+    $("#optionsForm a[name='dateMinus']").click(function(e) {
+      e.preventDefault();
+      if ($(this).hasClass("disabled")) return;
       changeDateByDelta(-1);
     });
 
     // Navigation - Forward
-    $("#optionsForm input[name='datePlus']").click(function() {
+    $("#optionsForm a[name='datePlus']").click(function(e) {
+      e.preventDefault();
+      if ($(this).hasClass("disabled")) return;
       changeDateByDelta(1);
     });
 
@@ -101,7 +105,11 @@ $(function () {
     // Do not enable browsing into the future
     var today = Date.today().setTimezoneOffset("-000");
     var isTodayOrFutureDate = (date.compareTo(today) > -1);
-    $("#optionsForm input[name='datePlus']").prop("disabled", isTodayOrFutureDate);
+    if (isTodayOrFutureDate) {
+      $("#optionsForm a[name='datePlus']").addClass("disabled");
+    } else {
+      $("#optionsForm a[name='datePlus']").removeClass("disabled");
+    }
 
     // Average values
     var noAvgDataAvailable = (averageData.length == 0);
@@ -340,6 +348,11 @@ $(function () {
   // Helper functions
   function disableAllOptions(flag) {
     $("#optionsForm :input").prop("disabled", flag);
+    if (flag) {
+      $("#optionsForm a").addClass("disabled");
+    } else {
+      $("#optionsForm a").removeClass("disabled");
+    }
   }
 
   function showCentralAjaxLoader(flag) {
