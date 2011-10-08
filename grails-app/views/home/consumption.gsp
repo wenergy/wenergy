@@ -69,8 +69,8 @@
             <div class="input">
               <ul class="inputs-list">
                 <li>
-                  <input type="button" class="btn" name="navBack" value="&larr;"/>
-                  <input type="button" class="btn" name="navForward" value="&rarr;"/>
+                  <input type="button" class="btn" name="dateMinus" value="&larr;"/>
+                  <input type="button" class="btn" name="datePlus" value="&rarr;"/>
                 </li>
               </ul>
             </div>
@@ -111,9 +111,11 @@
     </div>
 
     <div class="span13">
-      <h3>Consumption data from DATE<span id="consumptionLoader" class="pull-right"><small><r:img dir="images"
-                                                                                                  file="spinner_16.gif"/> Loading...</small>
-      </span></h3>
+      <h3><span id="consumptionGraphTitle">Consumption data</span>
+        <span id="consumptionLoader" class="pull-right"><small><r:img dir="images"
+                                                                      file="spinner_16.gif"/> Loading...</small>
+        </span>
+      </h3>
 
       <div id="consumptionGraph" class="span13">
         %{-- Needs to be nested to avoid sudden jumps --}%

@@ -18,9 +18,10 @@
 $(function () {
 
   var rootPath = "/wattsoever/";
+  var consumptionGraph;
   var consumptionData = [];
   var averageData = [];
-  var dataLoadedOnce = false;
+  var initialLoading = true;
 
   // Register jQuery event handlers
   registerEvents();
@@ -28,10 +29,7 @@ $(function () {
   // Cache radio/checkbox states
   cacheInitialOptions();
 
-  // Validate all UI elements
-  validateUI();
-
-  // Register click functions
+  // Register event handlers functions
   function registerEvents() {
 
     // Radios
@@ -51,6 +49,33 @@ $(function () {
       state[name] = value;
       $.bbq.pushState(state);
     });
+
+    // Navigation - Back
+    $("#optionsForm input[name='dateMinus']").click(function() {
+      changeDateByDelta(-1);
+    });
+
+    // Navigation - Forward
+    $("#optionsForm input[name='datePlus']").click(function() {
+      changeDateByDelta(1);
+    });
+
+    // Ajax loading start event
+    $("#consumptionLoader").ajaxStart(function() {
+      if (!initialLoading) {
+        $(this).show();
+      }
+
+      // Disable options while loading
+      disableAllOptions(true);
+    });
+
+    // Ajax loading stop event - also called on error
+    $("#consumptionLoader").ajaxStop(function() {
+      $(this).hide();
+
+      validateUI();
+    });
   }
 
   // Save initial options for caching purposes
@@ -66,16 +91,31 @@ $(function () {
 
   // Validate all UI elements
   function validateUI() {
+    // Enable all options
+    disableAllOptions(false);
+
     // Navigation buttons
     var dateMillis = $("#consumption").data("bbq").date;
     var date = new Date(dateMillis);
+
+    // Do not enable browsing into the future
+    var today = Date.today().setTimezoneOffset("-000");
+    var isTodayOrFutureDate = (date.compareTo(today) > -1);
+    $("#optionsForm input[name='datePlus']").prop("disabled", isTodayOrFutureDate);
+
+    // Average values
+    var noAvgDataAvailable = (averageData.length == 0);
+    $("#optionsForm input[name='avg']").prop("disabled", noAvgDataAvailable);
+
+    // Update page title
+    $("#consumptionGraphTitle").text("Consumption data from " + date.toString("D"));
   }
 
   // Validate URL fragments in case somebody played with them
   function validateHash() {
     // Use cache for default values
     var cache = $("#consumption").data("bbq");
-
+    console.log("validating");
     // Store parameters for removal in array
     var invalidHashValues = [];
 
@@ -117,26 +157,45 @@ $(function () {
     }
 
     // Remove if necessary
-    if (invalidHashValues.length) {
-      cache.disableHashTrigger = true;
+    if (invalidHashValues.length > 0) {
       $.bbq.removeState(invalidHashValues);
+      return false;
     }
+
+    return true;
+  }
+
+  // Navigation
+  function changeDateByDelta(delta) {
+    var cache = $("#consumption").data("bbq");
+    var dateMillis = cache.date;
+    var date = new Date(dateMillis);
+
+    switch (cache.range) {
+      case "daily":
+        date = date.addDays(delta);
+        break;
+      case "weekly":
+        break;
+      case "monthly":
+        break;
+    }
+
+    var state = {};
+    state["date"] = date.getTime();
+    $.bbq.pushState(state);
   }
 
   // Determine if and what to (re)load
   $(window).bind('hashchange', function(e) {
-    // Use cache for default values
-    var cache = $("#consumption").data("bbq");
-
-    // Handle disabled state
-    // This is to prevent this function to be called twice in a row if validateHash() finds invalid values
-    if (cache.disableHashTrigger) {
-      cache.disableHashTrigger = false;
+    // Sanity check
+    if (!validateHash()) {
+      console.log("not valid");
       return;
     }
 
-    // Sanity check
-    validateHash();
+    // Use cache for default values
+    var cache = $("#consumption").data("bbq");
 
     // Get range and date
     var range = $.bbq.getState("range") || cache.range;
@@ -153,24 +212,23 @@ $(function () {
     $("#optionsForm input[name='avg']").prop("checked", avg);
     $("#optionsForm input[name='live']").prop("checked", live);
 
-    // Reload if range or date changed
-    if (range !== cache.range || date !== cache.date || !dataLoadedOnce) {
-      // Always load the first time (page load)
-      dataLoadedOnce = true;
-
+    // Reload if range or date changed and always load the first time
+    if (range !== cache.range || date !== cache.date || initialLoading) {
       // Update cache
       cache.range = range;
       cache.date = date;
+      cache.avg = avg;
+      cache.live = live;
 
-      console.log("reload");
-      //reloadData();
+      reloadData();
     } else {
-      // We get here if only data options have changed, therefore no reloading is necessary
+      // We get here only if data options have changed, therefore no reloading is necessary
 
       // Update graph
       if (avg != cache.avg) {
         // Update cache
         cache.avg = avg;
+        plotConsumption(false, 0, 0);
         console.log("avg changed to " + avg);
       }
 
@@ -184,25 +242,25 @@ $(function () {
     }
   });
 
-  function loadDailyData() {
-    // Get today
-    var today = Date.today();
-    // Set timezone to UTC (aka GMT)
-    today.setTimezoneOffset("-000");
+  function reloadData() {
+    // Get all values from cache
+    var cache = $("#consumption").data("bbq");
 
     $.ajax({
       type: "POST",
-      url: rootPath + "data/daily",
+      url: rootPath + "data/" + cache.range,
       data: {
-        date: today.getTime()
+        date: cache.date
       },
       beforeSend: function() {
-        // Disable options while loading
-        disableAllOptions(true);
-        showCentralAjaxLoader(true);
-
+        if (initialLoading) {
+          showCentralAjaxLoader(true);
+        }
       },
       success: function(json) {
+        // Set flag to false
+        initialLoading = false;
+
         // Reset data and extract new values from json
         consumptionData = [];
         consumptionData = json.data.daily;
@@ -210,20 +268,22 @@ $(function () {
         averageData = [];
         averageData = json.data.average;
 
-        // UI updates
-        showCentralAjaxLoader(false);
-        disableAllOptions(false);
+        if (initialLoading) {
+          showCentralAjaxLoader(false);
+        }
 
         // Plot
         plotConsumption(true, json.time.low, json.time.high);
       },
       error: function(jqXHR, textStatus, errorThrown) {
-        showCentralAjaxLoader(false);
+        if (initialLoading) {
+          showCentralAjaxLoader(false);
 
-        var json = $.parseJSON(jqXHR.responseText);
-        console.log(json);
-        $("#consumptionCentralLoaderError").html("<p><strong>Error " + jqXHR.status + " (" + errorThrown + ")</strong></p><p>" + json.status.message + "</p>");
-        $("#consumptionCentralLoaderError").show();
+          var json = $.parseJSON(jqXHR.responseText);
+          console.log(json);
+          $("#consumptionCentralLoaderError").html("<p><strong>Error " + jqXHR.status + " (" + errorThrown + ")</strong></p><p>" + json.status.message + "</p>");
+          $("#consumptionCentralLoaderError").show();
+        }
       }
     });
   }
@@ -263,20 +323,27 @@ $(function () {
       }
     }
 
+    var cache = $("#consumption").data("bbq");
     var data = [];
-    data.push({ label: "All-time average", data: averageData, color: "#808080"});
+
+    if (cache.avg) {
+      data.push({ label: "All-time average", data: averageData, color: "#808080"});
+    }
+
     data.push({ label: "Today", data: consumptionData, color: "#990000"});
 
-    $.plot($("#consumptionGraph"), data, options);
+    if (clean) {
+      consumptionGraph = $.plot($("#consumptionGraph"), data, options);
+    } else {
+      consumptionGraph.setData(data);
+      consumptionGraph.setupGrid();
+      consumptionGraph.draw();
+    }
   }
 
   // Helper functions
   function disableAllOptions(flag) {
     $("#optionsForm :input").prop("disabled", flag);
-  }
-
-  function showAjaxLoader(flag) {
-
   }
 
   function showCentralAjaxLoader(flag) {
