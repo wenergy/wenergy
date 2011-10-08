@@ -44,19 +44,19 @@
               <ul class="inputs-list">
                 <li>
                   <label>
-                    <input type="radio" name="rangeOption" value="daily" checked/>
+                    <input type="radio" name="range" value="daily" checked/>
                     <span>Daily</span>
                   </label>
                 </li>
                 <li>
                   <label>
-                    <input type="radio" name="rangeOption" value="weekly"/>
+                    <input type="radio" name="range" value="weekly"/>
                     <span>Weekly</span>
                   </label>
                 </li>
                 <li>
                   <label>
-                    <input type="radio" name="rangeOption" value="monthly"/>
+                    <input type="radio" name="range" value="monthly"/>
                     <span>Monthly</span>
                   </label>
                 </li>
@@ -69,8 +69,8 @@
             <div class="input">
               <ul class="inputs-list">
                 <li>
-                  <input type="button" class="btn" name="navigationButton" value="&larr;"/>
-                  <input type="button" class="btn" name="navigationButton" value="&rarr;"/>
+                  <input type="button" class="btn" name="navBack" value="&larr;"/>
+                  <input type="button" class="btn" name="navForward" value="&rarr;"/>
                 </li>
               </ul>
             </div>
@@ -82,13 +82,13 @@
               <ul class="inputs-list">
                 <li>
                   <label>
-                    <input type="checkbox" name="averageOption" value="daily" checked/>
+                    <input type="checkbox" name="avg" checked/>
                     <span>Show average values</span>
                   </label>
                 </li>
                 <li>
                   <label>
-                    <input type="checkbox" name="liveOption" value="daily" checked/>
+                    <input type="checkbox" name="live" checked/>
                     <span>Live data stream</span>
                   </label>
                 </li>
@@ -100,7 +100,7 @@
 
             <div class="input">
               <ul class="inputs-list">
-                <li id="consumptionGraphLegend"></li>
+                <li id="consumptionGraphLegend">No data available</li>
               </ul>
             </div>
           </div><!-- /clearfix -->
