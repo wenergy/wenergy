@@ -15,6 +15,7 @@
   - limitations under the License.
   --}%
 
-<div class="alert-message error">
+<div class="alert-message error fade in" data-alert="alert">
+  <a class="close" href="#">&times;</a>
   <p><strong>Error</strong> ${flash.error}</p>
 </div>

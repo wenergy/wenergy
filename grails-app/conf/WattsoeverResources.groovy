@@ -26,6 +26,7 @@ modules = {
     dependsOn "jquery"
     resource url: [dir: "js/bootstrap", file: "bootstrap-tabs.js"], disposition: "head"
     resource url: [dir: "js/bootstrap", file: "bootstrap-dropdown.js"], disposition: "head"
+    resource url: [dir: "js/bootstrap", file: "bootstrap-alerts.js"], disposition: "head"
   }
 
   flotjs {
