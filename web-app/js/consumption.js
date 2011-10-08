@@ -97,13 +97,14 @@ $(function () {
         borderWidth: 1.0
       },
       legend: {
-        show: false // TODO change
+        show: true,
+        container: "#consumptionGraphLegend"
       }
     }
 
     var data = [];
-    data.push({ label: "Average", data: averageData, color: "#808080"});
-    data.push({ label: "Current", data: consumptionData, color: "#990000"});
+    data.push({ label: "All-time average", data: averageData, color: "#808080"});
+    data.push({ label: "Today", data: consumptionData, color: "#990000"});
 
     $.plot($("#consumptionGraph"), data, options);
   }

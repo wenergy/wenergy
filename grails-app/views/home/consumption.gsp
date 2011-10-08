@@ -96,21 +96,17 @@
             </div>
           </div><!-- /clearfix -->
           <div class="clearfix">
-            <label id="graphLabel">Graph</label>
+            <label id="graphLabel">Legend</label>
 
             <div class="input">
               <ul class="inputs-list">
-                <li>
-                  <label>
-                    <input type="checkbox" name="legendOption" value="daily" checked/>
-                    <span>Show legend</span>
-                  </label>
-                </li>
+                <li id="consumptionGraphLegend"></li>
               </ul>
             </div>
           </div><!-- /clearfix -->
         </fieldset>
-        <span class="help-block"><strong>Note:</strong> Bookmark this page or copy the page URL to save these options.</span>
+        <span class="help-block"><strong>Note:</strong> Bookmark this page or copy the page URL to save these options.
+        </span>
       </form>
     </div>
 

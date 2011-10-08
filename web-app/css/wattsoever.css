@@ -114,16 +114,38 @@ body {
 /* Consumption
 -------------------------------------------------- */
 
+/* Move options to the left */
 #consumption .form-stacked {
   padding-left: 0;
 }
 
+/* Set fixed height for graph */
 #consumption #consumptionGraph {
   margin-top: 15px;
   margin-left: 0;
   height: 350px;
 }
 
+/* Fix legend style */
+#consumption #consumptionGraphLegend table {
+  width: auto;
+  border: 0;
+  margin-bottom: 0;
+}
+
+/* Customize flot classes */
+#consumption #consumptionGraphLegend .legendColorBox {
+  border: 0;
+  padding: 0;
+  vertical-align: middle;
+}
+
+#consumption #consumptionGraphLegend .legendLabel {
+  border: 0;
+  padding:  2px 0 2px 5px;
+}
+
+/* Central ajax loader */
 #consumption #consumptionCentralLoader {
   margin-top: 125px;
   text-align: center;
@@ -135,6 +157,7 @@ body {
   display: none;
 }
 
+/* General ajax loader */
 #consumption #consumptionLoader {
   display: none;
 }
