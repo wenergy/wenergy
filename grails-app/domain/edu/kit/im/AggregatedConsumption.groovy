@@ -21,10 +21,6 @@ import org.joda.time.DateTime
 import org.joda.time.LocalTime
 
 class AggregatedConsumption implements Serializable {
-
-  // Arduino MAC Address
-  String macAddress
-
   // Aggregation type
   ConsumptionType type
 
@@ -52,7 +48,6 @@ class AggregatedConsumption implements Serializable {
   DateTime dateCreated
 
   static constraints = {
-    macAddress(blank: false, matches: "([0-9a-f]{2}[:]){5}([0-9a-f]{2})")
     type(nullable: false)
     intervalStart(nullable: false)
     intervalEnd(nullable: false)

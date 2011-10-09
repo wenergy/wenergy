@@ -36,7 +36,9 @@ class DataService {
     def dailyConsumptions = AggregatedConsumption.withCriteria() {
       between("intervalStart", low, high)
       eq("type", ConsumptionType.MIN5)
-      eq("macAddress", macAddress())
+      household {
+        eq("id", householdId())
+      }
       order("intervalStart", "asc")
       projections {
         property("intervalStart")
@@ -63,7 +65,9 @@ class DataService {
         lt("intervalStart", low)
         eq("dayOfWeek", low.dayOfWeek)
         eq("type", ConsumptionType.MIN5)
-        eq("macAddress", macAddress())
+        household {
+          eq("id", householdId())
+        }
         order("intervalStartTime", "asc")
         projections {
           groupProperty("intervalStartTime")
@@ -101,7 +105,9 @@ class DataService {
     def weeklyConsumptions = AggregatedConsumption.withCriteria() {
       between("intervalStart", low, high)
       eq("type", ConsumptionType.MIN30)
-      eq("macAddress", macAddress())
+      household {
+        eq("id", householdId())
+      }
       order("intervalStart", "asc")
       projections {
         property("intervalStart")
@@ -127,7 +133,9 @@ class DataService {
       def averageConsumptions = AggregatedConsumption.withCriteria() {
         lt("intervalStart", low)
         eq("type", ConsumptionType.MIN30)
-        eq("macAddress", macAddress())
+        household {
+          eq("id", householdId())
+        }
         order("dayOfWeek", "asc")
         order("intervalStartTime", "asc")
         projections {
@@ -157,7 +165,7 @@ class DataService {
     dataMap
   }
 
-   // Get formatted list of weekly consumption data for given date
+  // Get formatted list of weekly consumption data for given date
   def getMonthlyData(DateTime date, boolean averages) {
 
     // Set lower end to midnight at first of current month, i.e. Mon, Jan 1, 00:00:00
@@ -168,7 +176,9 @@ class DataService {
     def weeklyConsumptions = AggregatedConsumption.withCriteria() {
       between("intervalStart", low, high)
       eq("type", ConsumptionType.H3)
-      eq("macAddress", macAddress())
+      household {
+        eq("id", householdId())
+      }
       order("intervalStart", "asc")
       projections {
         property("intervalStart")
@@ -194,7 +204,9 @@ class DataService {
       def averageConsumptions = AggregatedConsumption.withCriteria() {
         lt("intervalStart", low)
         eq("type", ConsumptionType.H3)
-        eq("macAddress", macAddress())
+        household {
+          eq("id", householdId())
+        }
         order("dayOfMonth", "asc")
         order("intervalStartTime", "asc")
         projections {
@@ -234,8 +246,8 @@ class DataService {
   }
 
   // Helper functions
-  def macAddress() {
-    Household.get(springSecurityService.principal?.id)?.macAddress
+  def householdId() {
+    Household.get(springSecurityService.principal?.id)?.id
   }
 
 }

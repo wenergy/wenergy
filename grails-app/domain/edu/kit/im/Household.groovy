@@ -35,9 +35,10 @@ class Household implements Serializable {
 
   // Default type is Set but we need Collection (Hibernate Bag) for performance reasons
   Collection consumptions
+  Collection aggregatedConsumptions
 
   // Relationships
-  static hasMany = [appliances: Appliance, peergroups: Peergroup, consumptions: Consumption]
+  static hasMany = [appliances: Appliance, peergroups: Peergroup, consumptions: Consumption, aggregatedConsumptions: AggregatedConsumption]
 
   static constraints = {
     macAddress(nullable: true, unique: true, matches: "([0-9a-f]{2}[:]){5}([0-9a-f]{2})")

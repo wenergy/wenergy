@@ -78,11 +78,10 @@ class ApiService {
     }
 
     // All checks passed - create Consumption instance
-    def consumption = new Consumption(macAddress: macAddress, powerReal: powerReal, powerReactive: powerReactive, date: date)
-    household.addToConsumptions(consumption)
+    def consumption = new Consumption(household: household, date: date, powerReal: powerReal, powerReactive: powerReactive)
 
     try {
-      household.save(failOnError: true)
+      consumption.save(failOnError: true)
     } catch (ValidationException e) {
       throw new ApiException("Could not save consumption", 500)
     }
@@ -109,7 +108,9 @@ class ApiService {
       le("intervalStart", consumption.date)
       gt("intervalEnd", consumption.date)
       eq("type", type)
-      eq("macAddress", consumption.macAddress)
+      household {
+        eq("id", consumption.household.id)
+      }
       maxResults(1)
     }
 
@@ -126,7 +127,7 @@ class ApiService {
       def intervalStart = DateUtils.floorDateMinutes(consumption.date, period)
       def intervalEnd = DateUtils.ceilDateMinutes(consumption.date, period)
       // Save new aggregated consumption
-      def newAggregatedConsumption = new AggregatedConsumption(type: type, macAddress: consumption.macAddress)
+      def newAggregatedConsumption = new AggregatedConsumption(type: type, household: consumption.household)
       newAggregatedConsumption.intervalStart = intervalStart
       newAggregatedConsumption.intervalEnd = intervalEnd
       newAggregatedConsumption.intervalStartTime = intervalStart.toLocalTime()
@@ -135,8 +136,10 @@ class ApiService {
       newAggregatedConsumption.dayOfMonth = intervalStart.dayOfMonth
       newAggregatedConsumption.sumPowerReal = consumption.powerReal
       newAggregatedConsumption.avgPowerReal = consumption.powerReal // / 1
+
+      // Relationships
       newAggregatedConsumption.addToConsumptions(consumption)
-      newAggregatedConsumption.save()
+      newAggregatedConsumption.save(failOnError: true)
     }
   }
 }
