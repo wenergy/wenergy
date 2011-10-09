@@ -38,7 +38,7 @@
 
       <p><span class="wattsoever-brand"><span class="wattsoever-watt">Watt</span><span
           class="wattsoever-so">so</span><span class="wattsoever-ever">ever</span>
-      </span> (short for XX) is a XX-funded project built by the team at the Institute of Information Systems and Management - Information &amp; Market Engineering that allows...
+      </span> (short for watt social everywhere) is a XX-funded project built by the team at the Institute of Information Systems and Management - Information &amp; Market Engineering that allows...
       </p>
 
       <p>
