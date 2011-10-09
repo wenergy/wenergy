@@ -30,10 +30,8 @@ class DataService {
 
     // Set lower end to midnight 00:00:00
     def low = date.withTimeAtStartOfDay()
-    // Set upper end to midnight next day 00:00:00
-    // Note that this technically wrong because is should be set to one second before midnight 23:59:59
-    // However, for flot not to display an empty spot (line/bar rounding issue), this additional value is included
-    def high = low.plusDays(1).minusSeconds(1) // 23:59:59
+    // Set upper end to one second before midnight 23:59:59
+    def high = low.plusDays(1).minusSeconds(1)
 
     def dailyConsumptions = AggregatedConsumption.withCriteria() {
       between("intervalStart", low, high)
@@ -55,7 +53,7 @@ class DataService {
     }
 
     // Create data for json
-    def dataMap = ["daily": formattedDailyConsumptions]
+    def dataMap = ["consumption": formattedDailyConsumptions]
 
     // Additionally load average values
     if (averages) {
@@ -92,6 +90,74 @@ class DataService {
     dataMap
   }
 
+  // Get formatted list of weekly consumption data for given date
+  def getWeeklyData(DateTime date, boolean averages) {
+
+    // Set lower end to Monday midnight of current week, i.e. Mon, 00:00:00
+    def low = date.withTimeAtStartOfDay().dayOfWeek().withMinimumValue()
+    // Set upper end to one second before Monday midnight in one week, i.e. Sun, 23:59:59
+    def high = low.plusWeeks(1).minusSeconds(1)
+
+    def weeklyConsumptions = AggregatedConsumption.withCriteria() {
+      between("intervalStart", low, high)
+      eq("type", ConsumptionType.MIN30)
+      eq("macAddress", macAddress())
+      order("intervalStart", "asc")
+      projections {
+        property("intervalStart")
+        property("avgPowerReal")
+      }
+    }
+
+    // Format data as [timestamp, powerValue]
+    def formattedWeeklyConsumptions = weeklyConsumptions.collect {
+      DateTime intervalStart = (DateTime) it[0]
+      BigDecimal avgPowerReal = (BigDecimal) it[1]
+
+      [intervalStart.getMillis(), avgPowerReal]
+    }
+
+    // Create data for json
+    def dataMap = ["consumption": formattedWeeklyConsumptions]
+
+    // Additionally load average values
+    if (averages) {
+      // Collect all existing data
+      // Use between() in to limit data range to a year or so with appropriate parameters
+      def averageConsumptions = AggregatedConsumption.withCriteria() {
+        lt("intervalStart", low)
+        eq("type", ConsumptionType.MIN30)
+        eq("macAddress", macAddress())
+        order("dayOfWeek", "asc")
+        order("intervalStartTime", "asc")
+        projections {
+          groupProperty("dayOfWeek")
+          groupProperty("intervalStartTime")
+          avg("avgPowerReal")
+        }
+      }
+
+      def formattedAverageConsumptions = averageConsumptions.collect {
+        // Merge intervalStart with intervalStartTime
+        int dayOfWeek = (int) it[0]
+        LocalTime intervalStart = (LocalTime) it[1]
+        DateTime mergedDate = low.plusDays(dayOfWeek - 1).withTime(intervalStart.hourOfDay, intervalStart.minuteOfHour, intervalStart.secondOfMinute, intervalStart.millisOfSecond)
+
+        // Format date
+        BigDecimal avgPowerReal = new BigDecimal((Double) it[2])
+        avgPowerReal.setScale(3, RoundingMode.HALF_UP)
+
+        // Format data as [timestamp, powerValue]
+        [mergedDate.getMillis(), avgPowerReal]
+      }
+
+      dataMap["average"] = formattedAverageConsumptions
+    }
+
+    dataMap
+  }
+
+  // Helper functions
   def macAddress() {
     Household.get(springSecurityService.principal?.id)?.macAddress
   }
