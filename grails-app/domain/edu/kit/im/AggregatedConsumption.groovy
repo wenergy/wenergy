@@ -38,6 +38,7 @@ class AggregatedConsumption implements Serializable {
   LocalTime intervalEndTime
   // Date values of start date, also for querying
   int dayOfWeek
+  int dayOfMonth
 
   // Aggregated values
   BigDecimal sumPowerReal
@@ -56,7 +57,8 @@ class AggregatedConsumption implements Serializable {
     intervalEnd(nullable: false)
     intervalStartTime(nullable: false)
     intervalEndTime(nullable: false)
-    dayOfWeek(nullable: false)
+    dayOfWeek(nullable: false, range: 1..7)
+    dayOfMonth(nullable: false, range: 1..31)
     sumPowerReal(nullable: false, scale: 3)
     avgPowerReal(nullable: false, scale: 3)
     dateCreated()

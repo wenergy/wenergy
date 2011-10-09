@@ -132,6 +132,7 @@ class ApiService {
       newAggregatedConsumption.intervalStartTime = intervalStart.toLocalTime()
       newAggregatedConsumption.intervalEndTime = intervalEnd.toLocalTime()
       newAggregatedConsumption.dayOfWeek = intervalStart.dayOfWeek
+      newAggregatedConsumption.dayOfMonth = intervalStart.dayOfMonth
       newAggregatedConsumption.sumPowerReal = consumption.powerReal
       newAggregatedConsumption.avgPowerReal = consumption.powerReal // / 1
       newAggregatedConsumption.addToConsumptions(consumption)
