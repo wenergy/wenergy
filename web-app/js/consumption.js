@@ -23,6 +23,20 @@ $(function () {
   var averageData = [];
   var initialLoading = true;
 
+  // http://bugs.jqueryui.com/ticket/4045
+  var _gotoToday = $.datepicker._gotoToday;
+  $.datepicker._gotoToday = function(id) {
+    _gotoToday.call(this, id);
+    var target = $(id);
+
+    this._setDateDatepicker(target, Date.today().setTimezone("UTC"));
+    this._selectDate(id, this._getDateDatepicker(target));
+
+    // Alternative way
+//    var inst = this._getInst(target[0]);
+//    this._selectDate(id, this._formatDate(inst, inst.selectedDay, inst.drawMonth, inst.drawYear));
+  }
+
   // Register jQuery event handlers
   registerEvents();
 
@@ -76,9 +90,9 @@ $(function () {
       firstDay: 1,
       dateFormat: "@",
       onClose: function(dateText, inst) {
-        // Compare dates without time (because time does not matter)
-        var newDate = $("#dateCalendarWidget").datepicker("getDate").clearTime().setTimezone("UTC");
-        var curDate = new Date($("#consumption").data("bbq").date).clearTime();
+        // Compare dates
+        var newDate = $("#dateCalendarWidget").datepicker("getDate").setTimezone("UTC");
+        var curDate = new Date($("#consumption").data("bbq").date);
 
         if (newDate.compareTo(curDate) != 0) {
           // Should the dates be different, push new state
