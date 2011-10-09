@@ -22,6 +22,8 @@ import org.joda.time.DateTime
 
 class DataController {
 
+  def allowedMethods = [index: "POST", data: "POST"]
+
   def dataService
 
   def index() {

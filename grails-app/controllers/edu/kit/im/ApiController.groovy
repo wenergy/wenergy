@@ -21,7 +21,7 @@ import grails.converters.JSON
 
 class ApiController {
 
-  //def allowedMethods = [consumption: "POST", debug: "GET"]
+  def allowedMethods = [consumption: "POST", debug: "GET"]
 
   def apiService
 
