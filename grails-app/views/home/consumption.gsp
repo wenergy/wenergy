@@ -38,25 +38,25 @@
       <form id="optionsForm" class="form-stacked">
         <fieldset>
           <div class="clearfix">
-            <label id="rangeLabel">Range</label>
+            <label id="intervalLabel">Time Interval</label>
 
             <div class="input">
               <ul class="inputs-list">
                 <li>
                   <label>
-                    <input type="radio" name="range" value="daily" checked/>
+                    <input type="radio" name="interval" value="daily" checked/>
                     <span>Daily</span>
                   </label>
                 </li>
                 <li>
                   <label>
-                    <input type="radio" name="range" value="weekly"/>
+                    <input type="radio" name="interval" value="weekly"/>
                     <span>Weekly</span>
                   </label>
                 </li>
                 <li>
                   <label>
-                    <input type="radio" name="range" value="monthly"/>
+                    <input type="radio" name="interval" value="monthly"/>
                     <span>Monthly</span>
                   </label>
                 </li>

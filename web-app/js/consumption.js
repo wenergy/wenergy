@@ -53,8 +53,8 @@ $(function () {
       var state = {};
       state[name] = value;
 
-      // On range change, make sure the date is set right
-      if (name == "range") {
+      // On interval change, make sure the date is set right
+      if (name == "interval") {
         var cache = $("#consumption").data("bbq");
         var date = new Date(cache.date);
 
@@ -120,7 +120,7 @@ $(function () {
           var dp = $("#dateCalendarWidget");
 
           // Change "Today" button title appropriately
-          switch (cache.range) {
+          switch (cache.interval) {
             case "daily":
               $(".ui-datepicker-current").text("Today");
               break;
@@ -140,8 +140,8 @@ $(function () {
         var newDate = $("#dateCalendarWidget").datepicker("getDate").setTimezone("UTC");
         var curDate = new Date(cache.date);
 
-        // Make sure to stay at the beginning of week/month if range is set respectively
-        switch (cache.range) {
+        // Make sure to stay at the beginning of week/month if interval is set respectively
+        switch (cache.interval) {
           case "weekly":
             if (!newDate.is().monday()) {
               newDate.moveToDayOfWeek(1, -1);
@@ -210,7 +210,7 @@ $(function () {
   // Save initial options for caching purposes
   function cacheInitialOptions() {
     var cache = {};
-    cache.range = $("#optionsForm input[name='range']:checked").val();
+    cache.interval = $("#optionsForm input[name='interval']:checked").val();
     cache.date = Date.today().setTimezone("UTC").getTime();
     cache.avg = $("#optionsForm input[name='avg']").is(":checked");
     cache.live = $("#optionsForm input[name='live']").is(":checked");
@@ -232,7 +232,7 @@ $(function () {
     var today = Date.today().setTimezone("UTC");
     var pageTitle = "Consumption";
 
-    switch (cache.range) {
+    switch (cache.interval) {
       case "daily":
 
         // Do not enable browsing into the future
@@ -289,16 +289,16 @@ $(function () {
     // Store parameters for removal in array
     var invalidHashValues = [];
 
-    // Validate range parameter
-    var allowedRangeValues = [];
-    $("#optionsForm input[name='range']").each(function() {
-      allowedRangeValues.push($(this).val());
+    // Validate interval parameter
+    var allowedIntervalValues = [];
+    $("#optionsForm input[name='interval']").each(function() {
+      allowedIntervalValues.push($(this).val());
     });
 
     // Remove invalid parameter from URL
-    var range = $.bbq.getState("range");
-    if (range && $.inArray(range, allowedRangeValues) == -1) {
-      invalidHashValues.push("range");
+    var interval = $.bbq.getState("interval");
+    if (interval && $.inArray(interval, allowedIntervalValues) == -1) {
+      invalidHashValues.push("interval");
     }
 
     // Validate date
@@ -341,7 +341,7 @@ $(function () {
     var dateMillis = cache.date;
     var date = new Date(dateMillis);
 
-    switch (cache.range) {
+    switch (cache.interval) {
       case "daily":
         date = date.addDays(delta);
         break;
@@ -368,8 +368,8 @@ $(function () {
     // Use cache for default values
     var cache = $("#consumption").data("bbq");
 
-    // Get range and date
-    var range = $.bbq.getState("range") || cache.range;
+    // Get interval and date
+    var interval = $.bbq.getState("interval") || cache.interval;
     var date = parseInt($.bbq.getState("date")) || cache.date;
 
     // Get avg and live
@@ -379,14 +379,14 @@ $(function () {
     var live = bbqLive ? (bbqLive == "true") : cache.live;
 
     // Update UI for all values - necessary if changed via hash and not click
-    $("#optionsForm input[type=radio][value=" + range + "]").prop("checked", true);
+    $("#optionsForm input[type=radio][value=" + interval + "]").prop("checked", true);
     $("#optionsForm input[name='avg']").prop("checked", avg);
     $("#optionsForm input[name='live']").prop("checked", live);
 
-    // Reload if range or date changed and always load the first time
-    if (range !== cache.range || date !== cache.date || initialLoading) {
+    // Reload if interval or date changed and always load the first time
+    if (interval !== cache.interval || date !== cache.date || initialLoading) {
       // Update cache
-      cache.range = range;
+      cache.interval = interval;
       cache.date = date;
       cache.avg = avg;
       cache.live = live;
@@ -418,7 +418,7 @@ $(function () {
 
     $.ajax({
       type: "POST",
-      url: rootPath + "data/" + cache.range,
+      url: rootPath + "data/" + cache.interval,
       data: {
         date: cache.date
       },
@@ -528,7 +528,7 @@ $(function () {
     var data = [];
 
     if (cache.avg) { // optional: && averageData.length > 0
-      data.push({ label: graphLabelForDateAndRange(new Date(cache.date), cache.range), data: averageData, color: "#808080"});
+      data.push({ label: graphLabelForDateAndInterval(new Date(cache.date), cache.interval), data: averageData, color: "#808080"});
     }
 
     data.push({ label: "Today", data: consumptionData, color: "#990000"});
@@ -560,8 +560,8 @@ $(function () {
     return val.toFixed(axis.tickDecimals) + " kWh"
   }
 
-  function graphLabelForDateAndRange(date, range) {
-    switch (range) {
+  function graphLabelForDateAndInterval(date, interval) {
+    switch (interval) {
       case "daily":
            return "Average " + date.toString("dddd"); // Monday
       case "weekly":

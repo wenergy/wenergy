@@ -40,11 +40,11 @@ class DataController {
 
       // Get consumption data
       def data
-      // Time range
+      // Time interval
       def low
       def high
 
-      switch (params.range) {
+      switch (params.interval) {
         case "weekly":
           data = dataService.getWeeklyData(date, true)
           low = date.withTimeAtStartOfDay().dayOfWeek().withMinimumValue() // Mon, 00:00:00

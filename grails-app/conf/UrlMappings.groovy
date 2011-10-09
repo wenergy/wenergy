@@ -5,10 +5,9 @@ class UrlMappings {
     "/"(controller: "home")
 
     "/data"(controller: "data")
-
-    "/data/$range?"(controller: "data", action: "data") {
+    "/data/$interval?"(controller: "data", action: "data") {
       constraints {
-        range(inList:["daily", "weekly", "monthly"])
+        interval(inList:["daily", "weekly", "monthly"])
       }
     }
 
