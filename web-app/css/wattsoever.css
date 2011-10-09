@@ -157,6 +157,10 @@ body {
   display: none;
 }
 
+#consumption #consumptionCentralLoaderError .close {
+  visibility: hidden;
+}
+
 /* General ajax loader */
 #consumption #consumptionLoader {
   display: none;
@@ -164,6 +168,10 @@ body {
 
 #consumption #consumptionLoader img {
   vertical-align: text-bottom;
+}
+
+#consumption #consumptionLoaderError {
+  margin-bottom: 0;
 }
 
 /* Datepicker */

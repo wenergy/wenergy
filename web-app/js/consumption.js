@@ -320,7 +320,12 @@ $(function () {
       },
       beforeSend: function() {
         if (initialLoading) {
+          // Manually close alert
+          $("#consumptionCentralLoaderError a").trigger("click");
           showCentralAjaxLoader(true);
+        } else {
+          // Manually close alert
+          $("#consumptionLoaderError a").trigger("click");
         }
       },
       success: function(json) {
@@ -335,6 +340,7 @@ $(function () {
         averageData = json.data.average;
 
         if (initialLoading) {
+          // Update UI
           showCentralAjaxLoader(false);
         }
 
@@ -342,12 +348,31 @@ $(function () {
         plotConsumption(true, json.time.low, json.time.high);
       },
       error: function(jqXHR, textStatus, errorThrown) {
+        var json;
+
+        try {
+          json = $.parseJSON(jqXHR.responseText);
+        } catch (error) {
+          json = {status : {message : "Server did not return valid JSON"}};
+        }
+
         if (initialLoading) {
           showCentralAjaxLoader(false);
 
-          var json = $.parseJSON(jqXHR.responseText);
-          $("#consumptionCentralLoaderError").html("<p><strong>Error " + jqXHR.status + " (" + errorThrown + ")</strong></p><p>" + json.status.message + "</p>");
+          //<div id="consumptionCentralLoaderError" class="alert-message error"></div>
+           var alertMessage = "<div id=\"consumptionCentralLoaderError\" class=\"alert-message error hide\" data-alert=\"alert\">" +
+                             "<a class=\"close\" href=\"#\">&times;</a>" +
+                             "<p><strong>Error " + jqXHR.status + " (" + errorThrown + ")</strong></p><p>" + json.status.message + "</p></div>";
+
+          $("#consumptionCentralLoaderErrorContainer").html(alertMessage);
           $("#consumptionCentralLoaderError").show();
+        } else {
+          var alertMessage = "<div id=\"consumptionLoaderError\" class=\"alert-message error hide fade in\" data-alert=\"alert\">" +
+                             "<a class=\"close\" href=\"#\">&times;</a>" +
+                             "<p><strong>Error " + jqXHR.status + " (" + errorThrown + ")</strong> " + json.status.message + "</p></div>";
+
+          $("#consumptionLoaderErrorContainer").html(alertMessage);
+          $("#consumptionLoaderError").show();
         }
       }
     });

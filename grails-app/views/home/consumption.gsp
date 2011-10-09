@@ -72,7 +72,7 @@
                   <button class="btn small" name="dateMinus"><r:img dir="images" file="arrow-left.png"/></button>
                   <button class="btn small" name="datePlus"><r:img dir="images" file="arrow-right.png"/></button>
                   <button class="btn small" name="dateCalendar"><r:img dir="images" file="calendar.png"/></button>
-                  <input type="hidden" id="dateCalendarWidget" />
+                  <input type="hidden" id="dateCalendarWidget"/>
                 </li>
               </ul>
             </div>
@@ -119,11 +119,13 @@
         </span>
       </h3>
 
+      <div id="consumptionLoaderErrorContainer"></div>
+
       <div id="consumptionGraph" class="span13">
         %{-- Needs to be nested to avoid sudden jumps --}%
         <div id="consumptionCentralLoader"><r:img dir="images" file="spinner_24.gif"/><br/>Loading...</div>
 
-        <div id="consumptionCentralLoaderError" class="alert-message block-message error"></div>
+        <div id="consumptionCentralLoaderErrorContainer"></div>
       </div>
     </div>
   </div><!-- /row -->
