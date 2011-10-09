@@ -34,7 +34,7 @@ class Consumption implements Serializable {
   DateTime dateCreated
 
   // Relationships
-  static belongsTo = Household
+  static belongsTo = [household: Household]
 
   static constraints = {
     macAddress(blank: false, matches: "([0-9a-f]{2}[:]){5}([0-9a-f]{2})")

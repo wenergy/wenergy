@@ -30,7 +30,7 @@ class Appliance implements Serializable {
   DateTime dateCreated
 
   // Relationships
-  static belongsTo = Household
+  static belongsTo = [household: Household]
 
   static constraints = {
     name(blank: false)

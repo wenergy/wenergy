@@ -46,6 +46,7 @@ class AggregatedConsumption implements Serializable {
 
   // Relationships
   static hasMany = [consumptions: Consumption]
+  static belongsTo = [household: Household]
 
   // Grails information
   DateTime dateCreated
