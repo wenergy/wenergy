@@ -30,23 +30,38 @@ class DataController {
     render jsonStatus
   }
 
-  def daily() {
+  def data() {
     try {
       // Parse params
       long jsDate = params.date as long
       def date = new DateTime(jsDate)
 
       // Get consumption data
-      def data = dataService.getDailyData(date, true)
+      def data
+      // Time range
+      def low
+      def high
 
-      // Determine time window
-      def low = date.withTimeAtStartOfDay() // 00:00:00
-      def high = low.plusDays(1).minusMinutes(5) // 23:55:00 // last start time for 5-min interval
+      switch (params.range) {
+        case "weekly":
+          data = dataService.getWeeklyData(date, true)
+          low = date.withTimeAtStartOfDay().dayOfWeek().withMinimumValue() // Mon, 00:00:00
+          high = low.plusWeeks(1).minusMinutes(30) // Sun, 23:30:00 // last start time for 30-min interval
+          break;
+        case "monthly":
+          break;
+        case "daily":
+        default:
+          data = dataService.getDailyData(date, true)
+          low = date.withTimeAtStartOfDay() // 00:00:00
+          high = low.plusDays(1).minusMinutes(5) // 23:55:00 // last start time for 5-min interval
+          break;
+      }
 
       def json = [
           status: [code: 200],
           data: data,
-          time: [low: low.getMillis(), high: high.getMillis()]
+          time: [low: low?.getMillis(), high: high?.getMillis()]
       ] as JSON
 
       response.status = 200
@@ -65,46 +80,5 @@ class DataController {
       response.status = 500
       render json
     }
-  }
-
-  def weekly() {
-    try {
-      // Parse params
-      long jsDate = params.date as long
-      def date = new DateTime(jsDate)
-
-      // Get consumption data
-      def data = dataService.getWeeklyData(date, true)
-
-      // Determine time window
-      def low = date.withTimeAtStartOfDay().dayOfWeek().withMinimumValue() // Mon, 00:00:00
-      def high = low.plusWeeks(1).minusMinutes(30) // Sun, 23:30:00 // last start time for 30-min interval
-
-      def json = [
-          status: [code: 200],
-          data: data,
-          time: [low: low.getMillis(), high: high.getMillis()]
-      ] as JSON
-
-      response.status = 200
-      render json
-
-    } catch (Exception e) {
-      def json = [
-          status:
-          [
-              code: 500,
-              message: e.toString().encodeAsHTML()
-              //stack: ApiUtils.getStackTraceAsString(e).encodeAsHTML()
-          ]
-      ] as JSON
-
-      response.status = 500
-      render json
-    }
-  }
-
-  def monthly() {
-
   }
 }
