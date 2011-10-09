@@ -52,6 +52,30 @@ $(function () {
       var value = $(this).val();
       var state = {};
       state[name] = value;
+
+      // On range change, make sure the date is set right
+      if (name == "range") {
+        var cache = $("#consumption").data("bbq");
+        var date = new Date(cache.date);
+
+        switch (value) {
+          case "weekly":
+            // When switching to weekly, make sure the date is set to the beginning of the week
+            if (!date.is().monday()) {
+              var firstDayOfWeek = date.clone().moveToDayOfWeek(1, -1);
+              state["date"] = firstDayOfWeek.getTime();
+            }
+            break;
+          case "monthly":
+            // When switching to monthly, make sure the date is set to the beginning of the month
+            if (date.getDate() != 1) {
+              var firstDayOfMonth = date.clone().moveToFirstDayOfMonth();
+              state["date"] = firstDayOfMonth.getTime();
+            }
+            break;
+        }
+      }
+
       $.bbq.pushState(state);
     });
 
@@ -89,10 +113,46 @@ $(function () {
       maxDate: new Date(),
       firstDay: 1,
       dateFormat: "@",
+      beforeShow: function(input, inst) {
+        // Need to wait 10ms for the widget to be created
+        setTimeout(function() {
+          var cache = $("#consumption").data("bbq");
+          var dp = $("#dateCalendarWidget");
+
+          // Change "Today" button title appropriately
+          switch (cache.range) {
+            case "daily":
+              $(".ui-datepicker-current").text("Today");
+              break;
+            case "weekly":
+              $(".ui-datepicker-current").text("Current week");
+              break;
+            case "monthly":
+              $(".ui-datepicker-current").text("Current month");
+              //$(".ui-datepicker-calendar").hide(); // offset will be wrong, so leave this for now
+              break;
+          }
+        }, 10);
+      },
       onClose: function(dateText, inst) {
+        var cache = $("#consumption").data("bbq");
         // Compare dates
         var newDate = $("#dateCalendarWidget").datepicker("getDate").setTimezone("UTC");
-        var curDate = new Date($("#consumption").data("bbq").date);
+        var curDate = new Date(cache.date);
+
+        // Make sure to stay at the beginning of week/month if range is set respectively
+        switch (cache.range) {
+          case "weekly":
+            if (!newDate.is().monday()) {
+              newDate.moveToDayOfWeek(1, -1);
+            }
+            break;
+          case "monthly":
+            if (newDate.getDate() != 1) {
+              newDate.moveToFirstDayOfMonth();
+            }
+            break;
+        }
 
         if (newDate.compareTo(curDate) != 0) {
           // Should the dates be different, push new state
@@ -168,7 +228,25 @@ $(function () {
     var date = new Date(dateMillis);
 
     // Do not enable browsing into the future
+    var cache = $("#consumption").data("bbq");
     var today = Date.today().setTimezone("UTC");
+
+    switch (cache.range) {
+      case "daily":
+        // default set above
+        break;
+      case "weekly":
+        if (!today.is().monday()) {
+          today.moveToDayOfWeek(1, -1);
+        }
+        break;
+      case "monthly":
+        if (today.getDate() != 1) {
+          today.moveToFirstDayOfMonth();
+        }
+        break;
+    }
+
     var isTodayOrFutureDate = (date.compareTo(today) > -1);
     $("#optionsForm button[name='datePlus']").prop("disabled", isTodayOrFutureDate);
 
@@ -245,8 +323,10 @@ $(function () {
         date = date.addDays(delta);
         break;
       case "weekly":
+        date = date.addWeeks(delta);
         break;
       case "monthly":
+        date = date.addMonths(delta);
         break;
     }
 
@@ -339,8 +419,8 @@ $(function () {
 
         // Make sure data really exists to avoid "undefined" errors
         if (json.data) {
-          if (json.data.daily) {
-            consumptionData = json.data.daily;
+          if (json.data.consumption) {
+            consumptionData = json.data.consumption;
           }
           if (json.data.average) {
             averageData = json.data.average;
@@ -368,16 +448,16 @@ $(function () {
           showCentralAjaxLoader(false);
 
           //<div id="consumptionCentralLoaderError" class="alert-message error"></div>
-           var alertMessage = "<div id=\"consumptionCentralLoaderError\" class=\"alert-message error hide\" data-alert=\"alert\">" +
-                             "<a class=\"close\" href=\"#\">&times;</a>" +
-                             "<p><strong>Error " + jqXHR.status + " (" + errorThrown + ")</strong></p><p>" + json.status.message + "</p></div>";
+          var alertMessage = "<div id=\"consumptionCentralLoaderError\" class=\"alert-message error hide\" data-alert=\"alert\">" +
+              "<a class=\"close\" href=\"#\">&times;</a>" +
+              "<p><strong>Error " + jqXHR.status + " (" + errorThrown + ")</strong></p><p>" + json.status.message + "</p></div>";
 
           $("#consumptionCentralLoaderErrorContainer").html(alertMessage);
           $("#consumptionCentralLoaderError").show();
         } else {
           var alertMessage = "<div id=\"consumptionLoaderError\" class=\"alert-message error hide fade in\" data-alert=\"alert\">" +
-                             "<a class=\"close\" href=\"#\">&times;</a>" +
-                             "<p><strong>Error " + jqXHR.status + " (" + errorThrown + ")</strong> " + json.status.message + "</p></div>";
+              "<a class=\"close\" href=\"#\">&times;</a>" +
+              "<p><strong>Error " + jqXHR.status + " (" + errorThrown + ")</strong> " + json.status.message + "</p></div>";
 
           $("#consumptionLoaderErrorContainer").html(alertMessage);
           $("#consumptionLoaderError").show();
@@ -424,7 +504,7 @@ $(function () {
     var cache = $("#consumption").data("bbq");
     var data = [];
 
-    if (cache.avg) {
+    if (cache.avg) { // optional: && averageData.length > 0
       data.push({ label: "All-time average", data: averageData, color: "#808080"});
     }
 
