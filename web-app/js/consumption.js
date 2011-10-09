@@ -288,6 +288,7 @@ $(function () {
       cache.avg = avg;
       cache.live = live;
 
+      // Dispatch loading
       reloadData();
     } else {
       // We get here only if data options have changed, therefore no reloading is necessary
@@ -296,7 +297,8 @@ $(function () {
       if (avg != cache.avg) {
         // Update cache
         cache.avg = avg;
-        plotConsumption(false, 0, 0);    // TODO: change this...
+        // Update graph - 0s can be passed since they will be ignore with clean = false
+        plotConsumption(false, 0, 0);
       }
 
       // Update timer
@@ -304,7 +306,6 @@ $(function () {
         // Update cache
         cache.live = live;
       }
-
     }
   });
 
