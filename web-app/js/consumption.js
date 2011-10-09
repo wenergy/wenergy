@@ -230,20 +230,43 @@ $(function () {
     // Do not enable browsing into the future
     var cache = $("#consumption").data("bbq");
     var today = Date.today().setTimezone("UTC");
+    var pageTitle = "Consumption";
 
     switch (cache.range) {
       case "daily":
-        // default set above
+
+        // Do not enable browsing into the future
+        // default "today" set above
+
+        // Update page title
+        var dailyFormat = "D"; // longDate, e.g. dddd, MMMM dd, yyyy, i.e. Monday, January 01, 2000
+        pageTitle += " on " + date.toString(dailyFormat);
+
         break;
       case "weekly":
+
+        // Do not enable browsing into the future
         if (!today.is().monday()) {
           today.moveToDayOfWeek(1, -1);
         }
+
+        // Update page title
+        var weeklyFormat = "ddd, MMM dd, yyyy"; // Mon, Jan 01, 2000
+        var futureDate = date.clone().addWeeks(1).addDays(-1);
+        pageTitle += " from " + date.toString(weeklyFormat) + " to " + futureDate.toString(weeklyFormat);
+
         break;
       case "monthly":
+
+        // Do not enable browsing into the future
         if (today.getDate() != 1) {
           today.moveToFirstDayOfMonth();
         }
+
+        // Update page title
+        var monthlyFormat = "y"; // yearMonth, e.g., MMMM, yyyy, i.e. January 2000
+        pageTitle += " in " + date.toString(monthlyFormat);
+
         break;
     }
 
@@ -255,7 +278,7 @@ $(function () {
     $("#optionsForm input[name='avg']").prop("disabled", noAvgDataAvailable);
 
     // Update page title
-    $("#consumptionGraphTitle").text("Consumption data from " + date.toString("D"));
+    $("#consumptionGraphTitle").text(pageTitle);
   }
 
   // Validate URL fragments in case somebody played with them

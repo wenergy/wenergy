@@ -113,7 +113,7 @@
     </div>
 
     <div class="span13">
-      <h3><span id="consumptionGraphTitle">Consumption data</span>
+      <h3><span id="consumptionGraphTitle">Consumption</span>
         <span id="consumptionLoader" class="pull-right"><small><r:img dir="images"
                                                                       file="spinner_16.gif"/> Loading...</small>
         </span>
