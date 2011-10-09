@@ -207,8 +207,6 @@ class DataService {
       // Cache number of days in month for later use
       def daysInMonth = low.dayOfMonth().maximumValue
 
-      log.error(daysInMonth)
-
       def formattedAverageConsumptions = averageConsumptions.collect {
         // Merge intervalStart with intervalStartTime
         int dayOfMonth = (int) it[0]
