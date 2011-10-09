@@ -528,7 +528,7 @@ $(function () {
     var data = [];
 
     if (cache.avg) { // optional: && averageData.length > 0
-      data.push({ label: "All-time average", data: averageData, color: "#808080"});
+      data.push({ label: graphLabelForDateAndRange(new Date(cache.date), cache.range), data: averageData, color: "#808080"});
     }
 
     data.push({ label: "Today", data: consumptionData, color: "#990000"});
@@ -558,6 +558,19 @@ $(function () {
 
   function kWhFormatter(val, axis) {
     return val.toFixed(axis.tickDecimals) + " kWh"
+  }
+
+  function graphLabelForDateAndRange(date, range) {
+    switch (range) {
+      case "daily":
+           return "Average " + date.toString("dddd"); // Monday
+      case "weekly":
+          return "Average week";
+      case "monthly":
+          return "Average month";
+    }
+    // Fallback
+    return "Average";
   }
 
   // Final step is to trigger the hash change event which will also handle initial data loading
