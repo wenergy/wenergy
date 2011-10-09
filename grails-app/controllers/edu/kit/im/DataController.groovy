@@ -48,15 +48,18 @@ class DataController {
         case "weekly":
           data = dataService.getWeeklyData(date, true)
           low = date.withTimeAtStartOfDay().dayOfWeek().withMinimumValue() // Mon, 00:00:00
-          high = low.plusWeeks(1).minusMinutes(30) // Sun, 23:30:00 // last start time for 30-min interval
+          high = low.plusWeeks(1).minusMinutes(30) // Sun, 23:30:00 // last start time for 30min interval
           break;
         case "monthly":
+          data = dataService.getMonthlyData(date, true)
+          low = date.withTimeAtStartOfDay().dayOfMonth().withMinimumValue() // 1st of month, 00:00:00
+          high = low.plusMonths(1).minusHours(3) // 23:55:00 // last start time for 3h interval
           break;
         case "daily":
         default:
           data = dataService.getDailyData(date, true)
           low = date.withTimeAtStartOfDay() // 00:00:00
-          high = low.plusDays(1).minusMinutes(5) // 23:55:00 // last start time for 5-min interval
+          high = low.plusDays(1).minusMinutes(5) // 23:55:00 // last start time for 5min interval
           break;
       }
 
