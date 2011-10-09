@@ -30,7 +30,6 @@ class BootStrap {
   def sessionFactory
   def propertyInstanceMap = org.codehaus.groovy.grails.plugins.DomainClassGrailsPlugin.PROPERTY_INSTANCE_MAP
 
-
   def init = { servletContext ->
     // Work only on UTC by default - necessary since flot uses UTC as well
     DateTimeZone.setDefault(DateTimeZone.UTC)
@@ -67,28 +66,28 @@ class BootStrap {
 
     // Debug
     // Create some data
-    def startDate = new DateTime(2011, 9, 16, 0, 0, 0)
+    def startDate = new DateTime(2011, 8, 1, 0, 0, 0)
+    def endDate = new DateTime().withTimeAtStartOfDay().plusHours(12)
+    def baseLoad = 0 //kWh
     def i = 0
-    def j = 0
-    10000.times {
-      def power = (startDate.weekOfWeekyear % 2 == 0) ? (1.0 + Math.sin(i)) : (2.0 + Math.cos(i))
+    while (++i) {
+      def power = baseLoad + ((startDate.weekOfWeekyear % 2 == 0) ? 2 : 4)
       def consumption = new Consumption(macAddress: macAddress, powerReal: power, powerReactive: power, date: startDate);
       household.addToConsumptions(consumption)
 
       apiService.determineAggregation(consumption)
 
       startDate = startDate.plusMinutes(5)
-      i += 0.1
-      j++
 
-      if (j % 100 == 0) {
-        log.error j
+      if (i % 100 == 0) {
+        log.error "${i} ${startDate}"
         cleanUpGorm()
       }
 
+      if (startDate.isAfter(endDate)) {
+        break;
+      }
     }
-
-
   }
   def destroy = {
   }
