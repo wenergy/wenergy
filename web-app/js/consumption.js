@@ -139,7 +139,7 @@ $(function () {
   function cacheInitialOptions() {
     var cache = {};
     cache.range = $("#optionsForm input[name='range']:checked").val();
-    cache.date = Date.today().setTimezoneOffset("-000").getTime();
+    cache.date = Date.today().setTimezone("UTC").getTime();
     cache.avg = $("#optionsForm input[name='avg']").is(":checked");
     cache.live = $("#optionsForm input[name='live']").is(":checked");
     // Save in consumption section
@@ -156,7 +156,7 @@ $(function () {
     var date = new Date(dateMillis);
 
     // Do not enable browsing into the future
-    var today = Date.today().setTimezoneOffset("-000");
+    var today = Date.today().setTimezone("UTC");
     var isTodayOrFutureDate = (date.compareTo(today) > -1);
     if (isTodayOrFutureDate) {
       $("#optionsForm a[name='datePlus']").addClass("disabled");
