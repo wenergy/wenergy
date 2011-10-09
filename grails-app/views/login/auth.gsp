@@ -19,6 +19,7 @@
 <head>
   <meta name="layout" content="main"/>
   <title>Login</title>
+  <r:require modules="jquery"/>
 </head>
 
 <body>
@@ -34,6 +35,13 @@
     <div class="span10 offset3">
       <form action="${postUrl}" method="post">
         <fieldset>
+
+          <r:script>
+            $(function () {
+              $("#j_username").focus();
+            });
+          </r:script>
+
           <div class="clearfix">
             <label for="j_username">Username</label>
 
