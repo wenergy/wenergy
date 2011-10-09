@@ -51,16 +51,14 @@ $(function () {
     });
 
     // Navigation - Back
-    $("#optionsForm a[name='dateMinus']").click(function(e) {
+    $("#optionsForm button[name='dateMinus']").click(function(e) {
       e.preventDefault();
-      if ($(this).hasClass("disabled")) return;
       changeDateByDelta(-1);
     });
 
     // Navigation - Forward
-    $("#optionsForm a[name='datePlus']").click(function(e) {
+    $("#optionsForm button[name='datePlus']").click(function(e) {
       e.preventDefault();
-      if ($(this).hasClass("disabled")) return;
       changeDateByDelta(1);
     });
 
@@ -92,12 +90,10 @@ $(function () {
     });
 
     // Navigation - Datepicker trigger button
-    $("#optionsForm a[name='dateCalendar']").click(function(e) {
+    $("#optionsForm button[name='dateCalendar']").click(function(e) {
       e.preventDefault();
-      if ($(this).hasClass("disabled")) return;
 
-      // Simply focus() works too but has fewer options
-      //$("#dateCalendarWidget").focus();
+      // Get date picker
       var dp = $("#dateCalendarWidget")
 
       // Set options
@@ -105,6 +101,8 @@ $(function () {
       var date = new Date(cache.date);
       dp.datepicker("setDate", date);
 
+      // Simply focus() works too but has fewer options
+      //$("#dateCalendarWidget").focus();
       if (dp.datepicker('widget').is(':hidden')) {
         dp.datepicker("show").datepicker("widget").show().position({
           my: "left top",
@@ -158,11 +156,7 @@ $(function () {
     // Do not enable browsing into the future
     var today = Date.today().setTimezone("UTC");
     var isTodayOrFutureDate = (date.compareTo(today) > -1);
-    if (isTodayOrFutureDate) {
-      $("#optionsForm a[name='datePlus']").addClass("disabled");
-    } else {
-      $("#optionsForm a[name='datePlus']").removeClass("disabled");
-    }
+    $("#optionsForm button[name='datePlus']").prop("disabled", isTodayOrFutureDate);
 
     // Average values
     var noAvgDataAvailable = (averageData.length == 0);
@@ -401,11 +395,7 @@ $(function () {
   // Helper functions
   function disableAllOptions(flag) {
     $("#optionsForm :input").prop("disabled", flag);
-    if (flag) {
-      $("#optionsForm a").addClass("disabled");
-    } else {
-      $("#optionsForm a").removeClass("disabled");
-    }
+    $("#optionsForm :button").prop("disabled", flag);
   }
 
   function showCentralAjaxLoader(flag) {
