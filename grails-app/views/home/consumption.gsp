@@ -72,6 +72,7 @@
                   <a class="btn small" name="dateMinus" href="#"><r:img dir="images" file="arrow-left.png"/></a>
                   <a class="btn small" name="datePlus" href="#"><r:img dir="images" file="arrow-right.png"/></a>
                   <a class="btn small" name="dateCalendar" href="#"><r:img dir="images" file="calendar.png"/></a>
+                  <input type="hidden" id="dateCalendarWidget" />
                 </li>
               </ul>
             </div>

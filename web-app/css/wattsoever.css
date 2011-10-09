@@ -165,3 +165,9 @@ body {
 #consumption #consumptionLoader img {
   vertical-align: text-bottom;
 }
+
+/* Datepicker */
+#consumption .ui-datepicker-trigger {
+  visibility: hidden;
+  vertical-align: top;
+}

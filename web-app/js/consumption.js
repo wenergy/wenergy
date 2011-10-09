@@ -64,6 +64,59 @@ $(function () {
       changeDateByDelta(1);
     });
 
+    // Navigation - Datepicker
+    $("#dateCalendarWidget").datepicker({
+      showButtonPanel: true,
+      showOn: "both",
+      buttonImageOnly: true,
+      buttonImage: '../images/calendar.png',
+      changeMonth: true,
+      changeYear: true,
+      showWeek: true,
+      minDate: "-5Y",
+      maxDate: new Date(),
+      firstDay: 1,
+      dateFormat: "@",
+      onClose: function(dateText, inst) {
+        // Compare dates without time (because time does not matter)
+        var newDate = $("#dateCalendarWidget").datepicker("getDate").clearTime().setTimezone("UTC");
+        var curDate = new Date($("#consumption").data("bbq").date).clearTime();
+
+        if (newDate.compareTo(curDate) != 0) {
+          // Should the dates be different, push new state
+          var state = {};
+          state["date"] = newDate.getTime();
+          $.bbq.pushState(state);
+        }
+      }
+    });
+
+    // Navigation - Datepicker trigger button
+    $("#optionsForm a[name='dateCalendar']").click(function(e) {
+      e.preventDefault();
+      if ($(this).hasClass("disabled")) return;
+
+      // Simply focus() works too but has fewer options
+      //$("#dateCalendarWidget").focus();
+      var dp = $("#dateCalendarWidget")
+
+      // Set options
+      var cache = $("#consumption").data("bbq");
+      var date = new Date(cache.date);
+      dp.datepicker("setDate", date);
+
+      if (dp.datepicker('widget').is(':hidden')) {
+        dp.datepicker("show").datepicker("widget").show().position({
+          my: "left top",
+          at: "right top",
+          offset: "5 0",
+          of: this
+        });
+      } else {
+        dp.hide();
+      }
+    });
+
     // Ajax loading start event
     $("#consumptionLoader").ajaxStart(function() {
       if (!initialLoading) {
