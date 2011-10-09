@@ -335,10 +335,17 @@ $(function () {
 
         // Reset data and extract new values from json
         consumptionData = [];
-        consumptionData = json.data.daily;
-
         averageData = [];
-        averageData = json.data.average;
+
+        // Make sure data really exists to avoid "undefined" errors
+        if (json.data) {
+          if (json.data.daily) {
+            consumptionData = json.data.daily;
+          }
+          if (json.data.average) {
+            averageData = json.data.average;
+          }
+        }
 
         if (initialLoading) {
           // Update UI
