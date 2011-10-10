@@ -26,9 +26,6 @@ import edu.kit.im.Consumption
 class BootStrap {
 
   def springSecurityService
-  def apiService
-  def sessionFactory
-  def propertyInstanceMap = org.codehaus.groovy.grails.plugins.DomainClassGrailsPlugin.PROPERTY_INSTANCE_MAP
 
   def init = { servletContext ->
     // Work only on UTC by default - necessary since flot uses UTC as well
@@ -48,7 +45,7 @@ class BootStrap {
 
       household = new Household(macAddress: macAddress, fullName: "Test User",
           eMail: "arduino@kit.edu", address: "street", zipCode: "76128", city: "KA",
-          username: "test", password: springSecurityService.encodePassword('pass'), enabled: true)
+          username: "admin", password: springSecurityService.encodePassword('pass'), enabled: true)
 
       household.addToPeergroups(peergroup)
       household.save()
@@ -64,12 +61,4 @@ class BootStrap {
   }
   def destroy = {
   }
-
-  def cleanUpGorm() {
-    def session = sessionFactory.currentSession
-    session.flush()
-    session.clear()
-    propertyInstanceMap.get().clear()
-  }
-
 }
