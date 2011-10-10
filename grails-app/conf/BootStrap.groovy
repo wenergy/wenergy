@@ -62,6 +62,8 @@ class BootStrap {
       }
     }
 
+    log.error "huhu"
+
     return;
 
     // Debug
