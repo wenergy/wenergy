@@ -66,7 +66,7 @@ class BootStrap {
 
     // Debug
     // Create some data
-    def startDate = new DateTime(2011, 9, 15, 0, 0, 0)
+    def startDate = new DateTime(2011, 8, 1, 0, 0, 0)
     def endDate = new DateTime().withTimeAtStartOfDay().plusHours(12)
     def baseLoad = 0 //kWh
     def i = 0

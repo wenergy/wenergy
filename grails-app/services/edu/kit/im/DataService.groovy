@@ -63,8 +63,8 @@ class DataService {
       // Use between() in to limit data range to a year or so with appropriate parameters
       def averageConsumptions = AggregatedConsumption.withCriteria() {
         lt("intervalStart", low)
-        eq("dayOfWeek", low.dayOfWeek)
         eq("type", ConsumptionType.MIN5)
+        eq("dayOfWeek", low.dayOfWeek)
         household {
           eq("id", householdId())
         }

@@ -61,6 +61,9 @@ class AggregatedConsumption implements Serializable {
   }
 
   static mapping = {
+    intervalStart(index: "intervalStart_idx,intervalStart_type_idx,intervalStart_intervalEnd_type_idx")
+    intervalEnd(index: "intervalStart_intervalEnd_type_idx")
+    type(index: "intervalStart_type_idx,intervalStart_intervalEnd_type_idx")
     cache(true)
   }
 
