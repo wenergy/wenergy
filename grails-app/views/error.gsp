@@ -5,7 +5,7 @@
 		<meta name="layout" content="main">
 	</head>
 	<body>
-  %{--TODO: fix layout--}%
+  %{--TODO: when grails 2 is final, fix layout--}%
 		<g:renderException exception="${exception}" />
 	</body>
 </html>
