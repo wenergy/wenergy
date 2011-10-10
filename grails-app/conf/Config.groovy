@@ -63,7 +63,7 @@ environments {
   }
   production {
     grails.logging.jul.usebridge = false
-    grails.serverURL = "http://www.changeme.com"
+    grails.serverURL = "http://ibwmarkets.iw.uni-karlsruhe.de/wattsoever"
   }
 }
 
