@@ -46,13 +46,18 @@ modules = {
 
   jqui {
     dependsOn "jquery"
-    resource url: [dir: "js", file: "jquery-ui-1.8.16.custom.min.js"], disposition: "head"
+    resource url: [dir: "js", file: "jquery/jquery-ui-1.8.16.custom.min.js"], disposition: "head"
     resource url: [dir: "css", file: "jquery-ui-1.8.16.custom.css"], attrs: [media: 'screen, projection'], disposition: "head"
   }
 
   jqbbq {
     dependsOn "jquery"
-    resource url: [dir: "js", file: "jquery.ba-bbq.js"], disposition: "head"
+    resource url: [dir: "js", file: "jquery/jquery.ba-bbq.js"], disposition: "head"
+  }
+
+  jqchrono {
+    dependsOn "jquery"
+    resource url: [dir: "js", file: "jquery/jquery.chrono.js"], disposition: "head"
   }
 
   wattsoeverjs {
@@ -61,7 +66,7 @@ modules = {
   }
 
   consumptionjs {
-    dependsOn "jqbbq, datejs, flotjs, wattsoeverjs"
+    dependsOn "jqbbq, jqchrono, datejs, flotjs, wattsoeverjs"
     resource url: [dir: "js", file: "consumption.js"], disposition: "head"
   }
 
