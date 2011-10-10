@@ -31,4 +31,22 @@ class WattsoeverTagLib {
     }
   }
 
+  // System status
+  def systemStatus = {
+    def currentOut = out
+    def statusMap = [:]
+
+    statusMap["Households"] = Household.count()
+    statusMap["Peer groups"] = Peergroup.count()
+    statusMap["Consumption records"] = Consumption.count()
+    statusMap["Aggregated consumption records"] = AggregatedConsumption.count()
+
+    statusMap.each {
+      out << "<tr>"
+      out << "<td>" + it.key.encodeAsHTML() + "</td>"
+      out << "<td>" + it.value.encodeAsHTML() + "</td>"
+      out << "</tr>"
+    }
+  }
+
 }

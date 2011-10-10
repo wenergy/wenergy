@@ -19,5 +19,6 @@ package edu.kit.im
 
 class AdminController {
 
-    def index() { }
+  def index() {
+  }
 }
