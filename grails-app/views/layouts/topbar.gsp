@@ -50,7 +50,7 @@
             <ul class="dropdown-menu">
               <li><a href="#">Settings</a></li>
               <sec:ifAllGranted roles="ROLE_ADMIN">
-                <li><a href="#">Admin Tools</a></li>
+                <li><g:link controller="admin">Admin Tools</g:link></li>
               </sec:ifAllGranted>
               <li class="divider"></li>
               <li><g:link controller="logout">Logout</g:link></li>

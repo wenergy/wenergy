@@ -112,6 +112,7 @@ grails.plugins.springsecurity.interceptUrlMap = [
     '/home/welcome': ["permitAll"],
     '/registration/**': ["permitAll"],
     // Block controllers
+    '/admin/**': ["hasRole('ROLE_ADMIN')"],
     '/aggregatedConsumption/**': ["hasRole('ROLE_ADMIN')"],
     '/applicane/**': ["hasRole('ROLE_ADMIN')"],
     '/clearDatabase/**': ["hasRole('ROLE_ADMIN')"],
