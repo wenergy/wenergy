@@ -98,6 +98,7 @@ class LoginController {
    */
   def full = {
     def config = SpringSecurityUtils.securityConfig
+    flash.error = message(code:"springSecurity.denied.message")
     render view: 'auth', params: params,
         model: [hasCookie: authenticationTrustResolver.isRememberMe(SCH.context?.authentication),
             postUrl: "${request.contextPath}${config.apf.filterProcessesUrl}"]
