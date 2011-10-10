@@ -307,9 +307,26 @@ $(function () {
       date = new Date(parseInt(date));
       var earliestAllowedDate = new Date(2000, 1, 1);
       var endOfToday = Date.today().addDays(1).addSeconds(-1);
+      // General constraints, must be valid and no later than the end of today
       if (date.toUTCString().toLowerCase().indexOf("invalid") != -1 || !date.between(earliestAllowedDate, endOfToday)) {
         // Invalid, remove parameter from URL
         invalidHashValues.push("date");
+      } else {
+        // Range constraints, very loosely
+        switch (cache.interval) {
+          case "weekly":
+            // In weekly mode, the date needs to be on a monday
+            if (!date.is().monday()) {
+              invalidHashValues.push("date");
+            }
+            break;
+          case "monthly":
+            // In monthly mode, the date needs to be the first of a month
+            if (date.getDate() != 1) {
+              invalidHashValues.push("date");
+            }
+          break;
+        }
       }
     }
 
@@ -563,11 +580,11 @@ $(function () {
   function graphLabelForDateAndInterval(date, interval) {
     switch (interval) {
       case "daily":
-           return "Average " + date.toString("dddd"); // Monday
+        return "Average " + date.toString("dddd"); // Monday
       case "weekly":
-          return "Average week";
+        return "Average week";
       case "monthly":
-          return "Average month";
+        return "Average month";
     }
     // Fallback
     return "Average";
