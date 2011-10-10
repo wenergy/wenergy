@@ -17,8 +17,56 @@
 
 package edu.kit.im
 
+import org.joda.time.DateTime
+
 class AdminController {
 
+  def sessionFactory
+  def propertyInstanceMap = org.codehaus.groovy.grails.plugins.DomainClassGrailsPlugin.PROPERTY_INSTANCE_MAP
+  def apiService
+
   def index() {
+  }
+
+  def debug() {
+    // Initial data already loaded
+    if (Consumption.count()) {
+      render "error"
+      return
+    }
+    // Create some data
+    def macAddress = "de:ad:be:ef:fe:ed"
+    def household = Household.findByMacAddress(macAddress)
+    def startDate = new DateTime(2011, 9, 1, 0, 0, 0)
+    def endDate = new DateTime().withTimeAtStartOfDay().plusHours(12)
+    def baseLoad = 0 //kWh
+    def i = 0
+    while (++i) {
+      def power = baseLoad + ((startDate.weekOfWeekyear % 2 == 0) ? 2 : 4)
+      def consumption = new Consumption(household: household, date: startDate, powerReal: power, powerReactive: power);
+      consumption.save(failOnError: true)
+
+      apiService.determineAggregation(consumption)
+
+      startDate = startDate.plusMinutes(5)
+
+      if (i % 100 == 0) {
+        log.error "${i} ${startDate}"
+        cleanUpGorm()
+      }
+
+      if (startDate.isAfter(endDate)) {
+        break;
+      }
+    }
+
+    render "ok"
+  }
+
+  def cleanUpGorm() {
+    def session = sessionFactory.currentSession
+    session.flush()
+    session.clear()
+    propertyInstanceMap.get().clear()
   }
 }

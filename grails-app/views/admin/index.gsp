@@ -1,3 +1,4 @@
+<%@ page import="edu.kit.im.Consumption" %>
 %{--
   - Copyright 2011 Institute of Information Engineering and Management,
   - Information & Market Engineering
@@ -81,6 +82,26 @@
       </table>
     </div>
   </div><!-- /row -->
+  <g:if test="${!Consumption.count()}">
+    <div class="row">
+      <div class="span4">
+        <h3>Demo Data</h3>
+        <g:if test="${Consumption.count()}">
+          <p><span class="label warning">Warning</span> Database is not empty!</p>
+        </g:if>
+      </div>
+
+      <div class="span12">
+        <h3>Generate initial fake consumption data</h3>
+
+        <p><span
+            class="label important">Important</span> This may take a couple of minutes! Do not navigate away from this page!
+        </p>
+
+        <p><g:link controller="admin" action="debug">Create data</g:link></p>
+      </div>
+    </div><!-- /row -->
+  </g:if>
 </section>
 </body>
 </html>
