@@ -61,35 +61,6 @@ class BootStrap {
         HouseholdRole.create(household, userRole)
       }
     }
-
-    log.error "huhu"
-
-    return;
-
-    // Debug
-    // Create some data
-    def startDate = new DateTime(2011, 8, 1, 0, 0, 0)
-    def endDate = new DateTime().withTimeAtStartOfDay().plusHours(12)
-    def baseLoad = 0 //kWh
-    def i = 0
-    while (++i) {
-      def power = baseLoad + ((startDate.weekOfWeekyear % 2 == 0) ? 2 : 4)
-      def consumption = new Consumption(household: household, date: startDate, powerReal: power, powerReactive: power);
-      consumption.save(failOnError: true)
-
-      apiService.determineAggregation(consumption)
-
-      startDate = startDate.plusMinutes(5)
-
-      if (i % 100 == 0) {
-        log.error "${i} ${startDate}"
-        cleanUpGorm()
-      }
-
-      if (startDate.isAfter(endDate)) {
-        break;
-      }
-    }
   }
   def destroy = {
   }
