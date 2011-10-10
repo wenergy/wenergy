@@ -22,6 +22,7 @@ $(function () {
   var consumptionData = [];
   var averageData = [];
   var initialLoading = true;
+  var loadingInProgress = false;
 
   // http://bugs.jqueryui.com/ticket/4045
   var _gotoToday = $.datepicker._gotoToday;
@@ -311,22 +312,6 @@ $(function () {
       if (date.toUTCString().toLowerCase().indexOf("invalid") != -1 || !date.between(earliestAllowedDate, endOfToday)) {
         // Invalid, remove parameter from URL
         invalidHashValues.push("date");
-      } else {
-        // Range constraints, very loosely
-        switch (cache.interval) {
-          case "weekly":
-            // In weekly mode, the date needs to be on a monday
-            if (!date.is().monday()) {
-              invalidHashValues.push("date");
-            }
-            break;
-          case "monthly":
-            // In monthly mode, the date needs to be the first of a month
-            if (date.getDate() != 1) {
-              invalidHashValues.push("date");
-            }
-          break;
-        }
       }
     }
 
@@ -425,6 +410,8 @@ $(function () {
       if (live != cache.live) {
         // Update cache
         cache.live = live;
+        // Timer
+        updateTimer();
       }
     }
   });
@@ -440,6 +427,8 @@ $(function () {
         date: cache.date
       },
       beforeSend: function() {
+        loadingInProgress = true;
+
         if (initialLoading) {
           // Manually close alert
           $("#consumptionCentralLoaderError a").trigger("click");
@@ -450,9 +439,6 @@ $(function () {
         }
       },
       success: function(json) {
-        // Set flag to false
-        initialLoading = false;
-
         // Reset data and extract new values from json
         consumptionData = [];
         averageData = [];
@@ -468,12 +454,20 @@ $(function () {
         }
 
         if (initialLoading) {
-          // Update UI
+          // Set flag to false
+          initialLoading = false;
+          loadingInProgress = false;
+
+          // Update UI and timer
           showCentralAjaxLoader(false);
+          updateTimer();
         }
 
         // Plot
         plotConsumption(true, json.time.low, json.time.high);
+
+        // Always set to false when done
+        loadingInProgress = false;
       },
       error: function(jqXHR, textStatus, errorThrown) {
         var json;
@@ -484,20 +478,22 @@ $(function () {
           json = {status : {message : "Server did not return valid JSON"}};
         }
 
+        var statusMessage = ((json) ? json.status.message : "Unknown status");
+
         if (initialLoading) {
           showCentralAjaxLoader(false);
 
           //<div id="consumptionCentralLoaderError" class="alert-message error"></div>
           var alertMessage = "<div id=\"consumptionCentralLoaderError\" class=\"alert-message error hide\" data-alert=\"alert\">" +
               "<a class=\"close\" href=\"#\">&times;</a>" +
-              "<p><strong>Error " + jqXHR.status + " (" + errorThrown + ")</strong></p><p>" + json.status.message + "</p></div>";
+              "<p><strong>Error " + jqXHR.status + " (" + errorThrown + ")</strong></p><p>" + statusMessage + "</p></div>";
 
           $("#consumptionCentralLoaderErrorContainer").html(alertMessage);
           $("#consumptionCentralLoaderError").show();
         } else {
           var alertMessage = "<div id=\"consumptionLoaderError\" class=\"alert-message error hide fade in\" data-alert=\"alert\">" +
               "<a class=\"close\" href=\"#\">&times;</a>" +
-              "<p><strong>Error " + jqXHR.status + " (" + errorThrown + ")</strong> " + json.status.message + "</p></div>";
+              "<p><strong>Error " + jqXHR.status + " (" + errorThrown + ")</strong> " + statusMessage + "</p></div>";
 
           $("#consumptionLoaderErrorContainer").html(alertMessage);
           $("#consumptionLoaderError").show();
@@ -573,6 +569,30 @@ $(function () {
     }
   }
 
+  // Timer
+  function updateTimer() {
+    var cache = $("#consumption").data("bbq");
+    var live = cache.live;
+    var timer = cache.timer;
+
+    if (live && !timer) {
+      // Create and save timer
+      cache.timer = $.every(5, "seconds", function() {
+        // No parallel loading
+        if (loadingInProgress) {
+          return;
+        }
+        // Dispatch reloading
+        reloadData();
+      });
+    } else if (!live && timer) {
+      // Clear timer
+      clearInterval(timer);
+      cache.timer = null;
+    }
+  }
+
+  // Flot helper functions
   function kWhFormatter(val, axis) {
     return val.toFixed(axis.tickDecimals) + " kWh"
   }
