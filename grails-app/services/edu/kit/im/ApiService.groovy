@@ -67,7 +67,7 @@ class ApiService {
     }
 
     // Get household
-    def household = Household.findByMacAddress(macAddress)
+    def household = Household.findByMacAddress(macAddress, [cache: true])
     if (!household) throw new ApiException("Invalid MAC address", 400)
 
     // Verify timestamp
