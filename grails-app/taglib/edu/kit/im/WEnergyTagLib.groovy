@@ -15,11 +15,13 @@
  * limitations under the License.
  */
 
+
+
 package edu.kit.im
 
-class WattsoeverTagLib {
+class WEnergyTagLib {
 
-  static namespace = "woe"
+  static namespace = "wen"
 
   def springSecurityService
 

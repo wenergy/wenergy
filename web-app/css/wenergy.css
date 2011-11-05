@@ -41,32 +41,32 @@ body {
 .right {
   text-align: right;
 }
-/* Wattsoever text
+/* wEnergy text
 -------------------------------------------------- */
 
-.wattsoever-brand {
+.wenergy-brand {
   font-family: 'Indie Flower', cursive;
 }
 
-.topbar .wattsoever-brand {
+.topbar .wenergy-brand {
   letter-spacing: 2px;
   vertical-align: bottom;
 }
 
-.topbar .wattsoever-watt {
+.topbar .wenergy-watt {
   color: #ffffff;
 }
 
-.wattsoever-watt {
+.wenergy-watt {
   color: #404040;
 }
 
-.wattsoever-so {
+.wenergy-so {
   color: #9bbb59;
   font-weight: bold;
 }
 
-.wattsoever-ever {
+.wenergy-ever {
   color: #999999;
 }
 

@@ -19,7 +19,7 @@ modules = {
   core {
     resource url: [dir: "js/bootstrap", file: "html5.js"], wrapper: { s -> "<!--[if lt IE 9]>$s<![endif]-->" }, disposition: "head"
     resource url: [dir: "css", file: "bootstrap.css"], attrs: [media: 'screen, projection'], disposition: "head"
-    resource url: [dir: "css", file: "wattsoever.css"], attrs: [media: 'screen, projection'], disposition: "head"
+    resource url: [dir: "css", file: "wenergy.css"], attrs: [media: 'screen, projection'], disposition: "head"
   }
 
   bootstrapjs {
@@ -60,13 +60,13 @@ modules = {
     resource url: [dir: "js", file: "jquery/jquery.chrono.js"], disposition: "head"
   }
 
-  wattsoeverjs {
+  wenergyjs {
     dependsOn "bootstrapjs"
-    resource url: [dir: "js", file: "wattsoever.js"], disposition: "head"
+    resource url: [dir: "js", file: "wenergy.js"], disposition: "head"
   }
 
   consumptionjs {
-    dependsOn "jqbbq, jqchrono, datejs, flotjs, wattsoeverjs"
+    dependsOn "jqbbq, jqchrono, datejs, flotjs, wenergyjs"
     resource url: [dir: "js", file: "consumption.js"], disposition: "head"
   }
 
