@@ -27,8 +27,8 @@
 ================================================== -->
 <section id="welcome">
   <div class="page-header">
-    <h1>Welcome to <span class="wattsoever-brand"><span class="wattsoever-watt">watt</span><span
-        class="wattsoever-so">so</span><span class="wattsoever-ever">ever</span>
+    <h1>Welcome to <span class="wenergy-brand"><span class="wenergy-watt">watt</span><span
+        class="wenergy-so">so</span><span class="wenergy-ever">ever</span>
     </span> <small>About the platform, the device and more</small></h1>
   </div>
 
@@ -36,13 +36,13 @@
     <div class="span-one-third">
       <h3>About</h3>
 
-      <p><span class="wattsoever-brand"><span class="wattsoever-watt">Watt</span><span
-          class="wattsoever-so">so</span><span class="wattsoever-ever">ever</span>
+      <p><span class="wenergy-brand"><span class="wenergy-watt">Watt</span><span
+          class="wenergy-so">so</span><span class="wenergy-ever">ever</span>
       </span> (short for watt social everywhere) is a XX-funded project built by the team at the Institute of Information Systems and Management - Information &amp; Market Engineering that allows...
       </p>
 
       <p>
-        <a href="http://twitter.com/wattsoever_kit" class="twitter-follow-button">Follow @wattsoever_kit</a>
+        <a href="http://twitter.com/wenergy_kit" class="twitter-follow-button">Follow @wenergy_kit</a>
         <script src="http://platform.twitter.com/widgets.js" type="text/javascript"></script>
       </p>
     </div>
@@ -50,8 +50,8 @@
     <div class="span-one-third">
       <h3>The device</h3>
 
-      <p><span class="wattsoever-brand"><span class="wattsoever-watt">Watt</span><span
-          class="wattsoever-so">so</span><span class="wattsoever-ever">ever</span>
+      <p><span class="wenergy-brand"><span class="wenergy-watt">Watt</span><span
+          class="wenergy-so">so</span><span class="wenergy-ever">ever</span>
       </span> only works with a custom-made decive built by the team at IM.</p>
 
       <div class="promo">
@@ -62,8 +62,8 @@
     <div class="span-one-third">
       <h3>How to participate</h3>
 
-      <p>You can get the <span class="wattsoever-brand"><span class="wattsoever-watt">Watt</span><span
-          class="wattsoever-so">so</span><span class="wattsoever-ever">ever</span></span> device directly from us.</p>
+      <p>You can get the <span class="wenergy-brand"><span class="wenergy-watt">Watt</span><span
+          class="wenergy-so">so</span><span class="wenergy-ever">ever</span></span> device directly from us.</p>
       <ul>
         <li>Fill out a questionnaire</li>
         <li>Once approved, you can pick up your device or we'll ship it to you</li>
@@ -93,8 +93,8 @@
     <div class="span-one-third">
       <h3>Appliances</h3>
 
-      <p><span class="wattsoever-brand"><span class="wattsoever-watt">Watt</span><span
-          class="wattsoever-so">so</span><span class="wattsoever-ever">ever</span>
+      <p><span class="wenergy-brand"><span class="wenergy-watt">Watt</span><span
+          class="wenergy-so">so</span><span class="wenergy-ever">ever</span>
       </span> automatically knows which appliances are turned on and how much energy they use. You can inspect the consumption of every appliance in detail.
       </p>
     </div>

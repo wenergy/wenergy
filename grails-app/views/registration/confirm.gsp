@@ -33,11 +33,11 @@
   <p>Dear ${householdInstance.fullName},</p>
 
   <p>we have received your registration and will get in touch with you soon. Until then, don't forget to check out our <g:link
-      controller="home">home page</g:link>. Thanks for your interest in wattsoever!</p>
+      controller="home">home page</g:link>. Thanks for your interest in wenergy!</p>
 
   <p>Sincerely,</p>
 
-  <p>The wattsoever team</p>
+  <p>The wenergy team</p>
 
 </section>
 </body>

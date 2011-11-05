@@ -22,7 +22,7 @@
 
     <p>Copyright 2011 <a href="http://www.im.uni-karlsruhe.de/" target="_blank">Institute of Information Systems and Management (IISM)</a> at <a href="http://www.kit.edu/" target="_blank">Karlsruhe Insitute of Technology (KIT)</a>. <a href="#">Imprint</a>.<br/>
       Code licensed under the <a href="http://www.apache.org/licenses/LICENSE-2.0" target="_blank">Apache License v2.0</a>
-      and available at <a href="https://github.com/wattsoever" target="_blank">GitHub</a>.
+      and available at <a href="https://github.com/wenergy" target="_blank">GitHub</a>.
       %{--Uses <a href="http://twitter.github.com/bootstrap/" target="_blank">Bootstrap</a>.--}%
     </p>
   </div>

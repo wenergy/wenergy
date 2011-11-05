@@ -17,7 +17,7 @@
 
 $(function () {
 
-  var rootPath = "/wattsoever/";
+  var rootPath = "/wenergy/";
   var consumptionGraph;
   var consumptionData = [];
   var averageData = [];

@@ -19,8 +19,8 @@
 <div class="topbar">
   <div class="topbar-inner">
     <div class="container">
-      <g:link controller="home" class="brand wattsoever-brand"><span class="wattsoever-watt">watt</span><span
-          class="wattsoever-so">so</span><span class="wattsoever-ever">ever</span></g:link>
+      <g:link controller="home" class="brand wenergy-brand"><span class="wenergy-watt">watt</span><span
+          class="wenergy-so">so</span><span class="wenergy-ever">ever</span></g:link>
       <ul class="nav">
         <sec:ifNotLoggedIn>
           <li<g:if test="${nav == 'welcome'}"> class="active"</g:if>><g:link controller="home">Home</g:link></li>
@@ -46,7 +46,7 @@
       <sec:ifLoggedIn>
         <ul class="nav secondary-nav">
           <li class="dropdown" data-dropdown="dropdown">
-            <a href="#" class="dropdown-toggle"><woe:fullName/></a>
+            <a href="#" class="dropdown-toggle"><wen:fullName/></a>
             <ul class="dropdown-menu">
               <li><a href="#">Settings</a></li>
               <sec:ifAllGranted roles="ROLE_ADMIN">

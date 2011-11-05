@@ -18,8 +18,8 @@
 <!doctype html>
 <html>
 <head>
-  <title>Wattsoever - <g:layoutTitle/></title>
-  <r:require modules="core, bootstrapjs, wattsoeverjs"/>
+  <title>wEnergy - <g:layoutTitle/></title>
+  <r:require modules="core, bootstrapjs, wenergyjs"/>
   <r:layoutResources/>
 </head>
 

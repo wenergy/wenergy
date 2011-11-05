@@ -27,8 +27,8 @@
 ================================================== -->
 <section id="dashboard">
   <div class="page-header">
-    <h1><span class="wattsoever-brand"><span class="wattsoever-watt">Watt</span><span
-        class="wattsoever-so">so</span><span class="wattsoever-ever">ever</span>
+    <h1><span class="wenergy-brand"><span class="wenergy-watt">Watt</span><span
+        class="wenergy-so">so</span><span class="wenergy-ever">ever</span>
     </span> Dashboard</h1>
   </div>
 

@@ -47,7 +47,7 @@
         </tr>
         </thead>
         <tbody>
-        <woe:systemStatus/>
+        <wen:systemStatus/>
         </tbody>
       </table>
     </div>
