@@ -1,3 +1,4 @@
+<%@ page import="org.codehaus.groovy.grails.commons.ConfigurationHolder" %>
 %{--
   - Copyright 2011 Institute of Information Engineering and Management,
   - Information & Market Engineering
@@ -20,6 +21,9 @@
   <meta name="layout" content="main"/>
   <title>My Consumption</title>
   <r:require modules="jqui, flotjs, consumptionjs"/>
+  <r:script disposition="head">
+    var rootPath = "${ConfigurationHolder.config?.grails?.relativeServerURL}";
+  </r:script>
 </head>
 
 <body>
@@ -114,7 +118,8 @@
 
     <div class="span13">
       <h3><span id="consumptionGraphTitle">Consumption</span>
-        <span id="consumptionLoaderContainer" class="pull-right"><small><span id="consumptionLoader"></span>Loading...</small>
+        <span id="consumptionLoaderContainer" class="pull-right"><small><span id="consumptionLoader"></span>Loading...
+        </small>
         </span>
       </h3>
 

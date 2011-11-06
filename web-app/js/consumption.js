@@ -17,7 +17,6 @@
 
 $(function () {
 
-  var rootPath = "/";
   var consumptionGraph;
   var consumptionData = [];
   var averageData = [];

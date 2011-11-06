@@ -64,6 +64,7 @@ def logDirectory = "${catalinaBase}/logs"
 environments {
   development {
     grails.logging.jul.usebridge = true
+    grails.relativeServerURL = "/wenergy/"
 
     // log4j configuration
     log4j = {
@@ -91,6 +92,7 @@ environments {
     grails.logging.jul.usebridge = false
     // set per-environment serverURL stem for creating absolute links
     grails.serverURL = "http://ibwmarkets.iw.uni-karlsruhe.de"
+    grails.relativeServerURL = "/"
 
     // log4j configuration
     log4j = {
