@@ -37,9 +37,9 @@
           <p><strong>Error</strong></p>
           <g:renderErrors bean="${householdInstance}" as="list"/>
           %{--<ul>--}%
-            %{--<g:eachError var="err" bean="${householdInstance}">--}%
-              %{--<li>${err}</li>--}%
-            %{--</g:eachError>--}%
+          %{--<g:eachError var="err" bean="${householdInstance}">--}%
+          %{--<li>${err}</li>--}%
+          %{--</g:eachError>--}%
           %{--</ul>--}%
         </div>
       </g:hasErrors>
@@ -108,17 +108,18 @@
                                value="${householdInstance?.password}"/>
             </div>
           </div><!-- /clearfix -->
-          <div class="input">
-            <ul class="inputs-list">
-              <li>
-                <label>
-                  <input type="checkbox" name="optionsCheckboxes" value="option1"/>
-                  <span>I have read and agree to the Terms of Service (AGB) <br/> and the Privacy Policy (Datenschutzerklärung)
-                  </span>
-                </label>
-              </li>
-            </ul>
-          </div>
+          <div class="clearfix">
+            <div class="input">
+              <ul class="inputs-list">
+                <li>
+                  <label>
+                    <input type="checkbox" name="optionsCheckboxes" value="option1" />
+                    <span>I have read and agree to the Terms of Service (AGB)<br/>and the Privacy Policy (Datenschutzerklärung)</span>
+                  </label>
+                </li>
+              </ul>
+            </div>
+          </div><!-- /clearfix -->
         </fieldset>
         <fieldset>
           <div class="centered">
