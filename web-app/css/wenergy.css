@@ -149,10 +149,17 @@ body {
 }
 
 /* Central ajax loader */
-#consumption #consumptionCentralLoader {
+#consumption #consumptionCentralLoaderContainer {
   margin-top: 125px;
   text-align: center;
   display: none;
+}
+
+#consumption #consumptionCentralLoader {
+  width: 32px;
+  height: 32px;
+  margin: 0 auto 8px auto;
+  display: block;
 }
 
 #consumption #consumptionCentralLoaderError {
@@ -165,12 +172,16 @@ body {
 }
 
 /* General ajax loader */
-#consumption #consumptionLoader {
+#consumption #consumptionLoaderContainer {
   display: none;
 }
 
-#consumption #consumptionLoader img {
+#consumption #consumptionLoader {
+  margin-right: 8px;
+  width: 16px;
+  height: 16px;
   vertical-align: text-bottom;
+  display: inline-block;
 }
 
 #consumption #consumptionLoaderError {

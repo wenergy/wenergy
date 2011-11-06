@@ -114,8 +114,7 @@
 
     <div class="span13">
       <h3><span id="consumptionGraphTitle">Consumption</span>
-        <span id="consumptionLoader" class="pull-right"><small><r:img dir="images"
-                                                                      file="spinner_16.gif"/> Loading...</small>
+        <span id="consumptionLoaderContainer" class="pull-right"><small><span id="consumptionLoader"></span>Loading...</small>
         </span>
       </h3>
 
@@ -123,7 +122,7 @@
 
       <div id="consumptionGraph" class="span13">
         %{-- Needs to be nested to avoid sudden jumps --}%
-        <div id="consumptionCentralLoader"><r:img dir="images" file="spinner_24.gif"/><br/>Loading...</div>
+        <div id="consumptionCentralLoaderContainer"><div id="consumptionCentralLoader"></div>Loading...</div>
 
         <div id="consumptionCentralLoaderErrorContainer"></div>
       </div>

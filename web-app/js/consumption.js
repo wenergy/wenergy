@@ -191,9 +191,10 @@ $(function () {
     });
 
     // Ajax loading start event
-    $("#consumptionLoader").ajaxStart(function() {
+    $("#consumptionLoaderContainer").ajaxStart(function() {
       if (!initialLoading) {
         $(this).show();
+        $("#consumptionLoader").spin({ lines: 8, length: 0, width: 4, radius: 5, trail: 60 });
       }
 
       // Disable options while loading
@@ -201,7 +202,8 @@ $(function () {
     });
 
     // Ajax loading stop event - also called on error
-    $("#consumptionLoader").ajaxStop(function() {
+    $("#consumptionLoaderContainer").ajaxStop(function() {
+      $("#consumptionLoader").spin(false);
       $(this).hide();
 
       validateUI();
@@ -526,7 +528,7 @@ $(function () {
       },
       yaxis: {
         min: 0,
-        tickFormatter: kWhFormatter
+        tickFormatter: powerFormatter
       },
       grid: {
         borderWidth: 1.0
@@ -563,9 +565,11 @@ $(function () {
 
   function showCentralAjaxLoader(flag) {
     if (flag) {
-      $("#consumptionCentralLoader").show();
+      $("#consumptionCentralLoaderContainer").show();
+      $("#consumptionCentralLoader").spin({ lines: 8, length: 0, width: 5, radius: 10, trail: 60 });
     } else {
-      $("#consumptionCentralLoader").hide();
+      $("#consumptionCentralLoader").spin(false);
+      $("#consumptionCentralLoaderContainer").hide();
     }
   }
 
@@ -593,8 +597,8 @@ $(function () {
   }
 
   // Flot helper functions
-  function kWhFormatter(val, axis) {
-    return val.toFixed(axis.tickDecimals) + " kWh"
+  function powerFormatter(val, axis) {
+    return val.toFixed(axis.tickDecimals) + " kW"
   }
 
   function graphLabelForDateAndInterval(date, interval) {

@@ -66,8 +66,14 @@ modules = {
   }
 
   consumptionjs {
-    dependsOn "jqbbq, jqchrono, datejs, flotjs, wenergyjs"
+    dependsOn "jqbbq, jqchrono, datejs, flotjs, spinjs, wenergyjs"
     resource url: [dir: "js", file: "consumption.js"], disposition: "head"
+  }
+
+  spinjs {
+    dependsOn "jquery"
+    resource url: [dir: "js", file: "jquery/spin.js"], disposition: "head"
+    resource url: [dir: "js", file: "jquery/jquery.spin.js"], disposition: "head"
   }
 
 }
