@@ -17,7 +17,7 @@
 
 $(function () {
 
-  var rootPath = "/wenergy/";
+  var rootPath = "/";
   var consumptionGraph;
   var consumptionData = [];
   var averageData = [];
