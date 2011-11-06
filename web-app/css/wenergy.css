@@ -41,6 +41,7 @@ body {
 .right {
   text-align: right;
 }
+
 /* wEnergy text
 -------------------------------------------------- */
 
@@ -49,15 +50,27 @@ body {
   text-transform: uppercase;
 }
 
+.topbar .brand {
+  position: relative;
+  top: .1em;
+}
+
 .topbar .wenergy-brand {
-  letter-spacing: 3px;
+  letter-spacing: 4px;
   vertical-align: bottom;
   color: #ffffff;
 }
 
 .wenergy-e {
-  color: #9bbb59;
+  color: #72bf34;
   text-transform: lowercase;
+  font-size: 200%;
+  position: relative;
+  top: .07em;
+}
+
+.topbar .wenergy-brand .wenergy-e {
+  line-height: 20%;
 }
 
 /* Buttons
@@ -132,7 +145,7 @@ body {
 
 #consumption #consumptionGraphLegend .legendLabel {
   border: 0;
-  padding:  2px 0 2px 5px;
+  padding: 2px 0 2px 5px;
 }
 
 /* Central ajax loader */
