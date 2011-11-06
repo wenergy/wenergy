@@ -18,10 +18,10 @@
 /* Webfont from Google web fonts
 -------------------------------------------------- */
 @font-face {
-  font-family: 'Indie Flower';
+  font-family: 'Nova Round';
   font-style: normal;
   font-weight: normal;
-  src: local('Indie Flower'), local('IndieFlower'), url('fonts/indieflower.woff') format('woff');
+  src: local('Nova Round'), local('NovaRound'), url('fonts/novaround.woff') format('woff');
 }
 
 /* Body and structure
@@ -45,18 +45,19 @@ body {
 -------------------------------------------------- */
 
 .wenergy-brand {
-  font-family: 'Indie Flower', cursive;
+  font-family: 'Nova Round', cursive;
+  text-transform: uppercase;
 }
 
 .topbar .wenergy-brand {
-  letter-spacing: 2px;
+  letter-spacing: 3px;
   vertical-align: bottom;
   color: #ffffff;
 }
 
 .wenergy-e {
   color: #9bbb59;
-  /*font-weight: bold;*/
+  text-transform: lowercase;
 }
 
 /* Buttons
