@@ -27,8 +27,7 @@
 ================================================== -->
 <section id="registration">
   <div class="page-header">
-    <h1>Registration <small>Join <span class="wenergy-brand"><span class="wenergy-watt">watt</span><span
-        class="wenergy-so">so</span><span class="wenergy-ever">ever</span></span> here</small></h1>
+    <h1>Registration <small>Join <wen:brand/> here</small></h1>
   </div>
 
   <div class="row">

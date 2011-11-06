@@ -51,23 +51,12 @@ body {
 .topbar .wenergy-brand {
   letter-spacing: 2px;
   vertical-align: bottom;
-}
-
-.topbar .wenergy-watt {
   color: #ffffff;
 }
 
-.wenergy-watt {
-  color: #404040;
-}
-
-.wenergy-so {
+.wenergy-e {
   color: #9bbb59;
-  font-weight: bold;
-}
-
-.wenergy-ever {
-  color: #999999;
+  /*font-weight: bold;*/
 }
 
 /* Buttons

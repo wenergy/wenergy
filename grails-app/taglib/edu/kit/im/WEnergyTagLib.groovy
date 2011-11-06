@@ -25,6 +25,11 @@ class WEnergyTagLib {
 
   def springSecurityService
 
+  // Brand
+  def brand = {
+    out << '<span class="wenergy-brand">w<span class="wenergy-e">e</span>nergy</span>'
+  }
+
   // Full name displayed for logged in user
   def fullName = {
     if (springSecurityService.isLoggedIn()) {
