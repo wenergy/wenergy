@@ -27,7 +27,7 @@
 ================================================== -->
 <section id="registration">
   <div class="page-header">
-    <h1>Registration <small>Join <wen:brand/> here</small></h1>
+    <h1>Registration <small>Join wEnergy here</small></h1>
   </div>
 
   <div class="row">

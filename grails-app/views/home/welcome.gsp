@@ -27,14 +27,14 @@
 ================================================== -->
 <section id="welcome">
   <div class="page-header">
-    <h1>Welcome to <wen:brand/> <small>About the platform, the device and more</small></h1>
+    <h1>Welcome to wEnergy <small>About the platform, the device and more</small></h1>
   </div>
 
   <div class="row">
     <div class="span-one-third">
       <h3>About</h3>
 
-      <p><wen:brand/> is a <a href="http://www.karl-steinbuch-stipendium.de/mfg_stiftung.html" target="_blank">MFG funded</a> project built by the team at the Institute of Information Systems and Management - Information &amp; Market Engineering that allows...
+      <p>wEnergy is a <a href="http://www.karl-steinbuch-stipendium.de/mfg_stiftung.html" target="_blank">MFG funded</a> project built by the team at the Institute of Information Systems and Management - Information &amp; Market Engineering that allows...
       </p>
 
       <p>
@@ -46,7 +46,7 @@
     <div class="span-one-third">
       <h3>The device</h3>
 
-      <p><wen:brand/> only works with a custom-made decive built by the team at IM.</p>
+      <p>wEnergy only works with a custom-made decive built by the team at IM.</p>
 
       <div class="promo">
         <img class="thumbnail promoimg" src="http://placehold.it/210x150" alt="">
@@ -56,7 +56,7 @@
     <div class="span-one-third">
       <h3>How to participate</h3>
 
-      <p>You can get the <wen:brand/> device directly from us.</p>
+      <p>You can get the wEnergy device directly from us.</p>
       <ul>
         <li>Fill out a questionnaire</li>
         <li>Once approved, you can pick up your device or we'll ship it to you</li>
@@ -86,7 +86,7 @@
     <div class="span-one-third">
       <h3>Appliances</h3>
 
-      <p><wen:brand/> automatically knows which appliances are turned on and how much energy they use. You can inspect the consumption of every appliance in detail.
+      <p>wEnergy automatically knows which appliances are turned on and how much energy they use. You can inspect the consumption of every appliance in detail.
       </p>
     </div>
 

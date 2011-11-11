@@ -19,7 +19,7 @@
 <div class="topbar">
   <div class="topbar-inner">
     <div class="container">
-      <g:link controller="home" class="brand"><wen:brand/></g:link>
+      <g:link controller="home" class="brand"><r:img dir="images" file="wEnergy.png"/></g:link>
       <ul class="nav">
         <sec:ifNotLoggedIn>
           <li<g:if test="${nav == 'welcome'}"> class="active"</g:if>><g:link controller="home">Home</g:link></li>

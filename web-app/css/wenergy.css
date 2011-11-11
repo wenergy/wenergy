@@ -15,15 +15,6 @@
  * limitations under the License.
  */
 
-/* Webfont from Google web fonts
--------------------------------------------------- */
-@font-face {
-  font-family: 'Nova Round';
-  font-style: normal;
-  font-weight: normal;
-  src: local('Nova Round'), local('NovaRound'), url('fonts/novaround.woff') format('woff');
-}
-
 /* Body and structure
 -------------------------------------------------- */
 body {
@@ -42,35 +33,11 @@ body {
   text-align: right;
 }
 
-/* wEnergy text
+/* wEnergy logo
 -------------------------------------------------- */
 
-.wenergy-brand {
-  font-family: 'Nova Round', cursive;
-  text-transform: uppercase;
-}
-
 .topbar .brand {
-  position: relative;
-  top: .1em;
-}
-
-.topbar .wenergy-brand {
-  letter-spacing: 4px;
-  vertical-align: bottom;
-  color: #ffffff;
-}
-
-.wenergy-e {
-  color: #72bf34;
-  text-transform: lowercase;
-  font-size: 200%;
-  position: relative;
-  top: .07em;
-}
-
-.topbar .wenergy-brand .wenergy-e {
-  line-height: 20%;
+  padding: 3px 15px 0 20px;
 }
 
 /* Buttons

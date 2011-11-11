@@ -27,7 +27,7 @@
 ================================================== -->
 <section id="dashboard">
   <div class="page-header">
-    <h1><wen:brand/> Dashboard</h1>
+    <h1>wEnergy Dashboard</h1>
   </div>
 
   <div class="row">
