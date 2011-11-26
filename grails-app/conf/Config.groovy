@@ -91,7 +91,7 @@ environments {
   production {
     grails.logging.jul.usebridge = false
     // set per-environment serverURL stem for creating absolute links
-    grails.serverURL = "http://ibwmarkets.iw.uni-karlsruhe.de"
+    grails.serverURL = "http://www.wenergy-project.de"
     grails.relativeServerURL = "/"
 
     // log4j configuration
