@@ -50,16 +50,16 @@ class ApiService {
       throw new ApiException("Invalid reactive power type", 400)
     }
 
-    try {
-      timestamp = jsonPayload.t
-    } catch (GroovyCastException e) {
-      throw new ApiException("Invalid timestamp type", 400)
-    }
+//    try {
+//      timestamp = jsonPayload.t
+//    } catch (GroovyCastException e) {
+//      throw new ApiException("Invalid timestamp type", 400)
+//    }
 
     if (!macAddress) throw new ApiException("No MAC address provided", 400)
     if (!powerReal) throw new ApiException("No real power provided", 400)
     if (!powerReactive) throw new ApiException("No reactive power provided", 400)
-    if (!timestamp) throw new ApiException("No timestamp provided", 400)
+//    if (!timestamp) throw new ApiException("No timestamp provided", 400)
 
     // Verify MAC address
     if (!(macAddress ==~ /([0-9a-f]{2}[:]){5}([0-9a-f]{2})/)) {
@@ -71,14 +71,14 @@ class ApiService {
     if (!household) throw new ApiException("Invalid MAC address", 400)
 
     // Verify timestamp
-    def date = new DateTime(timestamp as long)
+//    def date = new DateTime(timestamp as long)
     // Simply sanity check to avoid wrong timestamps: year needs to be the same as the current year
-    if (date.year() != new DateTime().year()) {
-      throw new ApiException("Invalid timestamp", 400)
-    }
+//    if (date.year() != new DateTime().year()) {
+//      throw new ApiException("Invalid timestamp", 400)
+//    }
 
     // All checks passed - create Consumption instance
-    def consumption = new Consumption(household: household, date: date, powerReal: powerReal, powerReactive: powerReactive)
+    def consumption = new Consumption(household: household, date: new DateTime(), powerReal: powerReal, powerReactive: powerReactive)
 
     try {
       consumption.save(failOnError: true)
