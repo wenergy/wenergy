@@ -34,44 +34,50 @@
     <div class="span-one-third">
       <h3>About</h3>
 
-      <p>wEnergy is a <a href="http://www.karl-steinbuch-stipendium.de/mfg_stiftung.html" target="_blank">MFG funded</a> project built by the team at the Institute of Information Systems and Management - Information &amp; Market Engineering that allows...
-      </p>
+      <r:img class="thumbnail promoimg" dir="images" file="welcome1.png"/>
 
-      <p>
-        <a href="http://twitter.com/wenergy_kit" class="twitter-follow-button">Follow @wenergy_kit</a>
-        <script src="http://platform.twitter.com/widgets.js" type="text/javascript"></script>
-      </p>
+      <p>wEnergy aims to explore the effects of real-time and social feedback on energy consumption behavior. Smart metering has been a hot topic for energy suppliers for quite a while now and was mostly concerned with questions of accurate billing and automated appliance control. We follow a somewhat different approach: We will use today’s (easy available) technology and investigate whether – and if – how feedback information affects people’s daily consumption behavior. We believe that energy consumption awareness and the link to consumer behavior is one of the most important preconditions to understand, in order to design and operate future energy systems and markets.<p>
+      <p>wEnergy is a <a href="http://www.karl-steinbuch-stipendium.de/mfg_stiftung.html" target="_blank">MFG funded</a> project at the Institute of Information Systems and Management at KIT The project started on November, 1st 2011 and runs until end of August 2012. If you have any questions regarding wEnergy, you’re very welcome to contact us via timm.teubner@kit.edu.</p>
+
+      %{--<p>--}%
+        %{--<a href="http://twitter.com/wenergy_kit" class="twitter-follow-button">Follow @wenergy_kit</a>--}%
+        %{--<script src="http://platform.twitter.com/widgets.js" type="text/javascript"></script>--}%
+      %{--</p>--}%
     </div>
 
     <div class="span-one-third">
-      <h3>The device</h3>
+      <h3>Hardware</h3>
 
-      <p>wEnergy only works with a custom-made decive built by the team at IM.</p>
+      <r:img class="thumbnail promoimg" dir="images" file="welcome2.png"/>
 
-      <div class="promo">
-        <img class="thumbnail promoimg" src="http://placehold.it/210x150" alt="">
-      </div>
+      <p>The wEnergy-approach is non-invasive from the hardware perspective. We intend to use an appliance for consumption measurement based on the openEnergyMonitor.org project. Single reading point is the household’s fuse box. The measurement is inductive. Thus, there is no need for expensive hardware – our device is based on very basic electronic components.</p>
+
+      %{--<div class="promo">--}%
+        %{--<img class="thumbnail promoimg" src="http://placehold.it/210x150" alt="">--}%
+      %{--</div>--}%
     </div>
 
     <div class="span-one-third">
       <h3>How to participate</h3>
 
-      <p>You can get the wEnergy device directly from us.</p>
-      <ul>
-        <li>Fill out a questionnaire</li>
-        <li>Once approved, you can pick up your device or we'll ship it to you</li>
-        <li>Follow the installation instructions</li>
-        <li>Enjoy monitoring your energy consumption and tell your friends!</li>
-      </ul>
+      <r:img class="thumbnail promoimg" dir="images" file="welcome3.png"/>
 
-      <div class="btncenter"><g:link controller="registration" class="btn primary">More information &raquo;</g:link></div>
+      <p>How to participate? If you’re interested in joining our project and learn about your own energy consumption in more detail, we encourage you to get in touch with us. Right now, we’re working on the hardware and software. The hot phase of the project will start approximately in March or April 2012, and by then we will need quite a few households to participate!</p>
+      %{--<ul>--}%
+        %{--<li>Fill out a questionnaire</li>--}%
+        %{--<li>Once approved, you can pick up your device or we'll ship it to you</li>--}%
+        %{--<li>Follow the installation instructions</li>--}%
+        %{--<li>Enjoy monitoring your energy consumption and tell your friends!</li>--}%
+      %{--</ul>--}%
+
+      %{--<div class="btncenter"><g:link controller="registration" class="btn primary">More information &raquo;</g:link></div>--}%
     </div>
   </div><!-- /row -->
 </section>
 
 <!-- Overview
 ================================================== -->
-<section id="overview">
+<section id="overview" style="display:none">
   <div class="page-header">
     <h1>Monitor your energy usage <small>High frequency smart metering</small></h1>
   </div>
