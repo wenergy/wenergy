@@ -56,7 +56,7 @@ class ApiController {
       jsonStatus = [status: [code: e.code, message: e.message]] as JSON
 
     } catch (Exception e) {
-      log.error e.getStackTrace().toString()
+      log.error request.reader.text
       log.error e
       response.status = 400 // Bad Request
       jsonStatus = [status: [code: 400, message: "Invalid JSON"]] as JSON
