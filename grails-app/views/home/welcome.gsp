@@ -18,7 +18,7 @@
 <html>
 <head>
   <meta name="layout" content="main"/>
-  <title>Welcome</title>
+  <title>Welcome!</title>
 </head>
 
 <body>
@@ -26,18 +26,17 @@
 <!-- Welcome
 ================================================== -->
 <section id="welcome">
-  <div class="page-header">
-    <h1>Welcome to wEnergy <small>About the platform, the device and more</small></h1>
-  </div>
+
 
   <div class="row">
     <div class="span-one-third">
-      <h3>About</h3>
+      About the project <br>
 
       <r:img class="thumbnail promoimg" dir="images" file="welcome1.png"/>
 
-      <p>wEnergy aims to explore the effects of real-time and social feedback on energy consumption behavior. Smart metering has been a hot topic for energy suppliers for quite a while now and was mostly concerned with questions of accurate billing and automated appliance control. We follow a somewhat different approach: We will use today’s (easy available) technology and investigate whether – and if – how feedback information affects people’s daily consumption behavior. We believe that energy consumption awareness and the link to consumer behavior is one of the most important preconditions to understand, in order to design and operate future energy systems and markets.<p>
-      <p>wEnergy is a <a href="http://www.karl-steinbuch-stipendium.de/mfg_stiftung.html" target="_blank">MFG funded</a> project at the Institute of Information Systems and Management at KIT The project started on November, 1st 2011 and runs until end of August 2012. If you have any questions regarding wEnergy, you’re very welcome to contact us via timm.teubner@kit.edu.</p>
+      <br><br><br>
+      <p class="textcolumn">wEnergy aims to explore the effects of real-time and social feedback on energy consumption behavior. Smart metering has been a hot topic for energy suppliers for quite a while now and was mostly concerned with questions of accurate billing and automated appliance control. We follow a somewhat different approach: We will use today’s (easy available) technology and investigate whether – and if – how feedback information affects people’s daily consumption behavior. We believe that energy consumption awareness and the link to consumer behavior is one of the most important preconditions to understand, in order to design and operate future energy systems and markets.<p>
+      <p class="textcolumn">wEnergy is a <a href="http://www.karl-steinbuch-stipendium.de/mfg_stiftung.html" target="_blank">MFG funded</a> project at the Institute of Information Systems and Management at KIT The project started on November, 1st 2011 and runs until end of August 2012. If you have any questions regarding wEnergy, you’re very welcome to contact us via timm.teubner@kit.edu.</p>
 
       %{--<p>--}%
         %{--<a href="http://twitter.com/wenergy_kit" class="twitter-follow-button">Follow @wenergy_kit</a>--}%
@@ -46,11 +45,12 @@
     </div>
 
     <div class="span-one-third">
-      <h3>Hardware</h3>
+      Our hardware approach <br>
 
       <r:img class="thumbnail promoimg" dir="images" file="welcome2.png"/>
 
-      <p>The wEnergy-approach is non-invasive from the hardware perspective. We intend to use an appliance for consumption measurement based on the openEnergyMonitor.org project. Single reading point is the household’s fuse box. The measurement is inductive. Thus, there is no need for expensive hardware – our device is based on very basic electronic components.</p>
+      <br><br><br>
+      <p class="textcolumn">The wEnergy-approach is non-invasive from the hardware perspective. We intend to use an appliance for consumption measurement based on the openEnergyMonitor.org project. Single reading point is the household’s fuse box. The measurement is inductive. Thus, there is no need for expensive hardware – our device is based on very basic electronic components.</p>
 
       %{--<div class="promo">--}%
         %{--<img class="thumbnail promoimg" src="http://placehold.it/210x150" alt="">--}%
@@ -58,11 +58,12 @@
     </div>
 
     <div class="span-one-third">
-      <h3>How to participate</h3>
+      How to participate <br>
 
       <r:img class="thumbnail promoimg" dir="images" file="welcome3.png"/>
 
-      <p>How to participate? If you’re interested in joining our project and learn about your own energy consumption in more detail, we encourage you to get in touch with us. Right now, we’re working on the hardware and software. The hot phase of the project will start approximately in March or April 2012, and by then we will need quite a few households to participate!</p>
+      <br><br><br>
+      <p class="textcolumn">How to participate? If you’re interested in joining our project and learn about your own energy consumption in more detail, we encourage you to get in touch with us. Right now, we’re working on the hardware and software. The hot phase of the project will start approximately in March or April 2012, and by then we will need quite a few households to participate!</p>
       %{--<ul>--}%
         %{--<li>Fill out a questionnaire</li>--}%
         %{--<li>Once approved, you can pick up your device or we'll ship it to you</li>--}%

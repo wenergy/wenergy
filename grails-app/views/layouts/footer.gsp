@@ -18,7 +18,7 @@
 ================================================== -->
 <footer class="footer">
   <div class="container">
-    <p class="pull-right"><a href="#">Back to top</a></p>
+    <!--<p class="pull-right"><a href="#">Back to top</a></p> -->
 
     <p>Copyright 2011 <a href="http://www.im.uni-karlsruhe.de/" target="_blank">Institute of Information Systems and Management (IISM)</a> at <a href="http://www.kit.edu/" target="_blank">Karlsruhe Institute of Technology (KIT)</a>. <g:link controller="imprint">Imprint</g:link>. <br/>
       Code licensed under the <a href="http://www.apache.org/licenses/LICENSE-2.0" target="_blank">Apache License v2.0</a>
