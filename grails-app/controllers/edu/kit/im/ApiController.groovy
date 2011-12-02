@@ -21,8 +21,6 @@ import grails.converters.JSON
 
 class ApiController {
 
-  def allowedMethods = [consumption: "POST", debug: "GET"]
-
   def apiService
 
   def debug() {
@@ -43,7 +41,7 @@ class ApiController {
 
     try {
       // Extract json
-      def payload = request.JSON
+      def payload = JSON.parse(params.json)
       apiService.processConsumption(payload)
 
       response.status = 200 // OK
@@ -56,7 +54,6 @@ class ApiController {
       jsonStatus = [status: [code: e.code, message: e.message]] as JSON
 
     } catch (Exception e) {
-      log.error e.getStackTrace().toString()
       log.error e
       response.status = 400 // Bad Request
       jsonStatus = [status: [code: 400, message: "Invalid JSON"]] as JSON
