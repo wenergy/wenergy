@@ -31,4 +31,8 @@ public enum ConsumptionType {
   public int minutes() {
     return minutes
   }
+
+  public int getId() {
+    return minutes
+  }
 }
