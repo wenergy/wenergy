@@ -33,11 +33,7 @@ grails.project.dependency.resolution = {
 
     runtime("mysql:mysql-connector-java:5.1.18")
 
-    compile("joda-time:joda-time:2.0")
-
-    compile("joda-time:joda-time-hibernate:1.3") {
-      excludes "joda-time", "hibernate"
-    }
+    compile("org.jadira.usertype:usertype.jodatime:1.9")
   }
 
   plugins {
@@ -46,10 +42,7 @@ grails.project.dependency.resolution = {
     compile ":resources:1.0.2"
 
     compile ":spring-security-core:1.2.6"
-
-    compile(":joda-time:1.2") {
-      excludes "joda-time", "joda-time-hibernate", "svn"
-    }
+    compile ":joda-time:1.3"
 
     build ":tomcat:$grailsVersion"
   }
