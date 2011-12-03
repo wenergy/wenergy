@@ -45,7 +45,7 @@ class BootStrap {
 
       household = new Household(macAddress: macAddress, fullName: "Test User",
           eMail: "arduino@kit.edu", address: "street", zipCode: "76128", city: "KA",
-          username: "admin", password: springSecurityService.encodePassword('pass'), enabled: true)
+          username: "admin", password: "pass", enabled: true)
 
       household.addToPeergroups(peergroup)
       household.save()

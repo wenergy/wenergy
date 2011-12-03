@@ -20,6 +20,9 @@ package edu.kit.im
 import org.joda.time.DateTime
 
 class Household implements Serializable {
+
+  transient springSecurityService
+
   // Arduino MAC Address
   String macAddress
 
@@ -63,6 +66,20 @@ class Household implements Serializable {
   static mapping = {
     cache(true)
     password column: '`password`'
+  }
+
+  def beforeInsert() {
+    encodePassword()
+  }
+
+  def beforeUpdate() {
+    if (isDirty('password')) {
+      encodePassword()
+    }
+  }
+
+  protected void encodePassword() {
+    password = springSecurityService.encodePassword(password)
   }
 
   Set<Role> getAuthorities() {

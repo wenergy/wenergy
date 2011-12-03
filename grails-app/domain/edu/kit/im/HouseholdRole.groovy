@@ -51,7 +51,12 @@ class HouseholdRole implements Serializable {
 
   static boolean remove(Household household, Role role, boolean flush = false) {
     HouseholdRole instance = HouseholdRole.findByHouseholdAndRole(household, role)
-    instance ? instance.delete(flush: flush) : false
+    if (!instance) {
+      return false
+    }
+
+    instance.delete(flush: flush)
+    true
   }
 
   static void removeAll(Household household) {
@@ -63,7 +68,6 @@ class HouseholdRole implements Serializable {
   }
 
   static mapping = {
-    cache true
     id composite: ['role', 'household']
     version false
   }
