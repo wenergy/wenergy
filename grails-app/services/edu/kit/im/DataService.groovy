@@ -30,6 +30,7 @@ class DataService {
 
     // Set lower end to midnight 00:00:00
     def low = date.withTimeAtStartOfDay()
+
     // Set upper end to one second before midnight 23:59:59
     def high = low.plusDays(1).minusSeconds(1)
 
@@ -64,7 +65,7 @@ class DataService {
       def averageConsumptions = AggregatedConsumption.withCriteria() {
         lt("intervalStart", low)
         eq("type", ConsumptionType.MIN5)
-        eq("dayOfWeek", low.dayOfWeek)
+        //eq("dayOfWeek", low.dayOfWeek)
         household {
           eq("id", householdId())
         }
