@@ -597,7 +597,7 @@ $(function () {
 
   // Flot helper functions
   function powerFormatter(val, axis) {
-    return val.toFixed(axis.tickDecimals) + " kW"
+    return val.toFixed(axis.tickDecimals) + " W"
   }
 
   function graphLabelForDateAndInterval(date, interval) {
