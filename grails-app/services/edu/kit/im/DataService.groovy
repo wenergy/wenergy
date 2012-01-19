@@ -249,6 +249,7 @@ class DataService {
   // Helper functions
   def householdId() {
     Household.get(springSecurityService.principal?.id)?.id
+    log.error springSecurityService.getCurrentUser()
   }
 
 }
