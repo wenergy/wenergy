@@ -41,7 +41,7 @@ class ApiController {
 
     try {
       // Extract json
-      def payload = JSON.parse(params.json)
+      def payload = request.JSON
       apiService.processConsumption(payload)
 
       response.status = 200 // OK
