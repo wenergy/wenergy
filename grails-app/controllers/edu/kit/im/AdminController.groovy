@@ -26,6 +26,38 @@ class AdminController {
   def apiService
 
   def index() {
+
+    if (params.username?.size() && params.submit != null) {
+
+      def userRole = Role.findByAuthority("ROLE_USER")
+      def user = Household.findByUsername(params.username)
+
+      if (!user) {
+        flash.message = "User not found"
+      } else {
+
+        if (params.submit == "Allow") {
+
+          if (user.authorities.contains(userRole)) {
+            flash.message = "User already allowed"
+          } else {
+            HouseholdRole.create(user, userRole)
+            flash.message = "User added to allowed group"
+          }
+
+        } else { // Deny
+
+          if (!user.authorities.contains(userRole)) {
+            flash.message = "User is not allowed anyways"
+          } else {
+            HouseholdRole.remove(user, userRole)
+            flash.message = "User removed from allowed group"
+          }
+
+        }
+      }
+    }
+    log.error params
   }
 
   def debug() {
