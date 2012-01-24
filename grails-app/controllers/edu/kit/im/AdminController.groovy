@@ -57,7 +57,6 @@ class AdminController {
         }
       }
     }
-    log.error params
   }
 
   def debug() {
