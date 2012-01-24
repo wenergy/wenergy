@@ -157,7 +157,7 @@ class DataService {
         avgPowerReal.setScale(3, RoundingMode.HALF_UP)
 
         // Format data as [timestamp, powerValue]
-        [mergedDate.getMillis(), avgPowerReal]
+        [mergedDate.getMillis()+3600000, avgPowerReal]
       }
 
       dataMap["average"] = formattedAverageConsumptions
