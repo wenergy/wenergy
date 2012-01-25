@@ -52,7 +52,7 @@ class DataService {
       DateTime intervalStart = (DateTime) it[0]
       BigDecimal avgPowerReal = (BigDecimal) it[1]
 
-      [intervalStart.getMillis(), avgPowerReal]
+      [intervalStart.getMillis()+3600000, avgPowerReal]
     }
 
     // Create data for json
