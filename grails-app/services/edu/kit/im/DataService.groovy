@@ -259,6 +259,8 @@ class DataService {
       }
       maxResults(new Integer(horizonLength))
     }
+    
+    Collections.reverse(consumptions)
 
     int i = 0;
     def returnData = consumptions.collect {

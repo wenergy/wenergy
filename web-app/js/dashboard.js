@@ -47,7 +47,7 @@ $(function () {
           lines:{
             show:true,
 //            fill:0.75,
-            lineWidth:1,
+            lineWidth:2.5,
             steps:true
           }
         },
