@@ -31,7 +31,7 @@
 
 <!-- Dashboard
 ================================================== -->
-<section id="consumption">
+<section id="dashboard">
   <div class="page-header">
     <h1>Dashboard</h1>
   </div>
@@ -70,15 +70,20 @@
       </form>
     </div>
 
-    <div class="span13">
+    <div class="span12">
 
       <div id="consumptionLoaderErrorContainer"></div>
 
-      <div id="consumptionGraph" class="span13">
+      <div id="consumptionGraph" class="span12">
         %{-- Needs to be nested to avoid sudden jumps --}%
         <div id="consumptionCentralLoaderContainer"><div id="consumptionCentralLoader"></div>Loading...</div>
 
         <div id="consumptionCentralLoaderErrorContainer"></div>
+      </div>
+    </div>
+    <div class="span1">
+
+      <div id="levelGraph" class="span1">
       </div>
     </div>
   </div><!-- /row -->

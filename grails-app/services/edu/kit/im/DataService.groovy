@@ -263,12 +263,15 @@ class DataService {
     Collections.reverse(consumptions)
 
     int i = 0;
+    BigDecimal maximumValue = new BigDecimal(0.1)
     def returnData = consumptions.collect {
       DateTime date = (DateTime) it[0]
 
       // Format data
       BigDecimal powerReal = new BigDecimal((Double) it[1])
       powerReal.setScale(3, RoundingMode.HALF_UP)
+      if (powerReal>maximumValue)
+        maximumValue = powerReal
 
       // Format data as [timestamp, powerValue]
       // [date.getMillis(), powerReal]
@@ -279,7 +282,13 @@ class DataService {
 
 //    log.error returnData
 
-    returnData
+        // Create data for json
+    def dataMap = [:]
+
+    dataMap["consumption"] = returnData
+    dataMap["currentLevel"] = [[0,returnData.last()[1]/maximumValue],[1,returnData.last()[1]/maximumValue]]
+    
+    dataMap
   }
 
   // Helper functions

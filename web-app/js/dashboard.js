@@ -18,6 +18,7 @@
 $(function () {
 
   var consumptionData = [];
+  var currentLevel = 0;
 
   // Flot helper functions
   function powerFormatter(val, axis) {
@@ -42,15 +43,16 @@ $(function () {
       success:function (json) {
         // Reset data and extract new values from json
         consumptionData = [];
-
+        currentLevel = 0;
         // Make sure data really exists to avoid "undefined" errors
         if (json.data) {
-          consumptionData = json.data
+          consumptionData = json.data.consumption
+          currentLevel = json.data.currentLevel
 //            console.log(consumptionData)
         }
 
         // Plot
-        var options = {
+        var optionsConsumption = {
           series:{
             // Valid for all data sets
             lines:{
@@ -73,11 +75,40 @@ $(function () {
           }
         }
 
-        var data = [];
+        var optionsLevel = {
+          series:{
+            // Valid for all data sets
+            lines:{
+              show:true,
+              fill:0.75,
+              lineWidth:2.5,
+              steps:true
+            }
+          },
+          yaxis:{
+            position:"right",
+            min:0,
+            max:1.0
+          },
+          xaxis:{
+            show:false,
+                      min:0,
+                      max:1
+                    },
+          grid:{
 
-        data.push({ label:"Live", data:consumptionData, color:"#990000"});
+            borderWidth:1.0
+          }
+        }
 
-        consumptionGraph = $.plot($("#consumptionGraph"), data, options);
+        var dataConsumptionGraph = [];
+        var dataLevelGraph = [];
+
+        dataConsumptionGraph.push({ label:"Live", data:consumptionData, color:"#990000"});
+        dataLevelGraph.push({ data:currentLevel, color:"#990000"});
+
+        $.plot($("#consumptionGraph"), dataConsumptionGraph, optionsConsumption);
+        $.plot($("#levelGraph"), dataLevelGraph, optionsLevel);
         // TODO: optimize drawing (clean param)
       }
 

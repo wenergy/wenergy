@@ -182,3 +182,22 @@ body {
 #admintools .two-column-even td {
   width: 50%;
 }
+
+/* Dashboard */
+#dashboard #consumptionGraph {
+  margin-top: 15px;
+  margin-left: 0;
+  height: 350px;
+}
+
+#dashboard #levelGraph {
+  margin-top: 15px;
+  margin-left: 0;
+  height: 330px;
+}
+
+
+/* Move options to the left */
+#dashboard .form-stacked {
+  padding-left: 0;
+}
