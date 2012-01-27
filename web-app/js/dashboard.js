@@ -24,54 +24,64 @@ $(function () {
     return val.toFixed(axis.tickDecimals) + " W"
   }
 
-  $.ajax({
-    type:"POST",
-    url:rootPath + "data/dashboardData",
-    data:{
-      horizon:100 // TODO: MAKE DYNAMIC
-    },
-    success:function (json) {
-      // Reset data and extract new values from json
-      consumptionData = [];
+  reloadData();
 
-      // Make sure data really exists to avoid "undefined" errors
-      if (json.data) {
-        consumptionData = json.data
-//            console.log(consumptionData)
-      }
-
-      // Plot
-      var options = {
-        series:{
-          // Valid for all data sets
-          lines:{
-            show:true,
-//            fill:0.75,
-            lineWidth:2.5,
-            steps:true
-          }
-        },
-        yaxis:{
-          min:0,
-          tickFormatter:powerFormatter
-        },
-        grid:{
-          borderWidth:1.0
-        },
-        legend:{
-          show:true,
-          container:"#consumptionGraphLegend"
-        }
-      }
-
-      var data = [];
-
-      data.push({ label:"Live", data:consumptionData, color:"#990000"});
-
-      consumptionGraph = $.plot($("#consumptionGraph"), data, options);
-      // TODO: optimize drawing (clean param)
-    }
-
+  $.every(3, "seconds", function () {
+    // Dispatch reloading
+    reloadData();
   });
 
+  function reloadData() {
+
+    $.ajax({
+      type:"POST",
+      url:rootPath + "data/dashboardData",
+      data:{
+        horizon:100 // TODO: MAKE DYNAMIC
+      },
+      success:function (json) {
+        // Reset data and extract new values from json
+        consumptionData = [];
+
+        // Make sure data really exists to avoid "undefined" errors
+        if (json.data) {
+          consumptionData = json.data
+//            console.log(consumptionData)
+        }
+
+        // Plot
+        var options = {
+          series:{
+            // Valid for all data sets
+            lines:{
+              show:true,
+//            fill:0.75,
+              lineWidth:2.5,
+              steps:true
+            }
+          },
+          yaxis:{
+            min:0,
+            tickFormatter:powerFormatter
+          },
+          grid:{
+            borderWidth:1.0
+          },
+          legend:{
+            show:true,
+            container:"#consumptionGraphLegend"
+          }
+        }
+
+        var data = [];
+
+        data.push({ label:"Live", data:consumptionData, color:"#990000"});
+
+        consumptionGraph = $.plot($("#consumptionGraph"), data, options);
+        // TODO: optimize drawing (clean param)
+      }
+
+    });
+
+  }
 });
