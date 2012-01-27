@@ -86,4 +86,9 @@ modules = {
     resource url: [dir: "js", file: "jquery/jquery.spin.js"], disposition: "head"
   }
 
+  dashboardjs {
+      dependsOn "jqbbq, jqchrono, datejs, flotjs, spinjs, wenergyjs"
+      resource url: [dir: "js", file: "dashboard.js"], disposition: "head"
+    }
+
 }

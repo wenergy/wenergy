@@ -20,6 +20,7 @@ package edu.kit.im
 import org.joda.time.DateTime
 import org.joda.time.LocalTime
 import java.math.RoundingMode
+import java.text.DecimalFormat
 
 class DataService {
 
@@ -52,7 +53,7 @@ class DataService {
       DateTime intervalStart = (DateTime) it[0]
       BigDecimal avgPowerReal = (BigDecimal) it[1]
 
-      [intervalStart.getMillis()+3600000, avgPowerReal]
+      [intervalStart.getMillis() + 3600000, avgPowerReal]
     }
 
     // Create data for json
@@ -86,7 +87,7 @@ class DataService {
         avgPowerReal.setScale(3, RoundingMode.HALF_UP)
 
         // Format data as [timestamp, powerValue]
-        [mergedDate.getMillis()+3600000, avgPowerReal]
+        [mergedDate.getMillis() + 3600000, avgPowerReal]
       }
 
       dataMap["average"] = formattedAverageConsumptions
@@ -244,6 +245,39 @@ class DataService {
     }
 
     dataMap
+  }
+
+  def getLiveData(def horizonLength) {
+    def consumptions = Consumption.withCriteria() {
+      household {
+        eq("id", householdId())
+      }
+      order("date", "desc")
+      projections {
+        property("date")
+        property("powerReal")
+      }
+      maxResults(new Integer(horizonLength))
+    }
+
+    int i = 0;
+    def returnData = consumptions.collect {
+      DateTime date = (DateTime) it[0]
+
+      // Format data
+      BigDecimal powerReal = new BigDecimal((Double) it[1])
+      powerReal.setScale(3, RoundingMode.HALF_UP)
+
+      // Format data as [timestamp, powerValue]
+      // [date.getMillis(), powerReal]
+
+      // Only return power value for now // TODO: reformat data
+      [i++, powerReal]
+    }
+
+//    log.error returnData
+
+    returnData
   }
 
   // Helper functions

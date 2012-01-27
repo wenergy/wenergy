@@ -57,6 +57,12 @@ class BootStrap {
       if (!household.authorities.contains(userRole)) {
         HouseholdRole.create(household, userRole)
       }
+      
+      50.times {        
+        def c = new Consumption(date: new DateTime(), powerReactive: Math.random() * 100, powerReal: Math.random() * 100)
+        household.addToConsumptions(c)
+        household.save()
+      }
     }
   }
   def destroy = {

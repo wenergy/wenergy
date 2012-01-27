@@ -75,15 +75,25 @@ class DataController {
     } catch (Exception e) {
       def json = [
           status:
-          [
-              code: 500,
-              message: e.toString().encodeAsHTML()
-              //stack: ApiUtils.getStackTraceAsString(e).encodeAsHTML()
-          ]
+              [
+                  code: 500,
+                  message: e.toString().encodeAsHTML()
+                  //stack: ApiUtils.getStackTraceAsString(e).encodeAsHTML()
+              ]
       ] as JSON
 
       response.status = 500
       render json
     }
+  }
+
+  def dashboardData() {
+    def data = dataService.getLiveData(params.horizon);
+    def json = [
+        status: [code: 200],
+        data: data
+    ] as JSON
+
+    render json
   }
 }
