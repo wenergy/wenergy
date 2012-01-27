@@ -47,20 +47,20 @@
               <ul class="inputs-list">
                 <li>
                   <label>
-                    <input type="radio" name="interval" value="50" checked/>
+                    <input type="radio" name="horizon" value="25" checked/>
+                    <span>25</span>
+                  </label>
+                </li>
+                <li>
+                  <label>
+                    <input type="radio" name="horizon" value="50"/>
                     <span>50</span>
                   </label>
                 </li>
                 <li>
                   <label>
-                    <input type="radio" name="interval" value="100"/>
+                    <input type="radio" name="horizon" value="100"/>
                     <span>100</span>
-                  </label>
-                </li>
-                <li>
-                  <label>
-                    <input type="radio" name="interval" value="500"/>
-                    <span>500</span>
                   </label>
                 </li>
               </ul>

@@ -25,6 +25,7 @@ $(function () {
     return val.toFixed(axis.tickDecimals) + " W"
   }
 
+  registerEvents();
   reloadData();
 
   $.every(3, "seconds", function () {
@@ -33,12 +34,15 @@ $(function () {
   });
 
   function reloadData() {
-
+    var horizon;
+    var horizonLength;
+    horizon = $("#optionsForm input[name='horizon']:checked").val();
+    horizonLength = parseInt(horizon);
     $.ajax({
       type:"POST",
       url:rootPath + "data/dashboardData",
       data:{
-        horizon:100 // TODO: MAKE DYNAMIC
+        horizon:horizonLength
       },
       success:function (json) {
         // Reset data and extract new values from json
@@ -62,6 +66,11 @@ $(function () {
               steps:true
             }
           },
+            xaxis:{
+                        show:false,
+                                  min:0,
+                                  max:horizonLength-1
+                                },
           yaxis:{
             min:0,
             tickFormatter:powerFormatter
@@ -80,13 +89,15 @@ $(function () {
             // Valid for all data sets
             lines:{
               show:true,
-              fill:0.75,
-              lineWidth:2.5,
+              fill: 0.75,
+              fillColor: {colors:[ "#7CC718", "#F2F962", "#990000"]},
+              lineWidth:0.25,
               steps:true
             }
           },
           yaxis:{
-            position:"right",
+              show:false,
+            //position:"right",
             min:0,
             max:1.0
           },
@@ -105,7 +116,7 @@ $(function () {
         var dataLevelGraph = [];
 
         dataConsumptionGraph.push({ label:"Live", data:consumptionData, color:"#990000"});
-        dataLevelGraph.push({ data:currentLevel, color:"#990000"});
+        dataLevelGraph.push({ data:currentLevel, color:"#333333"});
 
         $.plot($("#consumptionGraph"), dataConsumptionGraph, optionsConsumption);
         $.plot($("#levelGraph"), dataLevelGraph, optionsLevel);
@@ -114,5 +125,19 @@ $(function () {
 
     });
 
+
+
+
   }
+
+  // Register event handlers functions
+  function registerEvents() {
+
+    // Radios
+    $("#optionsForm input[type=radio]").change(function() {
+    reloadData()
+    });
+  }
+
+
 });
