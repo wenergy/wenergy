@@ -63,6 +63,12 @@
                     <span>100</span>
                   </label>
                 </li>
+                  <li>
+                      <label>
+                          <input type="radio" name="horizon" value="250"/>
+                          <span>250</span>
+                      </label>
+                  </li>
               </ul>
             </div>
           </div><!-- /clearfix -->
