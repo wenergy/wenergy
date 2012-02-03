@@ -66,13 +66,15 @@ $(function () {
             // Valid for all data sets
             stack: 0,
             lines:{
+
               show:true,
-              fill:0.75,
-              lineWidth:2.5,
+            fill:0.85,
+              lineWidth:0.5,
               steps:true
             },
             bars: { show: false }
           },
+            colors: ["#c00000", "#bf8686", "#d2d2d2"],
             xaxis:{
                         show:false,
                                   min:0,
@@ -86,7 +88,7 @@ $(function () {
             borderWidth:1.0
           },
           legend:{
-            show:false,
+            show:true,
             container:"#consumptionGraphLegend"
           }
         }
