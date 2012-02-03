@@ -19,6 +19,7 @@ package edu.kit.im
 
 public enum ConsumptionType {
   MIN5(5), // 5 minute interval
+  MIN15(15), // 15 minute interval
   MIN30(30), // 30 minutes interval
   H3(180) // 3 hour interval
 

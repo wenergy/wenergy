@@ -44,7 +44,7 @@ environments {
   production {
     dataSource {
       dbCreate = "update"
-      url = "jdbc:mysql://localhost/wenergy_test?useUnicode=true&characterEncoding=UTF-8"
+      url = "jdbc:mysql://localhost/wenergy_test2?useUnicode=true&characterEncoding=UTF-8"
       driverClassName = "com.mysql.jdbc.Driver"
       dialect = "org.hibernate.dialect.MySQL5InnoDBDialect"
       username = "wenergy"

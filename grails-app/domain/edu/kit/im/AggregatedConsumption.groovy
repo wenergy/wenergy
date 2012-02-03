@@ -37,8 +37,14 @@ class AggregatedConsumption implements Serializable {
   int dayOfMonth
 
   // Aggregated values
-  BigDecimal sumPowerReal
-  BigDecimal avgPowerReal
+  BigDecimal sumPowerPhase1
+  BigDecimal avgPowerPhase1
+
+  BigDecimal sumPowerPhase2
+  BigDecimal avgPowerPhase2
+
+  BigDecimal sumPowerPhase3
+  BigDecimal avgPowerPhase3
 
   // Relationships
   static hasMany = [consumptions: Consumption]
@@ -55,8 +61,12 @@ class AggregatedConsumption implements Serializable {
     intervalEndTime(nullable: false)
     dayOfWeek(range: 1..7)
     dayOfMonth(range: 1..31)
-    sumPowerReal(nullable: false, scale: 3)
-    avgPowerReal(nullable: false, scale: 3)
+    sumPowerPhase1(nullable: false, scale: 3)
+    avgPowerPhase1(nullable: false, scale: 3)
+    sumPowerPhase2(nullable: false, scale: 3)
+    avgPowerPhase2(nullable: false, scale: 3)
+    sumPowerPhase3(nullable: false, scale: 3)
+    avgPowerPhase3(nullable: false, scale: 3)
     dateCreated()
   }
 

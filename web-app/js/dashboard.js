@@ -17,7 +17,9 @@
 
 $(function () {
 
-  var consumptionData = [];
+  var phase1Data = [];
+  var phase2Data = [];
+  var phase3Data = [];
   var currentLevel = 0;
 
   // Flot helper functions
@@ -46,25 +48,30 @@ $(function () {
       },
       success:function (json) {
         // Reset data and extract new values from json
-        consumptionData = [];
+        phase1Data = [];
+        phase2Data = [];
+        phase3Data = [];
         currentLevel = 0;
         // Make sure data really exists to avoid "undefined" errors
         if (json.data) {
-          consumptionData = json.data.consumption
+          phase1Data = json.data.powerPhase1
+          phase2Data = json.data.powerPhase2
+          phase3Data = json.data.powerPhase3
           currentLevel = json.data.currentLevel
-//            console.log(consumptionData)
         }
 
         // Plot
         var optionsConsumption = {
           series:{
             // Valid for all data sets
+            stack: true,
             lines:{
               show:true,
 //            fill:0.75,
               lineWidth:2.5,
               steps:true
-            }
+            },
+            bars: { show: true, barWidth: 0.6 }
           },
             xaxis:{
                         show:false,
@@ -112,13 +119,23 @@ $(function () {
           }
         }
 
-        var dataConsumptionGraph = [];
+        var flotPhase1Series = [];
+        var flotPhase2Series= [];
+        var flotPhase3Series = [];
         var dataLevelGraph = [];
 
-        dataConsumptionGraph.push({ label:"Live", data:consumptionData, color:"#990000"});
+        flotPhase1Series.push({ label:"Phase 1", data:phase1Data, color:"#990000"});
+        flotPhase2Series.push({ label:"Phase 2", data:phase2Data, color:"#009900"});
+        flotPhase3Series.push({ label:"Phase 3", data:phase3Data, color:"#000099"});
         dataLevelGraph.push({ data:currentLevel, color:"#333333"});
 
-        $.plot($("#consumptionGraph"), dataConsumptionGraph, optionsConsumption);
+        $.plot($("#consumptionGraph"), [phase1Data, phase2Data, phase3Data], {
+                    series: {
+                        stack: true,
+                        lines: { show: true, fill: true, steps: true},
+                        bars: { show: false, barWidth: 0.6 }
+                    }
+                });
         $.plot($("#levelGraph"), dataLevelGraph, optionsLevel);
         // TODO: optimize drawing (clean param)
       }

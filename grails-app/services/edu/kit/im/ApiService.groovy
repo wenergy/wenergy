@@ -27,8 +27,9 @@ class ApiService {
 
     // Load and verify JSON content
     String macAddress
-    BigDecimal powerReal
-    BigDecimal powerReactive
+    BigDecimal powerPhase1
+    BigDecimal powerPhase2
+    BigDecimal powerPhase3
     BigInteger timestamp
 
     // The following exceptions can throw since variables are statically typed
@@ -39,15 +40,22 @@ class ApiService {
     }
 
     try {
-      powerReal = jsonPayload.p
+      powerPhase1 = jsonPayload.p1
     } catch (GroovyCastException e) {
-      throw new ApiException("Invalid real power type", 400)
+      throw new ApiException("Invalid phase 1 power type", 400)
     }
 
     try {
-      powerReactive = jsonPayload.q
+      powerPhase2 = jsonPayload.p2
     } catch (GroovyCastException e) {
-      throw new ApiException("Invalid reactive power type", 400)
+      throw new ApiException("Invalid phase 2 power type", 400)
+    }
+
+
+    try {
+      powerPhase3 = jsonPayload.p3
+    } catch (GroovyCastException e) {
+      throw new ApiException("Invalid phase 3 power type", 400)
     }
 
 //    try {
@@ -57,8 +65,10 @@ class ApiService {
 //    }
 
     if (!macAddress) throw new ApiException("No MAC address provided", 400)
-    if (!powerReal) throw new ApiException("No real power provided", 400)
-    if (!powerReactive) throw new ApiException("No reactive power provided", 400)
+    if (!powerPhase1) throw new ApiException("No phase 1 power provided", 400)
+    if (!powerPhase2) throw new ApiException("No phase 2 power provided", 400)
+    if (!powerPhase3) throw new ApiException("No phase 3 power provided", 400)
+
 //    if (!timestamp) throw new ApiException("No timestamp provided", 400)
 
     // Verify MAC address
@@ -78,7 +88,8 @@ class ApiService {
 //    }
 
     // All checks passed - create Consumption instance
-    def consumption = new Consumption(household: household, date: new DateTime(), powerReal: powerReal, powerReactive: powerReactive)
+    def consumption = new Consumption(household: household, date: new DateTime(), powerPhase1: powerPhase1,
+        powerPhase2: powerPhase2, powerPhase3: powerPhase3);
 
     try {
       consumption.save(failOnError: true)
@@ -117,8 +128,12 @@ class ApiService {
     if (aggregatedConsumption) {
       // Already exists, so just save and update power values
       aggregatedConsumption.addToConsumptions(consumption)
-      aggregatedConsumption.sumPowerReal += consumption.powerReal
-      aggregatedConsumption.avgPowerReal = aggregatedConsumption.sumPowerReal / aggregatedConsumption.consumptions.size()
+      aggregatedConsumption.sumPowerPhase1 += consumption.powerPhase1
+      aggregatedConsumption.avgPowerPhase1 = aggregatedConsumption.sumPowerPhase1 / aggregatedConsumption.consumptions.size()
+      aggregatedConsumption.sumPowerPhase2 += consumption.powerPhase2
+      aggregatedConsumption.avgPowerPhase2 = aggregatedConsumption.sumPowerPhase2 / aggregatedConsumption.consumptions.size()
+      aggregatedConsumption.sumPowerPhase3 += consumption.powerPhase3
+      aggregatedConsumption.avgPowerPhase3 = aggregatedConsumption.sumPowerPhase3 / aggregatedConsumption.consumptions.size()
       aggregatedConsumption.save()
     }
     else {
@@ -134,8 +149,12 @@ class ApiService {
       newAggregatedConsumption.intervalEndTime = intervalEnd.toLocalTime()
       newAggregatedConsumption.dayOfWeek = intervalStart.dayOfWeek
       newAggregatedConsumption.dayOfMonth = intervalStart.dayOfMonth
-      newAggregatedConsumption.sumPowerReal = consumption.powerReal
-      newAggregatedConsumption.avgPowerReal = consumption.powerReal // / 1
+      newAggregatedConsumption.sumPowerPhase1 = consumption.powerPhase1
+      newAggregatedConsumption.avgPowerPhase1 = consumption.powerPhase1 // / 1
+      newAggregatedConsumption.sumPowerPhase2 = consumption.powerPhase2
+      newAggregatedConsumption.avgPowerPhase2 = consumption.powerPhase2 // / 1
+      newAggregatedConsumption.sumPowerPhase3 = consumption.powerPhase3
+      newAggregatedConsumption.avgPowerPhase3 = consumption.powerPhase3 // / 1
 
       // Relationships
       newAggregatedConsumption.addToConsumptions(consumption)

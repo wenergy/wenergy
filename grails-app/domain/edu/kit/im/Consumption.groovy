@@ -23,9 +23,10 @@ class Consumption implements Serializable {
   // Date and time at which the consumption data was collected
   DateTime date
 
-  // Power values
-  BigDecimal powerReal
-  BigDecimal powerReactive
+  // Reactive power values
+  BigDecimal powerPhase1
+  BigDecimal powerPhase2
+  BigDecimal powerPhase3
 
   // Grails information
   DateTime dateCreated
@@ -35,8 +36,9 @@ class Consumption implements Serializable {
 
   static constraints = {
     date(nullable: false)
-    powerReal(nullable: false, scale: 3)
-    powerReactive(nullable: false, scale: 3)
+    powerPhase1(nullable: false, scale: 3)
+    powerPhase2(nullable: false, scale: 3)
+    powerPhase3(nullable: false, scale: 3)
     dateCreated()
   }
 

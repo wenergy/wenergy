@@ -26,6 +26,7 @@ import edu.kit.im.Consumption
 class BootStrap {
 
   def springSecurityService
+  def apiService
 
   def init = { servletContext ->
     // Work only on UTC by default - necessary since flot uses UTC as well
@@ -57,11 +58,15 @@ class BootStrap {
       if (!household.authorities.contains(userRole)) {
         HouseholdRole.create(household, userRole)
       }
-      
-      50.times {        
-        def c = new Consumption(date: new DateTime(), powerReactive: Math.random() * 100, powerReal: Math.random() * 100)
-        household.addToConsumptions(c)
-        household.save()
+
+      DateTime date = new DateTime()
+      100.times {
+        def c = new Consumption(household: household, date: date, powerPhase1: Math.random() * 100, powerPhase2: Math.random() * 100, powerPhase3: Math.random() * 100)
+        c.save()
+
+        date = date.plusMinutes(7)
+
+        apiService.determineAggregation(c)
       }
     }
   }

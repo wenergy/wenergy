@@ -44,16 +44,20 @@ class DataService {
       order("intervalStart", "asc")
       projections {
         property("intervalStart")
-        property("avgPowerReal")
+        property("avgPowerPhase1")
+        property("avgPowerPhase2")
+        property("avgPowerPhase3")
       }
     }
 
     // Format data as [timestamp, powerValue]
     def formattedDailyConsumptions = dailyConsumptions.collect {
       DateTime intervalStart = (DateTime) it[0]
-      BigDecimal avgPowerReal = (BigDecimal) it[1]
+      BigDecimal avgPowerPhase1 = (BigDecimal) it[1]
+      BigDecimal avgPowerPhase2 = (BigDecimal) it[2]
+      BigDecimal avgPowerPhase3 = (BigDecimal) it[3]
 
-      [intervalStart.getMillis() + 3600000, avgPowerReal]
+      [intervalStart.getMillis() + 3600000, (avgPowerPhase1 + avgPowerPhase2 + avgPowerPhase3)]
     }
 
     // Create data for json
@@ -73,7 +77,9 @@ class DataService {
         order("intervalStartTime", "asc")
         projections {
           groupProperty("intervalStartTime")
-          avg("avgPowerReal")
+          avg("avgPowerPhase1")
+          avg("avgPowerPhase2")
+          avg("avgPowerPhase3")
         }
       }
 
@@ -83,11 +89,17 @@ class DataService {
         DateTime mergedDate = low.withTime(intervalStart.hourOfDay, intervalStart.minuteOfHour, intervalStart.secondOfMinute, intervalStart.millisOfSecond)
 
         // Format data
-        BigDecimal avgPowerReal = new BigDecimal((Double) it[1])
-        avgPowerReal.setScale(3, RoundingMode.HALF_UP)
+        BigDecimal avgPowerPhase1 = new BigDecimal((Double) it[1])
+        avgPowerPhase1.setScale(3, RoundingMode.HALF_UP)
+
+        BigDecimal avgPowerPhase2 = new BigDecimal((Double) it[2])
+        avgPowerPhase2.setScale(3, RoundingMode.HALF_UP)
+
+        BigDecimal avgPowerPhase3 = new BigDecimal((Double) it[3])
+        avgPowerPhase3.setScale(3, RoundingMode.HALF_UP)
 
         // Format data as [timestamp, powerValue]
-        [mergedDate.getMillis() + 3600000, avgPowerReal]
+        [mergedDate.getMillis() + 3600000, (avgPowerPhase1 + avgPowerPhase2 + avgPowerPhase3)]
       }
 
       dataMap["average"] = formattedAverageConsumptions
@@ -113,16 +125,20 @@ class DataService {
       order("intervalStart", "asc")
       projections {
         property("intervalStart")
-        property("avgPowerReal")
+        property("avgPowerPhase1")
+        property("avgPowerPhase2")
+        property("avgPowerPhase3")
       }
     }
 
     // Format data as [timestamp, powerValue]
     def formattedWeeklyConsumptions = weeklyConsumptions.collect {
       DateTime intervalStart = (DateTime) it[0]
-      BigDecimal avgPowerReal = (BigDecimal) it[1]
+      BigDecimal avgPowerPhase1 = (BigDecimal) it[1]
+      BigDecimal avgPowerPhase2 = (BigDecimal) it[2]
+      BigDecimal avgPowerPhase3 = (BigDecimal) it[3]
 
-      [intervalStart.getMillis(), avgPowerReal]
+      [intervalStart.getMillis(), (avgPowerPhase1 + avgPowerPhase2 + avgPowerPhase3)]
     }
 
     // Create data for json
@@ -143,7 +159,9 @@ class DataService {
         projections {
           groupProperty("dayOfWeek")
           groupProperty("intervalStartTime")
-          avg("avgPowerReal")
+          avg("avgPowerPhase1")
+          avg("avgPowerPhase2")
+          avg("avgPowerPhase3")
         }
       }
 
@@ -154,11 +172,17 @@ class DataService {
         DateTime mergedDate = low.plusDays(dayOfWeek - 1).withTime(intervalStart.hourOfDay, intervalStart.minuteOfHour, intervalStart.secondOfMinute, intervalStart.millisOfSecond)
 
         // Format data
-        BigDecimal avgPowerReal = new BigDecimal((Double) it[2])
-        avgPowerReal.setScale(3, RoundingMode.HALF_UP)
+        BigDecimal avgPowerPhase1 = new BigDecimal((Double) it[2])
+        avgPowerPhase1.setScale(3, RoundingMode.HALF_UP)
+
+        BigDecimal avgPowerPhase2 = new BigDecimal((Double) it[3])
+        avgPowerPhase2.setScale(3, RoundingMode.HALF_UP)
+
+        BigDecimal avgPowerPhase3 = new BigDecimal((Double) it[4])
+        avgPowerPhase3.setScale(3, RoundingMode.HALF_UP)
 
         // Format data as [timestamp, powerValue]
-        [mergedDate.getMillis(), avgPowerReal]
+        [mergedDate.getMillis(), (avgPowerPhase1 + avgPowerPhase2 + avgPowerPhase3)]
       }
 
       dataMap["average"] = formattedAverageConsumptions
@@ -184,16 +208,20 @@ class DataService {
       order("intervalStart", "asc")
       projections {
         property("intervalStart")
-        property("avgPowerReal")
+        property("avgPowerPhase1")
+        property("avgPowerPhase2")
+        property("avgPowerPhase3")
       }
     }
 
     // Format data as [timestamp, powerValue]
     def formattedWeeklyConsumptions = weeklyConsumptions.collect {
       DateTime intervalStart = (DateTime) it[0]
-      BigDecimal avgPowerReal = (BigDecimal) it[1]
+      BigDecimal avgPowerPhase1 = (BigDecimal) it[1]
+      BigDecimal avgPowerPhase2 = (BigDecimal) it[2]
+      BigDecimal avgPowerPhase3 = (BigDecimal) it[3]
 
-      [intervalStart.getMillis(), avgPowerReal]
+      [intervalStart.getMillis(), (avgPowerPhase1 + avgPowerPhase2 + avgPowerPhase3)]
     }
 
     // Create data for json
@@ -214,7 +242,9 @@ class DataService {
         projections {
           groupProperty("dayOfMonth")
           groupProperty("intervalStartTime")
-          avg("avgPowerReal")
+          avg("avgPowerPhase1")
+          avg("avgPowerPhase2")
+          avg("avgPowerPhase3")
         }
       }
 
@@ -234,11 +264,17 @@ class DataService {
         DateTime mergedDate = low.withDayOfMonth(dayOfMonth).withTime(intervalStart.hourOfDay, intervalStart.minuteOfHour, intervalStart.secondOfMinute, intervalStart.millisOfSecond)
 
         // Format data
-        BigDecimal avgPowerReal = new BigDecimal((Double) it[2])
-        avgPowerReal.setScale(3, RoundingMode.HALF_UP)
+        BigDecimal avgPowerPhase1 = new BigDecimal((Double) it[2])
+        avgPowerPhase1.setScale(3, RoundingMode.HALF_UP)
+
+        BigDecimal avgPowerPhase2 = new BigDecimal((Double) it[3])
+        avgPowerPhase2.setScale(3, RoundingMode.HALF_UP)
+
+        BigDecimal avgPowerPhase3 = new BigDecimal((Double) it[4])
+        avgPowerPhase3.setScale(3, RoundingMode.HALF_UP)
 
         // Format data as [timestamp, powerValue]
-        [mergedDate.getMillis(), avgPowerReal]
+        [mergedDate.getMillis(), (avgPowerPhase1 + avgPowerPhase2 + avgPowerPhase3)]
       }
 
       dataMap["average"] = formattedAverageConsumptions
@@ -255,39 +291,61 @@ class DataService {
       order("date", "desc")
       projections {
         property("date")
-        property("powerReal")
+        property("powerPhase1")
+        property("powerPhase2")
+        property("powerPhase3")
       }
       maxResults(new Integer(horizonLength))
     }
-    
+
     Collections.reverse(consumptions)
 
-    int i = 0;
-    BigDecimal maximumValue = new BigDecimal(0.1)
-    def returnData = consumptions.collect {
+    int i = 0
+//    BigDecimal maximumValue = new BigDecimal(0.1)
+
+    def phase1Data = consumptions.collect {
       DateTime date = (DateTime) it[0]
 
       // Format data
-      BigDecimal powerReal = new BigDecimal((Double) it[1])
-      powerReal.setScale(3, RoundingMode.HALF_UP)
-      if (powerReal>maximumValue)
-        maximumValue = powerReal
+      BigDecimal powerPhase1 = new BigDecimal((Double) it[1])
+      powerPhase1.setScale(3, RoundingMode.HALF_UP)
 
-      // Format data as [timestamp, powerValue]
-      // [date.getMillis(), powerReal]
+      [i++, powerPhase1]
+    }
 
-      // Only return power value for now // TODO: reformat data
-      [i++, powerReal]
+    i = 0
+    def phase2Data = consumptions.collect {
+      DateTime date = (DateTime) it[0]
+
+      // Format data
+      BigDecimal powerPhase2 = new BigDecimal((Double) it[2])
+      powerPhase2.setScale(3, RoundingMode.HALF_UP)
+
+      [i++, powerPhase2]
+    }
+
+    i = 0
+    def phase3Data = consumptions.collect {
+      DateTime date = (DateTime) it[0]
+
+      // Format data
+      BigDecimal powerPhase3 = new BigDecimal((Double) it[3])
+      powerPhase3.setScale(3, RoundingMode.HALF_UP)
+
+      [i++, powerPhase3]
     }
 
 //    log.error returnData
 
-        // Create data for json
+    // Create data for json
     def dataMap = [:]
 
-    dataMap["consumption"] = returnData
-    dataMap["currentLevel"] = [[0,returnData.last()[1]/maximumValue],[1,returnData.last()[1]/maximumValue]]
-    
+    dataMap["powerPhase1"] = phase1Data
+    dataMap["powerPhase2"] = phase2Data
+    dataMap["powerPhase3"] = phase3Data
+    // TODO: Select top 1000 return last of top 10%
+    dataMap["currentLevel"] = [[0, 1], [1, 1]]//[[0, returnData.last()[1] / maximumValue], [1, returnData.last()[1] / maximumValue]]
+
     dataMap
   }
 

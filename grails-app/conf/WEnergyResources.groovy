@@ -43,6 +43,7 @@ modules = {
     dependsOn "jquery"
     resource url: [dir: "js/flot", file: "excanvas.js"], wrapper: { s -> "<!--[if lt IE 9]>$s<![endif]-->" }, disposition: "head"
     resource url: [dir: "js/flot", file: "jquery.flot.js"], disposition: "head"
+    resource url: [dir: "js/flot", file: "jquery.flot.stack.js"], disposition: "head"
   }
 
   datejs {
