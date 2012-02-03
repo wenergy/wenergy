@@ -64,15 +64,17 @@ $(function () {
         var optionsConsumption = {
           series:{
             // Valid for all data sets
-            stack: true,
+            stack: 0,
             lines:{
+
               show:true,
-//            fill:0.75,
-              lineWidth:2.5,
+            fill:0.85,
+              lineWidth:0.5,
               steps:true
             },
-            bars: { show: true, barWidth: 0.6 }
+            bars: { show: false }
           },
+            colors: ["#c00000", "#bf8686", "#d2d2d2"],
             xaxis:{
                         show:false,
                                   min:0,
