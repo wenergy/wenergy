@@ -129,13 +129,7 @@ $(function () {
         flotPhase3Series.push({ label:"Phase 3", data:phase3Data, color:"#000099"});
         dataLevelGraph.push({ data:currentLevel, color:"#333333"});
 
-        $.plot($("#consumptionGraph"), [phase1Data, phase2Data, phase3Data], {
-                    series: {
-                        stack: true,
-                        lines: { show: true, fill: true, steps: true},
-                        bars: { show: false, barWidth: 0.6 }
-                    }
-                });
+        $.plot($("#consumptionGraph"), [phase1Data, phase2Data, phase3Data], optionsConsumption);
         $.plot($("#levelGraph"), dataLevelGraph, optionsLevel);
         // TODO: optimize drawing (clean param)
       }

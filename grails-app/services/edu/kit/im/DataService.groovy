@@ -343,7 +343,11 @@ class DataService {
     dataMap["powerPhase1"] = phase1Data
     dataMap["powerPhase2"] = phase2Data
     dataMap["powerPhase3"] = phase3Data
-    // TODO: Select top 1000 return last of top 10%
+
+      // TODO: Select top 1000 return last of top 10%
+
+
+
     dataMap["currentLevel"] = [[0, 1], [1, 1]]//[[0, returnData.last()[1] / maximumValue], [1, returnData.last()[1] / maximumValue]]
 
     dataMap
