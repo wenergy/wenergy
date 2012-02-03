@@ -64,14 +64,14 @@ $(function () {
         var optionsConsumption = {
           series:{
             // Valid for all data sets
-            stack: true,
+            stack: 0,
             lines:{
               show:true,
-//            fill:0.75,
+              fill:0.75,
               lineWidth:2.5,
               steps:true
             },
-            bars: { show: true, barWidth: 0.6 }
+            bars: { show: false }
           },
             xaxis:{
                         show:false,
@@ -86,7 +86,7 @@ $(function () {
             borderWidth:1.0
           },
           legend:{
-            show:true,
+            show:false,
             container:"#consumptionGraphLegend"
           }
         }
