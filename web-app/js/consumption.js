@@ -124,6 +124,9 @@ $(function () {
             case "daily":
               $(".ui-datepicker-current").text("Today");
               break;
+            case "daily15":
+              $(".ui-datepicker-current").text("Today");
+              break;
             case "weekly":
               $(".ui-datepicker-current").text("Current week");
               break;
@@ -245,6 +248,16 @@ $(function () {
         pageTitle += " on " + date.toString(dailyFormat);
 
         break;
+      case "daily15":
+
+            // Do not enable browsing into the future
+            // default "today" set above
+
+            // Update page title
+            var dailyFormat = "D"; // longDate, e.g. dddd, MMMM dd, yyyy, i.e. Monday, January 01, 2000
+            pageTitle += " on " + date.toString(dailyFormat);
+
+            break;
       case "weekly":
 
         // Do not enable browsing into the future
@@ -346,6 +359,9 @@ $(function () {
 
     switch (cache.interval) {
       case "daily":
+        date = date.addDays(delta);
+        break;
+      case "daily15":
         date = date.addDays(delta);
         break;
       case "weekly":
@@ -603,6 +619,8 @@ $(function () {
   function graphLabelForDateAndInterval(date, interval) {
     switch (interval) {
       case "daily":
+        return "Average " + date.toString("dddd"); // Monday
+      case "daily15":
         return "Average " + date.toString("dddd"); // Monday
       case "weekly":
         return "Average week";

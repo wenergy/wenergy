@@ -108,6 +108,93 @@ class DataService {
     dataMap
   }
 
+
+
+    // Get formatted list of daily consumption data for given date  15min!
+    def getDaily15Data(DateTime date, boolean averages) {
+
+        // Set lower end to midnight 00:00:00
+        def low = date.withTimeAtStartOfDay()
+
+        // Set upper end to one second before midnight 23:59:59
+        def high = low.plusDays(1).minusSeconds(1)
+
+        def dailyConsumptions = AggregatedConsumption.withCriteria() {
+            between("intervalStart", low, high)
+            eq("type", ConsumptionType.MIN15)
+            household {
+                eq("id", householdId())
+            }
+            order("intervalStart", "asc")
+            projections {
+                property("intervalStart")
+                property("avgPowerPhase1")
+                property("avgPowerPhase2")
+                property("avgPowerPhase3")
+            }
+        }
+
+        // Format data as [timestamp, powerValue]
+        def formattedDailyConsumptions = dailyConsumptions.collect {
+            DateTime intervalStart = (DateTime) it[0]
+            BigDecimal avgPowerPhase1 = (BigDecimal) it[1]
+            BigDecimal avgPowerPhase2 = (BigDecimal) it[2]
+            BigDecimal avgPowerPhase3 = (BigDecimal) it[3]
+
+            [intervalStart.getMillis() + 3600000, (avgPowerPhase1 + avgPowerPhase2 + avgPowerPhase3)]
+        }
+
+        // Create data for json
+        def dataMap = ["consumption": formattedDailyConsumptions]
+
+        // Additionally load average values
+        if (averages) {
+            // Collect all existing data from the same day, does not include current week
+            // Use between() in to limit data range to a year or so with appropriate parameters
+            def averageConsumptions = AggregatedConsumption.withCriteria() {
+                lt("intervalStart", low)
+                eq("type", ConsumptionType.MIN15)
+                //eq("dayOfWeek", low.dayOfWeek)
+                household {
+                    eq("id", householdId())
+                }
+                order("intervalStartTime", "asc")
+                projections {
+                    groupProperty("intervalStartTime")
+                    avg("avgPowerPhase1")
+                    avg("avgPowerPhase2")
+                    avg("avgPowerPhase3")
+                }
+            }
+
+            def formattedAverageConsumptions = averageConsumptions.collect {
+                // Merge intervalStart with intervalStartTime
+                LocalTime intervalStart = (LocalTime) it[0]
+                DateTime mergedDate = low.withTime(intervalStart.hourOfDay, intervalStart.minuteOfHour, intervalStart.secondOfMinute, intervalStart.millisOfSecond)
+
+                // Format data
+                BigDecimal avgPowerPhase1 = new BigDecimal((Double) it[1])
+                avgPowerPhase1.setScale(3, RoundingMode.HALF_UP)
+
+                BigDecimal avgPowerPhase2 = new BigDecimal((Double) it[2])
+                avgPowerPhase2.setScale(3, RoundingMode.HALF_UP)
+
+                BigDecimal avgPowerPhase3 = new BigDecimal((Double) it[3])
+                avgPowerPhase3.setScale(3, RoundingMode.HALF_UP)
+
+                // Format data as [timestamp, powerValue]
+                [mergedDate.getMillis() + 3600000, (avgPowerPhase1 + avgPowerPhase2 + avgPowerPhase3)]
+            }
+
+            dataMap["average"] = formattedAverageConsumptions
+        }
+
+        dataMap
+    }
+
+
+
+
   // Get formatted list of weekly consumption data for given date
   def getWeeklyData(DateTime date, boolean averages) {
 

@@ -55,6 +55,11 @@ class DataController {
                     low = date.withTimeAtStartOfDay().dayOfMonth().withMinimumValue() // 1st of month, 00:00:00
                     high = low.plusMonths(1).minusHours(3) // 23:55:00 // last start time for 3h interval
                     break;
+                case "daily15":
+                    data = dataService.getDaily15Data(date, true)
+                    low = date.withTimeAtStartOfDay() // 00:00:00
+                    high = low.plusDays(1).minusMinutes(15) // 23:55:00 // last start time for 15min interval
+                    break;
                 case "daily":
                 default:
                     data = dataService.getDailyData(date, true)
