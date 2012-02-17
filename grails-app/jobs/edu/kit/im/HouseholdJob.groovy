@@ -10,7 +10,7 @@ class HouseholdJob {
   }
 
   def execute() {
-    log.error "execute"
+//    log.error "execute"
   }
 
 }
