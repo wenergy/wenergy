@@ -44,6 +44,8 @@ grails.project.dependency.resolution = {
     compile ":spring-security-core:1.2.6"
     compile ":joda-time:1.3"
 
+    compile ":quartz2:0.2.2"
+
     build ":tomcat:$grailsVersion"
   }
 }

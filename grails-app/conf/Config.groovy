@@ -56,6 +56,9 @@ grails.web.disable.multipart = false
 // request parameters to mask when logging exceptions
 grails.exceptionresolver.params.exclude = ['password']
 
+// Quartz
+grails.config.locations = [ "file:grails-app/conf/${appName}-Quartz.groovy"]
+
 // general log4j configuration
 def catalinaBase = System.properties.getProperty('catalina.base')
 if (!catalinaBase) catalinaBase = '.'   // just in case
