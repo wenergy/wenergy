@@ -55,7 +55,7 @@
                         </li>
                         <li>
                             <label>
-                                <input type="radio" name="interval" value="daily15" checked/>
+                                <input type="radio" name="interval" value="daily15"/>
                                 <span>Daily15</span>
                             </label>
                         </li>

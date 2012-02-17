@@ -65,6 +65,7 @@ class DataController {
                     data = dataService.getDailyData(date, true)
                     low = date.withTimeAtStartOfDay() // 00:00:00
                     high = low.plusDays(1).minusMinutes(5) // 23:55:00 // last start time for 5min interval
+                    //log.error "date is ${date}, computed low ${low} and high ${high}"
                     break;
             }
 
