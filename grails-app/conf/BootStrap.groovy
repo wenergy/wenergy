@@ -59,15 +59,15 @@ class BootStrap {
         HouseholdRole.create(household, userRole)
       }
 
-      DateTime date = new DateTime()
-      100.times {
-        def c = new Consumption(household: household, date: date, powerPhase1: Math.random() * 100, powerPhase2: Math.random() * 100, powerPhase3: Math.random() * 100)
-        c.save()
-
-        date = date.plusMinutes(7)
-
-        apiService.determineAggregation(c)
-      }
+//      DateTime date = new DateTime()
+//      100.times {
+//        def c = new Consumption(household: household, date: date, powerPhase1: Math.random() * 100, powerPhase2: Math.random() * 100, powerPhase3: Math.random() * 100)
+//        c.save()
+//
+//        date = date.plusMinutes(7)
+//
+//        apiService.determineAggregation(c)
+//      }
     }
   }
   def destroy = {
