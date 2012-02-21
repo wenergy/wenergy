@@ -17,10 +17,9 @@
 
 package edu.kit.im
 
+import java.math.RoundingMode
 import org.joda.time.DateTime
 import org.joda.time.LocalTime
-import java.math.RoundingMode
-import java.text.DecimalFormat
 
 class DataService {
 
@@ -431,11 +430,9 @@ class DataService {
     dataMap["powerPhase2"] = phase2Data
     dataMap["powerPhase3"] = phase3Data
 
-      // TODO: Select top 1000 return last of top 10%
-
-
-
-    dataMap["currentLevel"] = [[0, 1], [1, 1]]//[[0, returnData.last()[1] / maximumValue], [1, returnData.last()[1] / maximumValue]]
+    def currentConsumption = phase1Data.last()[1]+phase2Data.last()[1]+phase3Data.last()[1]
+    def referenceValue = Math.max(Household.findById(householdId())?.referenceConsumption ?: 0.0,0.01)
+    dataMap["currentLevel"] = [[0, currentConsumption / referenceValue], [1, currentConsumption / referenceValue]]
 
     dataMap
   }

@@ -74,7 +74,7 @@ class AdminController {
     def i = 0
     while (++i) {
       def power = baseLoad + ((startDate.weekOfWeekyear % 2 == 0) ? 2 : 4)
-      def consumption = new Consumption(household: household, date: startDate, powerPhase1: power, powerPhase2: 0, powerPhase3: 0);
+      def consumption = new Consumption(household: household, date: startDate, powerPhase1: power, powerPhase2: 0, powerPhase3: 0, batteryLevel: 0);
       consumption.save(failOnError: true)
 
       apiService.determineAggregation(consumption)
@@ -100,4 +100,10 @@ class AdminController {
     session.clear()
     propertyInstanceMap.get().clear()
   }
+  def householdService
+  def runHouseholdJob()
+  {
+      householdService.run()
+  }
+
 }

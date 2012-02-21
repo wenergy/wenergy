@@ -91,7 +91,7 @@ class ApiService {
     def dateTime = new DateTime()
 //    log.error "create $dateTime "
     def consumption = new Consumption(household: household, date: dateTime, powerPhase1: powerPhase1,
-        powerPhase2: powerPhase2, powerPhase3: powerPhase3);
+        powerPhase2: powerPhase2, powerPhase3: powerPhase3, batteryLevel: 0);
 
     try {
       consumption.save(failOnError: true)

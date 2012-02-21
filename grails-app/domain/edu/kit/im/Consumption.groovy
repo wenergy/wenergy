@@ -28,6 +28,9 @@ class Consumption implements Serializable {
   BigDecimal powerPhase2
   BigDecimal powerPhase3
 
+  // Battery statistic
+  BigDecimal batteryLevel
+
   // Grails information
   DateTime dateCreated
 
@@ -39,6 +42,7 @@ class Consumption implements Serializable {
     powerPhase1(nullable: false, scale: 3)
     powerPhase2(nullable: false, scale: 3)
     powerPhase3(nullable: false, scale: 3)
+    batteryLevel(nullable: false, scale: 3)
     dateCreated()
   }
 
