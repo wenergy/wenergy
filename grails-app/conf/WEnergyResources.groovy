@@ -92,4 +92,8 @@ modules = {
       resource url: [dir: "js", file: "dashboard.js"], disposition: "head"
     }
 
+  peergroupjs {
+      dependsOn "jqbbq, jqchrono, datejs, flotjs, spinjs, wenergyjs"
+      resource url: [dir: "js", file: "peergroup.js"], disposition: "head"
+    }
 }

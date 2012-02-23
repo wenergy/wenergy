@@ -43,4 +43,9 @@ class HomeController {
   def consumption() {
     [nav: "consumption"]
   }
+
+  // My Peergroup
+  def peergroup() {
+    [nav: "peergroup"]
+  }
 }

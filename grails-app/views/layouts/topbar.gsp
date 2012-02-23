@@ -29,7 +29,7 @@
           <li<g:if test="${nav == 'dashboard'}"> class="active"</g:if>><g:link controller="home" action="dashboard">Dashboard</g:link></li>
           <li<g:if test="${nav == 'consumption'}"> class="active"</g:if>><g:link controller="home" action="consumption">My Consumption</g:link></li>
           <li<g:if test="${nav == 'appliances'}"> class="active"</g:if>><a href="#appliances">My Appliances</a></li>
-          <li<g:if test="${nav == 'peergroup'}"> class="active"</g:if>><a href="#peergroup">My Peer Group</a></li>
+          <li<g:if test="${nav == 'peergroup'}"> class="active"</g:if>><g:link controller="home" action="peergroup">My Peer Group</g:link></li>
         </sec:ifLoggedIn>
       </ul>
       <sec:ifNotLoggedIn>

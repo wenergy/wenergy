@@ -195,9 +195,27 @@ body {
   margin-left: 0;
   height: 350px;
 }
-
-
 /* Move options to the left */
 #dashboard .form-stacked {
   padding-left: 0;
 }
+/* Peergroup */
+#peergroup #consumptionGraph {
+  margin-top: 15px;
+  margin-left: 0;
+  height: 350px;
+}
+
+#peergroup #levelGraph {
+  margin-top: 15px;
+  margin-left: 0;
+  height: 350px;
+}
+/* Move options to the left */
+#peergroup .form-stacked {
+  padding-left: 0;
+}
+
+
+
+
