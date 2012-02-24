@@ -30,6 +30,7 @@ class ApiService {
     BigDecimal powerPhase1
     BigDecimal powerPhase2
     BigDecimal powerPhase3
+    BigDecimal batteryLevel
     BigInteger timestamp
 
     // The following exceptions can throw since variables are statically typed
@@ -51,11 +52,16 @@ class ApiService {
       throw new ApiException("Invalid phase 2 power type", 400)
     }
 
-
     try {
       powerPhase3 = jsonPayload.p3
     } catch (GroovyCastException e) {
       throw new ApiException("Invalid phase 3 power type", 400)
+    }
+
+    try {
+      batteryLevel = jsonPayload.b
+    } catch (GroovyCastException e) {
+      throw new ApiException("Invalid battery level type", 400)
     }
 
 //    try {
@@ -68,6 +74,7 @@ class ApiService {
     if (powerPhase1 == null) throw new ApiException("No phase 1 power provided", 400)
     if (powerPhase2 == null) throw new ApiException("No phase 2 power provided", 400)
     if (powerPhase3 == null) throw new ApiException("No phase 3 power provided", 400)
+    if (batteryLevel == null) throw new ApiException("No battery level provided", 400)
 
 //    if (!timestamp) throw new ApiException("No timestamp provided", 400)
 
@@ -86,7 +93,7 @@ class ApiService {
     def dateTime = new DateTime()
 //    log.error "create $dateTime "
     def consumption = new Consumption(household: household, date: dateTime, powerPhase1: powerPhase1,
-        powerPhase2: powerPhase2, powerPhase3: powerPhase3, batteryLevel: 0);
+        powerPhase2: powerPhase2, powerPhase3: powerPhase3, batteryLevel: batteryLevel);
 
     try {
       consumption.save(failOnError: true)
