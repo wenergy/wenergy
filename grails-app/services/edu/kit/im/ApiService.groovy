@@ -64,35 +64,19 @@ class ApiService {
       throw new ApiException("Invalid battery level type", 400)
     }
 
-//    try {
-//      timestamp = jsonPayload.t
-//    } catch (GroovyCastException e) {
-//      throw new ApiException("Invalid timestamp type", 400)
-//    }
-
     if (deviceId == null) throw new ApiException("No device id provided", 400)
     if (powerPhase1 == null) throw new ApiException("No phase 1 power provided", 400)
     if (powerPhase2 == null) throw new ApiException("No phase 2 power provided", 400)
     if (powerPhase3 == null) throw new ApiException("No phase 3 power provided", 400)
     if (batteryLevel == null) throw new ApiException("No battery level provided", 400)
 
-//    if (!timestamp) throw new ApiException("No timestamp provided", 400)
-
     // Get household
     def household = Household.findByDeviceId(deviceId, [cache: true])
     if (!household) throw new ApiException("Invalid device id", 400)
 
-    // Verify timestamp
-//    def date = new DateTime(timestamp as long)
-    // Simply sanity check to avoid wrong timestamps: year needs to be the same as the current year
-//    if (date.year() != new DateTime().year()) {
-//      throw new ApiException("Invalid timestamp", 400)
-//    }
-
     // All checks passed - create Consumption instance
-    def dateTime = new DateTime()
-//    log.error "create $dateTime "
-    def consumption = new Consumption(household: household, date: dateTime, powerPhase1: powerPhase1,
+    def now = new DateTime()
+    def consumption = new Consumption(household: household, date: now, powerPhase1: powerPhase1,
         powerPhase2: powerPhase2, powerPhase3: powerPhase3, batteryLevel: batteryLevel);
 
     try {
