@@ -23,8 +23,8 @@ class Household implements Serializable {
 
   transient springSecurityService
 
-  // Arduino MAC Address
-  String macAddress
+  // Arduino Id
+  Long deviceId
 
   // User information
   String fullName
@@ -34,7 +34,7 @@ class Household implements Serializable {
   String city
 
   //This is used to display relative consumption levels
-  BigDecimal referenceConsumption = new BigDecimal(5000)
+  BigDecimal referenceConsumption
 
   // Grails information
   DateTime dateCreated
@@ -47,7 +47,7 @@ class Household implements Serializable {
   static hasMany = [appliances: Appliance, peergroups: Peergroup, consumptions: Consumption, aggregatedConsumptions: AggregatedConsumption]
 
   static constraints = {
-    macAddress(nullable: true, unique: true, matches: "([0-9a-f]{2}[:]){5}([0-9a-f]{2})")
+    deviceId(nullable: true, unique: true)
     fullName(blank: false)
     eMail(blank: false, unique: true, email: true)
     address(blank: false)

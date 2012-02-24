@@ -37,14 +37,14 @@ class BootStrap {
     def adminRole = Role.findOrSaveByAuthority("ROLE_ADMIN")
 
     // Define temporary debug household
-    def macAddress = "de:ad:be:ef:fe:ed"
-    def household = Household.findByMacAddress(macAddress)
+    def deviceId = 1
+    def household = Household.findByDeviceId(deviceId)
 
     // Don't create household again on tomcat reboot or redeploy
     if (!household) {
       Peergroup peergroup = Peergroup.findOrSaveByName("homies")
 
-      household = new Household(macAddress: macAddress, fullName: "Test User",
+      household = new Household(deviceId: deviceId, fullName: "Test User",
           eMail: "arduino@kit.edu", address: "street", zipCode: "76128", city: "KA",
           username: "admin", password: "pass", enabled: true)
 
@@ -61,7 +61,7 @@ class BootStrap {
 
 //      DateTime date = new DateTime()
 //      100.times {
-//        def c = new Consumption(household: household, date: date, powerPhase1: Math.random() * 100, powerPhase2: Math.random() * 100, powerPhase3: Math.random() * 100)
+//        def c = new Consumption(household: household, date: date, powerPhase1: Math.random() * 100, powerPhase2: Math.random() * 100, powerPhase3: Math.random() * 100, batteryLevel: 0)
 //        c.save()
 //
 //        date = date.plusMinutes(7)

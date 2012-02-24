@@ -26,7 +26,7 @@ class ApiService {
   def processConsumption(def jsonPayload) {
 
     // Load and verify JSON content
-    String macAddress
+    Long deviceId
     BigDecimal powerPhase1
     BigDecimal powerPhase2
     BigDecimal powerPhase3
@@ -34,9 +34,9 @@ class ApiService {
 
     // The following exceptions can throw since variables are statically typed
     try {
-      macAddress = jsonPayload.id
+      deviceId = jsonPayload.id
     } catch (GroovyCastException e) {
-      throw new ApiException("Invalid MAC address type", 400)
+      throw new ApiException("Invalid device id type", 400)
     }
 
     try {
@@ -64,21 +64,16 @@ class ApiService {
 //      throw new ApiException("Invalid timestamp type", 400)
 //    }
 
-    if (!macAddress) throw new ApiException("No MAC address provided", 400)
-    if (!powerPhase1) throw new ApiException("No phase 1 power provided", 400)
-    if (!powerPhase2) throw new ApiException("No phase 2 power provided", 400)
-    if (!powerPhase3) throw new ApiException("No phase 3 power provided", 400)
+    if (deviceId == null) throw new ApiException("No device id provided", 400)
+    if (powerPhase1 == null) throw new ApiException("No phase 1 power provided", 400)
+    if (powerPhase2 == null) throw new ApiException("No phase 2 power provided", 400)
+    if (powerPhase3 == null) throw new ApiException("No phase 3 power provided", 400)
 
 //    if (!timestamp) throw new ApiException("No timestamp provided", 400)
 
-    // Verify MAC address
-    if (!(macAddress ==~ /([0-9a-f]{2}[:]){5}([0-9a-f]{2})/)) {
-      throw new ApiException("Invalid MAC address format", 400)
-    }
-
     // Get household
-    def household = Household.findByMacAddress(macAddress, [cache: true])
-    if (!household) throw new ApiException("Invalid MAC address", 400)
+    def household = Household.findByDeviceId(deviceId, [cache: true])
+    if (!household) throw new ApiException("Invalid device id", 400)
 
     // Verify timestamp
 //    def date = new DateTime(timestamp as long)

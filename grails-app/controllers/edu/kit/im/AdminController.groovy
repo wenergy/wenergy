@@ -66,8 +66,8 @@ class AdminController {
       return
     }
     // Create some data
-    def macAddress = "de:ad:be:ef:fe:ed"
-    def household = Household.findByMacAddress(macAddress)
+    def deviceId = "1"
+    def household = Household.findByDeviceId(deviceId)
     def startDate = new DateTime(2011, 9, 1, 0, 0, 0)
     def endDate = new DateTime().withTimeAtStartOfDay().plusHours(12)
     def baseLoad = 0 //kWh
