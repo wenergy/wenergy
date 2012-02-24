@@ -56,7 +56,7 @@ class DataService {
       BigDecimal avgPowerPhase2 = (BigDecimal) it[2]
       BigDecimal avgPowerPhase3 = (BigDecimal) it[3]
 
-      [intervalStart.getMillis() + 3600000, (avgPowerPhase1 + avgPowerPhase2 + avgPowerPhase3)]
+      [intervalStart.getMillis(), (avgPowerPhase1 + avgPowerPhase2 + avgPowerPhase3)]
     }
 
     // Create data for json
@@ -98,7 +98,7 @@ class DataService {
         avgPowerPhase3.setScale(3, RoundingMode.HALF_UP)
 
         // Format data as [timestamp, powerValue]
-        [mergedDate.getMillis() + 3600000, (avgPowerPhase1 + avgPowerPhase2 + avgPowerPhase3)]
+        [mergedDate.getMillis(), (avgPowerPhase1 + avgPowerPhase2 + avgPowerPhase3)]
       }
 
       dataMap["average"] = formattedAverageConsumptions
@@ -140,7 +140,7 @@ class DataService {
             BigDecimal avgPowerPhase2 = (BigDecimal) it[2]
             BigDecimal avgPowerPhase3 = (BigDecimal) it[3]
 
-            [intervalStart.getMillis() + 3600000, (avgPowerPhase1 + avgPowerPhase2 + avgPowerPhase3)]
+            [intervalStart.getMillis(), (avgPowerPhase1 + avgPowerPhase2 + avgPowerPhase3)]
         }
 
         // Create data for json
@@ -182,7 +182,7 @@ class DataService {
                 avgPowerPhase3.setScale(3, RoundingMode.HALF_UP)
 
                 // Format data as [timestamp, powerValue]
-                [mergedDate.getMillis() + 3600000, (avgPowerPhase1 + avgPowerPhase2 + avgPowerPhase3)]
+                [mergedDate.getMillis(), (avgPowerPhase1 + avgPowerPhase2 + avgPowerPhase3)]
             }
 
             dataMap["average"] = formattedAverageConsumptions
@@ -190,9 +190,6 @@ class DataService {
 
         dataMap
     }
-
-
-
 
   // Get formatted list of weekly consumption data for given date
   def getWeeklyData(DateTime date, boolean averages) {

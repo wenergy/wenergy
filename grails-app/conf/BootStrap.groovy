@@ -42,10 +42,10 @@ class BootStrap {
 
     // Don't create household again on tomcat reboot or redeploy
     if (!household) {
-      Peergroup peergroup = Peergroup.findOrSaveByName("homies")
+      Peergroup peergroup = Peergroup.findOrSaveByName("Insitut")
 
-      household = new Household(deviceId: deviceId, fullName: "Test User",
-          eMail: "arduino@kit.edu", address: "street", zipCode: "76128", city: "KA",
+      household = new Household(deviceId: deviceId, fullName: "Lehrstuhl",
+          eMail: "test@iism.uni-karlsruhe.de", address: "Englerstr. 14", zipCode: "76128", city: "Karlsruhe",
           username: "admin", password: "pass", enabled: true)
 
       household.addToPeergroups(peergroup)
