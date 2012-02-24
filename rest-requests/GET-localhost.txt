@@ -1,0 +1,1 @@
+{"requestUrl":"http://localhost:8080/wenergy/api/consumption?json={\"id\":1,\"t\":0,\"p1\":123,\"p2\":456,\"p3\":789,b:1000}","requestMethod":"GET","requestBody":"","headers":[]}
