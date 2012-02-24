@@ -77,7 +77,7 @@ class ApiService {
     // All checks passed - create Consumption instance
     def now = new DateTime()
     def consumption = new Consumption(household: household, date: now, powerPhase1: powerPhase1,
-        powerPhase2: powerPhase2, powerPhase3: powerPhase3, batteryLevel: batteryLevel);
+        powerPhase2: powerPhase2, powerPhase3: powerPhase3, batteryLevel: batteryLevel)
 
     try {
       consumption.save(failOnError: true)
