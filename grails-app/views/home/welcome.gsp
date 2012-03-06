@@ -50,7 +50,7 @@
       <r:img class="thumbnail promoimg" dir="images" file="welcome2.png"/>
 
       <br><br><br>
-      <p class="textcolumn">The wEnergy-approach is non-invasive from the hardware perspective. We intend to use an appliance for consumption measurement based on the openEnergyMonitor.org project. Single reading point is the household’s fuse box. The measurement is inductive. Thus, there is no need for expensive hardware – our device is based on very basic electronic components.</p>
+      <p class="textcolumn">The wEnergy-approach is non-invasive from the hardware perspective. We intend to use an appliance for consumption measurement based on the openEnergyMonitor.org project. Single reading point is the household’s fuse box. The measurement is inductive. Thus, there is no need for expensive hardware – our device is based on very basic electronic components. <wen:householdTable /></p>
 
       %{--<div class="promo">--}%
         %{--<img class="thumbnail promoimg" src="http://placehold.it/210x150" alt="">--}%
@@ -100,7 +100,7 @@
     <div class="span-one-third">
       <h3>Peer groups</h3>
 
-      <p>Be part of a peer group and compare yourself to your friends. See who's saving the most money!</p>
+      <p>Be part of a peer group and compare yourself to your friends. See who's saving the most money! </p>
     </div>
   </div><!-- /row -->
 
@@ -124,6 +124,7 @@
       </div>
     </div>
   </div><!-- /row -->
+
 </section>
 </body>
 </html>

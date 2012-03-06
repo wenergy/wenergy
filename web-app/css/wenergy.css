@@ -210,7 +210,25 @@ body {
   margin-top: 15px;
   margin-left: 0;
   height: 350px;
+  position: relative;
 }
+
+#peergroup #levelGraphHack {
+  margin-top: 15px;
+  margin-left: 0;
+  height: 350px;
+  position: absolute;
+    z-index: 1;
+}
+
+#peergroup #levelGraph {
+  margin-top: 15px;
+  margin-left: 0;
+  height: 350px;
+  position: relative;
+    z-index: -1;
+}
+
 /* Move options to the left */
 #peergroup .form-stacked {
   padding-left: 0;

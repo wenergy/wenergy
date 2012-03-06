@@ -33,7 +33,7 @@
 ================================================== -->
 <section id="dashboard">
   <div class="page-header">
-    <h1>Dashboard</h1>
+    <h1>Dashboard</h1> current Consumption: ${dataService.getLastConsumption()}
   </div>
 
   <div class="row">
