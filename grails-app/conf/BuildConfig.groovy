@@ -38,12 +38,11 @@ grails.project.dependency.resolution = {
 
   plugins {
     compile ":hibernate:$grailsVersion"
-    compile ":jquery:1.7"
-    compile ":resources:1.0.2"
+    compile ":jquery:1.7.1"
+    compile ":resources:1.1.6"
 
-    compile ":spring-security-core:1.2.6"
-    compile ":joda-time:1.3"
-
+    compile ":spring-security-core:1.2.7.2"
+    compile ":joda-time:1.4"
     compile ":quartz2:0.2.2"
 
     build ":tomcat:$grailsVersion"
