@@ -30,20 +30,22 @@ grails.project.dependency.resolution = {
   }
   dependencies {
     // specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes eg.
-
-    runtime("mysql:mysql-connector-java:5.1.18")
-
-    compile("org.jadira.usertype:usertype.jodatime:1.9")
   }
 
   plugins {
-    compile ":hibernate:$grailsVersion"
-    compile ":jquery:1.7.1"
-    compile ":resources:1.1.6"
+    runtime ":jquery:1.7.1"
+    runtime ":resources:1.1.6"
 
+    compile ":mongodb:1.0.0.RC4"
     compile ":spring-security-core:1.2.7.2"
     compile ":joda-time:1.4"
     compile ":quartz2:0.2.2"
+    compile ":rocks:1.0.1"
+
+    // Uncomment these (or add new ones) to enable additional resources capabilities
+    //runtime ":zipped-resources:1.0"
+    //runtime ":cached-resources:1.0"
+    //runtime ":yui-minify-resources:0.1.4"
 
     build ":tomcat:$grailsVersion"
   }

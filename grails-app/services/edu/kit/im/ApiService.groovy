@@ -24,6 +24,8 @@ import org.joda.time.DateTimeZone
 
 class ApiService {
 
+  static transactional = 'mongo'
+
   def processConsumption(def jsonPayload) {
 
     // Load and verify JSON content

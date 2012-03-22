@@ -23,6 +23,8 @@ import org.joda.time.LocalTime
 
 class DataService {
 
+  static transactional = 'mongo'
+
   def springSecurityService
 
   // Get formatted list of daily consumption data for given date
