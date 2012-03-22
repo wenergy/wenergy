@@ -152,5 +152,8 @@ grails.plugins.springsecurity.interceptUrlMap = [
 // Always use latest jQuery version
 jquery {
     sources = "jquery"
-    version = "1.7"
+    version = "1.7.2"
 }
+
+// Twitter Bootstrap CSS
+grails.plugins.twitterbootstrap.fixtaglib = true
