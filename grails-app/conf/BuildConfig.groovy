@@ -44,6 +44,13 @@ grails.project.dependency.resolution = {
     compile ":spring-security-core:1.2.7.2"
     compile ":joda-time:1.4"
     compile ":quartz2:0.2.2"
+    compile ":rocks:1.0.1"
+    compile ":twitter-bootstrap:2.0.1.22"
+
+    // Uncomment these (or add new ones) to enable additional resources capabilities
+    //runtime ":zipped-resources:1.0"
+    //runtime ":cached-resources:1.0"
+    //runtime ":yui-minify-resources:0.1.4"
 
     build ":tomcat:$grailsVersion"
   }

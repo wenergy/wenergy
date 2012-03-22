@@ -19,7 +19,7 @@
 <html>
 <head>
   <title>wEnergy - <g:layoutTitle/></title>
-  <r:require modules="core, bootstrapjs, wenergyjs"/>
+  <r:require modules="core, wenergyjs"/>
   <r:layoutResources/>
 </head>
 
