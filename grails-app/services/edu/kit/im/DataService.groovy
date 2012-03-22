@@ -23,7 +23,7 @@ import org.joda.time.LocalTime
 
 class DataService {
 
-  static transactional = 'mongo'
+  static transactional = "mongo"
 
   def springSecurityService
 

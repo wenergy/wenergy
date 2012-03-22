@@ -5,7 +5,7 @@ import org.joda.time.DateTime
 
 class HouseholdService {
 
-  static transactional = 'mongo'
+  static transactional = "mongo"
 
   def run() {
     def referenceTime = new DateTime().minusDays(2) //last two days of consumption records are used to determine reference level
