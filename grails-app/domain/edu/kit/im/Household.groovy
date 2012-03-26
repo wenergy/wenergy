@@ -41,10 +41,6 @@ class Household {
   // Grails information
   DateTime dateCreated
 
-  // Default type is Set but we need Collection (Hibernate Bag) for performance reasons
-  Collection consumptions
-  Collection aggregatedConsumptions
-
   // Relationships
   static hasMany = [consumptions: Consumption, aggregatedConsumptions: AggregatedConsumption]
   static belongsTo = [peergroup: Peergroup]
