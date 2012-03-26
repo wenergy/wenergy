@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Institute of Information Engineering and Management,
+ * Copyright 2012 Institute of Information Engineering and Management,
  * Information & Market Engineering
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -19,11 +19,11 @@ import org.codehaus.groovy.grails.plugins.springsecurity.SpringSecurityUtils
 
 class LogoutController {
 
-    /**
-     * Index action. Redirects to the Spring security logout uri.
-     */
-    def index = {
-        // TODO  put any pre-logout code here
-        redirect uri: SpringSecurityUtils.securityConfig.logout.filterProcessesUrl // '/j_spring_security_logout'
-    }
+  /**
+   * Index action. Redirects to the Spring security logout uri.
+   */
+  def index = {
+    // TODO put any pre-logout code here
+    redirect uri: SpringSecurityUtils.securityConfig.logout.filterProcessesUrl // '/j_spring_security_logout'
+  }
 }

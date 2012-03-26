@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Institute of Information Engineering and Management,
+ * Copyright 2012 Institute of Information Engineering and Management,
  * Information & Market Engineering
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -49,7 +49,7 @@ class LoginController {
       redirect uri: SpringSecurityUtils.securityConfig.successHandler.defaultTargetUrl
     }
     else {
-      redirect action: auth, params: params
+      redirect action: 'auth', params: params
     }
   }
 
@@ -65,8 +65,9 @@ class LoginController {
       return
     }
 
-//    redirect controller: "home"
-//    return
+    // wEnergy Addition
+    redirect controller: "home"
+    return
 
     String view = 'auth'
     String postUrl = "${request.contextPath}${config.apf.filterProcessesUrl}"
@@ -89,7 +90,7 @@ class LoginController {
     if (springSecurityService.isLoggedIn() &&
         authenticationTrustResolver.isRememberMe(SCH.context?.authentication)) {
       // have cookie but the page is guarded with IS_AUTHENTICATED_FULLY
-      redirect action: full, params: params
+      redirect action: 'full', params: params
     }
   }
 
@@ -98,7 +99,6 @@ class LoginController {
    */
   def full = {
     def config = SpringSecurityUtils.securityConfig
-    flash.error = message(code:"springSecurity.denied.message")
     render view: 'auth', params: params,
         model: [hasCookie: authenticationTrustResolver.isRememberMe(SCH.context?.authentication),
             postUrl: "${request.contextPath}${config.apf.filterProcessesUrl}"]
@@ -114,19 +114,19 @@ class LoginController {
     def exception = session[WebAttributes.AUTHENTICATION_EXCEPTION]
     if (exception) {
       if (exception instanceof AccountExpiredException) {
-        msg = message(code:"springSecurity.errors.login.expired")
+        msg = g.message(code: "springSecurity.errors.login.expired")
       }
       else if (exception instanceof CredentialsExpiredException) {
-        msg = message(code:"springSecurity.errors.login.passwordExpired")
+        msg = g.message(code: "springSecurity.errors.login.passwordExpired")
       }
       else if (exception instanceof DisabledException) {
-        msg = message(code:"springSecurity.errors.login.disabled")
+        msg = g.message(code: "springSecurity.errors.login.disabled")
       }
       else if (exception instanceof LockedException) {
-        msg = message(code:"springSecurity.errors.login.locked")
+        msg = g.message(code: "springSecurity.errors.login.locked")
       }
       else {
-        msg = message(code:"springSecurity.errors.login.fail")
+        msg = g.message(code: "springSecurity.errors.login.fail")
       }
     }
 
@@ -134,9 +134,8 @@ class LoginController {
       render([error: msg] as JSON)
     }
     else {
-      flash.error = msg
-      redirect action: auth, params: params
-      //redirect controller: "home", action: "welcome"//, params: params
+      flash.message = msg
+      redirect action: 'auth', params: params
     }
   }
 

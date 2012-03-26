@@ -22,6 +22,7 @@ class Role implements Serializable {
   String authority
 
   static mapping = {
+    cache true
   }
 
   static constraints = {

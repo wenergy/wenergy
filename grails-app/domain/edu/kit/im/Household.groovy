@@ -64,12 +64,13 @@ class Household {
   // Spring Security variables
   String username
   String password
-  boolean enabled = false
-  boolean accountExpired = false
-  boolean accountLocked = false
-  boolean passwordExpired = false
+  boolean enabled
+  boolean accountExpired
+  boolean accountLocked
+  boolean passwordExpired
 
   static mapping = {
+    password column: '`password`'
   }
 
   Set<Role> getAuthorities() {
