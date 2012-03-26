@@ -46,7 +46,8 @@ class Household {
   Collection aggregatedConsumptions
 
   // Relationships
-  static hasMany = [peergroups: Peergroup, consumptions: Consumption, aggregatedConsumptions: AggregatedConsumption]
+  static hasMany = [consumptions: Consumption, aggregatedConsumptions: AggregatedConsumption]
+  static belongsTo = [peergroup: Peergroup]
 
   static constraints = {
     deviceId(nullable: true, unique: true)

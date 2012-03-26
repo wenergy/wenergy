@@ -42,13 +42,12 @@ class BootStrap {
 
     // Don't create household again on tomcat reboot or redeploy
     if (!household) {
-      Peergroup peergroup = Peergroup.findOrSaveByName("Insitut")
+      Peergroup peergroup = Peergroup.findOrSaveByName("Institut")
 
-      household = new Household(deviceId: deviceId, fullName: "Lehrstuhl",
+      household = new Household(peergroup: peergroup, deviceId: deviceId, fullName: "Lehrstuhl",
           eMail: "test@iism.uni-karlsruhe.de", address: "Englerstr. 14", zipCode: "76128", city: "Karlsruhe",
           username: "admin", password: springSecurityService.encodePassword("pass"), enabled: true)
 
-      household.addToPeergroups(peergroup)
       household.save()
 
       // Add test user as admin and user
