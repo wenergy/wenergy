@@ -69,7 +69,7 @@ class WEnergyTagLib {
         def referenceValue = Math.max(it.referenceConsumption ?: 0.0,0.01)
         def id
         id = it.id
-        out << dataService.getLastConsumptionById(id)/referenceValue
+        //out << dataService.getLastConsumptionById(id)/referenceValue
       }
   }
 

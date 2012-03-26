@@ -19,8 +19,12 @@ package edu.kit.im
 
 import org.joda.time.DateTime
 import org.joda.time.LocalTime
+import org.bson.types.ObjectId
 
-class AggregatedConsumption implements Serializable {
+class AggregatedConsumption {
+  // MongoDB
+  ObjectId id
+
   // Aggregation type
   ConsumptionType type
 
@@ -71,10 +75,5 @@ class AggregatedConsumption implements Serializable {
   }
 
   static mapping = {
-    intervalStart(index: "intervalStart_idx,intervalStart_type_idx,intervalStart_intervalEnd_type_idx")
-    intervalEnd(index: "intervalStart_intervalEnd_type_idx")
-    type(index: "intervalStart_type_idx,intervalStart_intervalEnd_type_idx")
-    cache(true)
   }
-
 }

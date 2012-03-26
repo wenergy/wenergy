@@ -18,8 +18,12 @@
 package edu.kit.im
 
 import org.joda.time.DateTime
+import org.bson.types.ObjectId
 
-class Peergroup implements Serializable {
+class Peergroup {
+
+  // MongoDB
+  ObjectId id
 
   String name
   DateTime dateCreated
@@ -33,6 +37,5 @@ class Peergroup implements Serializable {
   }
 
   static mapping = {
-    cache(true)
   }
 }

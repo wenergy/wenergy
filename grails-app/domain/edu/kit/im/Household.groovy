@@ -18,10 +18,12 @@
 package edu.kit.im
 
 import org.joda.time.DateTime
+import org.bson.types.ObjectId
 
-class Household implements Serializable {
+class Household {
 
-  transient springSecurityService
+  // MongoDB
+  ObjectId id
 
   // Arduino Id
   Long deviceId
@@ -44,7 +46,7 @@ class Household implements Serializable {
   Collection aggregatedConsumptions
 
   // Relationships
-  static hasMany = [appliances: Appliance, peergroups: Peergroup, consumptions: Consumption, aggregatedConsumptions: AggregatedConsumption]
+  static hasMany = [peergroups: Peergroup, consumptions: Consumption, aggregatedConsumptions: AggregatedConsumption]
 
   static constraints = {
     deviceId(nullable: true, unique: true)
@@ -68,22 +70,6 @@ class Household implements Serializable {
   boolean passwordExpired = false
 
   static mapping = {
-    cache(true)
-    password column: '`password`'
-  }
-
-  def beforeInsert() {
-    encodePassword()
-  }
-
-  def beforeUpdate() {
-    if (isDirty('password')) {
-      encodePassword()
-    }
-  }
-
-  protected void encodePassword() {
-    password = springSecurityService.encodePassword(password)
   }
 
   Set<Role> getAuthorities() {

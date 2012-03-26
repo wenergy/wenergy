@@ -18,8 +18,12 @@
 package edu.kit.im
 
 import org.joda.time.DateTime
+import org.bson.types.ObjectId
 
-class Consumption implements Serializable {
+class Consumption {
+  // MongoDB
+  ObjectId id
+
   // Date and time at which the consumption data was collected
   DateTime date
 
@@ -47,7 +51,5 @@ class Consumption implements Serializable {
   }
 
   static mapping = {
-    date(index: "date_idx")
-    cache(true)
   }
 }
