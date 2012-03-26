@@ -120,9 +120,8 @@ class ApiService {
       le("intervalStart", consumption.date)
       gt("intervalEnd", consumption.date)
       eq("type", type)
-      household {
-        eq("id", consumption.household.id)
-      }
+      eq("household", consumption.household.id)
+      
       maxResults(1)
     }
 

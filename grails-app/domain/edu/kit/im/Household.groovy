@@ -35,7 +35,7 @@ class Household {
   String zipCode
   String city
 
-  //This is used to display relative consumption levels
+  // This is used to display relative consumption levels
   BigDecimal referenceConsumption
 
   // Grails information
