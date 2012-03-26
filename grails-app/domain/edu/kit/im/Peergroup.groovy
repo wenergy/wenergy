@@ -25,7 +25,6 @@ class Peergroup implements Serializable {
   DateTime dateCreated
 
   static hasMany = [households: Household]
-  static belongsTo = Household
 
   static constraints = {
     name(blank: false, unique: true)
