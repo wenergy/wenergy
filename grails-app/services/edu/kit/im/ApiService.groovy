@@ -102,6 +102,7 @@ class ApiService {
     try {
       determineAggregation(consumption)
     } catch (Exception e) {
+      log.error e
       throw new ApiException("Post processing error", 500)
     }
   }
@@ -127,6 +128,10 @@ class ApiService {
 
     if (aggregatedConsumption) {
       // Already exists, so just save and update power values
+      if (aggregatedConsumption instanceof ArrayList) {
+        log.error "Array list ${aggregatedConsumption.size()}"
+        aggregatedConsumption = aggregatedConsumption.first()
+      }
       aggregatedConsumption.addToConsumptions(consumption)
       aggregatedConsumption.sumPowerPhase1 += consumption.powerPhase1
       aggregatedConsumption.avgPowerPhase1 = aggregatedConsumption.sumPowerPhase1 / aggregatedConsumption.consumptions.size()

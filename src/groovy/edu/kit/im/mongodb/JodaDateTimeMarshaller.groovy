@@ -45,10 +45,31 @@ class JodaDateTimeMarshaller extends AbstractMappingAwareCustomTypeMarshaller<Da
 
   @Override
   protected void queryInternal(PersistentProperty property, String key, Query.PropertyCriterion value, DBObject nativeQuery) {
+//    System.out.println("prop " + property + " key " + key + " crit " + value + " native " + nativeQuery)
     if (value instanceof Query.Between) {
       def dbo = new BasicDBObject()
       dbo.put(MongoQuery.MONGO_GTE_OPERATOR, value.getFrom().toDate());
       dbo.put(MongoQuery.MONGO_LTE_OPERATOR, value.getTo().toDate());
+      nativeQuery.put(key, dbo)
+    }
+    else if (value instanceof Query.LessThan) {
+      def dbo = new BasicDBObject()
+      dbo.put(MongoQuery.MONGO_LT_OPERATOR, value.value.toDate());
+      nativeQuery.put(key, dbo)
+    }
+    else if (value instanceof Query.LessThanEquals) {
+      def dbo = new BasicDBObject()
+      dbo.put(MongoQuery.MONGO_LTE_OPERATOR, value.value.toDate());
+      nativeQuery.put(key, dbo)
+    }
+    else if (value instanceof Query.GreaterThan) {
+      def dbo = new BasicDBObject()
+      dbo.put(MongoQuery.MONGO_GT_OPERATOR, value.value.toDate());
+      nativeQuery.put(key, dbo)
+    }
+    else if (value instanceof Query.GreaterThanEquals) {
+      def dbo = new BasicDBObject()
+      dbo.put(MongoQuery.MONGO_GTE_OPERATOR, value.value.toDate());
       nativeQuery.put(key, dbo)
     }
     else {
