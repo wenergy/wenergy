@@ -63,10 +63,10 @@ class Household implements Serializable {
   // Spring Security variables
   String username
   String password
-  boolean enabled = false
-  boolean accountExpired = false
-  boolean accountLocked = false
-  boolean passwordExpired = false
+  boolean enabled
+  boolean accountExpired
+  boolean accountLocked
+  boolean passwordExpired
 
   static mapping = {
     cache(true)
