@@ -1,6 +1,6 @@
 <%@ page import="edu.kit.im.Consumption" %>
 %{--
-  - Copyright 2011 Institute of Information Engineering and Management,
+  - Copyright 2011-2012 Institute of Information Engineering and Management,
   - Information & Market Engineering
   -
   - Licensed under the Apache License, Version 2.0 (the "License");
