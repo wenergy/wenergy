@@ -13,25 +13,8 @@ hibernate {
 environments {
   development {
     dataSource {
-//      dbCreate = "update" // one of 'create', 'create-drop', 'update', 'validate', ''
-//      url = "jdbc:h2:prodDb"
-      dbCreate = "update"
-      url = "jdbc:mysql://ibwmarkets.iw.uni-karlsruhe.de/wenergy_debug?useUnicode=true&characterEncoding=UTF-8"
-      driverClassName = "com.mysql.jdbc.Driver"
-      dialect = "org.hibernate.dialect.MySQL5InnoDBDialect"
-      username = "wenergy"
-      password = "Vs4QYp2uaF"
-      pooled = true
-      properties {
-        maxActive = -1
-        minEvictableIdleTimeMillis = 1800000
-        timeBetweenEvictionRunsMillis = 1800000
-        numTestsPerEvictionRun = 3
-        testOnBorrow = true
-        testWhileIdle = true
-        testOnReturn = true
-        validationQuery = "SELECT 1"
-      }
+      dbCreate = "update" // one of 'create', 'create-drop', 'update', 'validate', ''
+      url = "jdbc:h2:prodDb"
     }
   }
   test {
@@ -43,11 +26,11 @@ environments {
   production {
     dataSource {
       dbCreate = "update"
-      url = "jdbc:mysql://localhost/wenergy_test2?useUnicode=true&characterEncoding=UTF-8"
       driverClassName = "com.mysql.jdbc.Driver"
       dialect = "org.hibernate.dialect.MySQL5InnoDBDialect"
+      url = "jdbc:mysql://localhost/wenergy?useUnicode=true&characterEncoding=UTF-8"
       username = "wenergy"
-      password = "Vs4QYp2uaF"
+      password = "wenergy"
       pooled = true
       properties {
         maxActive = -1
