@@ -15,7 +15,7 @@
   - limitations under the License.
   --}%
 
-<div class="alert-message warning fade in" data-alert="alert">
-  <a class="close" href="#">&times;</a>
-  <p><strong>Warning</strong> ${flash.warning}</p>
+<div class="alert alert-error fade in">
+  <a class="close" data-dismiss="alert">&times;</a>
+  <strong>Warning</strong> ${flash.warning}
 </div>
