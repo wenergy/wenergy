@@ -593,6 +593,10 @@
       clearMenus()
       !isActive && $parent.toggleClass('open')
 
+      if (!isActive) {
+        $parent.find("input").first().focus();
+      }
+
       return false
     }
 
