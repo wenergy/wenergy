@@ -590,7 +590,7 @@
 
       isActive = $parent.hasClass('open')
 
-      clearMenus()
+      clearMenus(e)
       !isActive && $parent.toggleClass('open')
 
       if (!isActive) {
@@ -602,7 +602,7 @@
 
   }
 
-  function clearMenus() {
+  function clearMenus(event) {
     if (event && $(event.target).closest('form').closest('.dropdown').hasClass('open')) {
       return
     }
