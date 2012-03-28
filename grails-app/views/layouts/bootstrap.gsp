@@ -55,13 +55,13 @@
 						<span class="icon-bar"></span>
 					</a>
 					
-					%{--<a class="brand" href="${createLink(uri: '/')}">Grails Twitter Bootstrap</a>--}%
+					<a class="brand" href="${createLink(uri: '/')}">wEnergy</a>
 
 					<div class="nav-collapse">
-						<ul class="nav">							
-							<li<%= request.forwardURI == "${createLink(uri: '/')}" ? ' class="active"' : '' %>><a href="${createLink(uri: '/')}">Home</a></li>
+						<ul class="nav" style="white-space:nowrap;">
+							%{--<li<%= request.forwardURI == "${createLink(uri: '/')}" ? ' class="active"' : '' %>><a href="${createLink(uri: '/')}">Home</a></li>--}%
 							<g:each var="c" in="${grailsApplication.controllerClasses.sort { it.fullName } }">
-								<li<%= c.logicalPropertyName == controllerName ? ' class="active"' : '' %>><g:link controller="${c.logicalPropertyName}">${c.naturalName}</g:link></li>
+								<li<%= c.logicalPropertyName == controllerName ? ' class="active"' : '' %>><g:link controller="${c.logicalPropertyName}">${c.logicalPropertyName}</g:link></li>
 							</g:each>
 						</ul>
 					</div>

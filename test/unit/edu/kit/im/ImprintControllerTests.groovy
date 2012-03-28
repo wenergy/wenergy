@@ -11,7 +11,4 @@ import org.junit.*
 @TestFor(ImprintController)
 class ImprintControllerTests {
 
-    void testSomething() {
-       fail "Implement me"
-    }
 }
