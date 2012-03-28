@@ -40,6 +40,16 @@ modules = {
     resource url: [dir: "js/bootstrap", file: "bootstrap.js"], disposition: "head"
   }
 
+  highchartsjs {
+    dependsOn "jquery"
+    resource url: [dir: "js/highcharts", file: "highcharts.js"], disposition: "head"
+  }
+
+  highstockjs {
+      dependsOn "jquery"
+      resource url: [dir: "js/highstock", file: "highstock.js"], disposition: "head"
+    }
+
   flotjs {
     dependsOn "jquery"
     resource url: [dir: "js/flot", file: "excanvas.js"], wrapper: { s -> "<!--[if lt IE 9]>$s<![endif]-->" }, disposition: "head"
@@ -88,7 +98,7 @@ modules = {
   }
 
   dashboardjs {
-      dependsOn "jqbbq, jqchrono, datejs, flotjs, spinjs, wenergyjs"
+      dependsOn "jqbbq, jqchrono, datejs, flotjs, highchartsjs, spinjs, wenergyjs"
       resource url: [dir: "js", file: "dashboard.js"], disposition: "head"
     }
 
