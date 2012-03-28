@@ -31,6 +31,10 @@ modules = {
     resource url: [dir: "css", file: "wenergy.css"], attrs: [media: 'screen, projection'], disposition: "head"
   }
 
+  bootstrap {
+    dependsOn "bootstrapcss, bootstrapjs"
+  }
+
   bootstrapcss {
     resource url: [dir: "css", file: "bootstrap.css"], attrs: [media: 'screen, projection'], disposition: "head"
   }
