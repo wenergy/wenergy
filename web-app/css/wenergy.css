@@ -98,6 +98,10 @@ body {
   margin: 0;
 }
 
+.login {
+  margin-bottom: 30px;
+}
+
 .login fieldset {
   margin-bottom: 16px;
 }
