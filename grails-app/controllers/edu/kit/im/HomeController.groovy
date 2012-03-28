@@ -39,13 +39,13 @@ class HomeController {
     [nav: "dashboard"]
   }
 
-  // My Consumption
+  // Consumption
   def consumption() {
     [nav: "consumption"]
   }
 
-  // My Peergroup
-  def peergroup() {
-    [nav: "peergroup"]
+  // Ranking
+  def ranking() {
+    [nav: "ranking"]
   }
 }
