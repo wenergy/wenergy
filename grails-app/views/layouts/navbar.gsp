@@ -25,15 +25,19 @@
       <ul class="nav">
         <sec:ifNotLoggedIn>
           <% if (nav == "welcome") welcomeActive = "active" %>
-          <li><g:link controller="home" class="navlink ${welcomeActive}"><span class="navlogo home"></span>Home</g:link></li>
+          <li><g:link controller="home" class="navlink ${welcomeActive}"><span class="navlogo home"></span>Home</g:link>
+          </li>
         </sec:ifNotLoggedIn>
         <sec:ifLoggedIn>
           <% if (nav == "dashboard") dashboardActive = "active" %>
-          <li><g:link controller="home" action="dashboard" class="navlink ${dashboardActive}"><span class="navlogo dashboard"></span>Dashboard</g:link></li>
+          <li><g:link controller="home" action="dashboard" class="navlink ${dashboardActive}"><span
+              class="navlogo dashboard"></span>Dashboard</g:link></li>
           <% if (nav == "consumption") consumptionActive = "active" %>
-          <li><g:link controller="home" action="consumption" class="navlink ${consumptionActive}"><span class="navlogo consumption"></span>Consumption</g:link></li>
+          <li><g:link controller="home" action="consumption" class="navlink ${consumptionActive}"><span
+              class="navlogo consumption"></span>Consumption</g:link></li>
           <% if (nav == "ranking") rankingActive = "active" %>
-          <li><g:link controller="home" action="ranking" class="navlink ${rankingActive}"><span class="navlogo ranking"></span>Ranking</g:link></li>
+          <li><g:link controller="home" action="ranking" class="navlink ${rankingActive}"><span
+              class="navlogo ranking"></span>Ranking</g:link></li>
         </sec:ifLoggedIn>
       </ul>
       <sec:ifNotLoggedIn>
@@ -44,16 +48,16 @@
               <ul class="dropdown-menu">
                 <form method="POST" action="${request.contextPath}/j_spring_security_check" class="dropdown-form">
                   <fieldset>
-                  <label for="j_username">Username</label>
-                  <g:textField class="span3" type="text" name="j_username" id="j_username"/>
-                  <label for="j_password">Password</label>
-                  <g:passwordField class="span3" type="password" name="j_password" id="j_password"/>
+                    <label for="j_username">Username</label>
+                    <g:textField class="span3" type="text" name="j_username" id="j_username"/>
+                    <label for="j_password">Password</label>
+                    <g:passwordField class="span3" type="password" name="j_password" id="j_password"/>
                   </fieldset>
                   <fieldset>
-                  <label class="checkbox">
-                    <g:checkBox name="_spring_security_remember_me"/><span>Remember me</span>
-                  </label>
-                  <button class="btn pull-right" type="submit" name="login">Login</button>
+                    <label class="checkbox">
+                      <g:checkBox name="_spring_security_remember_me"/><span>Remember me</span>
+                    </label>
+                    <button class="btn pull-right" type="submit" name="login">Login</button>
                   </fieldset>
                 </form>
               </ul>
@@ -64,7 +68,8 @@
       <sec:ifLoggedIn>
         <ul class="nav pull-right">
           <li class="dropdown">
-            <a href="#" class="dropdown-toggle navuserlink" data-toggle="dropdown"><wen:fullName/> <b class="caret"></b></a>
+            <a href="#" class="dropdown-toggle navuserlink" data-toggle="dropdown"><wen:fullName/> <b class="caret"></b>
+            </a>
             <ul class="dropdown-menu">
               <li><a href="#"><i class="icon-cog"></i> Settings</a></li>
               <sec:ifAllGranted roles="ROLE_ADMIN">

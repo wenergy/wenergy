@@ -24,7 +24,7 @@
 
 <body>
 
-<!-- Registration
+<!-- Login
 ================================================== -->
 <section id="login">
   <div class="page-header">
@@ -32,8 +32,8 @@
   </div>
 
   <div class="row">
-    <div class="span10 offset3">
-      <form action="${postUrl}" method="post">
+    <div class="offset3">
+      <form action="${postUrl}" method="post" class="login">
         <fieldset>
 
           <r:script>
@@ -42,37 +42,29 @@
             });
           </r:script>
 
-          <div class="clearfix">
-            <label for="j_username">Username</label>
-
-            <div class="input">
-              <g:textField name="j_username" class="span6" id="j_username" size="30" value=""/>
-            </div>
-          </div><!-- /clearfix -->
-
-          <div class="clearfix">
-            <label for="j_password">Password</label>
-
-            <div class="input">
-              <g:passwordField name="j_password" class="span6" id="j_password" size="30" value=""/>
-            </div>
-          </div><!-- /clearfix -->
+          <label for="j_username">Username</label>
 
           <div class="input">
-            <ul class="inputs-list">
-              <li>
-                <label>
-                  <input type="checkbox" name="${rememberMeParameter}" id="remember_me"
-                         <g:if test='${hasCookie}'>checked='checked'</g:if>/>
-                  <span>Remember me</span>
-                </label>
-              </li>
-            </ul>
+            <g:textField name="j_username" class="span6" id="j_username" size="30" value=""/>
           </div>
-          <div class="centered">
-            <g:submitButton name="submit" value="Login" class="btn primary"/>
+
+
+          <label for="j_password">Password</label>
+
+          <div class="input">
+            <g:passwordField name="j_password" class="span6" id="j_password" size="30" value=""/>
           </div>
         </fieldset>
+
+        <g:submitButton name="submit" value="Login" class="btn btn-primary"/>
+
+        <fieldset class="inline-checkbox">
+          <label class="checkbox">
+            <input type="checkbox" name="${rememberMeParameter}" id="remember_me"
+                   <g:if test='${hasCookie}'>checked='checked'</g:if>/><span>Remember me</span>
+          </label>
+        </fieldset>
+
       </form>
     </div>
   </div>

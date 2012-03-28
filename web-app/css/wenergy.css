@@ -98,6 +98,17 @@ body {
   margin: 0;
 }
 
+.login fieldset {
+  margin-bottom: 16px;
+}
+
+.login .inline-checkbox {
+  display: inline-block;
+  vertical-align: bottom;
+  margin-left: 12px;
+  margin-bottom: 0;
+}
+
 /* Buttons
 -------------------------------------------------- */
 .btncenter {
