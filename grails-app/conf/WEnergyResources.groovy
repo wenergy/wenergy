@@ -27,18 +27,18 @@ modules = {
   }
 
   core {
-//    resource url: [dir: "js/bootstrap", file: "html5.js"], wrapper: { s -> "<!--[if lt IE 9]>$s<![endif]-->" }, disposition: "head"
-//    resource url: [dir: "css", file: "bootstrap.css"], attrs: [media: 'screen, projection'], disposition: "head"
-    dependsOn "jquery, bootstrap-js, bootstrap-css"
+    dependsOn "jquery, bootstrapjs, bootstrapcss, wenergyjs"
     resource url: [dir: "css", file: "wenergy.css"], attrs: [media: 'screen, projection'], disposition: "head"
   }
 
-//  bootstrapjs {
-//    dependsOn "jquery"
-//    resource url: [dir: "js/bootstrap", file: "bootstrap-tabs.js"], disposition: "head"
-//    resource url: [dir: "js/bootstrap", file: "bootstrap-dropdown.js"], disposition: "head"
-//    resource url: [dir: "js/bootstrap", file: "bootstrap-alerts.js"], disposition: "head"
-//  }
+  bootstrapcss {
+    resource url: [dir: "css", file: "bootstrap.css"], attrs: [media: 'screen, projection'], disposition: "head"
+  }
+
+  bootstrapjs {
+    dependsOn "jquery"
+    resource url: [dir: "js/bootstrap", file: "bootstrap.js"], disposition: "head"
+  }
 
   flotjs {
     dependsOn "jquery"
