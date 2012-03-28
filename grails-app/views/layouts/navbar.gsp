@@ -24,23 +24,23 @@
       <g:link controller="home" class="brand"><r:img dir="images" file="wEnergy.png"/></g:link>
       <ul class="nav">
         <sec:ifNotLoggedIn>
-          <li<g:if test="${nav == 'welcome'}">class="active"</g:if>><g:link controller="home">Home</g:link></li>
-        %{--<li<g:if test="${nav == 'registration'}"> class="active"</g:if>><g:link controller="registration">Registration</g:link></li>--}%
+          <% if (nav == "welcome") welcomeActive = "active" %>
+          <li><g:link controller="home" class="navlink ${welcomeActive}"><span class="navlogo home"></span>Home</g:link></li>
         </sec:ifNotLoggedIn>
         <sec:ifLoggedIn>
-          <li<g:if test="${nav == 'dashboard'}">class="active"</g:if>><g:link controller="home"
-                                                                              action="dashboard">Dashboard</g:link></li>
-          <li<g:if test="${nav == 'consumption'}">class="active"</g:if>><g:link controller="home"
-                                                                                action="consumption">Consumption</g:link></li>
-          <li<g:if test="${nav == 'peergroup'}">class="active"</g:if>><g:link controller="home"
-                                                                              action="peergroup">Ranking</g:link></li>
+          <% if (nav == "dashboard") dashboardActive = "active" %>
+          <li><g:link controller="home" action="dashboard" class="navlink ${dashboardActive}"><span class="navlogo dashboard"></span>Dashboard</g:link></li>
+          <% if (nav == "consumption") consumptionActive = "active" %>
+          <li><g:link controller="home" action="consumption" class="navlink ${consumptionActive}"><span class="navlogo consumption"></span>Consumption</g:link></li>
+          <% if (nav == "ranking") rankingActive = "active" %>
+          <li><g:link controller="home" action="ranking" class="navlink ${rankingActive}"><span class="navlogo ranking"></span>Ranking</g:link></li>
         </sec:ifLoggedIn>
       </ul>
       <sec:ifNotLoggedIn>
         <g:if test="${nav != 'login'}">
           <ul class="nav pull-right">
             <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Login <b class="caret"></b></a>
+              <a href="#" class="dropdown-toggle navuserlink" data-toggle="dropdown">Login <b class="caret"></b></a>
               <ul class="dropdown-menu">
                 <form method="POST" action="${request.contextPath}/j_spring_security_check" class="dropdown-form">
                   <fieldset>
@@ -64,7 +64,7 @@
       <sec:ifLoggedIn>
         <ul class="nav pull-right">
           <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><wen:fullName/> <b class="caret"></b></a>
+            <a href="#" class="dropdown-toggle navuserlink" data-toggle="dropdown"><wen:fullName/> <b class="caret"></b></a>
             <ul class="dropdown-menu">
               <li><a href="#"><i class="icon-cog"></i> Settings</a></li>
               <sec:ifAllGranted roles="ROLE_ADMIN">

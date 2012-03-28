@@ -19,7 +19,7 @@
 -------------------------------------------------- */
 body {
   background-color: #fff;
-  padding-top: 60px;
+  padding-top: 95px;
 }
 
 /* Formatting
@@ -36,8 +36,50 @@ body {
 /* wEnergy logo
 -------------------------------------------------- */
 
-.topbar .brand {
-  padding: 3px 15px 0 20px;
+.navbar .brand {
+  margin: 30px 40px 5px -20px;
+}
+
+/* Navigation bar
+-------------------------------------------------- */
+
+.navbar .nav .navlogo {
+  display: inline-block;
+  width: 32px;
+  height: 32px;
+  vertical-align: middle;
+  background-repeat: no-repeat;
+  margin-right: .5em;
+}
+
+.navbar .nav .navlink {
+  padding: 0 10px 0;
+  margin-top: 35px;
+  font-size: 125%;
+}
+
+.navbar .nav .navuserlink {
+  margin-top: 20px;
+}
+
+.navbar .nav .active {
+  color: #ffffff;
+}
+
+.navbar .nav .home {
+  background-image: url("../images/home.png");
+}
+
+.navbar .nav .dashboard {
+  background-image: url("../images/dashboard.png");
+}
+
+.navbar .nav .consumption {
+  background-image: url("../images/consumption.png");
+}
+
+.navbar .nav .ranking {
+  background-image: url("../images/ranking.png");
 }
 
 /* Text Elements
