@@ -14,45 +14,64 @@
   - See the License for the specific language governing permissions and
   - limitations under the License.
   --}%
-<!-- Top bar
+
+
+<!-- Nav bar
 ================================================== -->
-<div class="topbar">
-  <div class="topbar-inner">
+<div class="navbar navbar-fixed-top">
+  <div class="navbar-inner">
     <div class="container">
       <g:link controller="home" class="brand"><r:img dir="images" file="wEnergy.png"/></g:link>
       <ul class="nav">
         <sec:ifNotLoggedIn>
-          <li<g:if test="${nav == 'welcome'}"> class="active"</g:if>><g:link controller="home">Home</g:link></li>
-          %{--<li<g:if test="${nav == 'registration'}"> class="active"</g:if>><g:link controller="registration">Registration</g:link></li>--}%
+          <li<g:if test="${nav == 'welcome'}">class="active"</g:if>><g:link controller="home">Home</g:link></li>
+        %{--<li<g:if test="${nav == 'registration'}"> class="active"</g:if>><g:link controller="registration">Registration</g:link></li>--}%
         </sec:ifNotLoggedIn>
         <sec:ifLoggedIn>
-          <li<g:if test="${nav == 'dashboard'}"> class="active"</g:if>><g:link controller="home" action="dashboard">Dashboard</g:link></li>
-          <li<g:if test="${nav == 'consumption'}"> class="active"</g:if>><g:link controller="home" action="consumption">My Consumption</g:link></li>
-          <li<g:if test="${nav == 'appliances'}"> class="active"</g:if>><a href="#appliances">My Appliances</a></li>
-          <li<g:if test="${nav == 'peergroup'}"> class="active"</g:if>><g:link controller="home" action="peergroup">My Peer Group</g:link></li>
+          <li<g:if test="${nav == 'dashboard'}">class="active"</g:if>><g:link controller="home"
+                                                                              action="dashboard">Dashboard</g:link></li>
+          <li<g:if test="${nav == 'consumption'}">class="active"</g:if>><g:link controller="home"
+                                                                                action="consumption">Consumption</g:link></li>
+          <li<g:if test="${nav == 'peergroup'}">class="active"</g:if>><g:link controller="home"
+                                                                              action="peergroup">Ranking</g:link></li>
         </sec:ifLoggedIn>
       </ul>
       <sec:ifNotLoggedIn>
         <g:if test="${nav != 'login'}">
-          <form method="POST" action="${request.contextPath}/j_spring_security_check" class="pull-right">
-            <g:textField class="input-small" type="text" placeholder="Username" name="j_username"/>
-            <g:passwordField class="input-small" type="password" placeholder="Password" name="j_password"/>
-            %{--<g:hiddenField name="_spring_security_remember_me" value="true"/>--}%
-            <button class="btn" type="submit" name="login">Login</button>
-          </form>
+          <ul class="nav pull-right">
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Login <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <form method="POST" action="${request.contextPath}/j_spring_security_check" class="dropdown-form">
+                  <fieldset>
+                  <label for="j_username">Username</label>
+                  <g:textField class="span3" type="text" name="j_username" id="j_username"/>
+                  <label for="j_password">Password</label>
+                  <g:passwordField class="span3" type="password" name="j_password" id="j_password"/>
+                  </fieldset>
+                  <fieldset>
+                  <label class="checkbox">
+                    <g:checkBox name="_spring_security_remember_me"/><span>Remember me</span>
+                  </label>
+                  <button class="btn pull-right" type="submit" name="login">Login</button>
+                  </fieldset>
+                </form>
+              </ul>
+            </li>
+          </ul>
         </g:if>
       </sec:ifNotLoggedIn>
       <sec:ifLoggedIn>
-        <ul class="nav secondary-nav">
-          <li class="dropdown" data-dropdown="dropdown">
-            <a href="#" class="dropdown-toggle"><wen:fullName/></a>
+        <ul class="nav pull-right">
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><wen:fullName/> <b class="caret"></b></a>
             <ul class="dropdown-menu">
-              <li><a href="#">Settings</a></li>
+              <li><a href="#"><i class="icon-cog"></i> Settings</a></li>
               <sec:ifAllGranted roles="ROLE_ADMIN">
-                <li><g:link controller="admin">Admin Tools</g:link></li>
+                <li><g:link controller="admin"><i class="icon-star"></i> Admin Tools</g:link></li>
               </sec:ifAllGranted>
               <li class="divider"></li>
-              <li><g:link controller="logout">Logout</g:link></li>
+              <li><g:link controller="logout"><i class="icon-off"></i> Logout</g:link></li>
             </ul>
           </li>
         </ul>

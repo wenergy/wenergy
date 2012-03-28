@@ -40,15 +40,21 @@ body {
   padding: 3px 15px 0 20px;
 }
 
-/* text Elements
+/* Text Elements
 -------------------------------------------------- */
 
 .textcolumn {
-    text-align: justify;
-
-    width: 90%;
+  text-align: justify;
+  width: 90%;
 }
 
+/* Login
+-------------------------------------------------- */
+
+.dropdown-form {
+  padding: 15px;
+  margin: 0;
+}
 
 /* Buttons
 -------------------------------------------------- */
@@ -195,10 +201,12 @@ body {
   margin-left: 0;
   height: 350px;
 }
+
 /* Move options to the left */
 #dashboard .form-stacked {
   padding-left: 0;
 }
+
 /* Peergroup */
 #peergroup #consumptionGraph {
   margin-top: 15px;
@@ -218,7 +226,7 @@ body {
   margin-left: 0;
   height: 350px;
   position: absolute;
-    z-index: 1;
+  z-index: 1;
 }
 
 #peergroup #levelGraph {
@@ -226,7 +234,7 @@ body {
   margin-left: 0;
   height: 350px;
   position: relative;
-    z-index: -1;
+  z-index: -1;
 }
 
 /* Move options to the left */

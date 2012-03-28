@@ -25,7 +25,7 @@
 
 <body>
 
-<g:applyLayout name="topbar"/>
+<g:applyLayout name="navbar"/>
 
 <div class="container">
   <g:if test="${flash.message}">
