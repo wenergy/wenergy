@@ -195,25 +195,28 @@ body {
 }
 
 /* Central ajax loader */
-#consumption #consumptionCentralLoaderContainer {
-  margin-top: 125px;
+#centralLoaderContainer {
+  padding-top: 125px;
   text-align: center;
   display: none;
 }
 
-#consumption #consumptionCentralLoader {
+#centralLoader {
   width: 32px;
   height: 32px;
   margin: 0 auto 8px auto;
   display: block;
 }
 
-#consumption #consumptionCentralLoaderError {
-  margin-top: 125px;
+#centralLoaderErrorContainer {
+  padding-top: 125px;
+}
+
+#centralLoaderError {
   display: none;
 }
 
-#consumption #consumptionCentralLoaderError .close {
+#centralLoaderError .close {
   visibility: hidden;
 }
 
@@ -230,7 +233,7 @@ body {
   display: inline-block;
 }
 
-#consumption #consumptionLoaderError {
+#loaderError {
   margin-bottom: 0;
 }
 
@@ -247,21 +250,29 @@ body {
 }
 
 /* Dashboard */
-#dashboard #consumptionGraph {
+
+#dashboard {
+  padding-top: 20px;
+}
+
+#dashboard #consumptionChart {
+  min-width: 400px;
+  height: 400px;
+  margin: 0 auto;
+}
+
+#dashboard #levelChart {
   margin-top: 15px;
   margin-left: 0;
   height: 350px;
 }
 
-#dashboard #levelGraph {
-  margin-top: 15px;
-  margin-left: 0;
-  height: 350px;
+#dashboard .dashboardForm .control-label {
+  width: 80px;
 }
 
-/* Move options to the left */
-#dashboard .form-stacked {
-  padding-left: 0;
+#dashboard .dashboardForm .controls {
+  margin-left: 100px;
 }
 
 /* Peergroup */

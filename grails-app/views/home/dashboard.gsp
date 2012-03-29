@@ -32,14 +32,69 @@
 <!-- Dashboard
 ================================================== -->
 <section id="dashboard">
-  <div class="page-header">
-    <h1>Dashboard</h1>
-    %{--current Consumption: ${dataService.getLastConsumption()}--}%
+  <div class="row">
+    <div class="span11">
+      <div id="loaderErrorContainer"></div>
+      <div id="consumptionChart">
+         %{-- Needs to be nested to avoid sudden jumps --}%
+        <div id="centralLoaderContainer"><div id="centralLoader"></div>Loading...</div>
+
+        <div id="centralLoaderErrorContainer"></div>
+      </div>
+    </div>
+
+    <div class="span1" style="background-color: green;">...</div>
+  </div>
+
+  <div class="row">
+    <form id="optionsForm" class="form-horizontal dashboardForm">
+      <div class="span4 offset1 control-group inline">
+        <label class="control-label"># Values</label>
+
+        <div class="controls">
+          <label class="radio inline">
+            <input type="radio" name="numberOfValues" value="25" checked="">
+            25
+          </label>
+          <label class="radio inline">
+            <input type="radio" name="numberOfValues" value="50">
+            50
+          </label>
+          <label class="radio inline">
+            <input type="radio" name="numberOfValues" value="100">
+            100
+          </label>
+          <label class="radio inline">
+            <input type="radio" name="numberOfValues" value="250">
+            250
+          </label>
+        </div>
+      </div>
+
+      <div class="span4 control-group inline">
+        <label class="control-label">Axis Type</label>
+
+        <div class="controls">
+          <label class="radio inline">
+            <input type="radio" name="axisType" value="linear" checked="">
+            linear
+          </label>
+          <label class="radio inline">
+            <input type="radio" name="axisType" value="logarithmic">
+            logarithmic
+          </label>
+
+        </div>
+      </div>
+
+      <div class="span2" style="background-color: yellow;">todo: battery</div>
+
+    </form>
   </div>
 
   <div class="row">
     <div class="span3">
-      <form id="optionsForm" class="form-stacked">
+      <form id="xxxoptionsForm" class="form-stacked">
         <fieldset>
           <div class="clearfix">
             <label id="intervalLabel">Horizon</label>
@@ -64,12 +119,12 @@
                     <span>100</span>
                   </label>
                 </li>
-                  <li>
-                      <label>
-                          <input type="radio" name="horizon" value="250"/>
-                          <span>250</span>
-                      </label>
-                  </li>
+                <li>
+                  <label>
+                    <input type="radio" name="horizon" value="250"/>
+                    <span>250</span>
+                  </label>
+                </li>
               </ul>
             </div>
           </div><!-- /clearfix -->
@@ -79,15 +134,16 @@
 
     <div class="span12">
 
-      <div id="consumptionLoaderErrorContainer"></div>
+      <div id="1consumptionLoaderErrorContainer"></div>
 
-      <div id="consumptionGraph" class="span12">
+      <div id="consumptionGraph1" class="span12">
         %{-- Needs to be nested to avoid sudden jumps --}%
-        <div id="consumptionCentralLoaderContainer"><div id="consumptionCentralLoader"></div>Loading...</div>
+        <div id="1consumptionCentralLoaderContainer"><div id="1consumptionCentralLoader"></div>Loading...</div>
 
-        <div id="consumptionCentralLoaderErrorContainer"></div>
+        <div id="1consumptionCentralLoaderErrorContainer"></div>
       </div>
     </div>
+
     <div class="span1">
 
       <div id="levelGraph" class="span1">

@@ -20,6 +20,8 @@ package edu.kit.im
 import java.math.RoundingMode
 import org.joda.time.DateTime
 import org.joda.time.LocalTime
+import org.joda.time.format.DateTimeFormatter
+import org.joda.time.format.DateTimeFormat
 
 class DataService {
 
@@ -404,70 +406,64 @@ class DataService {
       def BigDecimal returnValue = powerPhase1 + powerPhase2 + powerPhase3
   }
 
-  def getLiveData(long horizonLength) {
+  def getLiveData(int numberOfValues, DateTime deltaDate) {
     def consumptions = Consumption.withCriteria() {
+      if (deltaDate)
+        gt("date", deltaDate)
       household {
         eq("id", householdId())
       }
-      order("date", "desc")
+      order("date", "asc")
       projections {
         property("date")
         property("powerPhase1")
         property("powerPhase2")
         property("powerPhase3")
       }
-      maxResults(new Integer(horizonLength))
+      maxResults(numberOfValues)
     }
+//    Collections.reverse(consumptions)
 
-    Collections.reverse(consumptions)
+    def phase1Data = []
+    def phase2Data = []
+    def phase3Data = []
 
-    int i = 0
-//    BigDecimal maximumValue = new BigDecimal(0.1)
-
-    def phase1Data = consumptions.collect {
-      DateTime date = (DateTime) it[0]
+    consumptions.each { consumption ->
+      DateTime date = (DateTime) consumption[0]
 
       // Format data
-      BigDecimal powerPhase1 = new BigDecimal((Double) it[1])
+      BigDecimal powerPhase1 = new BigDecimal((Double) consumption[1])
       powerPhase1.setScale(3, RoundingMode.HALF_UP)
 
-      [i++, powerPhase1]
-    }
-
-    i = 0
-    def phase2Data = consumptions.collect {
-      DateTime date = (DateTime) it[0]
-
-      // Format data
-      BigDecimal powerPhase2 = new BigDecimal((Double) it[2])
+      BigDecimal powerPhase2 = new BigDecimal((Double) consumption[2])
       powerPhase2.setScale(3, RoundingMode.HALF_UP)
 
-      [i++, powerPhase2]
-    }
-
-    i = 0
-    def phase3Data = consumptions.collect {
-      DateTime date = (DateTime) it[0]
-
-      // Format data
-      BigDecimal powerPhase3 = new BigDecimal((Double) it[3])
+      BigDecimal powerPhase3 = new BigDecimal((Double) consumption[3])
       powerPhase3.setScale(3, RoundingMode.HALF_UP)
 
-      [i++, powerPhase3]
-    }
+      DateTimeFormatter formatter = DateTimeFormat.shortDateTime().withLocale(Locale.GERMAN)
+      def formattedDate = formatter.print(date)
 
-//    log.error returnData
+      // Highcharts data point objects
+      phase1Data << ["name": formattedDate, "y": powerPhase1]
+      phase2Data << ["name": formattedDate, "y": powerPhase2]
+      phase3Data << ["name": formattedDate, "y": powerPhase3]
+    }
 
     // Create data for json
     def dataMap = [:]
 
-    dataMap["powerPhase1"] = phase1Data
-    dataMap["powerPhase2"] = phase2Data
-    dataMap["powerPhase3"] = phase3Data
+    dataMap["phase1Data"] = phase1Data
+    dataMap["phase2Data"] = phase2Data
+    dataMap["phase3Data"] = phase3Data
 
-    def currentConsumption = phase1Data.last()[1]+phase2Data.last()[1]+phase3Data.last()[1]
-    def referenceValue = Math.max(Household.findById(householdId())?.referenceConsumption ?: 0.0,0.01)
-    dataMap["currentLevel"] = [[0, currentConsumption / referenceValue], [1, currentConsumption / referenceValue]]
+    if (deltaDate) {
+      dataMap["isDelta"] = true
+    }
+
+//    def currentConsumption = phase1Data.last()[1]+phase2Data.last()[1]+phase3Data.last()[1]
+//    def referenceValue = Math.max(Household.findById(householdId())?.referenceConsumption ?: 0.0,0.01)
+//    dataMap["currentLevel"] = [[0, currentConsumption / referenceValue], [1, currentConsumption / referenceValue]]
 
     dataMap
   }

@@ -436,8 +436,7 @@ $(function () {
   function reloadData() {
     // Get all values from cache
     var cache = $("#consumption").data("bbq");
-//    console.log(cache.date);
-//    console.log(new Date(cache.date));
+
     $.ajax({
       type: "POST",
       url: rootPath + "data/" + cache.interval,
