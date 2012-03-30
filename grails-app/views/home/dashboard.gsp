@@ -43,7 +43,7 @@
       </div>
     </div>
 
-    <div class="span1" style="background-color: green;">...</div>
+    <div class="span1" style="background-color: #d3d3d3;">level</div>
   </div>
 
   <div class="row">
@@ -87,7 +87,7 @@
         </div>
       </div>
 
-      <div class="span2" style="background-color: yellow;">todo: battery</div>
+      <div class="span2" style="background-color: #d3d3d3;">battery</div>
 
     </form>
   </div>
