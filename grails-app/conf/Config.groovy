@@ -56,14 +56,6 @@ grails.web.disable.multipart = false
 // request parameters to mask when logging exceptions
 grails.exceptionresolver.params.exclude = ['password']
 
-// Quartz
-grails.config.locations = [ "file:grails-app/conf/${appName}-Quartz.groovy"]
-
-// general log4j configuration
-def catalinaBase = System.properties.getProperty('catalina.base')
-if (!catalinaBase) catalinaBase = '.'   // just in case
-def logDirectory = "${catalinaBase}/logs"
-
 environments {
   development {
     grails.logging.jul.usebridge = true
@@ -103,8 +95,8 @@ environments {
       // appender:
       //
       appenders {
-        rollingFile name: 'stdout', layout: pattern(conversionPattern: '%d [%t] %-5p %c{4} %x - %m%n'), file: "${logDirectory}/${appName}.log".toString(), maxFileSize: '1500KB'
-        rollingFile name: 'stacktrace', layout: pattern(conversionPattern: '%d [%t] %-5p %c{4} %x - %m%n'), file: "${logDirectory}/${appName}_stack.log".toString(), maxFileSize: '1500KB'
+        file name: 'stdout', layout: pattern(conversionPattern: '%d [%t] %-5p %c{4} %x - %m%n'), file: (System.getProperty('catalina.base') ?: 'target') + '/logs/wenergy.log'
+        file name: 'stacktrace', layout: pattern(conversionPattern: '%d [%t] %-5p %c{4} %x - %m%n'), file:  (System.getProperty('catalina.base') ?: 'target') + '/logs/wenergy_stack.log'
       }
 
       error 'org.codehaus.groovy.grails.web.servlet',  //  controllers
@@ -174,3 +166,7 @@ grails.gorm.default.mapping = {
 
 // Twitter Bootstrap CSS
 grails.plugins.twitterbootstrap.fixtaglib = true
+
+// Deployment
+grails.plugin.cloudfoundry.target = "api.wenergy-project.de"
+grails.plugin.cloudfoundry.appname = "www"
