@@ -95,8 +95,9 @@ environments {
       // appender:
       //
       appenders {
-        file name: 'stdout', layout: pattern(conversionPattern: '%d [%t] %-5p %c{4} %x - %m%n'), file: (System.getProperty('catalina.base') ?: 'target') + '/logs/wenergy.log'
-        file name: 'stacktrace', layout: pattern(conversionPattern: '%d [%t] %-5p %c{4} %x - %m%n'), file:  (System.getProperty('catalina.base') ?: 'target') + '/logs/wenergy_stack.log'
+//        file name: 'stdout', layout: pattern(conversionPattern: '%d [%t] %-5p %c{4} %x - %m%n'), file: (System.getProperty('catalina.base') ?: 'target') + '/logs/wenergy.log'
+//        file name: 'stacktrace', layout: pattern(conversionPattern: '%d [%t] %-5p %c{4} %x - %m%n'), file:  (System.getProperty('catalina.base') ?: 'target') + '/logs/wenergy_stack.log'
+        console name: 'stdout', layout: pattern(conversionPattern: '%d [%t] %-5p %c{4} %x - %m%n')
       }
 
       error 'org.codehaus.groovy.grails.web.servlet',  //  controllers
