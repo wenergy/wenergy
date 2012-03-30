@@ -87,7 +87,7 @@
         </div>
       </div>
 
-      <div class="span2" style="background-color: #d3d3d3;">battery</div>
+      <div id="batteryLevel" class="span2"></div>
 
     </form>
   </div>

@@ -418,6 +418,7 @@ class DataService {
         property("powerPhase1")
         property("powerPhase2")
         property("powerPhase3")
+        property("batteryLevel")
       }
       if (deltaDate) {
         maxResults(1)
@@ -463,6 +464,19 @@ class DataService {
 
     if (deltaDate) {
       dataMap["isDelta"] = true
+    }
+
+    // Battery level from last consumption
+    if (consumptions.size() > 0) {
+      def consumption = consumptions.last()
+      def maxBatteryLevel = 3200
+
+      BigDecimal batteryLevel = new BigDecimal((Double) consumption[4])
+      batteryLevel = batteryLevel / maxBatteryLevel * 100.0
+      batteryLevel = batteryLevel.min(100.0)
+      batteryLevel = batteryLevel.setScale(2, RoundingMode.HALF_UP)
+
+      dataMap["batteryLevel"] = "$batteryLevel %"
     }
 
 //    def currentConsumption = phase1Data.last()[1]+phase2Data.last()[1]+phase3Data.last()[1]

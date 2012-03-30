@@ -260,6 +260,15 @@ $(function () {
           }
         }
 
+        // Battery level
+        if (json.data) {
+          if (json.data.batteryLevel) {
+            $("#batteryLevel").html("Battery: " + json.data.batteryLevel);
+          } else if (!cache.isDelta) {
+            $("#batteryLevel").html("Battery: n/a");
+          }
+        }
+
         if (cache.initialLoading) {
           // Set flag to false
           cache.initialLoading = false;

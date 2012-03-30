@@ -275,6 +275,10 @@ body {
   margin-left: 100px;
 }
 
+#dashboard #batteryLevel {
+  padding-top: 5px;
+}
+
 /* Peergroup */
 #peergroup #consumptionGraph {
   margin-top: 15px;
