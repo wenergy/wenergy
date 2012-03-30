@@ -23,7 +23,7 @@
     <p>Copyright 2011-2012 <a href="http://www.im.uni-karlsruhe.de/" target="_blank">Institute of Information Systems and Management (IISM)</a> at <a href="http://www.kit.edu/" target="_blank">Karlsruhe Institute of Technology (KIT)</a>. <g:link controller="imprint">Imprint</g:link>. <br/>
       Code licensed under the <a href="http://www.apache.org/licenses/LICENSE-2.0" target="_blank">Apache License v2.0</a>
       and available at <a href="https://github.com/wenergy" target="_blank">GitHub</a>. <br />
-      Powered by <a href="http://www.cloudfoundry.com/" target="_blank">Cloud Foundry</a>, <a href="http://www.grails.org" target="_blank">Grails</a>, <a href="http://twitter.github.com/bootstrap/" target="_blank">Bootstrap</a> and <a href="http://www.highcharts.com/" target="_blank">Highcharts</a>.
+      Powered by <a href="http://www.cloudfoundry.org/" target="_blank">Cloud Foundry</a>, <a href="http://www.grails.org" target="_blank">Grails</a>, <a href="http://twitter.github.com/bootstrap/" target="_blank">Bootstrap</a> and <a href="http://www.highcharts.com/" target="_blank">Highcharts</a>.
     </p>
   </div>
 </footer>
