@@ -92,64 +92,6 @@
     </form>
   </div>
 
-  <div class="row">
-    <div class="span3">
-      <form id="xxxoptionsForm" class="form-stacked">
-        <fieldset>
-          <div class="clearfix">
-            <label id="intervalLabel">Horizon</label>
-
-            <div class="input">
-              <ul class="inputs-list">
-                <li>
-                  <label>
-                    <input type="radio" name="horizon" value="25" checked/>
-                    <span>25</span>
-                  </label>
-                </li>
-                <li>
-                  <label>
-                    <input type="radio" name="horizon" value="50"/>
-                    <span>50</span>
-                  </label>
-                </li>
-                <li>
-                  <label>
-                    <input type="radio" name="horizon" value="100"/>
-                    <span>100</span>
-                  </label>
-                </li>
-                <li>
-                  <label>
-                    <input type="radio" name="horizon" value="250"/>
-                    <span>250</span>
-                  </label>
-                </li>
-              </ul>
-            </div>
-          </div><!-- /clearfix -->
-        </fieldset>
-      </form>
-    </div>
-
-    <div class="span12">
-
-      <div id="1consumptionLoaderErrorContainer"></div>
-
-      <div id="consumptionGraph1" class="span12">
-        %{-- Needs to be nested to avoid sudden jumps --}%
-        <div id="1consumptionCentralLoaderContainer"><div id="1consumptionCentralLoader"></div>Loading...</div>
-
-        <div id="1consumptionCentralLoaderErrorContainer"></div>
-      </div>
-    </div>
-
-    <div class="span1">
-
-      <div id="levelGraph" class="span1">
-      </div>
-    </div>
-  </div><!-- /row -->
 </section>
 </body>
 </html>

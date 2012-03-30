@@ -86,6 +86,12 @@ modules = {
     resource url: [dir: "js", file: "jquery/jquery.chrono.js"], disposition: "head"
   }
 
+  spinjs {
+    dependsOn "jquery"
+    resource url: [dir: "js", file: "jquery/spin.js"], disposition: "head"
+    resource url: [dir: "js", file: "jquery/jquery.spin.js"], disposition: "head"
+  }
+
   wenergyjs {
     resource url: [dir: "js", file: "wenergy.js"], disposition: "head"
   }
@@ -93,12 +99,6 @@ modules = {
   consumptionjs {
     dependsOn "jqbbq, jqchrono, datejs, flotjs, spinjs, wenergyjs"
     resource url: [dir: "js", file: "consumption.js"], disposition: "head"
-  }
-
-  spinjs {
-    dependsOn "jquery"
-    resource url: [dir: "js", file: "jquery/spin.js"], disposition: "head"
-    resource url: [dir: "js", file: "jquery/jquery.spin.js"], disposition: "head"
   }
 
   dashboardjs {

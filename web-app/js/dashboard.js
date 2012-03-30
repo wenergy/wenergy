@@ -45,6 +45,7 @@ $(function () {
 
     cache.initialLoading = true;
     cache.loadingInProgress = false;
+    cache.deltaDate = 0;
 
     // Save in dashboard section
     $("#dashboard").data("bbq", cache);
@@ -119,9 +120,13 @@ $(function () {
     if (numberOfValues !== cache.numberOfValues || cache.initialLoading) {
       // Update cache
       cache.numberOfValues = numberOfValues;
+      // Force reload of all data
+      cache.deltaDate = 0;
 
       // Dispatch loading
-      reloadData();
+      if (!cache.loadingInProgress) {
+        reloadData();
+      }
     } else {
       // We get here only if axisType has changed, therefore no reloading is necessary
 
@@ -143,7 +148,8 @@ $(function () {
       type:"POST",
       url:rootPath + "data/dashboard",
       data:{
-        numberOfValues:cache.numberOfValues
+        numberOfValues:cache.numberOfValues,
+        deltaDate:cache.deltaDate
       },
       beforeSend:function () {
         cache.loadingInProgress = true;
@@ -158,23 +164,98 @@ $(function () {
         }
       },
       success:function (json) {
-        // Reset data and extract new values from json
-        cache.phase1Data = [];
-        cache.phase2Data = [];
-        cache.phase3Data = [];
-
-        // Make sure data really exists to avoid "undefined" errors
+        // Delta updates
         if (json.data) {
+          if (json.data.isDelta) {
+            cache.isDelta = true;
+          } else {
+            cache.isDelta = false;
+          }
+        }
+
+        if (cache.isDelta) {
+          // Delta updates - append value
+          // Delta size must be 1, larger arrays are not supported since they do not animate when adding to chart
+          // http://highcharts.uservoice.com/forums/55896-general/suggestions/2637147-animation-with-multiple-point-update
           if (json.data.phase1Data) {
-            cache.phase1Data = json.data.phase1Data;
+            if (json.data.phase1Data.length == 1) {
+              // Make sure we don't exceed allowed # of values
+              // Although we use delta updates, we need ensure data consistency for scenarios in which we need to redraw()
+              var shift = false;
+              if (cache.phase1Data.length == cache.numberOfValues) {
+                // Remove overflow from the beginning
+                cache.phase1Data.remove(0);
+                // Shift chart
+                shift = true;
+              }
+
+              // Add new value
+              cache.phase1Data.push(json.data.phase1Data[0]);
+
+              // Update chart
+              cache.consumptionChart.series[0].addPoint(json.data.phase1Data[0], false, shift);
+            }
           }
+
           if (json.data.phase2Data) {
-            cache.phase2Data = json.data.phase2Data;
+            if (json.data.phase2Data.length == 1) {
+              // Make sure we don't exceed allowed # of values
+              // Although we use delta updates, we need ensure data consistency for scenarios in which we need to redraw()
+              var shift = false;
+              if (cache.phase2Data.length == cache.numberOfValues) {
+                // Remove overflow from the beginning
+                cache.phase2Data.remove(0);
+                // Shift chart
+                shift = true;
+              }
+
+              // Add new value
+              cache.phase2Data.push(json.data.phase2Data[0]);
+
+              // Update chart
+              cache.consumptionChart.series[1].addPoint(json.data.phase2Data[0], false, shift);
+            }
           }
+
           if (json.data.phase3Data) {
-            cache.phase3Data = json.data.phase3Data;
+            if (json.data.phase3Data.length == 1) {
+              // Make sure we don't exceed allowed # of values
+              // Although we use delta updates, we need ensure data consistency for scenarios in which we need to redraw()
+              var shift = false;
+              if (cache.phase3Data.length == cache.numberOfValues) {
+                // Remove overflow from the beginning
+                cache.phase3Data.remove(0);
+                // Shift chart
+                shift = true;
+              }
+
+              // Add new value
+              cache.phase3Data.push(json.data.phase3Data[0]);
+
+              // Update chart
+              cache.consumptionChart.series[2].addPoint(json.data.phase3Data[0], false, shift);
+            }
           }
-          // TODO: DELTA HANDLING
+
+          cache.consumptionChart.redraw();
+        } else {
+          // Reset data and extract new values from json
+          cache.phase1Data = [];
+          cache.phase2Data = [];
+          cache.phase3Data = [];
+
+          // Make sure data really exists to avoid "undefined" errors
+          if (json.data) {
+            if (json.data.phase1Data) {
+              cache.phase1Data = json.data.phase1Data;
+            }
+            if (json.data.phase2Data) {
+              cache.phase2Data = json.data.phase2Data;
+            }
+            if (json.data.phase3Data) {
+              cache.phase3Data = json.data.phase3Data;
+            }
+          }
         }
 
         if (cache.initialLoading) {
@@ -189,6 +270,9 @@ $(function () {
 
         // Plot
         updateChart();
+
+        // Update delta to current time
+        cache.deltaDate = Date.today().setTimeToNow().setTimezone("UTC").getTime();
 
         // Always set to false when done
         cache.loadingInProgress = false;
@@ -230,10 +314,15 @@ $(function () {
     // Get all values from cache
     var cache = $("#dashboard").data("bbq");
 
+    // Delta updates don't need a chart update
+    if (cache.isDelta) {
+      return;
+    }
+
     var consumptionChartOptions = {
       chart:{
         renderTo:'consumptionChart',
-        type:'area'
+        type:'column'
       },
 
       title:{
@@ -242,7 +331,11 @@ $(function () {
 
       xAxis:{
         title:{
-          text:'Time'
+          text:'Time',
+          style:{
+            color:'#666666',
+            fontWeight:'bold'
+          }
         },
         labels:{
           enabled:false
@@ -251,24 +344,44 @@ $(function () {
 
       yAxis:{
         title:{
-          text:'Energy Consumption'
+          text:'Energy Consumption',
+          style:{
+            color:'#666666',
+            fontWeight:'bold'
+          }
         },
         labels:{
           formatter:function () {
             return this.value + ' W';
           }
-        }
+        },
+        minorTickInterval:'auto'
       },
 
       tooltip:{
         shared:true,
         crosshairs:true,
-        pointFormat:'<span style="color:{series.color}">{series.name}</span>: <b>{point.y} W</b><br/>'
+        formatter:function () {
+          var s = this.points[0].point.name;
+
+          $.each(this.points, function (i, point) {
+            s += '<br/><span style="color:' + point.series.color + '">' + point.series.name + '</span>: <b>' +
+                point.y + ' W</b>';
+          });
+
+          s += '<br/>Total: <b>' + Highcharts.numberFormat(this.points[0].total, 3, '.') + ' W</b>';
+
+          return s;
+        }
       },
 
       plotOptions:{
-        area:{
+        series:{
           stacking:'normal',
+          pointPadding:0,
+          groupPadding:0,
+          lineWidth:0,
+          shadow:false,
           marker:{
             enabled:false
           }
@@ -282,15 +395,19 @@ $(function () {
       series:[
         {
           name:'Phase 1',
-          data:cache.phase1Data
+          data:cache.phase1Data,
+          // Bugfix: needs to be the same as the column color because animations will flash the border color
+          borderColor:'#4572A7'
         },
         {
           name:'Phase 2',
-          data:cache.phase2Data
+          data:cache.phase2Data,
+          borderColor:'#AA4643'
         },
         {
           name:'Phase 3',
-          data:cache.phase3Data
+          data:cache.phase3Data,
+          borderColor:'#89A54E'
         }
       ]
     };
@@ -322,7 +439,7 @@ $(function () {
 
     if (live && !timer) {
       // Create and save timer
-      cache.timer = $.every(3, "seconds", function () {
+      cache.timer = $.every(2, "seconds", function () {
         // No parallel loading
         if (cache.loadingInProgress) {
           return;

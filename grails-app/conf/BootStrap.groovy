@@ -59,11 +59,11 @@ class BootStrap {
       }
 
 //      DateTime date = new DateTime().minusHours(12)
-//      1000.times {
-//        def c = new Consumption(household: household, date: date, powerPhase1: Math.random() * 100, powerPhase2: Math.random() * 100, powerPhase3: Math.random() * 100, batteryLevel: 0)
+//      120.times {
+//        def c = new Consumption(household: household, date: date, powerPhase1: Math.random() * 100, powerPhase2: Math.random() * 100, powerPhase3: 100.0, batteryLevel: Math.random())
 //        c.save()
 //
-//        date = date.plusMinutes(7)
+//        date = date.plusMinutes(6)
 //
 //        apiService.determineAggregation(c)
 //      }
