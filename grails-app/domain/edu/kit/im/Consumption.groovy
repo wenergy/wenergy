@@ -43,6 +43,7 @@ class Consumption implements Serializable {
     powerPhase2(nullable: false, scale: 3)
     powerPhase3(nullable: false, scale: 3)
     batteryLevel(nullable: false, scale: 3)
+    household(bindable: true)
     dateCreated()
   }
 

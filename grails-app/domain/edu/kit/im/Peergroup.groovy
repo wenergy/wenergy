@@ -28,6 +28,7 @@ class Peergroup implements Serializable {
 
   static constraints = {
     name(blank: false, unique: true)
+    households(bindable: true)
     dateCreated()
   }
 

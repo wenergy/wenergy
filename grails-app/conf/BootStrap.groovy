@@ -48,7 +48,7 @@ class BootStrap {
           eMail: "test@iism.uni-karlsruhe.de", address: "Englerstr. 14", zipCode: "76128", city: "Karlsruhe",
           username: "admin", password: "pass", enabled: true)
 
-      household.save()
+      household.save(failOnError: true)
 
       // Add test user as admin and user
       if (!household.authorities.contains(adminRole)) {
@@ -61,7 +61,7 @@ class BootStrap {
 //      DateTime date = new DateTime().minusHours(12)
 //      120.times {
 //        def c = new Consumption(household: household, date: date, powerPhase1: Math.random() * 100, powerPhase2: Math.random() * 100, powerPhase3: 100.0, batteryLevel: Math.random())
-//        c.save()
+//        c.save(failOnError: true)
 //
 //        date = date.plusMinutes(6)
 //

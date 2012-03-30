@@ -67,6 +67,8 @@ class AggregatedConsumption implements Serializable {
     avgPowerPhase2(nullable: false, scale: 3)
     sumPowerPhase3(nullable: false, scale: 3)
     avgPowerPhase3(nullable: false, scale: 3)
+    consumptions(bindable: true)
+    household(bindable: true)
     dateCreated()
   }
 

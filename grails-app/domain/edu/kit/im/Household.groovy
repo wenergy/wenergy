@@ -57,6 +57,9 @@ class Household implements Serializable {
     referenceConsumption(nullable: true)
     username(blank: false, unique: true, minSize: 3)
     password(blank: false, password: true, minSize: 3)
+    consumptions(bindable: true)
+    aggregatedConsumptions(bindable: true)
+    peergroup(bindable: true)
     dateCreated()
   }
 
