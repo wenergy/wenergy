@@ -146,8 +146,6 @@ $(function () {
     // Get all values from cache
     var cache = $("#dashboard").data("bbq");
 
-    console.log("reloadData");
-
     $.ajax({
       type:"POST",
       url:rootPath + "data/dashboard",
@@ -168,9 +166,6 @@ $(function () {
         }
       },
       success:function (json) {
-
-        console.log(json);
-
         // Delta updates
         if (json.data) {
           if (json.data.isDelta) {
