@@ -338,7 +338,8 @@ $(function () {
     var consumptionChartOptions = {
       chart:{
         renderTo:'consumptionChart',
-        type:'column'
+        type:'column',
+        animation:false
       },
 
       title:{
