@@ -450,7 +450,7 @@ class DataService {
       BigDecimal powerPhase3 = new BigDecimal((Double) consumption[3])
       powerPhase3 = powerPhase3.setScale(3, RoundingMode.HALF_UP)
 
-      DateTimeFormatter formatter = DateTimeFormat.shortDateTime().withLocale(Locale.GERMAN)
+      DateTimeFormatter formatter = DateTimeFormat.mediumDateTime().withLocale(Locale.GERMAN)
       def formattedDate = formatter.print(date)
 
       // Highcharts data point objects
