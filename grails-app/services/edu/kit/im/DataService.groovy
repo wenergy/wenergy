@@ -404,10 +404,10 @@ class DataService {
     def BigDecimal returnValue = powerPhase1 + powerPhase2 + powerPhase3
   }
 
-  def getLiveData(int numberOfValues, DateTime deltaDate) {
+  def getLiveData(int numberOfValues, DateTime deltaTime) {
     def consumptions = Consumption.withCriteria() {
-      if (deltaDate) {
-        gt("date", deltaDate)
+      if (deltaTime) {
+        gt("date", deltaTime)
       }
       household {
         eq("id", householdId())
@@ -420,7 +420,7 @@ class DataService {
         property("powerPhase3")
         property("batteryLevel")
       }
-      if (deltaDate) {
+      if (deltaTime) {
         maxResults(1)
       } else {
         maxResults(numberOfValues)
@@ -429,6 +429,13 @@ class DataService {
 
     Collections.reverse(consumptions)
 
+    // Create data for json
+    def dataMap = [:]
+
+    // Always return current server time
+    dataMap["serverTime"] = new DateTime().getMillis()
+
+    // Prepare consumption data
     def phase1Data = []
     def phase2Data = []
     def phase3Data = []
@@ -455,14 +462,11 @@ class DataService {
       phase3Data << ["name": formattedDate, "y": powerPhase3]
     }
 
-    // Create data for json
-    def dataMap = [:]
-
     dataMap["phase1Data"] = phase1Data
     dataMap["phase2Data"] = phase2Data
     dataMap["phase3Data"] = phase3Data
 
-    if (deltaDate) {
+    if (deltaTime) {
       dataMap["isDelta"] = true
     }
 

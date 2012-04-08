@@ -95,18 +95,18 @@ class DataController {
 
   def dashboard() {
     // Parse params
-    def deltaDate = null
-    if (params.deltaDate) {
-      long jsDate = params.deltaDate as long
+    def deltaTime = null
+    if (params.deltaTime) {
+      long jsDate = params.deltaTime as long
       if (jsDate > 0) {
-        deltaDate = new DateTime(jsDate)
+        deltaTime = new DateTime(jsDate)
       }
     }
 
     int numberOfValues = params.numberOfValues as int
 
     // Dispatch
-    def data = dataService.getLiveData(numberOfValues, deltaDate)
+    def data = dataService.getLiveData(numberOfValues, deltaTime)
     def json = [
         status: [code: 200],
         data: data

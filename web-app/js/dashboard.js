@@ -45,7 +45,7 @@ $(function () {
 
     cache.initialLoading = true;
     cache.loadingInProgress = false;
-    cache.deltaDate = 0;
+    cache.deltaTime = 0;
 
     // Save in dashboard section
     $("#dashboard").data("bbq", cache);
@@ -122,7 +122,7 @@ $(function () {
       cache.numberOfValues = numberOfValues;
       cache.axisType = axisType;
       // Force reload of all data
-      cache.deltaDate = 0;
+      cache.deltaTime = 0;
 
       // Dispatch loading
       if (!cache.loadingInProgress) {
@@ -146,12 +146,14 @@ $(function () {
     // Get all values from cache
     var cache = $("#dashboard").data("bbq");
 
+    console.log("reloadData");
+
     $.ajax({
       type:"POST",
       url:rootPath + "data/dashboard",
       data:{
         numberOfValues:cache.numberOfValues,
-        deltaDate:cache.deltaDate
+        deltaTime:cache.deltaTime
       },
       beforeSend:function () {
         cache.loadingInProgress = true;
@@ -166,6 +168,9 @@ $(function () {
         }
       },
       success:function (json) {
+
+        console.log(json);
+
         // Delta updates
         if (json.data) {
           if (json.data.isDelta) {
@@ -283,7 +288,9 @@ $(function () {
         updateChart();
 
         // Update delta to current time
-        cache.deltaDate = Date.today().setTimeToNow().setTimezone("UTC").getTime();
+        if (json.data) {
+          cache.deltaTime = json.data.serverTime;
+        }
 
         // Always set to false when done
         cache.loadingInProgress = false;
@@ -458,7 +465,7 @@ $(function () {
 
     if (live && !timer) {
       // Create and save timer
-      cache.timer = $.every(2, "seconds", function () {
+      cache.timer = $.every(3, "seconds", function () {
         // No parallel loading
         if (cache.loadingInProgress) {
           return;
