@@ -7,7 +7,7 @@ class UrlMappings {
     "/data"(controller: "data")
     "/data/$interval?"(controller: "data", action: "data") {
       constraints {
-        interval(inList:["daily", "daily15", "weekly", "monthly"])
+        interval(inList: ["daily", "daily15", "weekly", "monthly"])
       }
     }
 
