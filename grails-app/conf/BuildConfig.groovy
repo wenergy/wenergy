@@ -41,7 +41,7 @@ grails.project.dependency.resolution = {
     compile ":jquery:1.7.1"
     compile ":resources:1.1.6"
     compile ":cloud-foundry:1.2.1"
-    compile ":spring-security-core:1.2.7.2"
+    compile ":spring-security-core:1.2.7.3"
     compile ":joda-time:1.4"
     compile ":quartz2:0.2.2"
     compile ":rocks:1.0.1"
