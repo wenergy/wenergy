@@ -176,67 +176,47 @@ $(function () {
         }
 
         if (cache.isDelta) {
-          // Delta updates - append value
-          // Delta size must be 1, larger arrays are not supported since they do not animate when adding to chart
-          // http://highcharts.uservoice.com/forums/55896-general/suggestions/2637147-animation-with-multiple-point-update
+          // Delta updates - append values
           if (json.data.phase1Data) {
-            if (json.data.phase1Data.length == 1) {
-              // Make sure we don't exceed allowed # of values
-              // Although we use delta updates, we need ensure data consistency for scenarios in which we need to redraw()
-              var shift = false;
-              if (cache.phase1Data.length == cache.numberOfValues) {
-                // Remove overflow from the beginning
-                cache.phase1Data.remove(0);
-                // Shift chart
-                shift = true;
-              }
-
-              // Add new value
-              cache.phase1Data.push(json.data.phase1Data[0]);
-
-              // Update chart
-              cache.consumptionChart.series[0].addPoint(json.data.phase1Data[0], false, shift);
+            // Received max number of values?
+            if (json.data.phase1Data.length == cache.numberOfValues) {
+              // Replace data
+              cache.phase1Data = json.data.phase1Data;
+            } else if (json.data.phase1Data.length > 0) {
+              // Attach data
+              cache.phase1Data.remove(0, json.data.phase1Data.length - 1);
+              $.merge(cache.phase1Data, json.data.phase1Data);
             }
+            // Update graph but don't redraw
+            cache.consumptionChart.series[0].setData(cache.phase1Data, false);
           }
 
           if (json.data.phase2Data) {
-            if (json.data.phase2Data.length == 1) {
-              // Make sure we don't exceed allowed # of values
-              // Although we use delta updates, we need ensure data consistency for scenarios in which we need to redraw()
-              var shift = false;
-              if (cache.phase2Data.length == cache.numberOfValues) {
-                // Remove overflow from the beginning
-                cache.phase2Data.remove(0);
-                // Shift chart
-                shift = true;
-              }
-
-              // Add new value
-              cache.phase2Data.push(json.data.phase2Data[0]);
-
-              // Update chart
-              cache.consumptionChart.series[1].addPoint(json.data.phase2Data[0], false, shift);
+            // Received max number of values?
+            if (json.data.phase2Data.length == cache.numberOfValues) {
+              // Replace data
+              cache.phase2Data = json.data.phase2Data;
+            } else if (json.data.phase2Data.length > 0) {
+              // Attach data
+              cache.phase2Data.remove(0, json.data.phase2Data.length - 1);
+              $.merge(cache.phase2Data, json.data.phase2Data);
             }
+            // Update graph but don't redraw
+            cache.consumptionChart.series[1].setData(cache.phase2Data, false);
           }
 
           if (json.data.phase3Data) {
-            if (json.data.phase3Data.length == 1) {
-              // Make sure we don't exceed allowed # of values
-              // Although we use delta updates, we need ensure data consistency for scenarios in which we need to redraw()
-              var shift = false;
-              if (cache.phase3Data.length == cache.numberOfValues) {
-                // Remove overflow from the beginning
-                cache.phase3Data.remove(0);
-                // Shift chart
-                shift = true;
-              }
-
-              // Add new value
-              cache.phase3Data.push(json.data.phase3Data[0]);
-
-              // Update chart
-              cache.consumptionChart.series[2].addPoint(json.data.phase3Data[0], false, shift);
+            // Received max number of values?
+            if (json.data.phase3Data.length == cache.numberOfValues) {
+              // Replace data
+              cache.phase3Data = json.data.phase3Data;
+            } else if (json.data.phase3Data.length > 0) {
+              // Attach data
+              cache.phase3Data.remove(0, json.data.phase3Data.length - 1);
+              $.merge(cache.phase3Data, json.data.phase3Data);
             }
+            // Update graph but don't redraw
+            cache.consumptionChart.series[2].setData(cache.phase3Data, false);
           }
 
           cache.consumptionChart.redraw();

@@ -405,6 +405,13 @@ class DataService {
   }
 
   def getLiveData(int numberOfValues, DateTime deltaTime) {
+    // Create data for json
+    def dataMap = [:]
+
+    // Always return current server time
+    dataMap["serverTime"] = new DateTime().getMillis()
+
+    // Load consumptions
     def consumptions = Consumption.withCriteria() {
       if (deltaTime) {
         gt("date", deltaTime)
@@ -420,20 +427,10 @@ class DataService {
         property("powerPhase3")
         property("batteryLevel")
       }
-      if (deltaTime) {
-        maxResults(1)
-      } else {
-        maxResults(numberOfValues)
-      }
+      maxResults(numberOfValues)
     }
 
     Collections.reverse(consumptions)
-
-    // Create data for json
-    def dataMap = [:]
-
-    // Always return current server time
-    dataMap["serverTime"] = new DateTime().getMillis()
 
     // Prepare consumption data
     def phase1Data = []
