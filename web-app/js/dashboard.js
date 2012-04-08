@@ -399,6 +399,7 @@ $(function () {
           pointPadding:0,
           groupPadding:0,
           lineWidth:0,
+          animation:false,
           shadow:false,
           marker:{
             enabled:false
