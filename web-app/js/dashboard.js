@@ -372,7 +372,8 @@ $(function () {
           }
         },
         minorTickInterval:'auto',
-        type:cache.axisType
+        type:cache.axisType,
+        min:(cache.axisType == 'logarithmic' ? 1.0 : null)
       },
 
       tooltip:{
