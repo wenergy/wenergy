@@ -70,7 +70,7 @@ class WEnergyTagLib {
 //        def id
 //        id = it.id
 //        out << dataService.getLastConsumptionById(id)/referenceValue
-      }
+//      }
   }
 
 }
