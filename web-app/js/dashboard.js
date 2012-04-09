@@ -398,6 +398,7 @@ $(function () {
           pointPadding:0,
           groupPadding:0,
           lineWidth:0,
+          borderWidth:0,
           animation:false,
           shadow:false,
           marker:{
@@ -413,19 +414,15 @@ $(function () {
       series:[
         {
           name:'Phase 1',
-          data:(cache.axisType == 'logarithmic' ? cache.phase1DataFiltered : cache.phase1Data),
-          // Bugfix: needs to be the same as the column color because animations will flash the border color
-          borderColor:'#4572A7'
+          data:(cache.axisType == 'logarithmic' ? cache.phase1DataFiltered : cache.phase1Data)
         },
         {
           name:'Phase 2',
-          data:(cache.axisType == 'logarithmic' ? cache.phase2DataFiltered : cache.phase2Data),
-          borderColor:'#AA4643'
+          data:(cache.axisType == 'logarithmic' ? cache.phase2DataFiltered : cache.phase2Data)
         },
         {
           name:'Phase 3',
-          data:(cache.axisType == 'logarithmic' ? cache.phase3DataFiltered : cache.phase3Data),
-          borderColor:'#89A54E'
+          data:(cache.axisType == 'logarithmic' ? cache.phase3DataFiltered : cache.phase3Data)
         }
       ]
     };
