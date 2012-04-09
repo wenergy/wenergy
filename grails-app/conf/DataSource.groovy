@@ -25,7 +25,7 @@ environments {
   }
   production {
     dataSource {
-      dbCreate = "update"
+//      dbCreate = "update"
       driverClassName = "com.mysql.jdbc.Driver"
       dialect = "org.hibernate.dialect.MySQL5InnoDBDialect"
       url = "jdbc:mysql://localhost/wenergy?useUnicode=true&characterEncoding=UTF-8"

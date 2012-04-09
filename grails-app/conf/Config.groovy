@@ -168,6 +168,10 @@ grails.gorm.default.mapping = {
 // Twitter Bootstrap CSS
 grails.plugins.twitterbootstrap.fixtaglib = true
 
+// Database
+grails.plugin.databasemigration.updateOnStart = true
+grails.plugin.databasemigration.updateOnStartFileNames = ["changelog.groovy"]
+
 // Deployment
 grails.plugin.cloudfoundry.target = "api.wenergy-project.de"
 grails.plugin.cloudfoundry.appname = "www"
