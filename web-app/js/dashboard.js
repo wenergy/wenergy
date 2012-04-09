@@ -136,6 +136,11 @@ $(function () {
         // Update cache
         cache.axisType = axisType;
 
+        // Update data
+        if (cache.axisType == 'logarithmic') {
+          filterChartDataForLogarithmicAxis();
+        }
+
         // Update chart
         updateChart(true);
       }
@@ -187,8 +192,6 @@ $(function () {
               cache.phase1Data.remove(0, json.data.phase1Data.length - 1);
               $.merge(cache.phase1Data, json.data.phase1Data);
             }
-            // Update graph but don't redraw
-            cache.consumptionChart.series[0].setData(cache.phase1Data, false);
           }
 
           if (json.data.phase2Data) {
@@ -201,8 +204,6 @@ $(function () {
               cache.phase2Data.remove(0, json.data.phase2Data.length - 1);
               $.merge(cache.phase2Data, json.data.phase2Data);
             }
-            // Update graph but don't redraw
-            cache.consumptionChart.series[1].setData(cache.phase2Data, false);
           }
 
           if (json.data.phase3Data) {
@@ -215,7 +216,19 @@ $(function () {
               cache.phase3Data.remove(0, json.data.phase3Data.length - 1);
               $.merge(cache.phase3Data, json.data.phase3Data);
             }
+          }
+
+          // Update data
+          if (cache.axisType == 'logarithmic') {
+            filterChartDataForLogarithmicAxis();
             // Update graph but don't redraw
+            cache.consumptionChart.series[0].setData(cache.phase1DataFiltered, false);
+            cache.consumptionChart.series[1].setData(cache.phase2DataFiltered, false);
+            cache.consumptionChart.series[2].setData(cache.phase3DataFiltered, false);
+          } else {
+            // Update graph but don't redraw
+            cache.consumptionChart.series[0].setData(cache.phase1Data, false);
+            cache.consumptionChart.series[1].setData(cache.phase2Data, false);
             cache.consumptionChart.series[2].setData(cache.phase3Data, false);
           }
 
@@ -257,6 +270,11 @@ $(function () {
           // Update UI and timer
           showCentralAjaxLoader(false);
           updateTimer();
+        }
+
+        // Update data
+        if (cache.axisType == 'logarithmic') {
+          filterChartDataForLogarithmicAxis();
         }
 
         // Plot
@@ -395,18 +413,18 @@ $(function () {
       series:[
         {
           name:'Phase 1',
-          data:cache.phase1Data,
+          data:(cache.axisType == 'logarithmic' ? cache.phase1DataFiltered : cache.phase1Data),
           // Bugfix: needs to be the same as the column color because animations will flash the border color
           borderColor:'#4572A7'
         },
         {
           name:'Phase 2',
-          data:cache.phase2Data,
+          data:(cache.axisType == 'logarithmic' ? cache.phase2DataFiltered : cache.phase2Data),
           borderColor:'#AA4643'
         },
         {
           name:'Phase 3',
-          data:cache.phase3Data,
+          data:(cache.axisType == 'logarithmic' ? cache.phase3DataFiltered : cache.phase3Data),
           borderColor:'#89A54E'
         }
       ]
@@ -456,6 +474,23 @@ $(function () {
       clearInterval(timer);
       cache.timer = null;
     }
+  }
+
+  // Data filter
+  function filterChartDataForLogarithmicAxis() {
+    var cache = $("#dashboard").data("bbq");
+    // Filter values < 1 for array to be used with log axis
+    cache.phase1DataFiltered = [];
+    cache.phase2DataFiltered = [];
+    cache.phase3DataFiltered = [];
+
+    $.each(cache.phase1Data, function (index, value) {
+      if (value.y >= 1.0 && cache.phase2Data[index].y >= 1.0 && cache.phase3Data[index].y >= 1.0) {
+        cache.phase1DataFiltered.push(value);
+        cache.phase2DataFiltered.push(cache.phase2Data[index]);
+        cache.phase3DataFiltered.push(cache.phase3Data[index]);
+      }
+    });
   }
 
   // Final step is to trigger the hash change event which will also handle initial data loading
