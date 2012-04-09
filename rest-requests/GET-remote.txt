@@ -1,0 +1,1 @@
+{"requestUrl":"http://www.wenergy-project.de/api/consumption?json={\"id\":1,\"p1\":4000,\"p2\":1000,\"p3\":2000,\"b\":3000}","requestMethod":"GET","requestBody":"","headers":[]}
