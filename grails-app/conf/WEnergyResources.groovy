@@ -65,8 +65,8 @@ modules = {
 
   jqui {
     dependsOn "jquery"
-    resource url: [dir: "js", file: "jquery/jquery-ui-1.8.16.custom.min.js"], disposition: "head"
-    resource url: [dir: "css", file: "jquery-ui-1.8.16.custom.css"], attrs: [media: 'screen, projection'], disposition: "head"
+    resource url: [dir: "js", file: "jquery/jquery-ui-1.8.18.custom.min.js"], disposition: "head"
+    resource url: [dir: "css", file: "jquery-ui-1.8.18.custom.css"], attrs: [media: 'screen, projection'], disposition: "head"
   }
 
   jqbbq {
