@@ -13,13 +13,13 @@ hibernate {
 environments {
   development {
     dataSource {
-      dbCreate = "update" // one of 'create', 'create-drop', 'update', 'validate', ''
+//      dbCreate = "update" // one of 'create', 'create-drop', 'update', 'validate', ''
       url = "jdbc:h2:prodDb"
     }
   }
   test {
     dataSource {
-      dbCreate = "update"
+//      dbCreate = "update"
       url = "jdbc:h2:mem:testDb"
     }
   }
