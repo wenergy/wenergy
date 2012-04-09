@@ -20,7 +20,7 @@
 <head>
   <meta name="layout" content="main"/>
   <title>My Consumption</title>
-  <r:require modules="jqui, flotjs, consumptionjs"/>
+  <r:require modules="consumptionjs"/>
   <r:script disposition="head">
     var rootPath = "${ConfigurationHolder.config?.grails?.relativeServerURL}";
   </r:script>

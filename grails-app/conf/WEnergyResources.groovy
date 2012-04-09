@@ -44,11 +44,6 @@ modules = {
     resource url: [dir: "js/bootstrap", file: "bootstrap.js"], disposition: "head"
   }
 
-  highchartsjs {
-    dependsOn "jquery"
-    resource url: [dir: "js/highcharts", file: "highcharts.js"], disposition: "head"
-  }
-
   highstockjs {
     dependsOn "jquery"
     resource url: [dir: "js/highstock", file: "highstock.js"], disposition: "head"
@@ -57,13 +52,6 @@ modules = {
   raphaeljs {
     dependsOn "jquery"
     resource url: [dir: "js/raphael", file: "raphael-min.js"], disposition: "head"
-  }
-
-  flotjs {
-    dependsOn "jquery"
-    resource url: [dir: "js/flot", file: "excanvas.js"], wrapper: { s -> "<!--[if lt IE 9]>$s<![endif]-->" }, disposition: "head"
-    resource url: [dir: "js/flot", file: "jquery.flot.js"], disposition: "head"
-    resource url: [dir: "js/flot", file: "jquery.flot.stack.js"], disposition: "head"
   }
 
   datejs {
@@ -102,17 +90,17 @@ modules = {
   }
 
   consumptionjs {
-    dependsOn "jqbbq, jqchrono, datejs, flotjs, spinjs, wenergyjs"
+    dependsOn "jqbbq, jqchrono, jqui, datejs, highstockjs, spinjs, raphaeljs, wenergyjs"
     resource url: [dir: "js", file: "consumption.js"], disposition: "head"
   }
 
   dashboardjs {
-    dependsOn "jqbbq, jqchrono, datejs, highchartsjs, spinjs, raphaeljs, wenergyjs"
+    dependsOn "jqbbq, jqchrono, datejs, highstockjs, spinjs, raphaeljs, wenergyjs"
     resource url: [dir: "js", file: "dashboard.js"], disposition: "head"
   }
 
   peergroupjs {
-    dependsOn "jqbbq, jqchrono, datejs, flotjs, spinjs, wenergyjs"
+    dependsOn "jqbbq, jqchrono, datejs, highstockjs, spinjs, raphaeljs, wenergyjs"
     resource url: [dir: "js", file: "peergroup.js"], disposition: "head"
   }
 }

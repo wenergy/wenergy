@@ -21,7 +21,7 @@
 <head>
   <meta name="layout" content="main"/>
   <title>Dashboard</title>
-  <r:require modules="jqui, flotjs, dashboardjs"/>
+  <r:require modules="dashboardjs"/>
   <r:script disposition="head">
     var rootPath = "${ConfigurationHolder.config?.grails?.relativeServerURL}";
   </r:script>

@@ -22,7 +22,7 @@
 <head>
   <meta name="layout" content="main"/>
   <title>My Peergroup</title>
-  <r:require modules="jqui, flotjs, peergroupjs"/>
+  <r:require modules="peergroupjs"/>
   <r:script disposition="head">
     var rootPath = "${ConfigurationHolder.config?.grails?.relativeServerURL}";
   </r:script>
