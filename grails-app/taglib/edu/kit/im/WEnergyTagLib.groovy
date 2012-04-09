@@ -62,13 +62,13 @@ class WEnergyTagLib {
   }
 
   def householdTable = {
-      def currentOut = out
-
-      def households = Household.findAll().toList()
-      households.each {
-        def referenceValue = Math.max(it.referenceConsumption ?: 0.0,0.01)
-        def id
-        id = it.id
+//      def currentOut = out
+//
+//      def households = Household.findAll().toList()
+//      households.each {
+//        def referenceValue = Math.max(it.referenceConsumption ?: 0.0,0.01)
+//        def id
+//        id = it.id
 //        out << dataService.getLastConsumptionById(id)/referenceValue
       }
   }
