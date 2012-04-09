@@ -35,15 +35,16 @@
   <div class="row">
     <div class="span11">
       <div id="loaderErrorContainer"></div>
+
       <div id="consumptionChart">
-         %{-- Needs to be nested to avoid sudden jumps --}%
+        %{-- Needs to be nested to avoid sudden jumps --}%
         <div id="centralLoaderContainer"><div id="centralLoader"></div>Loading...</div>
 
         <div id="centralLoaderErrorContainer"></div>
       </div>
     </div>
 
-    <div class="span1" style="background-color: #d3d3d3;">level</div>
+    <div id="powerLevelIndicator" class="span1"></div>
   </div>
 
   <div class="row">
@@ -88,7 +89,6 @@
       </div>
 
       <div id="batteryLevel" class="span2"></div>
-
     </form>
   </div>
 

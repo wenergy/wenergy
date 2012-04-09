@@ -261,10 +261,9 @@ body {
   margin: 0 auto;
 }
 
-#dashboard #levelChart {
-  margin-top: 15px;
-  margin-left: 0;
-  height: 350px;
+#dashboard #powerLevelIndicator {
+  margin: 0;
+  height: 335px;
 }
 
 #dashboard .dashboardForm .control-label {

@@ -480,9 +480,15 @@ class DataService {
       dataMap["batteryLevel"] = "$batteryLevel %"
     }
 
-//    def currentConsumption = phase1Data.last()[1]+phase2Data.last()[1]+phase3Data.last()[1]
-//    def referenceValue = Math.max(Household.findById(householdId())?.referenceConsumption ?: 0.0,0.01)
-//    dataMap["currentLevel"] = [[0, currentConsumption / referenceValue], [1, currentConsumption / referenceValue]]
+    // Power level
+    if (phase1Data.size() && phase2Data.size() && phase3Data.size()) {
+      def sumMostRecentConsumption = phase1Data.last().y + phase2Data.last().y + phase3Data.last().y
+      def referenceValue = Household.findById(householdId())?.referenceConsumptionValue
+      def powerLevel = (referenceValue > 0) ? sumMostRecentConsumption / referenceValue : 0.0
+      powerLevel = powerLevel.min(1.0).max(0.0)
+      powerLevel = powerLevel.setScale(2, RoundingMode.HALF_UP)
+      dataMap["powerLevel"] = powerLevel
+    }
 
     dataMap
   }

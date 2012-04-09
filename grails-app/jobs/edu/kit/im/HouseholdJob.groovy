@@ -12,7 +12,6 @@ class HouseholdJob {
 
   def execute() {
     householdService.run()
-//    log.error "execute"
   }
 
 }

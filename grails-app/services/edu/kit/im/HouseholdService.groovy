@@ -5,8 +5,10 @@ import org.joda.time.DateTime
 
 class HouseholdService {
   def run() {
-    def referenceTime = new DateTime().minusDays(2) //last two days of consumption records are used to determine reference level
+    // Last two days of consumption records are used to determine reference level
+    def referenceTime = new DateTime().minusDays(2)
     Household.getAll().each {h ->
+      // Collect consumptions for every household
       def consumptions = Consumption.withCriteria() {
         ge("date", referenceTime)
         household {
@@ -18,29 +20,29 @@ class HouseholdService {
           property("powerPhase3")
         }
       }
+
       def aggregatedConsumptions = consumptions.collect {
-        // Format data
-        BigDecimal PowerPhase1 = new BigDecimal((Double) it[0])
-        PowerPhase1.setScale(3, RoundingMode.HALF_UP)
+        BigDecimal powerPhase1 = new BigDecimal((Double) it[0])
+        BigDecimal powerPhase2 = new BigDecimal((Double) it[1])
+        BigDecimal powerPhase3 = new BigDecimal((Double) it[2])
 
-        BigDecimal PowerPhase2 = new BigDecimal((Double) it[1])
-        PowerPhase2.setScale(3, RoundingMode.HALF_UP)
-
-        BigDecimal PowerPhase3 = new BigDecimal((Double) it[2])
-        PowerPhase3.setScale(3, RoundingMode.HALF_UP)
-
-        // Format data as [timestamp, powerValue]
-        new BigDecimal(PowerPhase1 + PowerPhase2 + PowerPhase3)
+        BigDecimal sum = powerPhase1 + powerPhase2 + powerPhase3
+        sum
       }
+
+      // Sort sums
       Collections.sort(aggregatedConsumptions)
+
       try {
+        // Get quantile
         def numberOfConsumptions = aggregatedConsumptions.size()
         def index = (0.9 * numberOfConsumptions) as Integer
-        h.referenceConsumption = aggregatedConsumptions.get(index)
-        h.save()
-      }
-      catch (Exception e) {
-        log.error(e)
+        if (index < aggregatedConsumptions.size()) {
+          h.referenceConsumptionValue = aggregatedConsumptions.get(index)
+          h.save()
+        }
+      } catch (Exception e) {
+        log.error e
       }
     }
   }

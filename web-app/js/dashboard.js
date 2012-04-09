@@ -47,6 +47,16 @@ $(function () {
     cache.loadingInProgress = false;
     cache.deltaTime = 0;
 
+    cache.powerLevel = 0.0;
+    // Initialize colors
+    cache.powerLevelColors = ["#AD0000", "#B10D05", "#B51A0B", "#B92610", "#BD3315", "#C2401B", "#C64D20", "#CA5925",
+      "#CE662B", "#D27330", "#D68036", "#DA8C3B", "#DE9940", "#E2A646", "#E6B34B", "#EBBF50", "#EFCC56", "#F3D95B",
+      "#F7E660", "#FBF266", "#FFFF6B", "#F8FC67", "#F2F963", "#EBF65F", "#E5F45A", "#DEF156", "#D7EE52", "#D1EB4E",
+      "#CAE84A", "#C4E546", "#BDE342", "#B6E03D", "#B0DD39", "#A9DA35", "#A3D731", "#9CD42D", "#95D129", "#8FCF24",
+      "#88CC20", "#82C91C", "#7BC618"];
+
+    cache.powerLevelColorInactive = "#CCCCCC";
+
     // Save in dashboard section
     $("#dashboard").data("bbq", cache);
   }
@@ -189,7 +199,9 @@ $(function () {
               cache.phase1Data = json.data.phase1Data;
             } else if (json.data.phase1Data.length > 0) {
               // Attach data
-              cache.phase1Data.remove(0, json.data.phase1Data.length - 1);
+              if (cache.phase1Data.length >= cache.numberOfValues) {
+                cache.phase1Data.remove(0, json.data.phase1Data.length - 1);
+              }
               $.merge(cache.phase1Data, json.data.phase1Data);
             }
           }
@@ -201,7 +213,9 @@ $(function () {
               cache.phase2Data = json.data.phase2Data;
             } else if (json.data.phase2Data.length > 0) {
               // Attach data
-              cache.phase2Data.remove(0, json.data.phase2Data.length - 1);
+              if (cache.phase2Data.length >= cache.numberOfValues) {
+                cache.phase2Data.remove(0, json.data.phase2Data.length - 1);
+              }
               $.merge(cache.phase2Data, json.data.phase2Data);
             }
           }
@@ -213,7 +227,9 @@ $(function () {
               cache.phase3Data = json.data.phase3Data;
             } else if (json.data.phase3Data.length > 0) {
               // Attach data
-              cache.phase3Data.remove(0, json.data.phase3Data.length - 1);
+              if (cache.phase3Data.length >= cache.numberOfValues) {
+                cache.phase3Data.remove(0, json.data.phase3Data.length - 1);
+              }
               $.merge(cache.phase3Data, json.data.phase3Data);
             }
           }
@@ -261,6 +277,14 @@ $(function () {
             $("#batteryLevel").html("Battery: n/a");
           }
         }
+
+        // Power level
+        if (json.data) {
+          if (json.data.powerLevel) {
+            cache.powerLevel = json.data.powerLevel;
+          }
+        }
+        updatePowerLevelIndicator();
 
         if (cache.initialLoading) {
           // Set flag to false
@@ -432,6 +456,49 @@ $(function () {
     }
 
     cache.consumptionChart = new Highcharts.Chart(consumptionChartOptions);
+  }
+
+  function updatePowerLevelIndicator() {
+    var cache = $("#dashboard").data("bbq");
+
+    if (cache.powerLevelIndicator == null) {
+      // Create
+      var pli = Raphael("powerLevelIndicator", "100%", "100%");
+
+      // Configuration
+      var height = $("#powerLevelIndicator").height();
+      var width = $("#powerLevelIndicator").width();
+      var numberOfCells = cache.powerLevelColors.length;
+      var cellPadding = 4.0;
+      var cellWidth = width - 20;
+      var cellHeight = (height - (numberOfCells + 1 /* top space */) * cellPadding) / numberOfCells;
+      var cellCornerRadius = cellHeight / 2;
+      var xOffset = (width - cellWidth) / 2;
+      var yOffset = cellPadding;
+
+      // Initialize
+      cache.powerLevelCells = [];
+
+      for (var i = 0; i < numberOfCells; i++) {
+        var cell = pli.rect(xOffset, yOffset, cellWidth, cellHeight, cellCornerRadius);
+        // Fill with default grey color
+        cell.attr({fill:cache.powerLevelColorInactive, stroke:"none"});
+
+        // Save cell
+        cache.powerLevelCells.push(cell);
+
+        yOffset += cellHeight + cellPadding;
+      }
+
+      // Save
+      cache.powerLevelIndicator = pli;
+    }
+
+    // Update colors (backwards, top to bottom)
+    var powerLevelThreshold = cache.powerLevelCells.length - (cache.powerLevelCells.length * cache.powerLevel);
+    $.each(cache.powerLevelCells, function (index, cell) {
+      cell.attr({fill:(index >= powerLevelThreshold) ? cache.powerLevelColors[index] : cache.powerLevelColorInactive});
+    });
   }
 
   // Helper functions

@@ -33,8 +33,8 @@ class Household implements Serializable {
   String zipCode
   String city
 
-  //This is used to display relative consumption levels
-  BigDecimal referenceConsumption
+  // Relative reference consumption
+  BigDecimal referenceConsumptionValue
 
   // Grails information
   DateTime dateCreated
@@ -54,7 +54,7 @@ class Household implements Serializable {
     address(blank: false)
     zipCode(blank: false, matches: "[0-9]{5}")
     city(blank: false)
-    referenceConsumption(nullable: true)
+    referenceConsumptionValue(nullable: true)
     username(blank: false, unique: true, minSize: 3)
     password(blank: false, password: true, minSize: 3)
     consumptions(bindable: true)

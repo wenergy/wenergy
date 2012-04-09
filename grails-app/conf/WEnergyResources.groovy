@@ -50,9 +50,14 @@ modules = {
   }
 
   highstockjs {
-      dependsOn "jquery"
-      resource url: [dir: "js/highstock", file: "highstock.js"], disposition: "head"
-    }
+    dependsOn "jquery"
+    resource url: [dir: "js/highstock", file: "highstock.js"], disposition: "head"
+  }
+
+  raphaeljs {
+    dependsOn "jquery"
+    resource url: [dir: "js/raphael", file: "raphael-min.js"], disposition: "head"
+  }
 
   flotjs {
     dependsOn "jquery"
@@ -102,12 +107,12 @@ modules = {
   }
 
   dashboardjs {
-      dependsOn "jqbbq, jqchrono, datejs, flotjs, highchartsjs, spinjs, wenergyjs"
-      resource url: [dir: "js", file: "dashboard.js"], disposition: "head"
-    }
+    dependsOn "jqbbq, jqchrono, datejs, highchartsjs, spinjs, raphaeljs, wenergyjs"
+    resource url: [dir: "js", file: "dashboard.js"], disposition: "head"
+  }
 
   peergroupjs {
-      dependsOn "jqbbq, jqchrono, datejs, flotjs, spinjs, wenergyjs"
-      resource url: [dir: "js", file: "peergroup.js"], disposition: "head"
-    }
+    dependsOn "jqbbq, jqchrono, datejs, flotjs, spinjs, wenergyjs"
+    resource url: [dir: "js", file: "peergroup.js"], disposition: "head"
+  }
 }
