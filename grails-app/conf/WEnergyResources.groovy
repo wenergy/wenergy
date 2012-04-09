@@ -76,7 +76,7 @@ modules = {
 
   jqchrono {
     dependsOn "jquery"
-    resource url: [dir: "js", file: "jquery/jquery.chrono.js"], disposition: "head"
+    resource url: [dir: "js", file: "jquery/jquery.chrono.min.js"], disposition: "head"
   }
 
   spinjs {
