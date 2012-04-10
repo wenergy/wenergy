@@ -57,6 +57,11 @@ $(function () {
 
     cache.powerLevelColorInactive = "#CCCCCC";
 
+    // Chart colors
+    Highcharts.setOptions({
+      colors:["#3B3B3B", "#59483E", "#AD9978"]
+    });
+
     // Save in dashboard section
     $("#dashboard").data("bbq", cache);
   }
