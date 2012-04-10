@@ -24,6 +24,8 @@ import org.joda.time.DateTimeZone
 
 class ApiService {
 
+  def householdService
+
   def processConsumption(def jsonPayload) {
 
     // Load and verify JSON content
@@ -89,6 +91,12 @@ class ApiService {
     // Post processing
     try {
       determineAggregation(consumption)
+
+      // Set reference value once
+      if (household.referenceConsumptionValue == null) {
+        householdService.determineReferenceConsumptionValue(household)
+      }
+
     } catch (Exception e) {
       throw new ApiException("Post processing error", 500)
     }
