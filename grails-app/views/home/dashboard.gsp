@@ -33,9 +33,12 @@
 ================================================== -->
 <section id="dashboard">
   <div class="row">
-    <div class="span11">
+    <div class="span12">
       <div id="loaderErrorContainer"></div>
-
+    </div>
+  </div>
+  <div class="row">
+    <div class="span11">
       <div id="consumptionChart">
         %{-- Needs to be nested to avoid sudden jumps --}%
         <div id="centralLoaderContainer"><div id="centralLoader"></div>Loading...</div>
