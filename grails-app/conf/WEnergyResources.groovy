@@ -79,6 +79,12 @@ modules = {
     resource url: [dir: "js", file: "jquery/jquery.chrono.min.js"], disposition: "head"
   }
 
+  jqqtip {
+    dependsOn "jquery"
+    resource url: [dir: "js", file: "jquery/jquery.qtip.min.js"], disposition: "head"
+    resource url: [dir: "css", file: "jquery.qtip.min.css"], disposition: "head"
+  }
+
   spinjs {
     dependsOn "jquery"
     resource url: [dir: "js", file: "jquery/spin.js"], disposition: "head"
@@ -95,7 +101,7 @@ modules = {
   }
 
   dashboardjs {
-    dependsOn "jqbbq, jqchrono, datejs, highstockjs, spinjs, raphaeljs, wenergyjs"
+    dependsOn "jqbbq, jqchrono, jqqtip, datejs, highstockjs, spinjs, raphaeljs, wenergyjs"
     resource url: [dir: "js", file: "dashboard.js"], disposition: "head"
   }
 

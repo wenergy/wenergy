@@ -278,6 +278,10 @@ body {
   padding-top: 5px;
 }
 
+.wenergy-tooltip .ui-tooltip-content {
+  text-align: center;
+}
+
 /* Peergroup */
 #peergroup #consumptionGraph {
   margin-top: 15px;

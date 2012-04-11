@@ -415,7 +415,7 @@ $(function () {
                 point.y + ' W</b>';
           });
 
-          s += '<br/>Total: <b>' + Highcharts.numberFormat(this.points[0].total, 3, '.') + ' W</b>';
+          s += '<br/>Total: <b>' + Highcharts.numberFormat(this.points[0].total, 2, ".", "") + ' W</b>';
 
           return s;
         }
@@ -504,6 +504,48 @@ $(function () {
     $.each(cache.powerLevelCells, function (index, cell) {
       cell.attr({fill:(index >= powerLevelThreshold) ? cache.powerLevelColors[index] : cache.powerLevelColorInactive});
     });
+
+    // Create tooltip text
+    var phase1 = (cache.axisType == 'logarithmic' ? cache.phase1DataFiltered : cache.phase1Data);
+    var phase2 = (cache.axisType == 'logarithmic' ? cache.phase2DataFiltered : cache.phase2Data);
+    var phase3 = (cache.axisType == 'logarithmic' ? cache.phase3DataFiltered : cache.phase3Data);
+
+    // Only proceed if data exists
+    if (phase1.length && phase2.length && phase3.length) {
+      // Get values
+      var lastPhase1Value = phase1[phase1.length - 1].y;
+      var lastPhase2Value = phase2[phase2.length - 1].y;
+      var lastPhase3Value = phase3[phase3.length - 1].y;
+
+      // Sum
+      var lastSum = Highcharts.numberFormat(lastPhase1Value + lastPhase2Value + lastPhase3Value, 2, ".", "") + ' W';
+
+      // Text
+      var tipText = "Your most recent consumption of " + lastSum + " corresponds to " + cache.powerLevel * 100.0 + "% of" +
+          " your highest consumption (0.9-Quantile) over the last 2 days.";
+
+      // Create or update tooltip
+      if ($("#ui-tooltip-powerLevelIndicator").length) {
+        // Update
+        $("#ui-tooltip-powerLevelIndicator").qtip("option", "content.text", tipText);
+      } else {
+        // Create
+        $("#powerLevelIndicator").qtip({
+          id:"powerLevelIndicator", // #ui-tooltip-powerLevelIndicator
+          content:{
+            text:tipText
+          },
+          position:{
+            my:"top center",
+            at:"bottom center",
+            viewport:$(window)
+          },
+          style:{
+            classes:"ui-tooltip-light ui-tooltip-rounded wenergy-tooltip"
+          }
+        });
+      }
+    }
   }
 
   // Helper functions
