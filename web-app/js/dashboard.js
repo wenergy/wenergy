@@ -59,7 +59,7 @@ $(function () {
 
     // Chart colors
     Highcharts.setOptions({
-      colors:["#3B3B3B", "#59483E", "#AD9978"]
+      colors:["#004B8A", "#007CC3", "#6CAEDF"]
     });
 
     // Save in dashboard section
