@@ -501,7 +501,8 @@ $(function () {
     }
 
     // Update colors (backwards, top to bottom)
-    var powerLevelThreshold = cache.powerLevelCells.length - (cache.powerLevelCells.length * cache.powerLevel);
+    var powerLevelCorrected = Math.min(1.0, cache.powerLevel);
+    var powerLevelThreshold = cache.powerLevelCells.length - (cache.powerLevelCells.length * powerLevelCorrected);
     $.each(cache.powerLevelCells, function (index, cell) {
       cell.attr({fill:(index >= powerLevelThreshold) ? cache.powerLevelColors[index] : cache.powerLevelColorInactive});
     });

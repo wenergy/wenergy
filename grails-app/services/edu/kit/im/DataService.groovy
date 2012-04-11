@@ -485,7 +485,7 @@ class DataService {
       def sumMostRecentConsumption = phase1Data.last().y + phase2Data.last().y + phase3Data.last().y
       def referenceValue = Household.findById(householdId())?.referenceConsumptionValue
       def powerLevel = (referenceValue > 0) ? sumMostRecentConsumption / referenceValue : 0.0
-      powerLevel = powerLevel.min(1.0).max(0.0)
+      powerLevel = powerLevel.max(0.0)
       powerLevel = powerLevel.setScale(2, RoundingMode.HALF_UP)
       dataMap["powerLevel"] = powerLevel
     }
