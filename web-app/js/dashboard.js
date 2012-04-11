@@ -519,11 +519,12 @@ $(function () {
       var lastPhase2Value = phase2[phase2.length - 1].y;
       var lastPhase3Value = phase3[phase3.length - 1].y;
 
-      // Sum
+      // Numbers
       var lastSum = Highcharts.numberFormat(lastPhase1Value + lastPhase2Value + lastPhase3Value, 2, ".", "") + ' W';
+      var powerLevel = Highcharts.numberFormat(cache.powerLevel * 100.0, 2, ".", "") + ' %';
 
       // Text
-      var tipText = "Your most recent consumption of " + lastSum + " corresponds to " + cache.powerLevel * 100.0 + "% of" +
+      var tipText = "Your most recent consumption of " + lastSum + " corresponds to " + powerLevel + " of" +
           " your highest consumption (0.9-Quantile) over the last 2 days.";
 
       // Create or update tooltip

@@ -477,7 +477,7 @@ class DataService {
       batteryLevel = batteryLevel.min(100.0)
       batteryLevel = batteryLevel.setScale(2, RoundingMode.HALF_UP)
 
-      dataMap["batteryLevel"] = "$batteryLevel%"
+      dataMap["batteryLevel"] = "$batteryLevel %"
     }
 
     // Power level
