@@ -458,6 +458,7 @@ $(function () {
 
     if (reload && cache.consumptionChart != null) {
       cache.consumptionChart.destroy();
+      cache.consumptionChart = null;
     }
 
     cache.consumptionChart = new Highcharts.Chart(consumptionChartOptions);
