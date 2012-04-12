@@ -366,44 +366,6 @@ class DataService {
     dataMap
   }
 
-  def getLastConsumption() {
-    def consumptions = Consumption.withCriteria() {
-      household {
-        eq("id", householdId())
-      }
-      projections {
-        property("powerPhase1")
-        property("powerPhase2")
-        property("powerPhase3")
-      }
-      maxResults(new Integer(1))
-    }
-    BigDecimal powerPhase1 = new BigDecimal((Double) consumptions[0])
-    BigDecimal powerPhase2 = new BigDecimal((Double) consumptions[1])
-    BigDecimal powerPhase3 = new BigDecimal((Double) consumptions[2])
-
-    def BigDecimal returnValue = powerPhase1 + powerPhase2 + powerPhase3
-  }
-
-  def getLastConsumptionById(id) {
-    def consumptions = Consumption.withCriteria() {
-      household {
-        eq("id", id)
-      }
-      projections {
-        property("powerPhase1")
-        property("powerPhase2")
-        property("powerPhase3")
-      }
-      maxResults(new Integer(1))
-    }
-    BigDecimal powerPhase1 = new BigDecimal((Double) consumptions[0])
-    BigDecimal powerPhase2 = new BigDecimal((Double) consumptions[1])
-    BigDecimal powerPhase3 = new BigDecimal((Double) consumptions[2])
-
-    def BigDecimal returnValue = powerPhase1 + powerPhase2 + powerPhase3
-  }
-
   def getLiveData(int numberOfValues, DateTime deltaTime) {
     // Create data for json
     def dataMap = [:]
@@ -495,7 +457,7 @@ class DataService {
 
   // Helper functions
   def householdId() {
-    Household.get(springSecurityService.principal?.id)?.id
+    springSecurityService.currentUser?.id
   }
 
 }

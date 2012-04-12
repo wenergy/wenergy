@@ -51,26 +51,4 @@ class WEnergyTagLib {
       out << "</tr>"
     }
   }
-
-  def peergroupTable = {
-      def currentOut = out
-      def currentHouseholdId = Household.get(springSecurityService.principal?.id)?.id
-      def currentHousehold = Household.findById(currentHouseholdId)
-      def peergroup = currentHousehold.peergroups.findAll().toList().head()
-      def peergroupHouseholds = peergroup.households.findAll().toList()
-      peergroupHouseholds.each { out << it.city }
-  }
-
-  def householdTable = {
-//      def currentOut = out
-//
-//      def households = Household.findAll().toList()
-//      households.each {
-//        def referenceValue = Math.max(it.referenceConsumption ?: 0.0,0.01)
-//        def id
-//        id = it.id
-//        out << dataService.getLastConsumptionById(id)/referenceValue
-//      }
-  }
-
 }
