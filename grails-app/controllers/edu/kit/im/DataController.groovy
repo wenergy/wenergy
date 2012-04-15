@@ -38,41 +38,47 @@ class DataController {
       long jsDate = params.date as long
       def date = new DateTime(jsDate)
 
-      // Get consumption data
-      def data
-      // Time interval
-      def low
-      def high
-
-      switch (params.interval) {
-        case "weekly":
-          data = dataService.getWeeklyData(date, true)
-          low = date.withTimeAtStartOfDay().dayOfWeek().withMinimumValue() // Mon, 00:00:00
-          high = low.plusWeeks(1).minusMinutes(30) // Sun, 23:30:00 // last start time for 30min interval
-          break;
-        case "monthly":
-          data = dataService.getMonthlyData(date, true)
-          low = date.withTimeAtStartOfDay().dayOfMonth().withMinimumValue() // 1st of month, 00:00:00
-          high = low.plusMonths(1).minusHours(3) // 23:55:00 // last start time for 3h interval
-          break;
-        case "daily15":
-          data = dataService.getDaily15Data(date, true)
-          low = date.withTimeAtStartOfDay() // 00:00:00
-          high = low.plusDays(1).minusMinutes(15) // 23:55:00 // last start time for 15min interval
-          break;
-        case "daily":
-        default:
-          data = dataService.getDailyData(date, true)
-          low = date.withTimeAtStartOfDay() // 00:00:00
-          high = low.plusDays(1).minusMinutes(5) // 23:55:00 // last start time for 5min interval
-          //log.error "date is ${date}, computed low ${low} and high ${high}"
-          break;
+      def deltaTime = null
+      if (params.deltaTime) {
+        long jsDeltaDate = params.deltaTime as long
+        if (jsDeltaDate > 0) {
+          deltaTime = new DateTime(jsDeltaDate)
+        }
       }
+
+      def precision = params.precision as Integer
+
+      // Get consumption data
+      def data = dataService.getConsumptionData(date, params.interval, precision, params.dataType, deltaTime)
+      log.error data
+//      // Time interval
+//      def low
+//      def high
+
+//      switch (params.interval) {
+//        case "weekly":
+//          data = dataService.getWeeklyData(date, true)
+//          low = date.withTimeAtStartOfDay().dayOfWeek().withMinimumValue() // Mon, 00:00:00
+//          high = low.plusWeeks(1).minusMinutes(30) // Sun, 23:30:00 // last start time for 30min interval
+//          break;
+//        case "monthly":
+//          data = dataService.getMonthlyData(date, true)
+//          low = date.withTimeAtStartOfDay().dayOfMonth().withMinimumValue() // 1st of month, 00:00:00
+//          high = low.plusMonths(1).minusHours(3) // 23:55:00 // last start time for 3h interval
+//          break;
+//        case "daily":
+//        default:
+//          data = dataService.getDailyData(date, true)
+//          low = date.withTimeAtStartOfDay() // 00:00:00
+//          high = low.plusDays(1).minusMinutes(5) // 23:55:00 // last start time for 5min interval
+//          //log.error "date is ${date}, computed low ${low} and high ${high}"
+//          break;
+//      }
 
       def json = [
           status: [code: 200],
           data: data,
-          time: [low: low?.getMillis(), high: high?.getMillis()]
+//          time: [low: low?.getMillis(), high: high?.getMillis()]
       ] as JSON
 
       response.status = 200
@@ -94,25 +100,41 @@ class DataController {
   }
 
   def dashboard() {
-    // Parse params
-    def deltaTime = null
-    if (params.deltaTime) {
-      long jsDate = params.deltaTime as long
-      if (jsDate > 0) {
-        deltaTime = new DateTime(jsDate)
+    try {
+      // Parse params
+      def deltaTime = null
+      if (params.deltaTime) {
+        long jsDate = params.deltaTime as long
+        if (jsDate > 0) {
+          deltaTime = new DateTime(jsDate)
+        }
       }
+
+      int numberOfValues = params.numberOfValues as int
+
+      // Dispatch
+      def data = dataService.getLiveData(numberOfValues, deltaTime)
+      log.error data
+
+      def json = [
+          status: [code: 200],
+          data: data
+      ] as JSON
+
+      response.status = 200
+      render json
+    } catch (Exception e) {
+      def json = [
+          status:
+              [
+                  code: 500,
+                  message: e.toString().encodeAsHTML()
+                  //stack: ApiUtils.getStackTraceAsString(e).encodeAsHTML()
+              ]
+      ] as JSON
+
+      response.status = 500
+      render json
     }
-
-    int numberOfValues = params.numberOfValues as int
-
-    // Dispatch
-    def data = dataService.getLiveData(numberOfValues, deltaTime)
-    def json = [
-        status: [code: 200],
-        data: data
-    ] as JSON
-
-    response.status = 200
-    render json
   }
 }

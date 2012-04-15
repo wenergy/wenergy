@@ -55,7 +55,7 @@ modules = {
   }
 
   datejs {
-    resource url: [dir: "js/date", file: "en-US.js"], disposition: "head"
+    resource url: [dir: "js/date", file: "de-DE.js"], disposition: "head"
     resource url: [dir: "js/date", file: "core.js"], disposition: "head"
     resource url: [dir: "js/date", file: "parser.js"], disposition: "head"
     resource url: [dir: "js/date", file: "sugarpak.js"], disposition: "head"

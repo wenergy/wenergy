@@ -17,7 +17,6 @@
   --}%
 
 <html>
-
 <head>
   <meta name="layout" content="main"/>
   <title>Dashboard</title>
@@ -37,6 +36,7 @@
       <div id="loaderErrorContainer"></div>
     </div>
   </div>
+
   <div class="row">
     <div class="span11">
       <div id="consumptionChart">

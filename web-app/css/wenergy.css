@@ -160,39 +160,8 @@ body {
   color: #888;
 }
 
-/* Consumption
+/* Global elements
 -------------------------------------------------- */
-
-/* Move options to the left */
-#consumption .form-stacked {
-  padding-left: 0;
-}
-
-/* Set fixed height for graph */
-#consumption #consumptionGraph {
-  margin-top: 15px;
-  margin-left: 0;
-  height: 350px;
-}
-
-/* Fix legend style */
-#consumption #consumptionGraphLegend table {
-  width: auto;
-  border: 0;
-  margin-bottom: 0;
-}
-
-/* Customize flot classes */
-#consumption #consumptionGraphLegend .legendColorBox {
-  border: 0;
-  padding: 0;
-  vertical-align: middle;
-}
-
-#consumption #consumptionGraphLegend .legendLabel {
-  border: 0;
-  padding: 2px 0 2px 5px;
-}
 
 /* Central ajax loader */
 #centralLoaderContainer {
@@ -220,21 +189,39 @@ body {
   visibility: hidden;
 }
 
-/* General ajax loader */
-#consumption #consumptionLoaderContainer {
-  display: none;
-}
-
-#consumption #consumptionLoader {
-  margin-right: 8px;
-  width: 16px;
-  height: 16px;
-  vertical-align: text-bottom;
-  display: inline-block;
-}
-
 #loaderError {
   margin-bottom: 20px;
+}
+
+.wenergy-tooltip .ui-tooltip-content {
+  text-align: center;
+}
+
+/* Consumption
+-------------------------------------------------- */
+
+/* Set fixed height for chart */
+#consumption #consumptionChart {
+  min-width: 400px;
+  height: 400px;
+  margin: 0 auto;
+}
+
+#consumption #powerLevelIndicator {
+  margin: 0;
+  height: 335px;
+}
+
+#consumption .consumptionForm .control-group {
+  margin-bottom: 0;
+}
+
+#consumption .consumptionForm .control-label {
+  width: 80px;
+}
+
+#consumption .consumptionForm .controls {
+  margin-left: 100px;
 }
 
 /* Datepicker */
@@ -277,46 +264,6 @@ body {
 #dashboard #batteryLevel {
   padding-top: 5px;
 }
-
-.wenergy-tooltip .ui-tooltip-content {
-  text-align: center;
-}
-
-/* Peergroup */
-#peergroup #consumptionGraph {
-  margin-top: 15px;
-  margin-left: 0;
-  height: 350px;
-}
-
-#peergroup #levelGraph {
-  margin-top: 15px;
-  margin-left: 0;
-  height: 350px;
-  position: relative;
-}
-
-#peergroup #levelGraphHack {
-  margin-top: 15px;
-  margin-left: 0;
-  height: 350px;
-  position: absolute;
-  z-index: 1;
-}
-
-#peergroup #levelGraph {
-  margin-top: 15px;
-  margin-left: 0;
-  height: 350px;
-  position: relative;
-  z-index: -1;
-}
-
-/* Move options to the left */
-#peergroup .form-stacked {
-  padding-left: 0;
-}
-
 
 
 

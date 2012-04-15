@@ -34,7 +34,6 @@ $(function () {
 
       $.bbq.pushState(state);
     });
-
   }
 
   // Save initial options for caching purposes
@@ -47,20 +46,18 @@ $(function () {
     cache.loadingInProgress = false;
     cache.deltaTime = 0;
 
+    // Power level indicator
     cache.powerLevel = 0.0;
-    // Initialize colors
+    cache.powerLevelColorInactive = "#CCCCCC";
     cache.powerLevelColors = ["#AD0000", "#B10D05", "#B51A0B", "#B92610", "#BD3315", "#C2401B", "#C64D20", "#CA5925",
       "#CE662B", "#D27330", "#D68036", "#DA8C3B", "#DE9940", "#E2A646", "#E6B34B", "#EBBF50", "#EFCC56", "#F3D95B",
       "#F7E660", "#FBF266", "#FFFF6B", "#F8FC67", "#F2F963", "#EBF65F", "#E5F45A", "#DEF156", "#D7EE52", "#D1EB4E",
       "#CAE84A", "#C4E546", "#BDE342", "#B6E03D", "#B0DD39", "#A9DA35", "#A3D731", "#9CD42D", "#95D129", "#8FCF24",
       "#88CC20", "#82C91C", "#7BC618"];
 
-    cache.powerLevelColorInactive = "#CCCCCC";
-
     // Chart colors
     Highcharts.setOptions({
-//      colors:["#004B8A", "#007CC3", "#6CAEDF"]
-        colors:["#172F53", "#355C82", "#A9C8E3"]
+      colors:["#172F53", "#355C82", "#A9C8E3"]
     });
 
     // Save in dashboard section
@@ -141,9 +138,9 @@ $(function () {
       cache.deltaTime = 0;
 
       // Dispatch loading
-      if (!cache.loadingInProgress) {
-        reloadData();
-      }
+//      if (!cache.loadingInProgress || true) {
+      reloadData();
+//      }
     } else {
       // We get here only if axisType has changed, therefore no reloading is necessary
 
@@ -543,6 +540,13 @@ $(function () {
             my:"top center",
             at:"bottom center",
             viewport:$(window)
+          },
+          show:{
+            delay:0,
+            effect:false
+          },
+          hide:{
+            effect:false
           },
           style:{
             classes:"ui-tooltip-light ui-tooltip-rounded wenergy-tooltip"
