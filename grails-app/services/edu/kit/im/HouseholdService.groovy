@@ -7,7 +7,9 @@ class HouseholdService {
     // Last two days of consumption records are used to determine reference level
     def referenceTime = new DateTime().minusDays(2)
     Household.getAll().each {h ->
-      determineReferenceConsumptionValue(h, referenceTime)
+      Household.withNewSession { session ->
+        determineReferenceConsumptionValue(h, referenceTime)
+      }
     }
   }
 
