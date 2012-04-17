@@ -408,6 +408,8 @@ $(function () {
       cache.dataType = dataType;
       cache.axisType = axisType;
       cache.date = date;
+      // Force reload of all data
+      cache.deltaTime = 0;
 
       // Dispatch loading
 //      if (!cache.loadingInProgress) {
@@ -667,12 +669,12 @@ $(function () {
         {
           name:'Verbrauch',
           data:(cache.axisType == 'logarithmic' ? cache.phase1DataFiltered : cache.consumptionData),
-          zIndex: 1
+          zIndex:1
         },
         {
           name:chartSeriesNameForDateAndInterval(new Date(cache.date), cache.interval),
           data:(cache.axisType == 'logarithmic' ? cache.phase2DataFiltered : cache.consumptionData),
-          zIndex: 0
+          zIndex:0
         }
       ];
     } else {
