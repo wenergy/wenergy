@@ -8,17 +8,17 @@ class HouseholdService {
     def referenceTime = new DateTime().minusDays(2)
     Household.getAll().each {h ->
       Household.withNewSession { session ->
-        determineReferenceConsumptionValue(h, referenceTime)
+        determineReferenceConsumptionValue(h.id, referenceTime)
       }
     }
   }
 
-  def determineReferenceConsumptionValue(Household h, DateTime sinceDateTime = new DateTime().minusDays(2)) {
+  def determineReferenceConsumptionValue(Long householdId, DateTime sinceDateTime = new DateTime().minusDays(2)) {
     // Collect consumptions for every household
     def consumptions = Consumption.withCriteria() {
       ge("date", sinceDateTime)
       household {
-        eq("id", h.id)
+        eq("id", householdId)
       }
       projections {
         property("powerPhase1")
@@ -44,6 +44,7 @@ class HouseholdService {
       def numberOfConsumptions = aggregatedConsumptions.size()
       def index = (0.9 * numberOfConsumptions) as Integer
       if (index < aggregatedConsumptions.size()) {
+        Household h = Household.findById(householdId)
         h.referenceConsumptionValue = aggregatedConsumptions.get(index)
         h.save()
       }
