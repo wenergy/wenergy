@@ -95,6 +95,11 @@ modules = {
     resource url: [dir: "js", file: "wenergy.js"], disposition: "head"
   }
 
+  welcomejs {
+    dependsOn "jqbbq, jqchrono, jqqtip, datejs, highstockjs, spinjs, raphaeljs, wenergyjs"
+    resource url: [dir: "js", file: "welcome.js"], disposition: "head"
+  }
+
   consumptionjs {
     dependsOn "jqbbq, jqchrono, jqui, datejs, highstockjs, spinjs, raphaeljs, wenergyjs"
     resource url: [dir: "js", file: "consumption.js"], disposition: "head"

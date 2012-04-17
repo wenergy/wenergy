@@ -32,6 +32,32 @@ class DataController {
     render jsonStatus
   }
 
+  def welcome() {
+    try {
+      // Dispatch
+      def data = dataService.getWelcomeData()
+      def json = [
+          status: [code: 200],
+          data: data
+      ] as JSON
+
+      response.status = 200
+      render json
+    } catch (Exception e) {
+      def json = [
+          status:
+              [
+                  code: 500,
+                  message: e.toString().encodeAsHTML()
+                  //stack: ApiUtils.getStackTraceAsString(e).encodeAsHTML()
+              ]
+      ] as JSON
+
+      response.status = 500
+      render json
+    }
+  }
+
   def consumption() {
     try {
       // Parse params
@@ -50,7 +76,7 @@ class DataController {
 
       // Get consumption data
       def data = dataService.getConsumptionData(date, params.interval, precision, params.dataType, deltaTime)
-      log.error data
+//      log.error data
 //      // Time interval
 //      def low
 //      def high
@@ -114,7 +140,7 @@ class DataController {
 
       // Dispatch
       def data = dataService.getLiveData(numberOfValues, deltaTime)
-      log.error data
+//      log.error data
 
       def json = [
           status: [code: 200],

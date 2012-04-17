@@ -197,6 +197,15 @@ body {
   text-align: center;
 }
 
+/* Welcome
+-------------------------------------------------- */
+
+#welcome #powerLevelIndicator {
+  margin-bottom: 15px;
+  height: 335px;
+}
+
+
 /* Consumption
 -------------------------------------------------- */
 
