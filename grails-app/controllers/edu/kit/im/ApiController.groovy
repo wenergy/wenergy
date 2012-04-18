@@ -37,14 +37,17 @@ class ApiController {
     } catch (ApiException e) {
 
       log.error e
+      log.error "JSON: ${params.json}"
+
       response.status = e.code // Bad Request
       jsonStatus = [status: [code: e.code, message: e.message]] as JSON
 
     } catch (Exception e) {
       log.error e
+      log.error "JSON: ${params.json}"
+
       response.status = 400 // Bad Request
       jsonStatus = [status: [code: 400, message: "Invalid JSON"]] as JSON
-
     }
 
     render jsonStatus
