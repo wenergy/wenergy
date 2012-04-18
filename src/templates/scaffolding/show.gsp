@@ -51,9 +51,14 @@
 						<%  if (p.isEnum()) { %>
 							<dd><g:fieldValue bean="\${${propertyName}}" field="${p.name}"/></dd>
 						<%  } else if (p.oneToMany || p.manyToMany) { %>
-							<g:each in="\${${propertyName}.${p.name}}" var="${p.name[0]}">
-							<dd><g:link controller="${p.referencedDomainClass?.propertyName}" action="show" id="\${${p.name[0]}.id}">\${${p.name[0]}?.encodeAsHTML()}</g:link></dd>
-							</g:each>
+              <g:if test="\${${propertyName}.${p.name}?.size() < 100}">
+							  <g:each in="\${${propertyName}.${p.name}}" var="${p.name[0]}">
+							  <dd><g:link controller="${p.referencedDomainClass?.propertyName}" action="show" id="\${${p.name[0]}.id}">\${${p.name[0]}?.encodeAsHTML()}</g:link></dd>
+							  </g:each>
+              </g:if>
+              <g:else>
+                <dd>Too many values to display.</dd>
+              </g:else>
 						<%  } else if (p.manyToOne || p.oneToOne) { %>
 							<dd><g:link controller="${p.referencedDomainClass?.propertyName}" action="show" id="\${${propertyName}?.${p.name}?.id}">\${${propertyName}?.${p.name}?.encodeAsHTML()}</g:link></dd>
 						<%  } else if (p.type == Boolean || p.type == boolean) { %>
