@@ -31,13 +31,13 @@
         <sec:ifLoggedIn>
           <% if (nav == "dashboard") dashboardActive = "active" %>
           <li><g:link controller="home" action="dashboard" class="navlink ${dashboardActive}"><span
-              class="navlogo dashboard"></span>Dashboard</g:link></li>
+              class="navlogo dashboard"></span>Live</g:link></li>
           <% if (nav == "consumption") consumptionActive = "active" %>
           <li><g:link controller="home" action="consumption" class="navlink ${consumptionActive}"><span
-              class="navlogo consumption"></span>Consumption</g:link></li>
+              class="navlogo consumption"></span>Verbrauch</g:link></li>
           <% if (nav == "ranking") rankingActive = "active" %>
           <li><g:link controller="home" action="ranking" class="navlink ${rankingActive}"><span
-              class="navlogo ranking"></span>Ranking</g:link></li>
+              class="navlogo ranking"></span>Rangliste</g:link></li>
         </sec:ifLoggedIn>
       </ul>
       <sec:ifNotLoggedIn>
