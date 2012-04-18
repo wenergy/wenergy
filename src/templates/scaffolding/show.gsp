@@ -57,7 +57,7 @@
 							  </g:each>
               </g:if>
               <g:else>
-                <dd>Too many values to display.</dd>
+                <dd>Too many values (\${${propertyName}.${p.name}?.size()}) to display.</dd>
               </g:else>
 						<%  } else if (p.manyToOne || p.oneToOne) { %>
 							<dd><g:link controller="${p.referencedDomainClass?.propertyName}" action="show" id="\${${propertyName}?.${p.name}?.id}">\${${propertyName}?.${p.name}?.encodeAsHTML()}</g:link></dd>
