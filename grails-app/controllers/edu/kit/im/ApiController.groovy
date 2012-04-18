@@ -23,19 +23,6 @@ class ApiController {
 
   def apiService
 
-  def debug() {
-    def json = [id: "de:ad:be:ef:fe:ed", t: 1317813516000, p: 123, q: 456] as JSON
-
-    try {
-      def convertedJson = JSON.parse(json.toString())
-      apiService.processConsumption(convertedJson)
-    } catch (Exception e) {
-      log.error e
-    }
-
-    render json
-  }
-
   def consumption() {
     def jsonStatus
 
@@ -61,5 +48,10 @@ class ApiController {
     }
 
     render jsonStatus
+  }
+
+  def fail() {
+    response.status = 502
+    render "502 Bad Gateway (API FAIL)"
   }
 }
