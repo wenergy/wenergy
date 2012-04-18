@@ -39,10 +39,10 @@ class Consumption implements Serializable {
 
   static constraints = {
     date(nullable: false)
-    powerPhase1(nullable: false, scale: 3)
-    powerPhase2(nullable: false, scale: 3)
-    powerPhase3(nullable: false, scale: 3)
-    batteryLevel(nullable: false, scale: 3)
+    powerPhase1(nullable: false, min: 0.0, scale: 3)
+    powerPhase2(nullable: false, min: 0.0, scale: 3)
+    powerPhase3(nullable: false, min: 0.0, scale: 3)
+    batteryLevel(nullable: false, min: 0.0, scale: 3)
     household(bindable: true)
     dateCreated()
   }
