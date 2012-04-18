@@ -73,6 +73,7 @@
             <ul class="dropdown-menu">
               <li><a href="#"><i class="icon-cog"></i> Settings</a></li>
               <sec:ifAllGranted roles="ROLE_ADMIN">
+                <li><g:link controller="household"><i class="icon-th-list"></i> Controllers</g:link></li>
                 <li><g:link controller="admin"><i class="icon-star"></i> Admin Tools</g:link></li>
               </sec:ifAllGranted>
               <li class="divider"></li>
