@@ -21,7 +21,7 @@
 
 <head>
   <meta name="layout" content="main"/>
-  <title>My Peergroup</title>
+  <title>Rangliste</title>
   <r:require modules="peergroupjs"/>
   <r:script disposition="head">
     var rootPath = "${ConfigurationHolder.config?.grails?.relativeServerURL}";
@@ -30,57 +30,14 @@
 
 <body>
 
-<!-- Dashboard
+<!-- Ranking
 ================================================== -->
 <section id="peergroup">
   <div class="page-header">
-    <h1>Dashboard</h1>
+    <h1>Rangliste</h1>
   </div>
 
   <div class="row">
-
-    <div class="span3">
-
-      <div id="consumptionLoaderErrorContainer"></div>
-
-      <div id="consumptionGraph" class="span3">
-        <img src="images/layer.png" alt="">
-        %{-- Needs to be nested to avoid sudden jumps --}%
-        <div id="consumptionCentralLoaderContainer"><div id="consumptionCentralLoader"></div>Loading...</div>
-
-        <div id="consumptionCentralLoaderErrorContainer"></div>
-      </div>
-    </div>
-
-    <div class="span1">
-
-      <div id="levelGraph" class="span1">
-      </div>
-    </div>
-
-    <div class="span12">
-
-      <div id="peerGroupGraph" class="span12">
-        <tbody>
-        <g:each in="${Household.findById(Household.get(springSecurityService.principal?.id)?.id)}" status="i"
-                var="itemInstance">
-          <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
-            <td>
-              <g:link action="show" id="${itemInstance.id}">
-                ${fieldValue(bean: itemInstance, field: 'name')}</g:link>
-            </td>
-            <td>
-              <img src="${itemInstance.imagethumburl}" alt="Pet"/>
-            </td>
-            <td>
-              ${fieldValue(bean: itemInstance, field: 'price')}
-            </td>
-          </tr>
-        </g:each>
-        </tbody>
-      </div>
-    </div>
-
   </div><!-- /row -->
 </section>
 </body>
