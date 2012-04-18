@@ -85,6 +85,7 @@ class ApiService {
     try {
       consumption.save(failOnError: true)
     } catch (ValidationException e) {
+      log.error consumption.errors
       throw new ApiException("Could not save consumption", 500)
     }
 
