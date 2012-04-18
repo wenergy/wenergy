@@ -136,9 +136,14 @@
         def pw = new PrintWriter(sw)
         pw.println()
         pw.println '<ul class="one-to-many">'
-        pw.println "<g:each in=\"\${${domainInstance}?.${property.name}?}\" var=\"${property.name[0]}\">"
+        pw.println "<g:if test=\"\${${domainInstance}?.${property.name}?.size() < 100}\">"
+        pw.println "  <g:each in=\"\${${domainInstance}?.${property.name}?}\" var=\"${property.name[0]}\">"
         pw.println "    <li><g:link controller=\"${property.referencedDomainClass.propertyName}\" action=\"show\" id=\"\${${property.name[0]}.id}\">\${${property.name[0]}?.encodeAsHTML()}</g:link></li>"
-        pw.println '</g:each>'
+        pw.println '  </g:each>'
+        pw.println '</g:if>'
+        pw.println '<g:else>'
+        pw.println '   <li>Too many values to display.</li>'
+        pw.println '</g:else>'
 		pw.println '<li class="add">'
         pw.println "<g:link controller=\"${property.referencedDomainClass.propertyName}\" action=\"create\" params=\"['${domainClass.propertyName}.id': ${domainInstance}?.id]\">\${message(code: 'default.add.label', args: [message(code: '${property.referencedDomainClass.propertyName}.label', default: '${property.referencedDomainClass.shortName}')])}</g:link>"
 		pw.println '</li>'
