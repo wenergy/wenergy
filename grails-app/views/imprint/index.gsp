@@ -19,7 +19,7 @@
 <html>
 <head>
   <meta name="layout" content="main">
-  <title>Imprint</title>
+  <title>Impressum</title>
 </head>
 
 <body>
@@ -28,20 +28,20 @@
 ================================================== -->
 <section id="imprint">
   <div class="page-header">
-    <h1>Imprint</h1>
+    <h1>Impressum</h1>
   </div>
 
   <div class="row">
     <div class="span12">
-      <p>Institute of Information Systems and Management (IISM)<br/>
-        Information & Market Engineering (IM)<br/>
-        Karlsruhe Institute of Technology<br/>
-        Englerstr. 14<br/>
-        76131 Karlsruhe<br/>
-        Germany</p>
+      <p>Institut für Informationswirtschaft und -management (IISM)<br/>
+      Forschungsgruppe Information & Market Engineering<br/>
+      Karlsruher Institut für Technologie<br/>
+      Englerstr. 14<br/>
+      D- 76131 Karlsruhe<br/>
+      Germany</p>
 
-      <p>Phone +49 (0) 721 608 - 4 83 70<br/>
-        Fax +49 (0) 721 608 - 4 83 99</p>
+      <p>Telefon +49 (0) 721 608 - 4 83 70<br/>
+        Telefax +49 (0) 721 608 - 4 83 99</p>
 
       <p>Verantwortlich nach § 5 TMG: Timm Teubner (<a href="mailto:timm.teubner@kit.edu">timm.teubner@kit.edu</a>)</p>
     </div>
