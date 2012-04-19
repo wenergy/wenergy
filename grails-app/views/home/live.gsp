@@ -47,7 +47,10 @@
       </div>
     </div>
 
-    <div id="powerLevelIndicator" class="span1"></div>
+    <div id="sideInformation" class="span1">
+      <div id="powerLevelIndicator"></div>
+      <div id="batteryLevel"></div>
+    </div>
   </div>
 
   <div class="row">
@@ -69,13 +72,11 @@
             100
           </label>
           <label class="radio inline">
-            <input type="radio" name="numberOfValues" value="250">
-            250
+            <input type="radio" name="numberOfValues" value="200">
+            200
           </label>
         </div>
       </div>
-
-      <div id="batteryLevel" class="span2 offset1"></div>
     </form>
   </div>
 

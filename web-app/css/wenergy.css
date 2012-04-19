@@ -243,9 +243,16 @@ body {
   margin: 0 auto;
 }
 
-#live #powerLevelIndicator {
+#live #sideInformation {
   margin: 0;
+}
+
+#live #powerLevelIndicator {
   height: 335px;
+}
+
+#live .liveForm {
+  display: none;
 }
 
 #live .liveForm .control-label {

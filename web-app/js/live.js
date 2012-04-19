@@ -39,7 +39,7 @@ $(function () {
   // Save initial options for caching purposes
   function cacheInitialOptions() {
     var cache = {};
-    cache.numberOfValues = $("#optionsForm input[name='numberOfValues']:checked").val();
+    cache.numberOfValues = 200; //$("#optionsForm input[name='numberOfValues']:checked").val();
 
     cache.initialLoading = true;
     cache.loadingInProgress = false;
@@ -236,9 +236,9 @@ $(function () {
         // Battery level
         if (json.data) {
           if (json.data.batteryLevel) {
-            $("#batteryLevel").html("Battery: " + json.data.batteryLevel);
+            $("#batteryLevel").html("" + json.data.batteryLevel);
           } else if (!cache.isDelta) {
-            $("#batteryLevel").html("Battery: n/a");
+            $("#batteryLevel").html("n/a");
           }
         }
 
@@ -319,7 +319,7 @@ $(function () {
     var consumptionChartOptions = {
       chart:{
         renderTo:'consumptionChart',
-        type:'column',
+        type:'area',
         animation:false
       },
 
@@ -329,7 +329,7 @@ $(function () {
 
       xAxis:{
         title:{
-          text:'Time',
+          text:'Zeit',
           style:{
             color:'#666666',
             fontWeight:'bold'
@@ -342,7 +342,7 @@ $(function () {
 
       yAxis:{
         title:{
-          text:'Energy Consumption',
+          text:'Verbrauch',
           style:{
             color:'#666666',
             fontWeight:'bold'
@@ -367,7 +367,7 @@ $(function () {
                 point.y + ' W</b>';
           });
 
-          s += '<br/>Total: <b>' + Highcharts.numberFormat(this.points[0].total, 2, ".", "") + ' W</b>';
+          s += '<br/>Gesamt: <b>' + Highcharts.numberFormat(this.points[0].total, 2, ".", "") + ' W</b>';
 
           return s;
         }
@@ -376,10 +376,8 @@ $(function () {
       plotOptions:{
         series:{
           stacking:'normal',
-          pointPadding:0,
-          groupPadding:0,
+          fillOpacity:1,
           lineWidth:0,
-          borderWidth:0,
           animation:false,
           shadow:false,
           marker:{
