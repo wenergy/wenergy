@@ -18,13 +18,8 @@
 ================================================== -->
 <footer class="footer">
   <div class="container">
-    <!--<p class="pull-right"><a href="#">Back to top</a></p> -->
-
     <p>wEnergy Version <g:meta name="app.version"/> - <g:link controller="imprint">Impressum</g:link>.<br/>
-      &copy; Copyright 2011-2012 <a href="http://www.im.uni-karlsruhe.de/" target="_blank">Institut für Informationswirtschaft und -management (IISM)</a> am <a href="http://www.kit.edu/" target="_blank">Karlsruher Institut für Technologie (KIT)</a>. <br/>
-      Code lizensiert unter <a href="http://www.apache.org/licenses/LICENSE-2.0" target="_blank">Apache License v2.0</a>
-      und verfügbar auf <a href="https://github.com/wenergy" target="_blank">GitHub</a>. <br />
-      Powered by <a href="http://www.cloudfoundry.org/" target="_blank">Cloud Foundry</a>, <a href="http://www.grails.org" target="_blank">Grails</a>, <a href="http://twitter.github.com/bootstrap/" target="_blank">Bootstrap</a> und <a href="http://www.highcharts.com/" target="_blank">Highcharts</a>.
+      &copy; Copyright 2011-2012 <a href="http://www.im.uni-karlsruhe.de/" target="_blank">Institut für Informationswirtschaft und -management (IISM)</a> am <a href="http://www.kit.edu/" target="_blank">Karlsruher Institut für Technologie (KIT)</a>.
     </p>
   </div>
 </footer>
