@@ -24,7 +24,7 @@ class RegistrationController {
   def index() {
     if (springSecurityService.isLoggedIn()) {
       flash.message = "You are already registered."
-      redirect(controller: "home", action: "dashboard")
+      redirect(controller: "home", action: "live")
       return
     }
     [nav: "registration"]
@@ -33,7 +33,7 @@ class RegistrationController {
   def register() {
     if (springSecurityService.isLoggedIn()) {
       flash.message = "You are already registered."
-      redirect(controller: "home", action: "dashboard")
+      redirect(controller: "home", action: "live")
       return
     }
 
@@ -56,7 +56,7 @@ class RegistrationController {
   def activate() {
     if (springSecurityService.isLoggedIn()) {
       flash.message = "You are already registered."
-      redirect(controller: "home", action: "dashboard")
+      redirect(controller: "home", action: "live")
       return
     }
     [nav: "registration"]

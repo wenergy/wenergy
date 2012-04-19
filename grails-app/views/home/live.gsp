@@ -19,8 +19,8 @@
 <html>
 <head>
   <meta name="layout" content="main"/>
-  <title>Dashboard</title>
-  <r:require modules="dashboardjs"/>
+  <title>Live</title>
+  <r:require modules="livejs"/>
   <r:script disposition="head">
     var rootPath = "${ConfigurationHolder.config?.grails?.relativeServerURL}";
   </r:script>
@@ -28,9 +28,9 @@
 
 <body>
 
-<!-- Dashboard
+<!-- Live
 ================================================== -->
-<section id="dashboard">
+<section id="live">
   <div class="row">
     <div class="span12">
       <div id="loaderErrorContainer"></div>
@@ -51,7 +51,7 @@
   </div>
 
   <div class="row">
-    <form id="optionsForm" class="form-horizontal dashboardForm">
+    <form id="optionsForm" class="form-horizontal liveForm">
       <div class="span4 offset2 control-group inline">
         <label class="control-label"># Werte</label>
 

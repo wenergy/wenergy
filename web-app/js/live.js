@@ -59,8 +59,8 @@ $(function () {
       colors:["#004B8A", "#007CC3", "#6CAEDF"]
     });
 
-    // Save in dashboard section
-    $("#dashboard").data("bbq", cache);
+    // Save in live section
+    $("#live").data("bbq", cache);
   }
 
   // Validate all UI elements
@@ -72,7 +72,7 @@ $(function () {
   // Validate URL fragments in case someone played with them
   function validateHash() {
     // Use cache for default values
-    var cache = $("#dashboard").data("bbq");
+    var cache = $("#live").data("bbq");
 
     // Store parameters for removal in array
     var invalidHashValues = [];
@@ -106,7 +106,7 @@ $(function () {
     }
 
     // Use cache for default values
-    var cache = $("#dashboard").data("bbq");
+    var cache = $("#live").data("bbq");
 
     // Get numberOfValues
     var numberOfValues = $.bbq.getState("numberOfValues") || cache.numberOfValues;
@@ -132,11 +132,11 @@ $(function () {
 
   function reloadData() {
     // Get all values from cache
-    var cache = $("#dashboard").data("bbq");
+    var cache = $("#live").data("bbq");
 
     $.ajax({
       type:"POST",
-      url:rootPath + "data/dashboard",
+      url:rootPath + "data/live",
       data:{
         numberOfValues:cache.numberOfValues,
         deltaTime:cache.deltaTime
@@ -309,7 +309,7 @@ $(function () {
     reload = typeof reload !== 'undefined' ? reload : false;
 
     // Get all values from cache
-    var cache = $("#dashboard").data("bbq");
+    var cache = $("#live").data("bbq");
 
     // Delta updates don't need a chart update
     if (cache.isDelta && !reload) {
@@ -417,7 +417,7 @@ $(function () {
   }
 
   function updatePowerLevelIndicator() {
-    var cache = $("#dashboard").data("bbq");
+    var cache = $("#live").data("bbq");
 
     if (cache.powerLevelIndicator == null) {
       // Create
@@ -528,7 +528,7 @@ $(function () {
 
   // Timer
   function updateTimer() {
-    var cache = $("#dashboard").data("bbq");
+    var cache = $("#live").data("bbq");
     var live = true;
     var timer = cache.timer;
 

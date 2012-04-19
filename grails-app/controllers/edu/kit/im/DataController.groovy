@@ -125,7 +125,7 @@ class DataController {
     }
   }
 
-  def dashboard() {
+  def live() {
     try {
       // Parse params
       def deltaTime = null

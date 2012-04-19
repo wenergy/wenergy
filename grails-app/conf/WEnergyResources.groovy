@@ -105,9 +105,9 @@ modules = {
     resource url: [dir: "js", file: "consumption.js"], disposition: "head"
   }
 
-  dashboardjs {
+  livejs {
     dependsOn "jqbbq, jqchrono, jqqtip, datejs, highstockjs, spinjs, raphaeljs, wenergyjs"
-    resource url: [dir: "js", file: "dashboard.js"], disposition: "head"
+    resource url: [dir: "js", file: "live.js"], disposition: "head"
   }
 
   peergroupjs {

@@ -23,7 +23,7 @@ class HomeController {
 
   def index() {
     if (springSecurityService.isLoggedIn()) {
-      redirect(action: "dashboard")
+      redirect(action: "live")
     } else {
       redirect(action: "welcome")
     }
@@ -35,8 +35,8 @@ class HomeController {
   }
 
   // Displayed to logged in users
-  def dashboard() {
-    [nav: "dashboard"]
+  def live() {
+    [nav: "live"]
   }
 
   // Consumption

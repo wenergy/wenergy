@@ -24,9 +24,9 @@
       <g:link controller="home" class="brand"><r:img dir="images" file="wEnergy.png"/></g:link>
       <ul class="nav">
         <sec:ifLoggedIn>
-          <% if (nav == "dashboard") dashboardActive = "active" %>
-          <li><g:link controller="home" action="dashboard" class="navlink ${dashboardActive}"><span
-              class="navlogo dashboard"></span>Live</g:link></li>
+          <% if (nav == "live") liveActive = "active" %>
+          <li><g:link controller="home" action="live" class="navlink ${liveActive}"><span
+              class="navlogo live"></span>Live</g:link></li>
           <% if (nav == "consumption") consumptionActive = "active" %>
           <li><g:link controller="home" action="consumption" class="navlink ${consumptionActive}"><span
               class="navlogo consumption"></span>Verbrauch</g:link></li>

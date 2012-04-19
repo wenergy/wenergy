@@ -70,7 +70,7 @@ body {
   background-image: url("../images/home.png");
 }
 
-.navbar .nav .dashboard {
+.navbar .nav .live {
   background-image: url("../images/live.png");
 }
 
@@ -233,30 +233,30 @@ body {
 
 /* Dashboard */
 
-#dashboard {
+#live {
   padding-top: 20px;
 }
 
-#dashboard #consumptionChart {
+#live #consumptionChart {
   min-width: 400px;
   height: 400px;
   margin: 0 auto;
 }
 
-#dashboard #powerLevelIndicator {
+#live #powerLevelIndicator {
   margin: 0;
   height: 335px;
 }
 
-#dashboard .dashboardForm .control-label {
+#live .liveForm .control-label {
   width: 80px;
 }
 
-#dashboard .dashboardForm .controls {
+#live .liveForm .controls {
   margin-left: 100px;
 }
 
-#dashboard #batteryLevel {
+#live #batteryLevel {
   padding-top: 5px;
 }
 
