@@ -66,13 +66,14 @@
             <a href="#" class="dropdown-toggle navuserlink" data-toggle="dropdown"><wen:fullName/> <b class="caret"></b>
             </a>
             <ul class="dropdown-menu">
-              <li><a href="#"><i class="icon-cog"></i> Settings</a></li>
+              <li><a href="#"><i class="icon-cog"></i> Einstellungen</a></li>
               <sec:ifAllGranted roles="ROLE_ADMIN">
+                <li class="divider"></li>
                 <li><g:link controller="household"><i class="icon-th-list"></i> Controllers</g:link></li>
                 <li><g:link controller="admin"><i class="icon-star"></i> Admin Tools</g:link></li>
               </sec:ifAllGranted>
               <li class="divider"></li>
-              <li><g:link controller="logout"><i class="icon-off"></i> Logout</g:link></li>
+              <li><g:link controller="logout"><i class="icon-off"></i> Abmelden</g:link></li>
             </ul>
           </li>
         </ul>
