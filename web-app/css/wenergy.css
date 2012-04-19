@@ -85,9 +85,8 @@ body {
 /* Text Elements
 -------------------------------------------------- */
 
-.textcolumn {
+.justified {
   text-align: justify;
-  width: 90%;
 }
 
 /* Login
@@ -117,25 +116,6 @@ body {
 -------------------------------------------------- */
 .btncenter {
   text-align: center;
-}
-
-/* Images
--------------------------------------------------- */
-.promo {
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-.promoimg {
-  width: 90%;
-  border: 1px solid #ddd;
-  -webkit-border-radius: 4px;
-  -moz-border-radius: 4px;
-  border-radius: 4px;
-  -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, .075);
-  -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, .075);
-  box-shadow: 0 1px 1px rgba(0, 0, 0, .075);
-  padding: 4px;
 }
 
 /* Footer
@@ -205,6 +185,12 @@ body {
   height: 335px;
 }
 
+#welcome .hardware {
+  width: 200px;
+  float: left;
+  margin-right: 20px;
+  margin-bottom: 10px;
+}
 
 /* Consumption
 -------------------------------------------------- */
