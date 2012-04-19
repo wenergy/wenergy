@@ -23,11 +23,6 @@
     <div class="container">
       <g:link controller="home" class="brand"><r:img dir="images" file="wEnergy.png"/></g:link>
       <ul class="nav">
-        <sec:ifNotLoggedIn>
-          <% if (nav == "welcome") welcomeActive = "active" %>
-          <li><g:link controller="home" class="navlink ${welcomeActive}"><span class="navlogo home"></span>Home</g:link>
-          </li>
-        </sec:ifNotLoggedIn>
         <sec:ifLoggedIn>
           <% if (nav == "dashboard") dashboardActive = "active" %>
           <li><g:link controller="home" action="dashboard" class="navlink ${dashboardActive}"><span
