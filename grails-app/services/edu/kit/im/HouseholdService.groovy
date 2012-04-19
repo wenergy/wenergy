@@ -42,7 +42,7 @@ class HouseholdService {
     try {
       // Get quantile
       def numberOfConsumptions = aggregatedConsumptions.size()
-      def index = (0.9 * numberOfConsumptions) as Integer
+      def index = (0.99 * numberOfConsumptions) as Integer
       if (index < aggregatedConsumptions.size()) {
         Household h = Household.findById(householdId)
         h.referenceConsumptionValue = aggregatedConsumptions.get(index)

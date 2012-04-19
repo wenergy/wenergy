@@ -476,8 +476,8 @@ $(function () {
       var powerLevel = Highcharts.numberFormat(cache.powerLevel * 100.0, 2, ".", "") + ' %';
 
       // Text
-      var tipText = "Your most recent consumption of " + lastSum + " corresponds to " + powerLevel + " of" +
-          " your highest consumption (0.9-Quantile) over the last 2 days.";
+      var tipText = "Dein aktueller Verbrauch von " + lastSum + " entspricht " + powerLevel + " deines" +
+          " höchsten Verbrauchs innerhalb der letzten zwei Tage.";
 
       // Create or update tooltip
       if ($("#ui-tooltip-powerLevelIndicator").length) {
