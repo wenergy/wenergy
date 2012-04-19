@@ -40,7 +40,6 @@ $(function () {
   function cacheInitialOptions() {
     var cache = {};
     cache.numberOfValues = $("#optionsForm input[name='numberOfValues']:checked").val();
-    cache.axisType = $("#optionsForm input[name='axisType']:checked").val();
 
     cache.initialLoading = true;
     cache.loadingInProgress = false;
@@ -90,18 +89,6 @@ $(function () {
       invalidHashValues.push("numberOfValues");
     }
 
-    // Validate axisType
-    var allowedAxisTypeValues = [];
-    $("#optionsForm input[name='axisType']").each(function () {
-      allowedAxisTypeValues.push($(this).val());
-    });
-
-    // Remove invalid parameter from URL
-    var axisType = $.bbq.getState("axisType");
-    if (axisType && $.inArray(axisType, allowedAxisTypeValues) == -1) {
-      invalidHashValues.push("axisType");
-    }
-
     // Remove any invalid parameter if necessary
     if (invalidHashValues.length > 0) {
       $.bbq.removeState(invalidHashValues);
@@ -121,42 +108,25 @@ $(function () {
     // Use cache for default values
     var cache = $("#dashboard").data("bbq");
 
-    // Get numberOfValues and axisType
+    // Get numberOfValues
     var numberOfValues = $.bbq.getState("numberOfValues") || cache.numberOfValues;
-    var axisType = $.bbq.getState("axisType") || cache.axisType;
 
     // Update UI for all values - necessary if changed via hash and not click
     $("#optionsForm input[name='numberOfValues'][value=" + numberOfValues + "]").prop("checked", true);
-    $("#optionsForm input[name='axisType'][value=" + axisType + "]").prop("checked", true);
 
     // Reload if numberOfValues changed and always load the first time
     if (numberOfValues !== cache.numberOfValues || cache.initialLoading) {
       // Update cache
       cache.numberOfValues = numberOfValues;
-      cache.axisType = axisType;
       // Force reload of all data
       cache.deltaTime = 0;
 
       // Dispatch loading
-//      if (!cache.loadingInProgress || true) {
       reloadData();
-//      }
     } else {
-      // We get here only if axisType has changed, therefore no reloading is necessary
-
-      // Update chart
-      if (axisType != cache.axisType) {
-        // Update cache
-        cache.axisType = axisType;
-
-        // Update data
-        if (cache.axisType == 'logarithmic') {
-          filterChartDataForLogarithmicAxis();
-        }
-
-        // Update chart
-        updateChart(true);
-      }
+      // We get here only if <nothing!> has changed, therefore no reloading is necessary
+      // Force update chart
+      updateChart(true);
     }
   });
 
@@ -237,19 +207,10 @@ $(function () {
             }
           }
 
-          // Update data
-          if (cache.axisType == 'logarithmic') {
-            filterChartDataForLogarithmicAxis();
-            // Update graph but don't redraw
-            cache.consumptionChart.series[0].setData(cache.phase1DataFiltered, false);
-            cache.consumptionChart.series[1].setData(cache.phase2DataFiltered, false);
-            cache.consumptionChart.series[2].setData(cache.phase3DataFiltered, false);
-          } else {
-            // Update graph but don't redraw
-            cache.consumptionChart.series[0].setData(cache.phase1Data, false);
-            cache.consumptionChart.series[1].setData(cache.phase2Data, false);
-            cache.consumptionChart.series[2].setData(cache.phase3Data, false);
-          }
+          // Update graph but don't redraw
+          cache.consumptionChart.series[0].setData(cache.phase1Data, false);
+          cache.consumptionChart.series[1].setData(cache.phase2Data, false);
+          cache.consumptionChart.series[2].setData(cache.phase3Data, false);
 
           cache.consumptionChart.redraw();
         } else {
@@ -297,11 +258,6 @@ $(function () {
           // Update UI and timer
           showCentralAjaxLoader(false);
           updateTimer();
-        }
-
-        // Update data
-        if (cache.axisType == 'logarithmic') {
-          filterChartDataForLogarithmicAxis();
         }
 
         // Plot
@@ -397,9 +353,7 @@ $(function () {
             return this.value + ' W';
           }
         },
-        minorTickInterval:'auto',
-        type:cache.axisType,
-        min:(cache.axisType == 'logarithmic' ? 1.0 : null)
+        minorTickInterval:'auto'
       },
 
       tooltip:{
@@ -441,15 +395,15 @@ $(function () {
       series:[
         {
           name:'Phase 1',
-          data:(cache.axisType == 'logarithmic' ? cache.phase1DataFiltered : cache.phase1Data)
+          data:cache.phase1Data
         },
         {
           name:'Phase 2',
-          data:(cache.axisType == 'logarithmic' ? cache.phase2DataFiltered : cache.phase2Data)
+          data:cache.phase2Data
         },
         {
           name:'Phase 3',
-          data:(cache.axisType == 'logarithmic' ? cache.phase3DataFiltered : cache.phase3Data)
+          data:cache.phase3Data
         }
       ]
     };
@@ -506,9 +460,9 @@ $(function () {
     });
 
     // Create tooltip text
-    var phase1 = (cache.axisType == 'logarithmic' ? cache.phase1DataFiltered : cache.phase1Data);
-    var phase2 = (cache.axisType == 'logarithmic' ? cache.phase2DataFiltered : cache.phase2Data);
-    var phase3 = (cache.axisType == 'logarithmic' ? cache.phase3DataFiltered : cache.phase3Data);
+    var phase1 = cache.phase1Data;
+    var phase2 = cache.phase2Data;
+    var phase3 = cache.phase3Data;
 
     // Only proceed if data exists
     if (phase1.length && phase2.length && phase3.length) {
@@ -593,23 +547,6 @@ $(function () {
       clearInterval(timer);
       cache.timer = null;
     }
-  }
-
-  // Data filter
-  function filterChartDataForLogarithmicAxis() {
-    var cache = $("#dashboard").data("bbq");
-    // Filter values < 1 for array to be used with log axis
-    cache.phase1DataFiltered = [];
-    cache.phase2DataFiltered = [];
-    cache.phase3DataFiltered = [];
-
-    $.each(cache.phase1Data, function (index, value) {
-      if (value.y >= 1.0 && cache.phase2Data[index].y >= 1.0 && cache.phase3Data[index].y >= 1.0) {
-        cache.phase1DataFiltered.push(value);
-        cache.phase2DataFiltered.push(cache.phase2Data[index]);
-        cache.phase3DataFiltered.push(cache.phase3Data[index]);
-      }
-    });
   }
 
   // Final step is to trigger the hash change event which will also handle initial data loading

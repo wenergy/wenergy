@@ -52,8 +52,8 @@
 
   <div class="row">
     <form id="optionsForm" class="form-horizontal dashboardForm">
-      <div class="span4 offset1 control-group inline">
-        <label class="control-label"># Values</label>
+      <div class="span4 offset2 control-group inline">
+        <label class="control-label"># Werte</label>
 
         <div class="controls">
           <label class="radio inline">
@@ -75,23 +75,7 @@
         </div>
       </div>
 
-      <div class="span4 control-group inline">
-        <label class="control-label">Axis Type</label>
-
-        <div class="controls">
-          <label class="radio inline">
-            <input type="radio" name="axisType" value="linear" checked="">
-            linear
-          </label>
-          <label class="radio inline">
-            <input type="radio" name="axisType" value="logarithmic">
-            logarithmic
-          </label>
-
-        </div>
-      </div>
-
-      <div id="batteryLevel" class="span2"></div>
+      <div id="batteryLevel" class="span2 offset1"></div>
     </form>
   </div>
 

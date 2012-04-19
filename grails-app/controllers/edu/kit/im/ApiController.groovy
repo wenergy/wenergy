@@ -35,7 +35,6 @@ class ApiController {
       jsonStatus = [status: [code: 200]] as JSON
 
     } catch (ApiException e) {
-
       log.error e
       log.error "IP: ${request.getRemoteAddr()}, JSON: ${params.json}"
 
