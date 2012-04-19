@@ -17,5 +17,5 @@
 
 <div class="alert alert-error fade in">
   <a class="close" data-dismiss="alert">&times;</a>
-  <strong>Error</strong> ${flash.error}
+  <strong>Fehler</strong> ${flash.error}
 </div>

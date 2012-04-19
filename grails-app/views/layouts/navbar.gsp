@@ -39,20 +39,20 @@
         <g:if test="${nav != 'login'}">
           <ul class="nav pull-right">
             <li class="dropdown">
-              <a href="#" class="dropdown-toggle navuserlink" data-toggle="dropdown">Login <b class="caret"></b></a>
+              <a href="#" class="dropdown-toggle navuserlink" data-toggle="dropdown">Anmelden <b class="caret"></b></a>
               <ul class="dropdown-menu">
                 <form method="POST" action="${request.contextPath}/j_spring_security_check" class="dropdown-form">
                   <fieldset>
-                    <label for="j_username">Username</label>
+                    <label for="j_username">Benutzername</label>
                     <g:textField class="span3" type="text" name="j_username" id="j_username"/>
-                    <label for="j_password">Password</label>
+                    <label for="j_password">Passwort</label>
                     <g:passwordField class="span3" type="password" name="j_password" id="j_password"/>
                   </fieldset>
                   <fieldset>
                     <label class="checkbox">
-                      <g:checkBox name="_spring_security_remember_me"/><span>Remember me</span>
+                      <g:checkBox name="_spring_security_remember_me"/><span>Angemeldet bleiben</span>
                     </label>
-                    <button class="btn pull-right" type="submit" name="login">Login</button>
+                    <button class="btn pull-right" type="submit" name="login">Anmelden</button>
                   </fieldset>
                 </form>
               </ul>

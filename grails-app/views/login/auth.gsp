@@ -18,7 +18,7 @@
 <html>
 <head>
   <meta name="layout" content="main"/>
-  <title>Login</title>
+  <title>Anmelden</title>
   <r:require modules="jquery"/>
 </head>
 
@@ -28,7 +28,7 @@
 ================================================== -->
 <section id="login">
   <div class="page-header">
-    <h1>Login</h1>
+    <h1>Anmelden</h1>
   </div>
 
   <div class="row">
@@ -42,26 +42,26 @@
             });
           </r:script>
 
-          <label for="j_username">Username</label>
+          <label for="j_username">Benutzername</label>
 
           <div class="input">
             <g:textField name="j_username" class="span6" id="j_username" size="30" value=""/>
           </div>
 
 
-          <label for="j_password">Password</label>
+          <label for="j_password">Passwort</label>
 
           <div class="input">
             <g:passwordField name="j_password" class="span6" id="j_password" size="30" value=""/>
           </div>
         </fieldset>
 
-        <g:submitButton name="submit" value="Login" class="btn btn-primary"/>
+        <g:submitButton name="submit" value="Anmelden" class="btn btn-primary"/>
 
         <fieldset class="inline-checkbox">
           <label class="checkbox">
             <input type="checkbox" name="${rememberMeParameter}" id="remember_me"
-                   <g:if test='${hasCookie}'>checked='checked'</g:if>/><span>Remember me</span>
+                   <g:if test='${hasCookie}'>checked='checked'</g:if>/><span>Angemeldet bleiben</span>
           </label>
         </fieldset>
 

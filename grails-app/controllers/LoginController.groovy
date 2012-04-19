@@ -98,7 +98,7 @@ class LoginController {
    */
   def full = {
     def config = SpringSecurityUtils.securityConfig
-    flash.error = message(code: "springSecurity.denied.message")
+    flash.error = message(code: "springSecurity.denied.message", locale: Locale.GERMAN)
     render view: 'auth', params: params,
         model: [hasCookie: authenticationTrustResolver.isRememberMe(SCH.context?.authentication),
             postUrl: "${request.contextPath}${config.apf.filterProcessesUrl}"]
@@ -114,19 +114,19 @@ class LoginController {
     def exception = session[WebAttributes.AUTHENTICATION_EXCEPTION]
     if (exception) {
       if (exception instanceof AccountExpiredException) {
-        msg = g.message(code: "springSecurity.errors.login.expired")
+        msg = g.message(code: "springSecurity.errors.login.expired", locale: Locale.GERMAN)
       }
       else if (exception instanceof CredentialsExpiredException) {
-        msg = g.message(code: "springSecurity.errors.login.passwordExpired")
+        msg = g.message(code: "springSecurity.errors.login.passwordExpired", locale: Locale.GERMAN)
       }
       else if (exception instanceof DisabledException) {
-        msg = g.message(code: "springSecurity.errors.login.disabled")
+        msg = g.message(code: "springSecurity.errors.login.disabled", locale: Locale.GERMAN)
       }
       else if (exception instanceof LockedException) {
-        msg = g.message(code: "springSecurity.errors.login.locked")
+        msg = g.message(code: "springSecurity.errors.login.locked", locale: Locale.GERMAN)
       }
       else {
-        msg = g.message(code: "springSecurity.errors.login.fail")
+        msg = g.message(code: "springSecurity.errors.login.fail", locale: Locale.GERMAN)
       }
     }
 
