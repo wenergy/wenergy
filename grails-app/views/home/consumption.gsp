@@ -44,16 +44,12 @@
   </div>
 
   <div class="row">
-    <div class="span11">
       <div id="consumptionChart">
         %{-- Needs to be nested to avoid sudden jumps --}%
         <div id="centralLoaderContainer"><div id="centralLoader"></div>Loading...</div>
 
         <div id="centralLoaderErrorContainer"></div>
       </div>
-    </div>
-
-    <div id="powerLevelIndicator" class="span1"></div>
   </div>
 
   <form id="optionsForm" class="form-horizontal consumptionForm">
@@ -118,12 +114,6 @@
         </div>
       </div>
 
-    </div>
-
-    <div class="row">
-      <span
-          class="help-block centered"><small><strong>Hinweis:</strong> Diese Optionen werden gespeichert wenn ein Lesezeichen erstellt oder die Adresse kopiert wird.
-      </small></span>
     </div>
   </form>
 

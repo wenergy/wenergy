@@ -132,13 +132,9 @@ class DataService {
     switch (dataType) {
       case "averages":
         dataMap["consumptionData"] = formatConsumptions(consumptions)
-        // Power level
-        dataMap.putAll(getPowerLevel(dataMap["consumptionData"]))
         break
       case "phases":
         dataMap.putAll(splitConsumptionsIntoPhases(consumptions, true, true))
-        // Power level
-        dataMap.putAll(getPowerLevel(dataMap))
         break
       default:
         throw new Exception("Invalid dataType specified.")

@@ -188,15 +188,6 @@ $(function () {
 
     cache.date = Date.today().setTimezone("UTC").getTime();
 
-    // Power level indicator
-    cache.powerLevel = 0.0;
-    cache.powerLevelColorInactive = "#CCCCCC";
-    cache.powerLevelColors = ["#AD0000", "#B10D05", "#B51A0B", "#B92610", "#BD3315", "#C2401B", "#C64D20", "#CA5925",
-      "#CE662B", "#D27330", "#D68036", "#DA8C3B", "#DE9940", "#E2A646", "#E6B34B", "#EBBF50", "#EFCC56", "#F3D95B",
-      "#F7E660", "#FBF266", "#FFFF6B", "#F8FC67", "#F2F963", "#EBF65F", "#E5F45A", "#DEF156", "#D7EE52", "#D1EB4E",
-      "#CAE84A", "#C4E546", "#BDE342", "#B6E03D", "#B0DD39", "#A9DA35", "#A3D731", "#9CD42D", "#95D129", "#8FCF24",
-      "#88CC20", "#82C91C", "#7BC618"];
-
     // Chart (phase) colors
     Highcharts.setOptions({
       colors:["#004B8A", "#007CC3", "#6CAEDF"]
@@ -473,14 +464,6 @@ $(function () {
           }
         }
 
-        // Power level
-        if (json.data) {
-          if (json.data.powerLevel) {
-            cache.powerLevel = json.data.powerLevel;
-          }
-        }
-        updatePowerLevelIndicator();
-
         if (cache.initialLoading) {
           // Set flag to false
           cache.initialLoading = false;
@@ -675,110 +658,6 @@ $(function () {
     }
 
     cache.consumptionChart = new Highcharts.Chart(consumptionChartOptions);
-  }
-
-  function updatePowerLevelIndicator() {
-    var cache = $("#consumption").data("bbq");
-
-    if (cache.powerLevelIndicator == null) {
-      // Create
-      var pli = Raphael("powerLevelIndicator", "100%", "100%");
-
-      // Configuration
-      var height = $("#powerLevelIndicator").height();
-      var width = $("#powerLevelIndicator").width();
-      var numberOfCells = cache.powerLevelColors.length;
-      var cellPadding = 4.0;
-      var cellWidth = width - 20;
-      var cellHeight = (height - (numberOfCells + 1 /* top space */) * cellPadding) / numberOfCells;
-      var cellCornerRadius = cellHeight / 2;
-      var xOffset = (width - cellWidth) / 2;
-      var yOffset = cellPadding;
-
-      // Initialize
-      cache.powerLevelCells = [];
-
-      for (var i = 0; i < numberOfCells; i++) {
-        var cell = pli.rect(xOffset, yOffset, cellWidth, cellHeight, cellCornerRadius);
-        // Fill with default grey color
-        cell.attr({fill:cache.powerLevelColorInactive, stroke:"none"});
-
-        // Save cell
-        cache.powerLevelCells.push(cell);
-
-        yOffset += cellHeight + cellPadding;
-      }
-
-      // Save
-      cache.powerLevelIndicator = pli;
-    }
-
-    // Update colors (backwards, top to bottom)
-    var powerLevelCorrected = Math.min(1.0, cache.powerLevel);
-    var powerLevelThreshold = cache.powerLevelCells.length - (cache.powerLevelCells.length * powerLevelCorrected);
-    $.each(cache.powerLevelCells, function (index, cell) {
-      cell.attr({fill:(index >= powerLevelThreshold) ? cache.powerLevelColors[index] : cache.powerLevelColorInactive});
-    });
-
-    // Create tooltip text
-    var phase1 = cache.phase1Data;
-    var phase2 = cache.phase2Data;
-    var phase3 = cache.phase3Data;
-    var consumptionData = cache.consumptionData;
-
-    // Only proceed if data exists
-    if (((cache.dataType == "phases") && phase1.length && phase2.length && phase3.length) ||
-        ((cache.dataType == "averages") && consumptionData.length)) {
-
-      // Get values
-      var lastSum;
-
-      if (cache.dataType == "phases") {
-        var lastPhase1Value = phase1[phase1.length - 1].y;
-        var lastPhase2Value = phase2[phase2.length - 1].y;
-        var lastPhase3Value = phase3[phase3.length - 1].y;
-
-        lastSum = Highcharts.numberFormat(lastPhase1Value + lastPhase2Value + lastPhase3Value, 2, ".", "") + ' W';
-      } else {
-        var lastValue = consumptionData[consumptionData.length - 1].y;
-        lastSum = Highcharts.numberFormat(lastValue, 2, ".", "") + ' W';
-      }
-
-      var powerLevel = Highcharts.numberFormat(cache.powerLevel * 100.0, 2, ".", "") + ' %';
-
-      // Text
-      var tipText = "Dein aktueller Verbrauch von " + lastSum + " entspricht " + powerLevel + " deines" +
-          " höchsten Verbrauchs innerhalb der letzten zwei Tage.";
-
-      // Create or update tooltip
-      if ($("#ui-tooltip-powerLevelIndicator").length) {
-        // Update
-        $("#ui-tooltip-powerLevelIndicator").qtip("option", "content.text", tipText);
-      } else {
-        // Create
-        $("#powerLevelIndicator").qtip({
-          id:"powerLevelIndicator", // #ui-tooltip-powerLevelIndicator
-          content:{
-            text:tipText
-          },
-          position:{
-            my:"top center",
-            at:"bottom center",
-            viewport:$(window)
-          },
-          show:{
-            delay:0,
-            effect:false
-          },
-          hide:{
-            effect:false
-          },
-          style:{
-            classes:"ui-tooltip-light ui-tooltip-rounded wenergy-tooltip"
-          }
-        });
-      }
-    }
   }
 
   // Helper functions
