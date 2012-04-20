@@ -502,7 +502,7 @@ $(function () {
           json = {status:{message:"Server did not return valid JSON"}};
         }
 
-        var statusMessage = ((json) ? json.status.message : "Server not reachable");
+        var statusMessage = ((json) ? json.status.message : "Connection to server failed");
 
         if (cache.initialLoading) {
           showCentralAjaxLoader(false);
