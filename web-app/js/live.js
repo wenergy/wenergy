@@ -588,8 +588,8 @@ $(function () {
 
     // Tooltip
     // Text
-    var tipText = "Der Batteriestand der Sendeeinheit beträgt " +
-        Highcharts.numberFormat(cache.batteryLevel * 100.0, 0, ".", "") + " %.";
+    var tipText = "Der Batteriestand des wEnergy-Sensor beträgt " +
+        Highcharts.numberFormat(cache.batteryLevel * 100.0, 0, ".", "") + "&nbsp;%.";
 
     // Create or update tooltip
     if ($("#ui-tooltip-batteryLevelIndicator").length) {
