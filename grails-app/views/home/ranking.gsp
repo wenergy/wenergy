@@ -48,7 +48,7 @@
           <tr>
             <td>${i + 1}.</td>
             <td>${participant.name}</td>
-            <td>${participant.rankingValue} %</td>
+            <td><g:if test="${participant.display}">${participant.rankingValue} %</g:if><g:else>-</g:else></td>
           </tr>
         </g:each>
         </tbody>

@@ -49,16 +49,20 @@ class HomeController {
 
   // Ranking
   def ranking() {
-    // TODO: peergroup
-    def rankingMap = Household.getAll().collect { h ->
+
+    // Find current household and peergroup
+    def household = Household.findById(springSecurityService.currentUser?.id)
+    def peergroup = household?.peergroup
+
+    def rankingMap = peergroup.households.collect { h ->
       def currentSum = rankingService.determineRankingValue(h.id)
       def rankingValue = currentSum / (h.referenceRankingValue ?: 1.0) * 100.0
       rankingValue = rankingValue.setScale(2, RoundingMode.HALF_UP)
 
-      [name: h.fullName, rankingValue: rankingValue]
+      [name: h.fullName, rankingValue: rankingValue, display: (h.referenceRankingValue > 0)]
     }
 
-    def ranking = rankingMap.sort { it.rankingValue }.reverse()
+    def ranking = rankingMap.sort { (it.display ? it.rankingValue : Double.MAX_VALUE) }
     [nav: "ranking", ranking: ranking]
   }
 }

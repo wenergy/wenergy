@@ -60,9 +60,9 @@ class RankingService {
     }
 
     def aggregatedConsumptionSum = aggregatedConsumptions.collect {
-      BigDecimal powerPhase1 = new BigDecimal((Double) it[0])
-      BigDecimal powerPhase2 = new BigDecimal((Double) it[1])
-      BigDecimal powerPhase3 = new BigDecimal((Double) it[2])
+      BigDecimal powerPhase1 = new BigDecimal((BigDecimal) it[0] ?: 0.0)
+      BigDecimal powerPhase2 = new BigDecimal((BigDecimal) it[1] ?: 0.0)
+      BigDecimal powerPhase3 = new BigDecimal((BigDecimal) it[2] ?: 0.0)
 
       BigDecimal sum = powerPhase1 + powerPhase2 + powerPhase3
       sum
