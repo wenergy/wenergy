@@ -369,7 +369,7 @@ $(function () {
 
           $.each(this.points, function (i, point) {
             s += '<br/><span style="color:' + point.series.color + '">' + point.series.name + '</span>: <b>' +
-                point.y + ' W</b>';
+                Highcharts.numberFormat(point.y, 2, ".", "") + ' W</b>';
           });
 
           s += '<br/>Gesamt: <b>' + Highcharts.numberFormat(this.points[0].total, 2, ".", "") + ' W</b>';

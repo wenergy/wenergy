@@ -569,8 +569,15 @@ $(function () {
       xAxis:{
         type:"datetime",
         dateTimeLabelFormats:{
-          day: "%d. %m",
-          week: "%d. %m"
+          day:"%d. %m",
+          week:"%d. %m"
+        },
+        title:{
+          text:'Zeit',
+          style:{
+            color:'#666666',
+            fontWeight:'bold'
+          }
         },
         tickInterval:(cache.interval == "daily" ? 7200000 /* 2h */ : null /* default */),
         min:cache.timeLow,
@@ -591,7 +598,7 @@ $(function () {
           }
         },
         min:0,
-        minorTickInterval:'auto',
+        minorTickInterval:'auto'
       },
 
       tooltip:{
@@ -602,10 +609,12 @@ $(function () {
 
           $.each(this.points, function (i, point) {
             s += '<br/><span style="color:' + point.series.color + '">' + point.series.name + '</span>: <b>' +
-                point.y + ' W</b>';
+                Highcharts.numberFormat(point.y, 2, ".", "") + ' W</b>';
           });
 
-          s += '<br/>Total: <b>' + Highcharts.numberFormat(this.points[0].total, 2, ".", "") + ' W</b>';
+          if (cache.dataType == "phases") {
+            s += '<br/>Gesamt: <b>' + Highcharts.numberFormat(this.points[0].total, 2, ".", "") + ' W</b>';
+          }
 
           return s;
         }
@@ -613,7 +622,8 @@ $(function () {
 
       plotOptions:{
         series:{
-          fillOpacity:0.8,
+          stacking:(cache.dataType == "phases" ? "normal" : null),
+          fillOpacity:(cache.dataType == "phases" ? 1.0 : 0.8),
           lineWidth:0,
           animation:false,
           shadow:false,
@@ -866,17 +876,17 @@ $(function () {
   }
 
   function chartSeriesNameForInterval(interval) {
-      switch (interval) {
-        case "daily":
-          return "Verbrauch heute"
-        case "weekly":
-          return "Verbrauch aktuelle Woche";
-        case "monthly":
-          return "Verbauch aktueller Monat";
-      }
-      // Fallback
-      return "Verbrauch";
+    switch (interval) {
+      case "daily":
+        return "Verbrauch heute"
+      case "weekly":
+        return "Verbrauch aktuelle Woche";
+      case "monthly":
+        return "Verbauch aktueller Monat";
     }
+    // Fallback
+    return "Verbrauch";
+  }
 
   // Final step is to trigger the hash change event which will also handle initial data loading
   $(window).trigger("hashchange");
