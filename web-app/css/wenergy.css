@@ -231,7 +231,7 @@ body {
   width: 50%;
 }
 
-/* Dashboard */
+/* Live */
 
 #live {
   padding-top: 20px;
@@ -249,6 +249,11 @@ body {
 
 #live #powerLevelIndicator {
   height: 335px;
+  margin-bottom: 15px;
+}
+
+#live #batteryLevelIndicator {
+  height: 15px;
 }
 
 #live .liveForm {

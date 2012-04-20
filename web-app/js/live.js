@@ -45,6 +45,11 @@ $(function () {
     cache.loadingInProgress = false;
     cache.deltaTime = 0;
 
+    // Battery level indicator
+    cache.batteryLevel = 0.0;
+    cache.batteryLevelColor = "#CCCCCC";
+    cache.batteryLevelColorLow = "#C2401B";
+
     // Power level indicator
     cache.powerLevel = 0.0;
     cache.powerLevelColorInactive = "#CCCCCC";
@@ -236,11 +241,10 @@ $(function () {
         // Battery level
         if (json.data) {
           if (json.data.batteryLevel) {
-            $("#batteryLevel").html("" + json.data.batteryLevel);
-          } else if (!cache.isDelta) {
-            $("#batteryLevel").html("n/a");
+            cache.batteryLevel = json.data.batteryLevel;
           }
         }
+        updateBatteryLevelIndicator();
 
         // Power level
         if (json.data) {
@@ -505,6 +509,114 @@ $(function () {
           }
         });
       }
+    }
+  }
+
+  function updateBatteryLevelIndicator() {
+    var cache = $("#live").data("bbq");
+
+    if (cache.batteryLevelIndicator == null) {
+      // Create
+      var bli = Raphael("batteryLevelIndicator", "100%", "100%");
+      var batteryParts = bli.set();
+
+      // Configuration
+      var height = $("#batteryLevelIndicator").height();
+      var width = $("#batteryLevelIndicator").width();
+
+      var batteryCornerRadius = 2;
+      var batteryHeight = height;
+
+      var batteryHeadCornerRadius = 1;
+      var batteryHeadHeight = batteryHeight / 2;
+      var batteryHeadWidth = 4;
+
+      var batteryWidth = width - 20 - batteryHeadWidth;
+      var batteryXOffset = (width - batteryWidth) / 2;
+      var batteryYOffset = 0;
+
+      var batteryHeadXOffset = batteryXOffset + batteryWidth - 1;
+      var batteryHeadYOffset = batteryYOffset + (batteryHeight - batteryHeadHeight) / 2;
+
+      var batteryInnerRadius = 0.5;
+      var batteryInnerPadding = 2;
+      var batteryInnerXOffset = batteryXOffset + batteryInnerPadding;
+      var batteryInnerYOffset = batteryYOffset + batteryInnerPadding;
+      var batteryInnerWidth = batteryWidth - (2 * batteryInnerPadding);
+      var batteryInnerHeight = batteryHeight - (2 * batteryInnerPadding);
+
+      var batteryFillLevelRadius = 0.5;
+      var batteryFillLevelPadding = 1.5;
+      var batteryFillLevelXOffset = batteryInnerXOffset + batteryFillLevelPadding;
+      var batteryFillLevelYOffset = batteryInnerYOffset + batteryFillLevelPadding;
+      var batteryFillLevelWidth = batteryInnerWidth - (2 * batteryFillLevelPadding);
+      var batteryFillLevelHeight = batteryInnerHeight - (2 * batteryFillLevelPadding);
+
+      var batteryBody = bli.rect(batteryXOffset, batteryYOffset, batteryWidth, batteryHeight, batteryCornerRadius);
+      batteryBody.attr({fill:cache.batteryLevelColor, stroke:"none"});
+      batteryParts.push(batteryBody);
+
+      var batteryInnerBody = bli.rect(batteryInnerXOffset, batteryInnerYOffset, batteryInnerWidth, batteryInnerHeight, batteryInnerRadius);
+      batteryInnerBody.attr({fill:"#FFFFFF", stroke:"none"});
+
+      var batteryHead = bli.rect(batteryHeadXOffset, batteryHeadYOffset, batteryHeadWidth, batteryHeadHeight, batteryHeadCornerRadius);
+      batteryHead.attr({fill:cache.batteryLevelColor, stroke:"none"});
+      batteryParts.push(batteryHead);
+
+      var batteryFillLevel = bli.rect(batteryFillLevelXOffset, batteryFillLevelYOffset, batteryFillLevelWidth, batteryFillLevelHeight, batteryFillLevelRadius);
+      batteryFillLevel.attr({fill:cache.batteryLevelColor, stroke:"none"});
+      batteryParts.push(batteryFillLevel);
+
+      // Save
+      cache.batteryLevelIndicator = bli;
+      cache.batteryLevelIndicatorFillMaxWidth = batteryFillLevelWidth;
+      cache.batteryLevelIndicatorFiller = batteryFillLevel;
+      cache.batteryLevelIndicatorParts = batteryParts;
+    }
+
+    // Update width and color
+    // Display values < 0.05 as 0.05!
+    var relativeWidth = Math.max(0.05, cache.batteryLevel) * cache.batteryLevelIndicatorFillMaxWidth;
+    // Red threshold is 10 %
+    var fillColor = (cache.batteryLevel < 0.1) ? cache.batteryLevelColorLow : cache.batteryLevelColor;
+
+    cache.batteryLevelIndicatorFiller.attr({width:relativeWidth});
+    cache.batteryLevelIndicatorParts.forEach(function (e) {
+      e.attr({fill:fillColor});
+    });
+
+    // Tooltip
+    // Text
+    var tipText = "Der Batteriestand der Sendeeinheit beträgt " +
+        Highcharts.numberFormat(cache.batteryLevel * 100.0, 0, ".", "") + " %.";
+
+    // Create or update tooltip
+    if ($("#ui-tooltip-batteryLevelIndicator").length) {
+      // Update
+      $("#ui-tooltip-batteryLevelIndicator").qtip("option", "content.text", tipText);
+    } else {
+      // Create
+      $("#batteryLevelIndicator").qtip({
+        id:"batteryLevelIndicator", // #ui-tooltip-powerLevelIndicator
+        content:{
+          text:tipText
+        },
+        position:{
+          my:"top center",
+          at:"bottom center",
+          viewport:$(window)
+        },
+        show:{
+          delay:0,
+          effect:false
+        },
+        hide:{
+          effect:false
+        },
+        style:{
+          classes:"ui-tooltip-light ui-tooltip-rounded wenergy-tooltip"
+        }
+      });
     }
   }
 

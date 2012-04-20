@@ -49,7 +49,7 @@
 
     <div id="sideInformation" class="span1">
       <div id="powerLevelIndicator"></div>
-      <div id="batteryLevel"></div>
+      <div id="batteryLevelIndicator"></div>
     </div>
   </div>
 
