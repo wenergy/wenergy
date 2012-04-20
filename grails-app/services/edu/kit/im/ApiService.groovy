@@ -95,10 +95,11 @@ class ApiService {
 
       // Set reference value once
       if (household.referenceConsumptionValue == null) {
-        householdService.determineReferenceConsumptionValue(household)
+        householdService.determineReferenceConsumptionValue(household.id)
       }
 
     } catch (Exception e) {
+      log.error e
       throw new ApiException("Post processing error", 500)
     }
   }
