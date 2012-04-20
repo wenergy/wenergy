@@ -357,6 +357,7 @@ $(function () {
             return this.value + ' W';
           }
         },
+        min:0,
         minorTickInterval:'auto'
       },
 
