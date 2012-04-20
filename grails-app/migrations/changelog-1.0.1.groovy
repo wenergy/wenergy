@@ -17,11 +17,9 @@
 
 databaseChangeLog = {
 
-	changeSet(author: "ddauer (generated)", id: "changelog") {
-		// TODO add changes and preconditions here
+	changeSet(author: "ddauer (generated)", id: "1334935702874-1") {
+		addColumn(tableName: "household") {
+			column(name: "reference_ranking_value", type: "decimal(19,2)")
+		}
 	}
-
-	include file: 'changelog-1.0.groovy'
-
-	include file: 'changelog-1.0.1.groovy'
 }

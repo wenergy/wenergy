@@ -24,6 +24,8 @@ class AdminController {
   def sessionFactory
   def propertyInstanceMap = org.codehaus.groovy.grails.plugins.DomainClassGrailsPlugin.PROPERTY_INSTANCE_MAP
   def apiService
+  def householdService
+  def rankingService
 
   def index() {
 
@@ -100,10 +102,13 @@ class AdminController {
     session.clear()
     propertyInstanceMap.get().clear()
   }
-  def householdService
-  def runHouseholdJob()
-  {
-      householdService.run()
+
+  def runHouseholdJob() {
+    householdService.run()
+  }
+
+  def runRankingJob() {
+    rankingService.run()
   }
 
 }

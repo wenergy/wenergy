@@ -33,11 +33,27 @@
 <!-- Ranking
 ================================================== -->
 <section id="peergroup">
-  <div class="page-header">
-    <h1>Rangliste</h1>
-  </div>
-
   <div class="row">
+    <div class="span12">
+      <table class="table">
+        <thead>
+        <tr>
+          <th>#</th>
+          <th>Teilnehmer</th>
+          <th>Relativer Wochenverbrauch</th>
+        </tr>
+        </thead>
+        <tbody>
+        <g:each status="i" in="${ranking}" var="participant">
+          <tr>
+            <td>${i + 1}.</td>
+            <td>${participant.name}</td>
+            <td>${participant.rankingValue} %</td>
+          </tr>
+        </g:each>
+        </tbody>
+      </table>
+    </div>
   </div><!-- /row -->
 </section>
 </body>

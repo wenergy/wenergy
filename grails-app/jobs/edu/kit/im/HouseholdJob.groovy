@@ -8,10 +8,10 @@ class HouseholdJob {
     // '0 * * * * ?' // every minute (test)
     cron cronExpression: "0 0 3 * * ?" // wEnergy Scheduler, every day at 3am
   }
+
   def householdService
 
   def execute() {
-    log.error "running household job"
     householdService.run()
   }
 

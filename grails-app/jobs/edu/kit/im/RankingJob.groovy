@@ -15,13 +15,18 @@
  * limitations under the License.
  */
 
-databaseChangeLog = {
+package edu.kit.im
 
-	changeSet(author: "ddauer (generated)", id: "changelog") {
-		// TODO add changes and preconditions here
-	}
+class RankingJob {
 
-	include file: 'changelog-1.0.groovy'
+  static triggers = {
+    cron cronExpression: "0 0 1 ? * MON" // wEnergy Scheduler, every monday at 1am
+  }
 
-	include file: 'changelog-1.0.1.groovy'
+  def rankingService
+
+  def execute() {
+    rankingService.run()
+  }
+
 }

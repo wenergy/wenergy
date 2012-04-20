@@ -17,9 +17,12 @@
 
 package edu.kit.im
 
+import java.math.RoundingMode
+
 class HomeController {
 
   def springSecurityService
+  def rankingService
 
   def index() {
     if (springSecurityService.isLoggedIn()) {
@@ -46,6 +49,16 @@ class HomeController {
 
   // Ranking
   def ranking() {
-    [nav: "ranking"]
+    // TODO: peergroup
+    def rankingMap = Household.getAll().collect { h ->
+      def currentSum = rankingService.determineRankingValue(h.id)
+      def rankingValue = currentSum / (h.referenceRankingValue ?: 1.0) * 100.0
+      rankingValue = rankingValue.setScale(2, RoundingMode.HALF_UP)
+
+      [name: h.fullName, rankingValue: rankingValue]
+    }
+
+    def ranking = rankingMap.sort { it.rankingValue }.reverse()
+    [nav: "ranking", ranking: ranking]
   }
 }
