@@ -101,7 +101,7 @@ modules = {
   }
 
   consumptionjs {
-    dependsOn "jqbbq, jqchrono, jqui, jqqtip, datejs, highstockjs, spinjs, raphaeljs, wenergyjs"
+    dependsOn "jqbbq, jqchrono, jqqtip, jqui, datejs, highstockjs, spinjs, raphaeljs, wenergyjs"
     resource url: [dir: "js", file: "consumption.js"], disposition: "head"
   }
 

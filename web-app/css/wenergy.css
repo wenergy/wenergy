@@ -175,6 +175,8 @@ body {
 
 .wenergy-tooltip .ui-tooltip-content {
   text-align: center;
+  font-size: 10.5px;
+  line-height: 12px;
 }
 
 /* Welcome
