@@ -85,7 +85,7 @@
         </div>
       </div>
 
-      <div class="span4 control-group inline">
+      <div class="span5 control-group inline">
         <label class="control-label">Daten</label>
 
         <div class="controls">
