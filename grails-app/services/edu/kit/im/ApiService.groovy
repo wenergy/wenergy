@@ -79,6 +79,17 @@ class ApiService {
 
     // All checks passed - create Consumption instance
     def now = new DateTime()
+
+    // Time Zone fix
+    // We need to account for the Europe/Berlin timezone offset while keeping everything at UTC
+    // Therefore, we add the time zone difference (+1 or +2 depending on DST) to the UTC date to simulate Europe/Berlin
+    // So "now" is really UTC+1 or UTC+2 instead of UTC
+    // Important: Any future data analysis should account for the time zone offset
+    //def hostTimezone = DateTimeZone.forTimeZone(TimeZone.getDefault()) // get host time zone, should be Europe/Berlin
+    def hostTimezone = DateTimeZone.forID("Europe/Berlin"); // Make sure (in comparison to above) that we are using Europe/Berlin
+    def offsetMillis = hostTimezone.getOffsetFromLocal(now.getMillis()) // local is UTC by default as set in BootStrap
+    now = now.plusMillis(offsetMillis)
+
     def consumption = new Consumption(household: household, date: now, powerPhase1: powerPhase1,
         powerPhase2: powerPhase2, powerPhase3: powerPhase3, batteryLevel: batteryLevel)
 

@@ -29,7 +29,7 @@ class BootStrap {
   def apiService
 
   def init = { servletContext ->
-    // Work only on UTC by default - necessary since flot uses UTC as well
+    // Work only on UTC by default - helpful for Highcharts and to avoid time zone confusion
     DateTimeZone.setDefault(DateTimeZone.UTC)
 
     // Define security roles
