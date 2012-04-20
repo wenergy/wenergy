@@ -54,7 +54,7 @@ class HomeController {
     def household = Household.findById(springSecurityService.currentUser?.id)
     def peergroup = household?.peergroup
 
-    def rankingMap = peergroup.households.collect { h ->
+    def ranking = peergroup.households.collect { h ->
       def currentSum = rankingService.determineRankingValue(h.id)
       def rankingValue = currentSum / (h.referenceRankingValue ?: 1.0) * 100.0
       rankingValue = rankingValue.setScale(2, RoundingMode.HALF_UP)
@@ -62,7 +62,14 @@ class HomeController {
       [name: h.fullName, rankingValue: rankingValue, display: (h.referenceRankingValue > 0)]
     }
 
-    def ranking = rankingMap.sort { (it.display ? it.rankingValue : Double.MAX_VALUE) }
+    ranking = ranking.sort { (it.display ? it.rankingValue : Double.MAX_VALUE) }
+
+    // Badge classes
+    def badgeClasses = ["badge-success", "badge-warning", "badge-info", "badge-error", "badge-inverse"]
+    ranking.eachWithIndex { map, i ->
+      map.badge = (i < badgeClasses.size()) ? badgeClasses.get(i) : ""
+    }
+
     [nav: "ranking", ranking: ranking]
   }
 }

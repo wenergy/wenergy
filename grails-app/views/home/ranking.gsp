@@ -46,7 +46,7 @@
         <tbody>
         <g:each status="i" in="${ranking}" var="participant">
           <tr>
-            <td>${i + 1}.</td>
+            <td><span class="badge ${participant.badge}">${i + 1}</span></td>
             <td>${participant.name}</td>
             <td><g:if test="${participant.display}">${participant.rankingValue} %</g:if><g:else>-</g:else></td>
           </tr>
