@@ -284,7 +284,7 @@ $(function () {
           json = {status:{message:"Server did not return valid JSON"}};
         }
 
-        var statusMessage = ((json) ? json.status.message : "Unknown status");
+        var statusMessage = ((json) ? json.status.message : "Server not reachable");
 
         if (cache.initialLoading) {
           showCentralAjaxLoader(false);

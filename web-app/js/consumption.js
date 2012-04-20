@@ -109,9 +109,6 @@ $(function () {
             case "daily":
               $(".ui-datepicker-current").text("Today");
               break;
-            case "daily15":
-              $(".ui-datepicker-current").text("Today");
-              break;
             case "weekly":
               $(".ui-datepicker-current").text("Current week");
               break;
@@ -184,7 +181,6 @@ $(function () {
     cache.interval = $("#optionsForm input[name='interval']:checked").val();
     cache.precision = $("#optionsForm input[name='precision']:checked").val();
     cache.dataType = $("#optionsForm input[name='dataType']:checked").val();
-    cache.axisType = $("#optionsForm input[name='axisType']:checked").val();
 
     cache.initialLoading = true;
     cache.loadingInProgress = false;
@@ -200,6 +196,11 @@ $(function () {
       "#F7E660", "#FBF266", "#FFFF6B", "#F8FC67", "#F2F963", "#EBF65F", "#E5F45A", "#DEF156", "#D7EE52", "#D1EB4E",
       "#CAE84A", "#C4E546", "#BDE342", "#B6E03D", "#B0DD39", "#A9DA35", "#A3D731", "#9CD42D", "#95D129", "#8FCF24",
       "#88CC20", "#82C91C", "#7BC618"];
+
+    // Chart (phase) colors
+    Highcharts.setOptions({
+      colors:["#004B8A", "#007CC3", "#6CAEDF"]
+    });
 
     // Save in consumption section
     $("#consumption").data("bbq", cache);
@@ -316,18 +317,6 @@ $(function () {
       invalidHashValues.push("dataType");
     }
 
-    // Validate axisType
-    var allowedAxisTypeValues = [];
-    $("#optionsForm input[name='axisType']").each(function () {
-      allowedAxisTypeValues.push($(this).val());
-    });
-
-    // Remove invalid parameter from URL
-    var axisType = $.bbq.getState("axisType");
-    if (axisType && $.inArray(axisType, allowedAxisTypeValues) == -1) {
-      invalidHashValues.push("axisType");
-    }
-
     // Validate date
     var date = $.bbq.getState("date");
     if (date) {
@@ -360,9 +349,6 @@ $(function () {
       case "daily":
         date = date.addDays(delta);
         break;
-      case "daily15":
-        date = date.addDays(delta);
-        break;
       case "weekly":
         date = date.addWeeks(delta);
         break;
@@ -386,18 +372,16 @@ $(function () {
     // Use cache for default values
     var cache = $("#consumption").data("bbq");
 
-    // Get interval, precision, dataType, axisType and date
+    // Get interval, precision, dataType and date
     var interval = $.bbq.getState("interval") || cache.interval;
     var precision = $.bbq.getState("precision") || cache.precision;
     var dataType = $.bbq.getState("dataType") || cache.dataType;
-    var axisType = $.bbq.getState("axisType") || cache.axisType;
     var date = parseInt($.bbq.getState("date")) || cache.date;
 
     // Update UI for all values - necessary if changed via hash and not click
     $("#optionsForm input[name='interval'][value=" + interval + "]").prop("checked", true);
     $("#optionsForm input[name='precision'][value=" + precision + "]").prop("checked", true);
     $("#optionsForm input[name='dataType'][value=" + dataType + "]").prop("checked", true);
-    $("#optionsForm input[name='axisType'][value=" + axisType + "]").prop("checked", true);
 
     // Reload if interval, precision dataType or date changed and always load the first time
     if (interval !== cache.interval || precision !== cache.precision || dataType !== cache.dataType
@@ -406,31 +390,16 @@ $(function () {
       cache.interval = interval;
       cache.precision = precision;
       cache.dataType = dataType;
-      cache.axisType = axisType;
       cache.date = date;
       // Force reload of all data
       cache.deltaTime = 0;
 
       // Dispatch loading
-//      if (!cache.loadingInProgress) {
       reloadData();
-//      }
     } else {
-      // We get here only if axisType options have changed, therefore no reloading is necessary
-
-      // Update chart
-      if (axisType != cache.axisType) {
-        // Update cache
-        cache.axisType = axisType;
-
-        // Update data
-        if (cache.axisType == 'logarithmic') {
-          filterChartDataForLogarithmicAxis();
-        }
-
-        // Update chart
-        updateChart(true);
-      }
+      // We get here only if <nothing!> has changed, therefore no reloading is necessary
+      // Force update chart
+      updateChart(true);
     }
   });
 
@@ -522,11 +491,6 @@ $(function () {
           updateTimer();
         }
 
-        // Update data
-        if (cache.axisType == 'logarithmic') {
-          filterChartDataForLogarithmicAxis();
-        }
-
         // Get axis data
         if (json.data) {
           if (json.data.time) {
@@ -555,7 +519,7 @@ $(function () {
           json = {status:{message:"Server did not return valid JSON"}};
         }
 
-        var statusMessage = ((json) ? json.status.message : "Unknown status");
+        var statusMessage = ((json) ? json.status.message : "Server not reachable");
 
         if (cache.initialLoading) {
           showCentralAjaxLoader(false);
@@ -594,7 +558,7 @@ $(function () {
     var consumptionChartOptions = {
       chart:{
         renderTo:'consumptionChart',
-        type:'column',
+        type:'area',
         animation:false
       },
 
@@ -604,7 +568,11 @@ $(function () {
 
       xAxis:{
         type:"datetime",
-        tickInterval:7200000, // 2h in ms
+        dateTimeLabelFormats:{
+          day: "%d. %m",
+          week: "%d. %m"
+        },
+        tickInterval:(cache.interval == "daily" ? 7200000 /* 2h */ : null /* default */),
         min:cache.timeLow,
         max:cache.timeHigh
       },
@@ -622,9 +590,8 @@ $(function () {
             return this.value + ' W';
           }
         },
+        min:0,
         minorTickInterval:'auto',
-        type:cache.axisType,
-        min:(cache.axisType == 'logarithmic' ? 1.0 : null)
       },
 
       tooltip:{
@@ -646,11 +613,8 @@ $(function () {
 
       plotOptions:{
         series:{
-          stacking:(cache.dataType == 'phases' ? 'normal' : null),
-          pointPadding:0,
-          groupPadding:0,
+          fillOpacity:0.8,
           lineWidth:0,
-          borderWidth:0,
           animation:false,
           shadow:false,
           marker:{
@@ -667,13 +631,14 @@ $(function () {
     if (cache.dataType == "averages") {
       consumptionChartOptions.series = [
         {
-          name:'Verbrauch',
-          data:(cache.axisType == 'logarithmic' ? cache.phase1DataFiltered : cache.consumptionData),
+          name:chartSeriesNameForInterval(cache.interval),
+          data:cache.consumptionData,
           zIndex:1
         },
         {
-          name:chartSeriesNameForDateAndInterval(new Date(cache.date), cache.interval),
-          data:(cache.axisType == 'logarithmic' ? cache.phase2DataFiltered : cache.consumptionData),
+          name:chartAverageSeriesNameForDateAndInterval(new Date(cache.date), cache.interval),
+          data:cache.averageData,
+          color:"#8F8F8F",
           zIndex:0
         }
       ];
@@ -681,15 +646,15 @@ $(function () {
       consumptionChartOptions.series = [
         {
           name:'Phase 1',
-          data:(cache.axisType == 'logarithmic' ? cache.phase1DataFiltered : cache.phase1Data)
+          data:cache.phase1Data
         },
         {
           name:'Phase 2',
-          data:(cache.axisType == 'logarithmic' ? cache.phase2DataFiltered : cache.phase2Data)
+          data:cache.phase2Data
         },
         {
           name:'Phase 3',
-          data:(cache.axisType == 'logarithmic' ? cache.phase3DataFiltered : cache.phase3Data)
+          data:cache.phase3Data
         }
       ];
     }
@@ -798,9 +763,9 @@ $(function () {
     });
 
     // Create tooltip text
-    var phase1 = (cache.axisType == 'logarithmic' ? cache.phase1DataFiltered : cache.phase1Data);
-    var phase2 = (cache.axisType == 'logarithmic' ? cache.phase2DataFiltered : cache.phase2Data);
-    var phase3 = (cache.axisType == 'logarithmic' ? cache.phase3DataFiltered : cache.phase3Data);
+    var phase1 = cache.phase1Data;
+    var phase2 = cache.phase2Data;
+    var phase3 = cache.phase3Data;
 
     // Only proceed if data exists
     if (phase1.length && phase2.length && phase3.length) {
@@ -887,7 +852,7 @@ $(function () {
     }
   }
 
-  function chartSeriesNameForDateAndInterval(date, interval) {
+  function chartAverageSeriesNameForDateAndInterval(date, interval) {
     switch (interval) {
       case "daily":
         return "Durchschnittlicher " + date.toString("dddd"); // Monday
@@ -899,6 +864,19 @@ $(function () {
     // Fallback
     return "Durchschnitt";
   }
+
+  function chartSeriesNameForInterval(interval) {
+      switch (interval) {
+        case "daily":
+          return "Verbrauch heute"
+        case "weekly":
+          return "Verbrauch aktuelle Woche";
+        case "monthly":
+          return "Verbauch aktueller Monat";
+      }
+      // Fallback
+      return "Verbrauch";
+    }
 
   // Final step is to trigger the hash change event which will also handle initial data loading
   $(window).trigger("hashchange");
