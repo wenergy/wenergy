@@ -20,8 +20,6 @@ package edu.kit.im
 import java.math.RoundingMode
 import org.joda.time.DateTime
 import org.joda.time.LocalTime
-import org.joda.time.format.DateTimeFormatter
-import org.joda.time.format.DateTimeFormat
 
 class DataService {
 
@@ -123,6 +121,7 @@ class DataService {
       order("intervalStart", "asc")
       projections {
         property("intervalStart")
+        property("intervalEnd")
         property("avgPowerPhase1")
         property("avgPowerPhase2")
         property("avgPowerPhase3")
@@ -135,7 +134,7 @@ class DataService {
         dataMap["consumptionData"] = formatConsumptions(consumptions)
         break
       case "phases":
-        dataMap.putAll(splitConsumptionsIntoPhases(consumptions))
+        dataMap.putAll(splitConsumptionsIntoPhases(consumptions, true, true))
         break
       default:
         throw new Exception("Invalid dataType specified.")
@@ -161,6 +160,7 @@ class DataService {
           if (interval == "weekly") groupProperty("dayOfWeek")
           else if (interval == "monthly") groupProperty("dayOfMonth")
           groupProperty("intervalStartTime")
+          groupProperty("intervalEndTime")
           avg("avgPowerPhase1")
           avg("avgPowerPhase2")
           avg("avgPowerPhase3")
@@ -170,18 +170,24 @@ class DataService {
       def formattedAverageConsumptions = averageConsumptions.collect {
         // Merge intervalStart with intervalStartTime
         LocalTime intervalStart = null
-        DateTime mergedDate = null
+        LocalTime intervalEnd = null
+        DateTime mergedStartDate = null
+        DateTime mergedEndDate = null
         int projectionIndex = 0
 
         switch (interval) {
           case "daily":
             intervalStart = (LocalTime) it[projectionIndex++]
-            mergedDate = low.withTime(intervalStart.hourOfDay, intervalStart.minuteOfHour, intervalStart.secondOfMinute, intervalStart.millisOfSecond)
+            intervalEnd = (LocalTime) it[projectionIndex++]
+            mergedStartDate = low.withTime(intervalStart.hourOfDay, intervalStart.minuteOfHour, intervalStart.secondOfMinute, intervalStart.millisOfSecond)
+            mergedEndDate = low.withTime(intervalEnd.hourOfDay, intervalEnd.minuteOfHour, intervalEnd.secondOfMinute, intervalEnd.millisOfSecond)
             break
           case "weekly":
             int dayOfWeek = (int) it[projectionIndex++]
             intervalStart = (LocalTime) it[projectionIndex++]
-            mergedDate = low.plusDays(dayOfWeek - 1).withTime(intervalStart.hourOfDay, intervalStart.minuteOfHour, intervalStart.secondOfMinute, intervalStart.millisOfSecond)
+            intervalEnd = (LocalTime) it[projectionIndex++]
+            mergedStartDate = low.plusDays(dayOfWeek - 1).withTime(intervalStart.hourOfDay, intervalStart.minuteOfHour, intervalStart.secondOfMinute, intervalStart.millisOfSecond)
+            mergedEndDate = low.plusDays(dayOfWeek - 1).withTime(intervalEnd.hourOfDay, intervalEnd.minuteOfHour, intervalEnd.secondOfMinute, intervalEnd.millisOfSecond)
             break
           case "monthly":
             int daysInMonth = low.dayOfMonth().maximumValue
@@ -193,7 +199,9 @@ class DataService {
             }
 
             intervalStart = (LocalTime) it[projectionIndex++]
-            mergedDate = low.withDayOfMonth(dayOfMonth).withTime(intervalStart.hourOfDay, intervalStart.minuteOfHour, intervalStart.secondOfMinute, intervalStart.millisOfSecond)
+            intervalEnd = (LocalTime) it[projectionIndex++]
+            mergedStartDate = low.withDayOfMonth(dayOfMonth).withTime(intervalStart.hourOfDay, intervalStart.minuteOfHour, intervalStart.secondOfMinute, intervalStart.millisOfSecond)
+            mergedEndDate = low.withDayOfMonth(dayOfMonth).withTime(intervalEnd.hourOfDay, intervalEnd.minuteOfHour, intervalEnd.secondOfMinute, intervalEnd.millisOfSecond)
             break
           default:
             break
@@ -206,11 +214,10 @@ class DataService {
         BigDecimal phasesSum = avgPowerPhase1 + avgPowerPhase2 + avgPowerPhase3
         phasesSum = phasesSum.setScale(3, RoundingMode.HALF_UP)
 
-        DateTimeFormatter formatter = DateTimeFormat.mediumDateTime().withLocale(Locale.GERMAN)
-        def formattedDate = formatter.print(mergedDate)
+        def formattedDate = DateUtils.formatDateTime(mergedStartDate, mergedEndDate, false)
 
         // Highcharts data point object
-        ["name": formattedDate, "x": mergedDate.getMillis(), "y": phasesSum]
+        ["name": formattedDate, "x": mergedStartDate.getMillis(), "y": phasesSum]
       }
 
       dataMap["averageData"] = formattedAverageConsumptions
@@ -619,31 +626,42 @@ class DataService {
     springSecurityService.currentUser?.id
   }
 
-  def splitConsumptionsIntoPhases(def consumptions) {
+  def splitConsumptionsIntoPhases(def consumptions, boolean includeXAxis = false, boolean includeEndTime = false) {
     def phase1Data = []
     def phase2Data = []
     def phase3Data = []
 
     consumptions.each { consumption ->
-      DateTime intervalStart = (DateTime) consumption[0]
+      int idx = 0
+      DateTime intervalStart = (DateTime) consumption[idx++]
+
+      DateTime intervalEnd = null
+      if (includeEndTime) {
+        intervalEnd = (DateTime) consumption[idx++]
+      }
 
       // Format data
-      BigDecimal powerPhase1 = new BigDecimal((Double) consumption[1])
+      BigDecimal powerPhase1 = new BigDecimal((Double) consumption[idx++])
       powerPhase1 = powerPhase1.setScale(3, RoundingMode.HALF_UP)
 
-      BigDecimal powerPhase2 = new BigDecimal((Double) consumption[2])
+      BigDecimal powerPhase2 = new BigDecimal((Double) consumption[idx++])
       powerPhase2 = powerPhase2.setScale(3, RoundingMode.HALF_UP)
 
-      BigDecimal powerPhase3 = new BigDecimal((Double) consumption[3])
+      BigDecimal powerPhase3 = new BigDecimal((Double) consumption[idx++])
       powerPhase3 = powerPhase3.setScale(3, RoundingMode.HALF_UP)
 
-      DateTimeFormatter formatter = DateTimeFormat.mediumDateTime().withLocale(Locale.GERMAN)
-      def formattedDate = formatter.print(intervalStart)
+      def formattedDate = DateUtils.formatDateTime(intervalStart, includeEndTime ? intervalEnd : null);
 
       // Highcharts data point objects
-      phase1Data << ["name": formattedDate, "y": powerPhase1]
-      phase2Data << ["name": formattedDate, "y": powerPhase2]
-      phase3Data << ["name": formattedDate, "y": powerPhase3]
+      if (includeXAxis) {
+        phase1Data << ["name": formattedDate, "x": intervalStart.getMillis(), "y": powerPhase1]
+        phase2Data << ["name": formattedDate, "x": intervalStart.getMillis(), "y": powerPhase2]
+        phase3Data << ["name": formattedDate, "x": intervalStart.getMillis(), "y": powerPhase3]
+      } else {
+        phase1Data << ["name": formattedDate, "y": powerPhase1]
+        phase2Data << ["name": formattedDate, "y": powerPhase2]
+        phase3Data << ["name": formattedDate, "y": powerPhase3]
+      }
     }
 
     def dataMap = [:]
@@ -655,15 +673,16 @@ class DataService {
 
   def formatConsumptions(def consumptions) {
     consumptions.collect {
-      DateTime intervalStart = (DateTime) it[0]
-      BigDecimal avgPowerPhase1 = (BigDecimal) it[1]
-      BigDecimal avgPowerPhase2 = (BigDecimal) it[2]
-      BigDecimal avgPowerPhase3 = (BigDecimal) it[3]
+      int idx = 0
+      DateTime intervalStart = (DateTime) it[idx++]
+      DateTime intervalEnd = (DateTime) it[idx++]
+      BigDecimal avgPowerPhase1 = (BigDecimal) it[idx++]
+      BigDecimal avgPowerPhase2 = (BigDecimal) it[idx++]
+      BigDecimal avgPowerPhase3 = (BigDecimal) it[idx++]
       BigDecimal phasesSum = avgPowerPhase1 + avgPowerPhase2 + avgPowerPhase3
       phasesSum = phasesSum.setScale(3, RoundingMode.HALF_UP)
 
-      DateTimeFormatter formatter = DateTimeFormat.mediumDateTime().withLocale(Locale.GERMAN)
-      def formattedDate = formatter.print(intervalStart)
+      def formattedDate = DateUtils.formatDateTime(intervalStart, intervalEnd)
 
       // Highcharts data point object
       ["name": formattedDate, "x": intervalStart.getMillis(), "y": phasesSum]

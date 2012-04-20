@@ -19,6 +19,9 @@ package edu.kit.im
 
 import org.joda.time.DateTime
 import org.joda.time.Period
+import org.joda.time.DateTimeZone
+import org.joda.time.format.DateTimeFormatter
+import org.joda.time.format.DateTimeFormat
 
 class DateUtils {
 
@@ -74,4 +77,42 @@ class DateUtils {
     return newDate.withSecondOfMinute(0)
   }
 
+  // Time zone fix
+  static DateTime addUTCOffset(DateTime dateTime) {
+    // We need to account for the Europe/Berlin timezone offset while keeping everything at UTC
+    // Therefore, we add the time zone difference (+1 or +2 depending on DST) to the UTC date to simulate Europe/Berlin
+    // So "now" is really UTC+1 or UTC+2 instead of UTC
+    // Important: Any future data analysis should account for the time zone offset
+    //def hostTimezone = DateTimeZone.forTimeZone(TimeZone.getDefault()) // get host time zone, should be Europe/Berlin
+    def hostTimezone = DateTimeZone.forID("Europe/Berlin"); // Make sure (in comparison to above) that we are using Europe/Berlin
+    def offsetMillis = hostTimezone.getOffsetFromLocal(dateTime.getMillis()) // local is UTC by default as set in BootStrap
+    dateTime = dateTime.plusMillis(offsetMillis)
+    return dateTime
+  }
+
+  // For undoing the time zone fix
+  static DateTime subtractUTCOffset(DateTime dateTime) {
+    def hostTimezone = DateTimeZone.forID("Europe/Berlin"); // Make sure (in comparison to above) that we are using Europe/Berlin
+    def offsetMillis = hostTimezone.getOffsetFromLocal(dateTime.getMillis()) // local is UTC by default as set in BootStrap
+    dateTime = dateTime.minusMillis(offsetMillis)
+    return dateTime
+  }
+
+  // Format
+  static String formatDateTime(DateTime startDateTime, DateTime endDateTime = null, boolean utcFix = true) {
+    DateTime displayStartDate = (utcFix ? DateUtils.subtractUTCOffset(startDateTime) : startDateTime)
+    DateTimeFormatter startFormatter = DateTimeFormat.forPattern("dd.MM.YYYY HH:mm:ss").withLocale(Locale.GERMAN)
+    def formattedStartDate = startFormatter.print(displayStartDate)
+
+    def formattedDate = formattedStartDate
+
+    if (endDateTime) {
+      DateTime displayEndDate = (utcFix ? DateUtils.subtractUTCOffset(endDateTime) : endDateTime).minusSeconds(1)
+      DateTimeFormatter endFormatter = DateTimeFormat.forPattern("HH:mm:ss").withLocale(Locale.GERMAN)
+      def formattedEndDate = endFormatter.print(displayEndDate)
+      formattedDate += " - " + formattedEndDate
+    }
+
+    formattedDate
+  }
 }
