@@ -66,58 +66,6 @@
     </div>
 
   </div>
-
-  <div class="row">
-    <div class="span4">
-      <h3>System Status</h3>
-
-      <p><span class="label success">Running</span></p>
-    </div>
-
-    <div class="span12">
-      <table class="zebra-striped two-column-even">
-        <thead>
-        <tr>
-          <th>Parameter</th>
-          <th>Value</th>
-        </tr>
-        </thead>
-        <tbody>
-        <wen:systemStatus/>
-        </tbody>
-      </table>
-    </div>
-  </div><!-- /row -->
-  <div class="row">
-    <div class="span4">
-      <h3>System Information</h3>
-    </div>
-
-    <div class="span12">
-      <table class="zebra-striped two-column-even">
-        <thead>
-        <tr>
-          <th>Parameter</th>
-          <th>Value</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-          <td>App version</td>
-          <td><g:meta name="app.version"/></td>
-        </tr>
-        <tr>
-          <td>Grails version</td>
-          <td><g:meta name="app.grails.version"/></td>
-        </tr>
-        <tr>
-          <td>JVM version</td>
-          <td>${System.getProperty('java.version')}</td>
-        </tr>
-        </tbody>
-      </table>
-    </div>
-  </div><!-- /row -->
 </section>
 </body>
 </html>

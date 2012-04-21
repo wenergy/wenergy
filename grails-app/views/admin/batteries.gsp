@@ -28,12 +28,12 @@
 <section id="admin">
   <div class="row">
 
-    <div class="span4">
+    <div class="span3">
       <g:render template="navigation" model="[nav: actionName]"/>
     </div>
 
-    <div class="span8">
-      .
+    <div class="span9">
+
     </div>
   </div><!-- /row -->
 </section>

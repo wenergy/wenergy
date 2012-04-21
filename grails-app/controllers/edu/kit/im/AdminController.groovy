@@ -17,6 +17,8 @@
 
 package edu.kit.im
 
+import org.joda.time.DateTime
+
 class AdminController {
 
   def springSecurityService
@@ -81,7 +83,21 @@ class AdminController {
   }
 
   def status() {
+    def appInfo = ["wEnergy Version": grailsApplication.metadata.'app.version',
+        "Grails Version": grailsApplication.metadata.'app.grails.version',
+        "JVM Version": System.getProperty("java.version"),
+        "Systemzeit": new DateTime(),
+        "Zeitzone": new DateTime().getZone()
+    ]
 
+    def dataInfo = [:]
+
+    dataInfo["Teilnehmer"] = Household.count()
+    dataInfo["Gruppen"] = Peergroup.count()
+    dataInfo["Verbrauchswerte"] = Consumption.count()
+    dataInfo["Aggregierte Verbrauchswerte"] = AggregatedConsumption.count()
+
+    [app: appInfo, data: dataInfo]
   }
 
   def controllers() {

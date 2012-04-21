@@ -28,12 +28,42 @@
 <section id="admin">
   <div class="row">
 
-    <div class="span4">
+    <div class="span3">
       <g:render template="navigation" model="[nav: actionName]"/>
     </div>
 
-    <div class="span8">
-      .
+    <div class="span9">
+      <div class="row">
+        <div class="span4">
+          <h3>wEnergy</h3>
+
+          <p><table class="table">
+          <tbody>
+          <g:each var="map" in="${app}" status="i">
+            <tr>
+              <td>${map.key}</td>
+              <td>${map.value}</td>
+            </tr>
+          </g:each>
+          </tbody>
+        </table></p>
+        </div>
+
+        <div class="span4">
+          <h3>Daten</h3>
+
+          <p><table class="table">
+          <tbody>
+          <g:each var="map" in="${data}" status="i">
+            <tr>
+              <td>${map.key}</td>
+              <td>${map.value}</td>
+            </tr>
+          </g:each>
+          </tbody>
+        </table></p>
+        </div>
+      </div>
     </div>
   </div><!-- /row -->
 </section>
