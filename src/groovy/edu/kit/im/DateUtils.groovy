@@ -99,9 +99,23 @@ class DateUtils {
   }
 
   // Format
-  static String formatDateTime(DateTime startDateTime, DateTime endDateTime = null, boolean utcFix = true) {
+  static String formatDateTime(DateTime startDateTime, DateTime endDateTime = null, ConsumptionType type = null, boolean utcFix = true) {
     DateTime displayStartDate = (utcFix ? DateUtils.subtractUTCOffset(startDateTime) : startDateTime)
-    DateTimeFormatter startFormatter = DateTimeFormat.forPattern("dd.MM.YYYY HH:mm:ss").withLocale(Locale.GERMAN)
+    def startPattern = ""
+
+    switch (type) {
+      case ConsumptionType.MIN5:
+      case ConsumptionType.MIN15:
+      case ConsumptionType.MIN30:
+      case ConsumptionType.H3:
+        startPattern += "EEEE's' "
+        break
+      default:
+        startPattern += "dd.MM.YYYY "
+    }
+
+    startPattern += "HH:mm:ss"
+    DateTimeFormatter startFormatter = DateTimeFormat.forPattern(startPattern).withLocale(Locale.GERMAN)
     def formattedStartDate = startFormatter.print(displayStartDate)
 
     def formattedDate = formattedStartDate

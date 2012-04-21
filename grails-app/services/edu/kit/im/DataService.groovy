@@ -214,7 +214,7 @@ class DataService {
         BigDecimal phasesSum = avgPowerPhase1 + avgPowerPhase2 + avgPowerPhase3
         phasesSum = phasesSum.setScale(3, RoundingMode.HALF_UP)
 
-        def formattedDate = DateUtils.formatDateTime(mergedStartDate, mergedEndDate, false)
+        def formattedDate = DateUtils.formatDateTime(mergedStartDate, mergedEndDate, type, false)
 
         // Highcharts data point object
         ["name": formattedDate, "x": mergedStartDate.getMillis(), "y": phasesSum]
