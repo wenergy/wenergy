@@ -18,6 +18,7 @@
 package edu.kit.im
 
 import org.joda.time.DateTime
+import grails.converters.JSON
 
 class AdminController {
 
@@ -82,7 +83,7 @@ class AdminController {
 
   }
 
-  def status() {
+  def information() {
     def appInfo = ["wEnergy Version": grailsApplication.metadata.'app.version',
         "Grails Version": grailsApplication.metadata.'app.grails.version',
         "JVM Version": System.getProperty("java.version"),
@@ -97,7 +98,10 @@ class AdminController {
     dataInfo["Verbrauchswerte"] = Consumption.count()
     dataInfo["Aggregierte Verbrauchswerte"] = AggregatedConsumption.count()
 
-    [app: appInfo, data: dataInfo]
+    def vcapInfo = appInfo as JSON
+    vcapInfo.toString()
+
+    [app: appInfo, data: dataInfo, vcap: vcapInfo]
   }
 
   def controllers() {

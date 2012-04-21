@@ -41,11 +41,11 @@
 
     <li class="nav-header">System</li>
 
-    <% if (nav == "status") {
-      statusActive = 'class="active"'
-      statusActiveIcon = "icon-white"
+    <% if (nav == "information") {
+      informationActive = 'class="active"'
+      informationActiveIcon = "icon-white"
     } %>
-    <li ${statusActive}><g:link action="status"><i class="icon-info-sign ${statusActiveIcon}"></i> Status</g:link></li>
+    <li ${informationActive}><g:link action="information"><i class="icon-info-sign ${informationActiveIcon}"></i> Informationen</g:link></li>
 
     <% if (nav == "controllers") {
       controllersActive = 'class="active"'

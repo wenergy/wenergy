@@ -18,7 +18,7 @@
 <html>
 <head>
   <meta name="layout" content="main"/>
-  <title>System - Status</title>
+  <title>System - Information</title>
 </head>
 
 <body>
