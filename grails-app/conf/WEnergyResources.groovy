@@ -22,7 +22,7 @@ def jqver = ConfigurationHolder.config?.jquery?.version
 modules = {
   overrides {
     jquery {
-      resource id: "js", url: [dir: "js/jquery", file: "jquery-${jqver}.min.js"], disposition: "head", nominify: true
+      resource id: "js", url: [dir: "js/jquery", file: "jquery-${jqver}.min.js"], disposition: "head", exclude:"yuijsminify"
     }
   }
 
@@ -36,7 +36,7 @@ modules = {
   }
 
   bootstrapcss {
-    resource url: [dir: "css", file: "bootstrap.css"], attrs: [media: 'screen, projection'], disposition: "head"
+    resource url: [dir: "css", file: "bootstrap.min.css"], attrs: [media: 'screen, projection'], disposition: "head"
   }
 
   bootstrapjs {
@@ -46,12 +46,12 @@ modules = {
 
   highstockjs {
     dependsOn "jquery"
-    resource url: [dir: "js/highstock", file: "highstock.js"], disposition: "head"
+    resource url: [dir: "js/highstock", file: "highstock.js"], disposition: "head", exclude:"yuijsminify"
   }
 
   raphaeljs {
     dependsOn "jquery"
-    resource url: [dir: "js/raphael", file: "raphael-min.js"], disposition: "head"
+    resource url: [dir: "js/raphael", file: "raphael-min.js"], disposition: "head", exclude:"yuijsminify"
   }
 
   datejs {
