@@ -24,13 +24,29 @@ class WEnergyTagLib {
   static namespace = "wen"
 
   def springSecurityService
-  def dataService
 
   // Full name displayed for logged in user
   def fullName = {
     if (springSecurityService.isLoggedIn()) {
       Household user = springSecurityService.currentUser
       out << user.fullName.encodeAsHTML()
+    }
+  }
+
+  // Security additions for individual user queries
+  def ifGrantedForUser = { attrs, body ->
+    def authorities = Household.findById(attrs.user)?.getAuthorities()?.collect { it.authority }
+
+    if (authorities?.contains(attrs.role)) {
+      out << body()
+    }
+  }
+
+  def ifNotGrantedForUser = { attrs, body ->
+    def authorities = Household.findById(attrs.user)?.getAuthorities()?.collect { it.authority }
+
+    if (!authorities?.contains(attrs.role)) {
+      out << body()
     }
   }
 

@@ -15,7 +15,28 @@
   - limitations under the License.
   --}%
 
-<div class="alert fade in">
-  <a class="close" data-dismiss="alert">&times;</a>
-  <strong>Warnung</strong> ${flash.warning}
-</div>
+<html>
+<head>
+  <meta name="layout" content="main"/>
+  <title>System - API-Fehlerliste</title>
+</head>
+
+<body>
+
+<!-- Admin
+================================================== -->
+<section id="admin">
+  <div class="row">
+
+    <div class="span4">
+      <g:render template="navigation" model="[nav: actionName]"/>
+    </div>
+
+    <div class="span8">
+      .
+    </div>
+  </div><!-- /row -->
+</section>
+
+</body>
+</html>

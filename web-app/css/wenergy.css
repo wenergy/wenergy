@@ -275,4 +275,6 @@ body {
 }
 
 
-
+#admin .linkColumn {
+  width: 60px;
+}
