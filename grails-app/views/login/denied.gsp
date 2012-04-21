@@ -27,14 +27,14 @@
 ================================================== -->
 <section id="denied">
   <div class="page-header">
-    <h1><g:message code="springSecurity.denied.title"/></h1>
+    <h1><g:message code="springSecurity.denied.title" locale="${Locale.GERMAN}"/></h1>
   </div>
 
   <div class="row">
     <div class="span12">
-      <p><g:message code="springSecurity.denied.message"/></p>
+      <p><g:message code="springSecurity.denied.message" locale="${Locale.GERMAN}"/></p>
 
-      <p><a href="javascript:history.go(-1);return false;" title="Return to the previous page">&laquo; Go back</a></p>
+      <p><a href="javascript:history.go(-1);return false;" title="Return to the previous page">&laquo; Zurück</a></p>
     </div>
   </div>
 </section>
