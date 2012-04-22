@@ -19,6 +19,7 @@
 <head>
   <meta name="layout" content="main"/>
   <title>System - Jobs</title>
+  <r:require modules="admin"/>
 </head>
 
 <body>

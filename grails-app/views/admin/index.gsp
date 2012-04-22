@@ -20,7 +20,7 @@
 <head>
   <meta name="layout" content="main"/>
   <title>Teilnehmer - Übersicht</title>
-  <r:require modules="adminjs"/>
+  <r:require modules="admin"/>
 </head>
 
 <body>
@@ -35,23 +35,21 @@
     </div>
 
     <div class="span9">
-      <table class="table">
+      <table class="table" id="adminTable">
         <thead>
         <tr>
           <th>Gruppe</th>
           <th>Name</th>
           <th>Benutzername</th>
           <th>E-Mail</th>
-          <th class="linkColumn">&nbsp;</th>
+          <th class="linkColumn nonSortable">&nbsp;</th>
         </tr>
         </thead>
         <tbody>
         <g:each var="group" in="${groups}" status="i">
           <g:each var="household" in="${group.households.sort { it.fullName.toLowerCase() }}" status="j">
             <tr>
-              <g:if test="${group.households.size() > 1 && j == 0}"><td
-                  rowspan="${group.households.size()}">${group.name}</td></g:if>
-              <g:elseif test="${group.households.size() == 1}"><td>${group.name}</td></g:elseif>
+              <td>${group.name}</td>
               <td>${household.fullName}</td>
               <td>${household.username}</td>
               <td><a href="mailto:${household.eMail}">${household.eMail}</a></td>

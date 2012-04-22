@@ -19,6 +19,7 @@
 <head>
   <meta name="layout" content="main"/>
   <title>System - API-Fehlerliste</title>
+  <r:require modules="admin"/>
 </head>
 
 <body>

@@ -97,6 +97,11 @@ modules = {
     resource url: [dir: "css", file: "prettify.css"], disposition: "head"
   }
 
+  datatablesjs {
+    dependsOn "jquery"
+    resource url: [dir: "js", file: "jquery/jquery.datatables.min.js"], disposition: "head"
+  }
+
   wenergyjs {
     resource url: [dir: "js", file: "wenergy.js"], disposition: "head"
   }
@@ -116,8 +121,9 @@ modules = {
     resource url: [dir: "js", file: "live.js"], disposition: "head"
   }
 
-  adminjs {
-    dependsOn "prettify"
+  admin {
+    dependsOn "prettify, datatablesjs"
     resource url: [dir: "js", file: "admin.js"], disposition: "head"
+    resource url: [dir: "css", file: "admin.css"], disposition: "head"
   }
 }

@@ -19,6 +19,7 @@
 <head>
   <meta name="layout" content="main"/>
   <title>Teilnehmer - Zugriffsrechte</title>
+  <r:require modules="admin"/>
 </head>
 
 <body>
@@ -33,15 +34,15 @@
     </div>
 
     <div class="span9">
-      <table class="table">
+      <table class="table" id="adminTable">
         <thead>
         <tr>
           <th>Name</th>
           <th>Benutzername</th>
-          <th>Aktiviert</th>
-          <th>Benutzerrechte</th>
-          <th>Adminrechte</th>
-          <th class="linkColumn">&nbsp;</th>
+          <th class="sortByTitleAttr">Aktiviert</th>
+          <th class="sortByTitleAttr">Benutzerrechte</th>
+          <th class="sortByTitleAttr">Adminrechte</th>
+          <th class="linkColumn nonSortable">&nbsp;</th>
         </tr>
         </thead>
         <tbody>
@@ -51,37 +52,42 @@
             <td>${household.username}</td>
             <td>
               <g:if test="${household.enabled}">
+                <span title="0"></span>
                 <g:link action="permissionsDisableUser" id="${household.id}" class="btn btn-mini btn-success"
                         title="Benutzer deaktivieren"><i
                     class="icon-white icon-ok"></i></g:link>
               </g:if>
               <g:else>
+                <span title="1"></span>
                 <g:link action="permissionsEnableUser" id="${household.id}" class="btn btn-mini btn-danger"
-                                        title="Benutzer aktivieren"><i
-                                    class="icon-white icon-remove"></i></g:link>
+                        title="Benutzer aktivieren"><i
+                    class="icon-white icon-remove"></i></g:link>
               </g:else>
             </td>
-            <td><wen:ifGrantedForUser user="${household.id}" role="ROLE_USER"><g:link action="permissionsRemoveFromUser"
-                                                                                      id="${household.id}"
-                                                                                      class="btn btn-mini btn-danger"
-                                                                                      title="Benutzerrechte entfernen"><i
+            <td><wen:ifGrantedForUser user="${household.id}" role="ROLE_USER"><span title="0"></span><g:link
+                action="permissionsRemoveFromUser"
+                id="${household.id}"
+                class="btn btn-mini btn-danger"
+                title="Benutzerrechte entfernen"><i
                   class="icon-white icon-minus"></i></g:link></wen:ifGrantedForUser>
-              <wen:ifNotGrantedForUser user="${household.id}" role="ROLE_USER"><g:link action="permissionsAddToUser"
-                                                                                       id="${household.id}"
-                                                                                       class="btn btn-mini btn-success"
-                                                                                       title="Benutzerrechte hinzufügen"><i
+              <wen:ifNotGrantedForUser user="${household.id}" role="ROLE_USER"><span title="1"></span><g:link
+                  action="permissionsAddToUser"
+                  id="${household.id}"
+                  class="btn btn-mini btn-success"
+                  title="Benutzerrechte hinzufügen"><i
                     class="icon-white icon-plus"></i></g:link></wen:ifNotGrantedForUser>
             </td>
-            <td><wen:ifGrantedForUser user="${household.id}" role="ROLE_ADMIN"><g:link
+            <td><wen:ifGrantedForUser user="${household.id}" role="ROLE_ADMIN"><span title="0"></span><g:link
                 action="permissionsRemoveFromAdmin"
                 id="${household.id}"
                 class="btn btn-mini btn-danger"
                 title="Adminrechte entfernen"><i
                   class="icon-white icon-minus"></i></g:link></wen:ifGrantedForUser>
-              <wen:ifNotGrantedForUser user="${household.id}" role="ROLE_ADMIN"><g:link action="permissionsAddToAdmin"
-                                                                                        id="${household.id}"
-                                                                                        class="btn btn-mini btn-success"
-                                                                                        title="Adminrechte hinzufügen"><i
+              <wen:ifNotGrantedForUser user="${household.id}" role="ROLE_ADMIN"><span title="1"></span><g:link
+                  action="permissionsAddToAdmin"
+                  id="${household.id}"
+                  class="btn btn-mini btn-success"
+                  title="Adminrechte hinzufügen"><i
                     class="icon-white icon-plus"></i></g:link></wen:ifNotGrantedForUser>
             </td>
             <td><g:render template="usermenu" model="[household: household, currentUser: currentUser]"/></td>

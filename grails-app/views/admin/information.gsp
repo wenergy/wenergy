@@ -19,7 +19,7 @@
 <head>
   <meta name="layout" content="main"/>
   <title>System - Information</title>
-  <r:require modules="adminjs"/>
+  <r:require modules="admin"/>
 </head>
 
 <body>

@@ -19,6 +19,7 @@
 <head>
   <meta name="layout" content="main"/>
   <title>System - Controllers</title>
+  <r:require modules="admin"/>
 </head>
 
 <body>
@@ -33,12 +34,12 @@
     </div>
 
     <div class="span9">
-      <table class="table">
+      <table class="table" id="adminTable">
         <thead>
         <tr>
           <th>Name</th>
           <th>Java Property Name</th>
-          <th class="linkColumn"></th>
+          <th class="linkColumn nonSortable"></th>
         </tr>
         </thead>
         <tbody>
