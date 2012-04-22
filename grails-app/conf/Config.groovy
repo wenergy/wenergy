@@ -60,6 +60,7 @@ environments {
   development {
     grails.logging.jul.usebridge = true
     grails.relativeServerURL = "/wenergy/"
+    grails.resources.mappers.hashandcache.excludes = ['**/*']
 
     // log4j configuration
     log4j = {

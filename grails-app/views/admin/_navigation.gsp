@@ -51,7 +51,7 @@
       controllersActive = 'class="active"'
       controllersActiveIcon = "icon-white"
     } %>
-    <li ${controllersActive}><g:link action="controllers"><i class="icon-cog ${controllersActiveIcon}"></i> Controllers</g:link></li>
+    <li ${controllersActive}><g:link action="controllers"><i class="icon-cog ${controllersActiveIcon}"></i> Controller</g:link></li>
 
     <% if (nav == "jobs") {
       jobsActive = 'class="active"'

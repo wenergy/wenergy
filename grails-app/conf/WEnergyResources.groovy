@@ -91,6 +91,12 @@ modules = {
     resource url: [dir: "js", file: "jquery/jquery.spin.js"], disposition: "head"
   }
 
+  prettify {
+    dependsOn "jquery"
+    resource url: [dir: "js", file: "prettify/prettify.js"], disposition: "head", exclude:"yuijsminify"
+    resource url: [dir: "css", file: "prettify.css"], disposition: "head"
+  }
+
   wenergyjs {
     resource url: [dir: "js", file: "wenergy.js"], disposition: "head"
   }

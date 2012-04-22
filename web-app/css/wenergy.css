@@ -227,13 +227,8 @@ body {
   vertical-align: top;
 }
 
-/* Admin Tools */
-#admintools .two-column-even th,
-#admintools .two-column-even td {
-  width: 50%;
-}
-
-/* Live */
+/* Live
+-------------------------------------------------- */
 
 #live {
   padding-top: 20px;
@@ -274,7 +269,13 @@ body {
   padding-top: 5px;
 }
 
+/* Admin
+-------------------------------------------------- */
 
 #admin .linkColumn {
   width: 60px;
+}
+
+#admin .vcap {
+  margin-top: 10px;
 }

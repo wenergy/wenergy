@@ -98,10 +98,29 @@ class AdminController {
     dataInfo["Verbrauchswerte"] = Consumption.count()
     dataInfo["Aggregierte Verbrauchswerte"] = AggregatedConsumption.count()
 
-    def vcapInfo = appInfo as JSON
-    vcapInfo.toString()
+    def vcapApplicationString = System.getenv("VCAP_APPLICATION")
+    def vcapApplication
+    if (vcapApplicationString) {
+      try {
+        vcapApplication = JSON.parse(vcapApplicationString) as JSON
+        vcapApplication.prettyPrint = true
+      } catch (Exception e) {
+        log.error e
+      }
+    }
 
-    [app: appInfo, data: dataInfo, vcap: vcapInfo]
+    def vcapServicesString = System.getenv("VCAP_SERVICES")
+    def vcapServices
+    if (vcapServicesString) {
+      try {
+        vcapServices = JSON.parse(vcapServicesString) as JSON
+        vcapServices.prettyPrint = true
+      } catch (Exception e) {
+        log.error e
+      }
+    }
+
+    [app: appInfo, data: dataInfo, vcapServices: vcapServices?.encodeAsHTML(), vcapApplication: vcapApplication?.encodeAsHTML()]
   }
 
   def controllers() {

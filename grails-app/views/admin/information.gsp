@@ -19,6 +19,12 @@
 <head>
   <meta name="layout" content="main"/>
   <title>System - Information</title>
+  <r:require modules="prettify"/>
+  <r:script disposition="head">
+    $(function () {
+      prettyPrint();
+    });
+  </r:script>
 </head>
 
 <body>
@@ -64,6 +70,21 @@
         </table></p>
         </div>
       </div>
+
+      <div class="row">
+        <div class="span8">
+          <h3>VCAP Application</h3>
+          <pre class="prettyprint linenums lang-js vcap">${vcapApplication}</pre>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="span8">
+          <h3>VCAP Services</h3>
+          <pre class="prettyprint linenums lang-js vcap">${vcapServices}</pre>
+        </div>
+      </div>
+
     </div>
   </div><!-- /row -->
 </section>
