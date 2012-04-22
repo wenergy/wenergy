@@ -39,7 +39,7 @@ class AdminController {
     def user = Household.findById(userId)
 
     if (user?.authorities?.contains(role)) {
-      flash.warning = "${user.fullName} hat bereits die gewünschten Rechte"
+      flash.warning = "\"${user.fullName}\" hat bereits die gewünschten Rechte"
     } else {
       HouseholdRole.create(user, role)
     }
@@ -53,7 +53,7 @@ class AdminController {
     def currentUser = springSecurityService.currentUser
 
     if (currentUser == user) {
-      flash.error = "Die Rechte für ${user.fullName} können nicht entfernt werden"
+      flash.error = "Die Rechte für \"${user.fullName}\" können nicht entfernt werden"
     } else {
       if (user?.authorities?.contains(role)) {
         HouseholdRole.remove(user, role)
