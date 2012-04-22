@@ -33,7 +33,25 @@
     </div>
 
     <div class="span9">
-
+      <table class="table">
+        <thead>
+        <tr>
+          <th>Name</th>
+          <th>Java Property Name</th>
+          <th class="linkColumn"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <g:each var="c" in="${grailsApplication.controllerClasses.sort { it.fullName }}">
+          <tr>
+            <td>${c.naturalName}</td>
+            <td>${c.logicalPropertyName}</td>
+            <td><g:link controller="${c.logicalPropertyName}" class="btn btn-mini"><i
+                class="icon-arrow-right"></i></g:link></td>
+          </tr>
+        </g:each>
+        </tbody>
+      </table>
     </div>
   </div><!-- /row -->
 </section>
