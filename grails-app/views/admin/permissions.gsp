@@ -38,6 +38,7 @@
         <tr>
           <th>Name</th>
           <th>Benutzername</th>
+          <th>Aktiviert</th>
           <th>Benutzerrechte</th>
           <th>Adminrechte</th>
           <th class="linkColumn">&nbsp;</th>
@@ -48,6 +49,18 @@
           <tr>
             <td>${household.fullName}</td>
             <td>${household.username}</td>
+            <td>
+              <g:if test="${household.enabled}">
+                <g:link action="permissionsDisableUser" id="${household.id}" class="btn btn-mini btn-success"
+                        title="Benutzer deaktivieren"><i
+                    class="icon-white icon-ok"></i></g:link>
+              </g:if>
+              <g:else>
+                <g:link action="permissionsEnableUser" id="${household.id}" class="btn btn-mini btn-danger"
+                                        title="Benutzer aktivieren"><i
+                                    class="icon-white icon-remove"></i></g:link>
+              </g:else>
+            </td>
             <td><wen:ifGrantedForUser user="${household.id}" role="ROLE_USER"><g:link action="permissionsRemoveFromUser"
                                                                                       id="${household.id}"
                                                                                       class="btn btn-mini btn-danger"

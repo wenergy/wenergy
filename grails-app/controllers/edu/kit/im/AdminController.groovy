@@ -79,6 +79,34 @@ class AdminController {
     removeUserFromRole(params.id, "ROLE_ADMIN")
   }
 
+  def permissionsEnableUser() {
+    def user = Household.findById(params.id)
+    def currentUser = springSecurityService.currentUser
+
+    if (user.enabled) {
+      flash.warning = "\"${user.fullName}\" ist bereits aktiviert"
+    } else {
+      user.enabled = true
+      user.save()
+    }
+
+    redirect(action: "permissions")
+  }
+
+  def permissionsDisableUser() {
+    def user = Household.findById(params.id)
+    def currentUser = springSecurityService.currentUser
+
+    if (currentUser == user) {
+      flash.error = "\"${user.fullName}\" kann nicht deaktiviert werden"
+    } else {
+      user.enabled = false
+      user.save()
+    }
+
+    redirect(action: "permissions")
+  }
+
   def switchUser() {
     def household = Household.findById(params.id)
     redirect(uri: "/j_spring_security_switch_user?j_username=${household?.username}")
