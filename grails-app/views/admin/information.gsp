@@ -35,53 +35,58 @@
 
     <div class="span9">
       <div class="row">
-        <div class="span5">
+        <div class="span6">
           <h3>wEnergy</h3>
 
-          <p><table class="table">
-          <tbody>
-          <g:each var="map" in="${app}" status="i">
-            <tr>
-              <td>${map.key}</td>
-              <td>${map.value}</td>
-            </tr>
-          </g:each>
-          </tbody>
-        </table></p>
-        </div>
+          <table class="table">
+            <tbody>
+            <g:each var="map" in="${app}" status="i">
+              <tr>
+                <td>${map.key}</td>
+                <td>${map.value}</td>
+              </tr>
+            </g:each>
+            </tbody>
+          </table>
 
-        <div class="span4">
           <h3>Daten</h3>
 
-          <p><table class="table">
-          <tbody>
-          <g:each var="map" in="${data}" status="i">
-            <tr>
-              <td>${map.key}</td>
-              <td>${map.value}</td>
-            </tr>
-          </g:each>
-          </tbody>
-        </table></p>
-        </div>
-      </div>
+          <table class="table">
+            <tbody>
+            <g:each var="map" in="${data}" status="i">
+              <tr>
+                <td>${map.key}</td>
+                <td>${map.value}</td>
+              </tr>
+            </g:each>
+            </tbody>
+          </table>
 
-      <div class="row">
-        <div class="span9">
           <h3>VCAP Application</h3>
-          <pre class="prettyprint linenums lang-js vcap">${vcapApplication}</pre>
-        </div>
-      </div>
+          <pre class="prettyprint linenums lang-js">${vcapApplication}</pre>
 
-      <div class="row">
-        <div class="span9">
           <h3>VCAP Services</h3>
-          <pre class="prettyprint linenums lang-js vcap">${vcapServices}</pre>
+          <pre class="prettyprint linenums lang-js">${vcapServices}</pre>
         </div>
-      </div>
 
+        <div class="span3">
+          <h3>Plugins</h3>
+
+          <table class="table">
+            <tbody>
+            <g:each var="plugin" in="${applicationContext.getBean('pluginManager').allPlugins.sort { it.name }}">
+              <tr>
+                <td>${plugin.name}</td>
+                <td>${plugin.version}</td>
+              </tr>
+            </g:each>
+            </tbody>
+          </table>
+        </div>
+
+      </div><!-- /row -->
     </div>
-  </div><!-- /row -->
+  </div>
 </section>
 
 </body>

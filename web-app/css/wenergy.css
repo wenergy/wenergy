@@ -276,6 +276,6 @@ body {
   width: 40px;
 }
 
-#admin .vcap {
-  margin-top: 10px;
+#admin h3 {
+  margin-bottom: 10px;
 }
