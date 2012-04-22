@@ -54,10 +54,21 @@
               <td>${household.fullName}</td>
               <td><a href="mailto:${household.eMail}">${household.eMail}</a></td>
               <td>${household.username}</td>
-              <td><g:link controller="household" action="show" id="${household.id}" class="btn btn-mini"><i
-                  class="icon-eye-open" title="${household.fullName} anzeigen"></i></g:link>
-                <g:link controller="household" action="edit" id="${household.id}" class="btn btn-mini"><i
-                    class="icon-pencil" title="${household.fullName} bearbeiten"></i></g:link></td>
+              <td>
+                <div class="btn-group">
+                  <button class="btn btn-mini dropdown-toggle" data-toggle="dropdown"><i class="icon-cog"></i> <span
+                      class="caret"></span></button>
+                  <ul class="dropdown-menu">
+                    <li><g:link controller="household" action="show" id="${household.id}"><i
+                        class="icon-file"></i> Anzeigen</g:link></li>
+                    <li><g:link controller="household" action="edit" id="${household.id}"><i
+                        class="icon-pencil"></i> Bearbeiten</g:link></li>
+                    <li class="divider"></li>
+                    <li><g:link action="switchUser" id="${household.id}"><i
+                        class="icon-eye-open"></i> Als "${household.fullName}" anmelden</g:link></li>
+                  </ul>
+                </div><!-- /btn-group -->
+              </td>
             </tr>
           </g:each>
         </g:each>
