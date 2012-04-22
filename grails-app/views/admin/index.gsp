@@ -20,6 +20,7 @@
 <head>
   <meta name="layout" content="main"/>
   <title>Teilnehmer - Übersicht</title>
+  <r:require modules="adminjs"/>
 </head>
 
 <body>
@@ -63,9 +64,13 @@
                         class="icon-file"></i> Anzeigen</g:link></li>
                     <li><g:link controller="household" action="edit" id="${household.id}"><i
                         class="icon-pencil"></i> Bearbeiten</g:link></li>
-                    <li class="divider"></li>
-                    <li><g:link action="switchUser" id="${household.id}"><i
-                        class="icon-eye-open"></i> Als "${household.fullName}" anmelden</g:link></li>
+                    <sec:ifNotSwitched>
+                      <g:if test="${household.enabled && household != currentUser}">
+                        <li class="divider"></li>
+                        <li><g:link action="switchUser" id="${household.id}"><i
+                            class="icon-eye-open"></i> Als "${household.fullName}" anmelden</g:link></li>
+                      </g:if>
+                    </sec:ifNotSwitched>
                   </ul>
                 </div><!-- /btn-group -->
               </td>

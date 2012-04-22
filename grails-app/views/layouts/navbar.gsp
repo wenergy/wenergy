@@ -70,6 +70,12 @@
               <sec:ifAllGranted roles="ROLE_ADMIN">
                 <li><g:link controller="admin"><i class="icon-cog"></i> Verwaltung</g:link></li>
               </sec:ifAllGranted>
+              <sec:ifSwitched>
+                <li>
+                  <a href="${request.contextPath}/j_spring_security_exit_user"><i
+                      class="icon-random"></i> Weiter als "<wen:switchedUserOriginalUsername/>"</a>
+                </li>
+              </sec:ifSwitched>
               <li class="divider"></li>
               <li><g:link controller="logout"><i class="icon-off"></i> Abmelden</g:link></li>
             </ul>

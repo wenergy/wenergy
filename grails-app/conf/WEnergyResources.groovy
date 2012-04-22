@@ -116,8 +116,8 @@ modules = {
     resource url: [dir: "js", file: "live.js"], disposition: "head"
   }
 
-  peergroupjs {
-    dependsOn "jqbbq, jqchrono, datejs, highstockjs, spinjs, raphaeljs, wenergyjs"
-    resource url: [dir: "js", file: "peergroup.js"], disposition: "head"
+  adminjs {
+    dependsOn "prettify"
+    resource url: [dir: "js", file: "admin.js"], disposition: "head"
   }
 }

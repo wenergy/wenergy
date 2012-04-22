@@ -19,12 +19,7 @@
 <head>
   <meta name="layout" content="main"/>
   <title>System - Information</title>
-  <r:require modules="prettify"/>
-  <r:script disposition="head">
-    $(function () {
-      prettyPrint();
-    });
-  </r:script>
+  <r:require modules="adminjs"/>
 </head>
 
 <body>

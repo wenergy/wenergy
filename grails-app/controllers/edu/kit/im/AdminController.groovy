@@ -27,11 +27,11 @@ class AdminController {
   def rankingService
 
   def index() {
-    [groups: Peergroup.getAll().sort { it.name.toLowerCase() }]
+    [groups: Peergroup.getAll().sort { it.name.toLowerCase() }, currentUser: springSecurityService.currentUser]
   }
 
   def permissions() {
-    [households: Household.getAll().sort { it.fullName.toLowerCase() }]
+    [households: Household.getAll().sort { it.fullName.toLowerCase() }, currentUser: springSecurityService.currentUser]
   }
 
   def addUserToRole(def userId, def targetRole) {
@@ -77,6 +77,11 @@ class AdminController {
 
   def permissionsRemoveFromAdmin() {
     removeUserFromRole(params.id, "ROLE_ADMIN")
+  }
+
+  def switchUser() {
+    def household = Household.findById(params.id)
+    redirect(uri: "/j_spring_security_switch_user?j_username=${household?.username}")
   }
 
   def batteries() {

@@ -60,7 +60,6 @@ environments {
   development {
     grails.logging.jul.usebridge = true
     grails.relativeServerURL = "/wenergy/"
-    grails.resources.mappers.hashandcache.excludes = ['**/*']
 
     // log4j configuration
     log4j = {
@@ -120,6 +119,7 @@ environments {
 grails.plugins.springsecurity.userLookup.userDomainClassName = 'edu.kit.im.Household'
 grails.plugins.springsecurity.userLookup.authorityJoinClassName = 'edu.kit.im.HouseholdRole'
 grails.plugins.springsecurity.authority.className = 'edu.kit.im.Role'
+grails.plugins.springsecurity.useSwitchUserFilter = true
 
 //grails.plugins.springsecurity.auth.loginFormUrl = '/'
 //grails.plugins.springsecurity.failureHandler.defaultFailureUrl = '/home/index'
@@ -140,7 +140,9 @@ grails.plugins.springsecurity.interceptUrlMap = [
     '/data/**': ["hasRole('ROLE_USER')"],
     '/home/**': ["hasRole('ROLE_USER')"],
     '/household/**': ["hasRole('ROLE_ADMIN')"],
-    '/peergroup/**': ["hasRole('ROLE_ADMIN')"]
+    '/peergroup/**': ["hasRole('ROLE_ADMIN')"],
+    // Spring Security
+    '/j_spring_security_switch_user': ["hasRole('ROLE_ADMIN')"]
 ]
 
 // Always use latest jQuery version

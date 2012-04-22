@@ -19,6 +19,8 @@
 
 package edu.kit.im
 
+import org.codehaus.groovy.grails.plugins.springsecurity.SpringSecurityUtils
+
 class WEnergyTagLib {
 
   static namespace = "wen"
@@ -47,6 +49,15 @@ class WEnergyTagLib {
 
     if (!authorities?.contains(attrs.role)) {
       out << body()
+    }
+  }
+
+  // User switching support
+  def switchedUserOriginalUsername = { attrs, body ->
+    if (SpringSecurityUtils.isSwitched()) {
+      def username = SpringSecurityUtils.switchedUserOriginalUsername
+      def household = Household.findByUsername(username)
+      out << household?.fullName?.encodeAsHTML()
     }
   }
 }
