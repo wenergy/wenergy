@@ -35,7 +35,7 @@
 
     <div class="span9">
       <div class="row">
-        <div class="span4">
+        <div class="span5">
           <h3>wEnergy</h3>
 
           <p><table class="table">
@@ -67,14 +67,14 @@
       </div>
 
       <div class="row">
-        <div class="span8">
+        <div class="span9">
           <h3>VCAP Application</h3>
           <pre class="prettyprint linenums lang-js vcap">${vcapApplication}</pre>
         </div>
       </div>
 
       <div class="row">
-        <div class="span8">
+        <div class="span9">
           <h3>VCAP Services</h3>
           <pre class="prettyprint linenums lang-js vcap">${vcapServices}</pre>
         </div>
