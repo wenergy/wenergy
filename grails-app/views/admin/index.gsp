@@ -40,8 +40,8 @@
         <tr>
           <th>Gruppe</th>
           <th>Name</th>
-          <th>E-Mail</th>
           <th>Benutzername</th>
+          <th>E-Mail</th>
           <th class="linkColumn">&nbsp;</th>
         </tr>
         </thead>
@@ -53,27 +53,9 @@
                   rowspan="${group.households.size()}">${group.name}</td></g:if>
               <g:elseif test="${group.households.size() == 1}"><td>${group.name}</td></g:elseif>
               <td>${household.fullName}</td>
-              <td><a href="mailto:${household.eMail}">${household.eMail}</a></td>
               <td>${household.username}</td>
-              <td>
-                <div class="btn-group">
-                  <button class="btn btn-mini dropdown-toggle" data-toggle="dropdown"><i class="icon-cog"></i> <span
-                      class="caret"></span></button>
-                  <ul class="dropdown-menu">
-                    <li><g:link controller="household" action="show" id="${household.id}"><i
-                        class="icon-file"></i> Anzeigen</g:link></li>
-                    <li><g:link controller="household" action="edit" id="${household.id}"><i
-                        class="icon-pencil"></i> Bearbeiten</g:link></li>
-                    <sec:ifNotSwitched>
-                      <g:if test="${household.enabled && household != currentUser}">
-                        <li class="divider"></li>
-                        <li><g:link action="switchUser" id="${household.id}"><i
-                            class="icon-eye-open"></i> Als "${household.fullName}" anmelden</g:link></li>
-                      </g:if>
-                    </sec:ifNotSwitched>
-                  </ul>
-                </div><!-- /btn-group -->
-              </td>
+              <td><a href="mailto:${household.eMail}">${household.eMail}</a></td>
+              <td><g:render template="usermenu" model="[household: household, currentUser: currentUser]"/></td>
             </tr>
           </g:each>
         </g:each>

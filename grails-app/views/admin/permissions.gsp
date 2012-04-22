@@ -71,10 +71,7 @@
                                                                                         title="Adminrechte hinzufügen"><i
                     class="icon-white icon-plus"></i></g:link></wen:ifNotGrantedForUser>
             </td>
-            <td><g:link controller="household" action="show" id="${household.id}" class="btn btn-mini"><i
-                class="icon-eye-open" title="${household.fullName} anzeigen"></i></g:link>
-              <g:link controller="household" action="edit" id="${household.id}" class="btn btn-mini"><i
-                  class="icon-pencil" title="${household.fullName} bearbeiten"></i></g:link></td>
+            <td><g:render template="usermenu" model="[household: household, currentUser: currentUser]"/></td>
           </tr>
         </g:each>
         </tbody>
