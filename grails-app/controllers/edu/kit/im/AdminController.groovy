@@ -19,6 +19,7 @@ package edu.kit.im
 
 import org.joda.time.DateTime
 import grails.converters.JSON
+import org.codehaus.groovy.runtime.InvokerHelper
 
 class AdminController {
 
@@ -119,7 +120,12 @@ class AdminController {
   def information() {
     def appInfo = ["wEnergy Version": grailsApplication.metadata.'app.version',
         "Grails Version": grailsApplication.metadata.'app.grails.version',
+        "Groovy Version": InvokerHelper.getVersion(),
         "JVM Version": System.getProperty("java.version"),
+        "Controllers": grailsApplication.controllerClasses.size(),
+        "Domains": grailsApplication.domainClasses.size(),
+        "Services": grailsApplication.serviceClasses.size(),
+        "Tag Libraries": grailsApplication.tagLibClasses.size(),
         "Systemzeit": new DateTime(),
         "Zeitzone": new DateTime().getZone()
     ]
