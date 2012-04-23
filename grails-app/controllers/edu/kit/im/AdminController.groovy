@@ -32,6 +32,7 @@ import java.math.RoundingMode
 class AdminController {
 
   def springSecurityService
+  def rankingService
   Scheduler quartzScheduler
 
   def index() {
@@ -140,6 +141,11 @@ class AdminController {
       if (lastLogin) {
         def dateFormatter = DateTimeFormat.mediumDateTime().withLocale(Locale.GERMAN)
         householdMap.lastLogin = dateFormatter.print(lastLogin.date)
+      }
+
+      def ranking = rankingService.determineRankingValue(household.id)
+      if (ranking) {
+        householdMap.ranking = ranking
       }
 
       stats << householdMap
