@@ -29,7 +29,7 @@
 
 <div class="container">
   <g:if test="${flash.message}">
-    <g:render template="/messages/info"/>
+    <g:render template="/messages/message"/>
   </g:if>
   <g:elseif test="${flash.warning}">
     <g:render template="/messages/warning"/>

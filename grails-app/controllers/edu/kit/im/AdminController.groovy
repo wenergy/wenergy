@@ -17,15 +17,23 @@
 
 package edu.kit.im
 
-import org.joda.time.DateTime
 import grails.converters.JSON
 import org.codehaus.groovy.runtime.InvokerHelper
+import org.joda.time.DateTime
+import org.joda.time.DateTimeZone
+import org.joda.time.format.DateTimeFormat
+import org.quartz.CronTrigger
+import org.quartz.JobKey
+import org.quartz.Scheduler
+import org.quartz.SchedulerException
+import org.quartz.impl.matchers.GroupMatcher
 
 class AdminController {
 
   def springSecurityService
   def householdService
   def rankingService
+  Scheduler quartzScheduler
 
   def index() {
     [groups: Peergroup.getAll().sort { it.name.toLowerCase() }, currentUser: springSecurityService.currentUser]
@@ -35,7 +43,7 @@ class AdminController {
     [households: Household.getAll().sort { it.fullName.toLowerCase() }, currentUser: springSecurityService.currentUser]
   }
 
-  def addUserToRole(def userId, def targetRole) {
+  private def addUserToRole(def userId, def targetRole) {
     def role = Role.findByAuthority(targetRole)
     def user = Household.findById(userId)
 
@@ -48,7 +56,7 @@ class AdminController {
     redirect(action: "permissions")
   }
 
-  def removeUserFromRole(def userId, def targetRole) {
+  private def removeUserFromRole(def userId, def targetRole) {
     def role = Role.findByAuthority(targetRole)
     def user = Household.findById(userId)
     def currentUser = springSecurityService.currentUser
@@ -167,7 +175,60 @@ class AdminController {
   }
 
   def jobs() {
+    def jobList = []
+    def groupNames = quartzScheduler.getJobGroupNames()
+    def dateFormatter = DateTimeFormat.mediumDateTime().withLocale(Locale.GERMAN)
+    def hostTimezone = DateTimeZone.forID("Europe/Berlin")
 
+    groupNames?.each {jobGroup ->
+      def keys = quartzScheduler.getJobKeys(GroupMatcher.groupEquals(jobGroup))
+
+      keys?.each {jobKey ->
+        def jobMap = [:]
+        def jobTriggers = quartzScheduler.getTriggersOfJob(jobKey)
+        jobTriggers.each {trigger ->
+          if (trigger instanceof CronTrigger) {
+            jobMap.cronExpression = trigger.cronExpression
+            jobMap.previousFireTime = trigger.previousFireTime ? dateFormatter.print(new DateTime(trigger.previousFireTime, hostTimezone)) : "-"
+            jobMap.nextFireTime = trigger.nextFireTime ? dateFormatter.print(new DateTime(trigger.nextFireTime, hostTimezone)) : "-"
+            jobMap.state = quartzScheduler.getTriggerState(trigger.key)
+          }
+        }
+
+        jobMap.name = jobKey.name
+        jobList << jobMap
+      }
+    }
+
+    [jobs: jobList, now: new DateTime()]
+  }
+
+  def jobPause() {
+    try {
+      quartzScheduler.pauseJob(JobKey.jobKey(params.id))
+    } catch (SchedulerException e) {
+      flash.error = "Der Job \"${params.id}\" konnte nicht pausiert werden: ${e.message}"
+    }
+    redirect(action: "jobs")
+  }
+
+  def jobResume() {
+    try {
+      quartzScheduler.resumeJob(JobKey.jobKey(params.id))
+    } catch (SchedulerException e) {
+      flash.error = "Der Job \"${params.id}\" konnte nicht fortgesetzt werden: ${e.message}"
+    }
+    redirect(action: "jobs")
+  }
+
+  def jobTrigger() {
+    try {
+      quartzScheduler.triggerJob(JobKey.jobKey(params.id))
+      flash.message = "Der Job \"${params.id}\" wurde erfolgreich außerhalb des Zeitplans ausgeführt"
+    } catch (SchedulerException e) {
+      flash.error = "Der Job \"${params.id}\" konnte nicht ausgeführt werden: ${e.message}"
+    }
+    redirect(action: "jobs")
   }
 
   def errors() {

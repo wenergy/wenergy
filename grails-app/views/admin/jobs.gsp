@@ -34,7 +34,30 @@
     </div>
 
     <div class="span9">
-
+      <table class="table" id="adminTable">
+        <thead>
+        <tr>
+          <th>Status</th>
+          <th class="defaultSortCol">Name</th>
+          <th>Cron Trigger</th>
+          <th>Letzte Ausführung</th>
+          <th>Nächste Ausführung</th>
+          <th class="linkColumn nonSortable"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <g:each var="job" in="${jobs}">
+          <tr>
+            <td>${job.state}</td>
+            <td>${job.name}</td>
+            <td>${job.cronExpression}</td>
+            <td>${job.previousFireTime}</td>
+            <td>${job.nextFireTime}</td>
+            <td><g:render template="jobmenu" model="[job: job]"/></td>
+          </tr>
+        </g:each>
+        </tbody>
+      </table>
     </div>
   </div><!-- /row -->
 </section>

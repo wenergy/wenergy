@@ -132,7 +132,15 @@ $(function () {
     return ((x < y) ? 1 : ((x > y) ? -1 : 0));
   };
 
-  $('#adminTable').dataTable({
+  // Determine default sort column
+  var defaultSortColumn = $("#adminTable th").index($(".defaultSortCol"));
+  var sorting = [0, "asc"]; // default
+  if (defaultSortColumn >= 0) {
+    sorting = [defaultSortColumn, "asc"];
+  }
+
+  // Make table sortable
+  $("#adminTable").dataTable({
     "sDom":"<'row'<'span5'l><'span4'f>r>t<'row'<'span4'i><'span5'p>>",
     "sPaginationType":"bootstrap",
     "aLengthMenu":[
@@ -144,6 +152,7 @@ $(function () {
       { "bSortable":false, "aTargets":[ "nonSortable" ] },
       { "sType":"title-numeric", "aTargets":[ "sortByTitleAttr" ] }
     ],
+    "aaSorting":[sorting],
     "oLanguage":{
       "sProcessing":"Bitte warten...",
       "sLengthMenu":"_MENU_ Einträge anzeigen",
