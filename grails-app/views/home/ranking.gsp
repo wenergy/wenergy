@@ -31,7 +31,7 @@
 
 <!-- Ranking
 ================================================== -->
-<section id="peergroup">
+<section id="ranking">
   <div class="row">
     <div class="span12">
       <table class="table">
