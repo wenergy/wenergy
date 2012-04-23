@@ -49,8 +49,4 @@ class UserController {
     }
     map
   }
-
-  def changePassword() {
-    redirect(action: "password", params: params)
-  }
 }
