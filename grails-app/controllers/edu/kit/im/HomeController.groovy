@@ -56,7 +56,9 @@ class HomeController {
 
     def ranking = peergroup.households.collect { h ->
       def currentSum = rankingService.determineRankingValue(h.id)
-      def rankingValue = currentSum / (h.referenceRankingValue ?: 1.0) * 100.0
+      def rankingValue = currentSum / (h.referenceRankingValue ?: 1.0)
+      rankingValue = rankingValue.min(1.0).max(0.0)
+      rankingValue *= 100.0
       rankingValue = rankingValue.setScale(2, RoundingMode.HALF_UP)
 
       [name: h.fullName, rankingValue: rankingValue, display: (h.referenceRankingValue > 0)]
