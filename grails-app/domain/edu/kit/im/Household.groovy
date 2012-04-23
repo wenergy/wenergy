@@ -45,9 +45,10 @@ class Household implements Serializable {
   // Default type is Set but we need Collection (Hibernate Bag) for performance reasons
   Collection consumptions
   Collection aggregatedConsumptions
+  Collection events
 
   // Relationships
-  static hasMany = [consumptions: Consumption, aggregatedConsumptions: AggregatedConsumption]
+  static hasMany = [consumptions: Consumption, aggregatedConsumptions: AggregatedConsumption, events: Event]
   static belongsTo = [peergroup: Peergroup]
 
   static constraints = {
@@ -63,6 +64,7 @@ class Household implements Serializable {
     password(blank: false, password: true, minSize: 3)
     consumptions(bindable: true)
     aggregatedConsumptions(bindable: true)
+    events(bindable: true)
     peergroup(bindable: true)
     dateCreated()
   }

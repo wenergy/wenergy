@@ -42,7 +42,7 @@
           <th class="sortByTitleAttr">Aktiviert</th>
           <th class="sortByTitleAttr">Benutzerrechte</th>
           <th class="sortByTitleAttr">Adminrechte</th>
-          <th class="linkColumn nonSortable">&nbsp;</th>
+          <th class="linkColumn nonSortable"></th>
         </tr>
         </thead>
         <tbody>

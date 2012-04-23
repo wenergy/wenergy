@@ -27,12 +27,11 @@ import org.quartz.JobKey
 import org.quartz.Scheduler
 import org.quartz.SchedulerException
 import org.quartz.impl.matchers.GroupMatcher
+import java.math.RoundingMode
 
 class AdminController {
 
   def springSecurityService
-  def householdService
-  def rankingService
   Scheduler quartzScheduler
 
   def index() {
@@ -121,8 +120,32 @@ class AdminController {
     redirect(uri: "/j_spring_security_switch_user?j_username=${household?.username}")
   }
 
-  def batteries() {
+  def statistics() {
+    def stats = []
 
+    Household.getAll().each { household ->
+      def householdMap = [:]
+      householdMap.household = household
+
+      def batteryLevel = Consumption.findByHousehold(household, [max: 1, sort: "date", order: "desc"])?.batteryLevel
+      if (batteryLevel) {
+        def maxBatteryLevel = 3200.0
+        batteryLevel /= maxBatteryLevel
+        batteryLevel = batteryLevel.min(1.0).max(0.0)
+        batteryLevel = batteryLevel.setScale(2, RoundingMode.HALF_UP)
+      }
+      householdMap.batteryLevel = batteryLevel
+
+      def lastLogin = Event.findByHouseholdAndType(household, EventType.LOGIN, [max: 1, sort: "date", order: "desc"])
+      if (lastLogin) {
+        def dateFormatter = DateTimeFormat.mediumDateTime().withLocale(Locale.GERMAN)
+        householdMap.lastLogin = dateFormatter.print(lastLogin.date)
+      }
+
+      stats << householdMap
+    }
+
+    [stats: stats, currentUser: springSecurityService.currentUser]
   }
 
   def information() {
@@ -171,7 +194,7 @@ class AdminController {
   }
 
   def controllers() {
-
+    // see .gsp
   }
 
   def jobs() {
@@ -233,14 +256,6 @@ class AdminController {
 
   def errors() {
 
-  }
-
-  def runHouseholdJob() {
-    householdService.run()
-  }
-
-  def runRankingJob() {
-    rankingService.run()
   }
 
 }

@@ -42,7 +42,7 @@
           <th>Name</th>
           <th>Benutzername</th>
           <th>E-Mail</th>
-          <th class="linkColumn nonSortable">&nbsp;</th>
+          <th class="linkColumn nonSortable"></th>
         </tr>
         </thead>
         <tbody>

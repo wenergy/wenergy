@@ -32,12 +32,12 @@
     <li ${permissionsActive}><g:link action="permissions"><i
         class="icon-lock ${permissionsActiveIcon}"></i> Zugriffsrechte</g:link></li>
 
-    <% if (nav == "batteries") {
-      batteryActive = 'class="active"'
-      batteryActiveIcon = "icon-white"
+    <% if (nav == "statistics") {
+      statisticsActive = 'class="active"'
+      statisticsActiveIcon = "icon-white"
     } %>
-    <li ${batteryActive}><g:link action="batteries"><i
-        class="icon-signal ${batteryActiveIcon}"></i> Batteriestände</g:link></li>
+    <li ${statisticsActive}><g:link action="statistics"><i
+        class="icon-signal ${statisticsActiveIcon}"></i> Statistik</g:link></li>
 
     <li class="nav-header">System</li>
 

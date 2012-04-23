@@ -15,15 +15,28 @@
  * limitations under the License.
  */
 
-databaseChangeLog = {
+package edu.kit.im
 
-	changeSet(author: "ddauer (generated)", id: "changelog") {
-		// TODO add changes and preconditions here
-	}
+import org.joda.time.DateTime
 
-	include file: 'changelog-1.0.groovy'
+class Event implements Serializable {
 
-	include file: 'changelog-1.0.1.groovy'
+  EventType type
+  DateTime date = new DateTime()
 
-	include file: 'changelog-1.0.2.groovy'
+  // Grails information
+  DateTime dateCreated
+
+  // Relationships
+  static belongsTo = [household: Household]
+
+  static constraints = {
+    type(nullable: false)
+    date(nullable: false)
+    dateCreated()
+  }
+
+  static mapping = {
+    cache(true)
+  }
 }

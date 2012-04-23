@@ -1,7 +1,5 @@
 package edu.kit.im
 
-
-
 import grails.test.mixin.*
 import org.junit.*
 
@@ -11,7 +9,4 @@ import org.junit.*
 @TestFor(SecurityService)
 class SecurityServiceTests {
 
-    void testSomething() {
-        fail "Implement me"
-    }
 }

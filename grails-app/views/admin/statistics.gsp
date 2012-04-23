@@ -18,7 +18,8 @@
 <html>
 <head>
   <meta name="layout" content="main"/>
-  <title>Teilnehmer - Batteriestände</title>
+  <title>Teilnehmer - Statistik</title>
+  <r:require modules="admin"/>
 </head>
 
 <body>
@@ -33,7 +34,30 @@
     </div>
 
     <div class="span9">
-
+      <table class="table" id="adminTable">
+        <thead>
+        <tr>
+          <th>Name</th>
+          <th>Zuletzt Angemeldet</th>
+          <th>Batteriestand</th>
+          <th>Bezugswert Ranking</th>
+          <th>Bezugswert Verbrauch</th>
+          <th class="linkColumn nonSortable"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <g:each var="map" in="${stats}">
+          <tr>
+            <td>${map?.household?.fullName}</td>
+            <td>${map?.lastLogin}</td>
+            <td>${map?.batteryLevel}</td>
+            <td>${map?.household?.referenceRankingValue}</td>
+            <td>${map?.household?.referenceConsumptionValue}</td>
+            <td><g:render template="usermenu" model="[household: map.household, currentUser: currentUser]"/></td>
+          </tr>
+        </g:each>
+        </tbody>
+      </table>
     </div>
   </div><!-- /row -->
 </section>

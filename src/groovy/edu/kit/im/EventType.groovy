@@ -15,15 +15,8 @@
  * limitations under the License.
  */
 
-databaseChangeLog = {
+package edu.kit.im
 
-	changeSet(author: "ddauer (generated)", id: "changelog") {
-		// TODO add changes and preconditions here
-	}
-
-	include file: 'changelog-1.0.groovy'
-
-	include file: 'changelog-1.0.1.groovy'
-
-	include file: 'changelog-1.0.2.groovy'
+public enum EventType {
+  LOGIN, LOGOUT
 }

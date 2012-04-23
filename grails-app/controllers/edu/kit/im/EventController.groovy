@@ -15,15 +15,10 @@
  * limitations under the License.
  */
 
-databaseChangeLog = {
+package edu.kit.im
 
-	changeSet(author: "ddauer (generated)", id: "changelog") {
-		// TODO add changes and preconditions here
-	}
+class EventController {
 
-	include file: 'changelog-1.0.groovy'
+  def scaffold = true
 
-	include file: 'changelog-1.0.1.groovy'
-
-	include file: 'changelog-1.0.2.groovy'
 }
