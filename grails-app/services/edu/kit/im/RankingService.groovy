@@ -33,7 +33,7 @@ class RankingService {
 
   def determineRankingValue(Long householdId, boolean fromJob = false) {
     // Collect aggregated consumptions for every household
-    def startDateTime = new DateTime().withDayOfWeek(DateTimeConstants.MONDAY)
+    def startDateTime = new DateTime().withDayOfWeek(DateTimeConstants.MONDAY).withTimeAtStartOfDay()
     def endDateTime
 
     if (fromJob) {
