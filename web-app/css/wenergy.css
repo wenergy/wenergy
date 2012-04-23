@@ -279,3 +279,10 @@ body {
 #admin h3 {
   margin-bottom: 10px;
 }
+
+/* User
+-------------------------------------------------- */
+
+#user .form-actions {
+  background-color: #ffffff;
+}

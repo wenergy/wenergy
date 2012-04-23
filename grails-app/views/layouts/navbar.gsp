@@ -66,7 +66,7 @@
             <a href="#" class="dropdown-toggle navuserlink" data-toggle="dropdown"><wen:fullName/> <b class="caret"></b>
             </a>
             <ul class="dropdown-menu">
-              <li><a href="#"><i class="icon-user"></i> Profil</a></li>
+              <li><g:link controller="user"><i class="icon-user"></i> Profil</g:link></li>
               <sec:ifAllGranted roles="ROLE_ADMIN">
                 <li><g:link controller="admin"><i class="icon-cog"></i> Verwaltung</g:link></li>
               </sec:ifAllGranted>
