@@ -19,8 +19,8 @@
 <html>
 <head>
   <meta name="layout" content="main"/>
-  <title>Verbrauch</title>
-  <r:require modules="consumptionjs"/>
+  <title>Historie</title>
+  <r:require modules="historyjs"/>
   <r:script disposition="head">
     var rootPath = "${ConfigurationHolder.config?.grails?.relativeServerURL}";
   </r:script>
@@ -28,9 +28,9 @@
 
 <body>
 
-<!-- Consumption
+<!-- History
 ================================================== -->
-<section id="consumption">
+<section id="history">
   <div class="row">
     <div class="span12">
       <div id="loaderErrorContainer"></div>
@@ -39,12 +39,12 @@
 
   <div class="row">
     <div class="span12 centered">
-      <h3 id="consumptionChartTitle"></h3>
+      <h3 id="historyChartTitle"></h3>
     </div>
   </div>
 
   <div class="row">
-      <div id="consumptionChart">
+      <div id="historyChart">
         %{-- Needs to be nested to avoid sudden jumps --}%
         <div id="centralLoaderContainer"><div id="centralLoader"></div>Loading...</div>
 
@@ -52,7 +52,7 @@
       </div>
   </div>
 
-  <form id="optionsForm" class="form-horizontal consumptionForm">
+  <form id="optionsForm" class="form-horizontal historyForm">
 
     <div class="row">
       <div class="span2 offset1 control-group inline">
