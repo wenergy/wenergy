@@ -24,7 +24,6 @@ class RankingService {
 
   def run() {
     // Last two days of consumption records are used to determine reference level
-    def referenceTime = new DateTime().withDayOfWeek(DateTimeConstants.MONDAY).minusDays(7)
     Household.getAll().each {h ->
       Household.withNewSession { session ->
         determineRankingValue(h.id, true)
