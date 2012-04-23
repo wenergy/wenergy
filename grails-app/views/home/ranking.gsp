@@ -22,7 +22,6 @@
 <head>
   <meta name="layout" content="main"/>
   <title>Rangliste</title>
-  <r:require modules="peergroupjs"/>
   <r:script disposition="head">
     var rootPath = "${ConfigurationHolder.config?.grails?.relativeServerURL}";
   </r:script>
