@@ -62,7 +62,10 @@ class HomeController {
       [name: h.fullName, rankingValue: rankingValue, display: (h.referenceRankingValue > 0)]
     }
 
-    ranking = ranking.sort { (it.display ? it.rankingValue : Double.MAX_VALUE) }
+    ranking = ranking.sort { a, b ->
+      (a.display ? a.rankingValue : Double.MAX_VALUE) <=> (b.display ? b.rankingValue : Double.MAX_VALUE) ?:
+      a.name <=> b.name
+    }
 
     // Badge classes
     def badgeClasses = ["badge-success", "badge-warning", "badge-info", "badge-error", "badge-inverse"]
