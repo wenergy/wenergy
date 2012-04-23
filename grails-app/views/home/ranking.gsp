@@ -47,7 +47,13 @@
           <tr>
             <td><span class="badge ${participant.badge}">${i + 1}</span></td>
             <td>${participant.name}</td>
-            <td><g:if test="${participant.display}">${participant.rankingValue} %</g:if><g:else>-</g:else></td>
+            <td><g:if test="${participant.display}">
+              <div class="progress">
+                <div class="bar" style="width: ${participant.rankingValue}%;"></div>
+              </div>
+            </g:if>
+              <g:else>-</g:else>
+            </td>
           </tr>
         </g:each>
         </tbody>

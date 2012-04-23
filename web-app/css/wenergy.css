@@ -286,3 +286,7 @@ body {
 #user .form-actions {
   background-color: #ffffff;
 }
+
+#ranking .progress {
+  margin-bottom: 0;
+}
