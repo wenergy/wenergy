@@ -59,12 +59,12 @@
     } %>
     <li ${jobsActive}><g:link action="jobs"><i class="icon-time ${jobsActiveIcon}"></i> Jobs</g:link></li>
 
-    <% if (nav == "errors") {
-      apiActive = 'class="active"'
-      apiActiveIcon = "icon-white"
-    } %>
-    <li ${apiActive}><g:link action="errors"><i class="icon-warning-sign ${apiActiveIcon}"></i> API-Fehlerliste</g:link>
-    </li>
+    %{--<% if (nav == "errors") {--}%
+      %{--apiActive = 'class="active"'--}%
+      %{--apiActiveIcon = "icon-white"--}%
+    %{--} %>--}%
+    %{--<li ${apiActive}><g:link action="errors"><i class="icon-warning-sign ${apiActiveIcon}"></i> API-Fehlerliste</g:link>--}%
+    %{--</li>--}%
 
   </ul>
 </div> <!-- /well -->
