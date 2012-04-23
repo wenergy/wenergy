@@ -99,7 +99,7 @@ modules = {
 
   datatablesjs {
     dependsOn "jquery"
-    resource url: [dir: "js", file: "jquery/jquery.datatables.min.js"], disposition: "head"
+    resource url: [dir: "js", file: "jquery/jquery.dataTables.min.js"], disposition: "head"
   }
 
   wenergyjs {
