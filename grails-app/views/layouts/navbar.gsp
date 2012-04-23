@@ -27,9 +27,9 @@
           <% if (nav == "live") liveActive = "active" %>
           <li><g:link controller="home" action="live" class="navlink ${liveActive}"><span
               class="navlogo live"></span>Live</g:link></li>
-          <% if (nav == "consumption") consumptionActive = "active" %>
-          <li><g:link controller="home" action="consumption" class="navlink ${consumptionActive}"><span
-              class="navlogo consumption"></span>Verbrauch</g:link></li>
+          <% if (nav == "history") historyActive = "active" %>
+          <li><g:link controller="home" action="history" class="navlink ${historyActive}"><span
+              class="navlogo history"></span>Historie</g:link></li>
           <% if (nav == "ranking") rankingActive = "active" %>
           <li><g:link controller="home" action="ranking" class="navlink ${rankingActive}"><span
               class="navlogo ranking"></span>Rangliste</g:link></li>

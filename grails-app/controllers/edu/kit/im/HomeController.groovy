@@ -42,9 +42,9 @@ class HomeController {
     [nav: "live"]
   }
 
-  // Consumption
-  def consumption() {
-    [nav: "consumption"]
+  // History
+  def history() {
+    [nav: "history"]
   }
 
   // Ranking

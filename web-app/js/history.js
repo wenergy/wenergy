@@ -49,7 +49,7 @@ $(function () {
 
       // On interval change, make sure the date is set right
       if (name == "interval") {
-        var cache = $("#consumption").data("bbq");
+        var cache = $("#history").data("bbq");
         var date = new Date(cache.date);
 
         switch (value) {
@@ -101,7 +101,7 @@ $(function () {
       beforeShow:function (input, inst) {
         // Need to wait 10ms for the widget to be created
         setTimeout(function () {
-          var cache = $("#consumption").data("bbq");
+          var cache = $("#history").data("bbq");
           var dp = $("#dateCalendarWidget");
 
           // Change "Today" button title appropriately
@@ -120,7 +120,7 @@ $(function () {
         }, 10);
       },
       onClose:function (dateText, inst) {
-        var cache = $("#consumption").data("bbq");
+        var cache = $("#history").data("bbq");
         // Compare dates
         var newDate = $("#dateCalendarWidget").datepicker("getDate").setTimezone("UTC");
         var curDate = new Date(cache.date);
@@ -156,7 +156,7 @@ $(function () {
       var dp = $("#dateCalendarWidget")
 
       // Set options
-      var cache = $("#consumption").data("bbq");
+      var cache = $("#history").data("bbq");
       var date = new Date(cache.date);
       dp.datepicker("setDate", date);
 
@@ -193,8 +193,8 @@ $(function () {
       colors:["#004B8A", "#007CC3", "#6CAEDF"]
     });
 
-    // Save in consumption section
-    $("#consumption").data("bbq", cache);
+    // Save in history section
+    $("#history").data("bbq", cache);
   }
 
   // Validate all UI elements
@@ -203,11 +203,11 @@ $(function () {
     disableAllOptions(false);
 
     // Navigation buttons
-    var dateMillis = $("#consumption").data("bbq").date;
+    var dateMillis = $("#history").data("bbq").date;
     var date = new Date(dateMillis);
 
     // Do not enable browsing into the future
-    var cache = $("#consumption").data("bbq");
+    var cache = $("#history").data("bbq");
     var today = Date.today().setTimezone("UTC");
     var pageTitle = "";
 
@@ -261,13 +261,13 @@ $(function () {
     }
 
     // Update page title
-    $("#consumptionChartTitle").text(pageTitle);
+    $("#historyChartTitle").text(pageTitle);
   }
 
   // Validate URL fragments in case somebody played with them
   function validateHash() {
     // Use cache for default values
-    var cache = $("#consumption").data("bbq");
+    var cache = $("#history").data("bbq");
 
     // Store parameters for removal in array
     var invalidHashValues = [];
@@ -332,7 +332,7 @@ $(function () {
 
   // Navigation
   function changeDateByDelta(delta) {
-    var cache = $("#consumption").data("bbq");
+    var cache = $("#history").data("bbq");
     var dateMillis = cache.date;
     var date = new Date(dateMillis);
 
@@ -361,7 +361,7 @@ $(function () {
     }
 
     // Use cache for default values
-    var cache = $("#consumption").data("bbq");
+    var cache = $("#history").data("bbq");
 
     // Get interval, precision, dataType and date
     var interval = $.bbq.getState("interval") || cache.interval;
@@ -396,7 +396,7 @@ $(function () {
 
   function reloadData() {
     // Get all values from cache
-    var cache = $("#consumption").data("bbq");
+    var cache = $("#history").data("bbq");
 
     // Validate UI
     validateUI();
@@ -531,7 +531,7 @@ $(function () {
     reload = typeof reload !== 'undefined' ? reload : false;
 
     // Get all values from cache
-    var cache = $("#consumption").data("bbq");
+    var cache = $("#history").data("bbq");
 
     // Delta updates don't need a chart update
     if (cache.isDelta && !reload) {
@@ -678,7 +678,7 @@ $(function () {
 
   // Timer
   function updateTimer() {
-    var cache = $("#consumption").data("bbq");
+    var cache = $("#history").data("bbq");
     var live = true;
     var timer = cache.timer;
 

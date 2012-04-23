@@ -111,9 +111,9 @@ modules = {
     resource url: [dir: "js", file: "welcome.js"], disposition: "head"
   }
 
-  consumptionjs {
+  historyjs {
     dependsOn "jqbbq, jqchrono, jqqtip, jqui, datejs, highstockjs, spinjs, raphaeljs, wenergyjs"
-    resource url: [dir: "js", file: "consumption.js"], disposition: "head"
+    resource url: [dir: "js", file: "history.js"], disposition: "head"
   }
 
   livejs {

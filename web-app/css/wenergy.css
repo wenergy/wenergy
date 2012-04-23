@@ -74,8 +74,8 @@ body {
   background-image: url("../images/live.png");
 }
 
-.navbar .nav .consumption {
-  background-image: url("../images/consumption.png");
+.navbar .nav .history {
+  background-image: url("../images/history.png");
 }
 
 .navbar .nav .ranking {
@@ -194,35 +194,35 @@ body {
   margin-bottom: 10px;
 }
 
-/* Consumption
+/* History
 -------------------------------------------------- */
 
 /* Set fixed height for chart */
-#consumption #consumptionChart {
+#history #consumptionChart {
   min-width: 400px;
   height: 410px;
   margin: 0 auto;
 }
 
-#consumption #powerLevelIndicator {
+#history #powerLevelIndicator {
   margin: 0;
   height: 335px;
 }
 
-#consumption .consumptionForm .control-group {
+#history .historyForm .control-group {
   margin-bottom: 0;
 }
 
-#consumption .consumptionForm .control-label {
+#history .historyForm .control-label {
   width: 80px;
 }
 
-#consumption .consumptionForm .controls {
+#history .historyForm .controls {
   margin-left: 100px;
 }
 
 /* Datepicker */
-#consumption .ui-datepicker-trigger {
+#history .ui-datepicker-trigger {
   visibility: hidden;
   vertical-align: top;
 }
