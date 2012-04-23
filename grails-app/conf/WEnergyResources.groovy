@@ -121,6 +121,11 @@ modules = {
     resource url: [dir: "js", file: "live.js"], disposition: "head"
   }
 
+  rankingjs {
+    dependsOn "jqqtip"
+    resource url: [dir: "js", file: "ranking.js"], disposition: "head"
+  }
+
   admin {
     dependsOn "prettify, datatablesjs"
     resource url: [dir: "js", file: "admin.js"], disposition: "head"
