@@ -1,3 +1,4 @@
+<%@ page import="org.joda.time.format.DateTimeFormat" %>
 %{--
   - Copyright 2011-2012 Institute of Information Engineering and Management,
   - Information & Market Engineering
@@ -34,7 +35,26 @@
     </div>
 
     <div class="span9">
-
+      <table class="table" id="adminTable">
+        <thead>
+        <tr>
+          <th>Datum</th>
+          <th>Typ</th>
+          <th>Name</th>
+          <th>E-Mail</th>
+        </tr>
+        </thead>
+        <tbody>
+        <g:each var="error" in="${errors}">
+          <tr>
+            <td>${DateTimeFormat.mediumDateTime().withLocale(Locale.GERMAN).print(error.dateCreated)}</td>
+            <td>${error.type}</td>
+            <td>${error.household?.fullName}</td>
+            <td><a href="mailto:${error.household?.eMail}">${error.household?.eMail}</a></td>
+          </tr>
+        </g:each>
+        </tbody>
+      </table>
     </div>
   </div><!-- /row -->
 </section>

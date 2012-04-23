@@ -261,7 +261,7 @@ class AdminController {
   }
 
   def errors() {
-
+    def errors = ApiError.getAll()
+    [errors: errors]
   }
-
 }

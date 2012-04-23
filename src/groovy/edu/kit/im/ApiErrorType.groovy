@@ -17,11 +17,6 @@
 
 package edu.kit.im
 
-import grails.test.mixin.*
-
-/**
- * See the API for {@link grails.test.mixin.web.GroovyPageUnitTestMixin} for usage instructions
- */
-@TestFor(WEnergyTagLib)
-class WEnergyTagLibTests {
+public enum ApiErrorType {
+  DHCP, DNS, RF
 }

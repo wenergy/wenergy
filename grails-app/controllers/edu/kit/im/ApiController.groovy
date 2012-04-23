@@ -29,7 +29,7 @@ class ApiController {
     try {
       // Extract json
       def payload = JSON.parse(params.json)
-      apiService.processConsumption(payload)
+      apiService.processConsumption(request, payload)
 
       response.status = 200 // OK
       jsonStatus = [status: [code: 200]] as JSON
@@ -43,7 +43,7 @@ class ApiController {
 
     } catch (Exception e) {
       log.error e
-      log.error "IP: ${request.getRemoteAddr()}, JSON: ${params.json}"
+      log.error "IP: ${request.getRemoteAddr()}, Params: ${params}"
 
       response.status = 400 // Bad Request
       jsonStatus = [status: [code: 400, message: "Invalid JSON"]] as JSON

@@ -17,12 +17,26 @@
 
 package edu.kit.im
 
-import grails.test.mixin.*
-import org.junit.*
+import org.joda.time.DateTime
 
-/**
- * See the API for {@link grails.test.mixin.web.ControllerUnitTestMixin} for usage instructions
- */
-@TestFor(DataController)
-class DataControllerTests {
+class ApiError implements Serializable {
+
+  ApiErrorType type
+  String ipAddress
+
+  // Grails information
+  DateTime dateCreated
+
+  // Relationships
+  static belongsTo = [household: Household]
+
+  static constraints = {
+    type(nullable: false)
+    ipAddress(nullable: false)
+    dateCreated()
+  }
+
+  static mapping = {
+    cache(true)
+  }
 }

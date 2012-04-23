@@ -46,9 +46,11 @@ class Household implements Serializable {
   Collection consumptions
   Collection aggregatedConsumptions
   Collection events
+  Collection apiErrors
 
   // Relationships
-  static hasMany = [consumptions: Consumption, aggregatedConsumptions: AggregatedConsumption, events: Event]
+  static hasMany = [consumptions: Consumption, aggregatedConsumptions: AggregatedConsumption,
+      events: Event, apiErrors: ApiError]
   static belongsTo = [peergroup: Peergroup]
 
   static constraints = {

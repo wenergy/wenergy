@@ -20,5 +20,4 @@ package edu.kit.im
 class EventController {
 
   def scaffold = true
-
 }

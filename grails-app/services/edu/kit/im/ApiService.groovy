@@ -26,7 +26,33 @@ class ApiService {
 
   def householdService
 
-  def processConsumption(def jsonPayload) {
+  def processConsumption(def request, def jsonPayload) {
+
+    // Process error first
+    if (jsonPayload.error) {
+      def error = jsonPayload.error
+
+      if (error.id && error.code) {
+        def household = Household.findById(error.id)
+        if (household) {
+          def apiError = new ApiError()
+          try {
+            apiError.type = ApiErrorType.valueOf(error.code?.toUpperCase())
+          } catch (IllegalArgumentException e) {
+            throw new ApiException("Invalid error code", 400)
+          }
+          apiError.ipAddress = request.getRemoteAddr()
+          household.addToApiErrors(apiError)
+          household.save()
+        } else {
+          throw new ApiException("Invalid device id", 400)
+        }
+      } else {
+        throw new ApiException("Invalid error", 400)
+      }
+
+      return
+    }
 
     // Load and verify JSON content
     Long deviceId
