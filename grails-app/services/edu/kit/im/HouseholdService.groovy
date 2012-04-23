@@ -5,7 +5,7 @@ import org.joda.time.DateTime
 class HouseholdService {
   def run() {
     // Last two days of consumption records are used to determine reference level
-    def referenceTime = new DateTime().minusDays(2)
+    def referenceTime = new DateTime().minusDays(3)
     Household.getAll().each {h ->
       Household.withNewSession { session ->
         determineReferenceConsumptionValue(h.id, referenceTime)
@@ -13,7 +13,7 @@ class HouseholdService {
     }
   }
 
-  def determineReferenceConsumptionValue(Long householdId, DateTime sinceDateTime = new DateTime().minusDays(2)) {
+  def determineReferenceConsumptionValue(Long householdId, DateTime sinceDateTime = new DateTime().minusDays(3)) {
     // Collect consumptions for every household
     def consumptions = Consumption.withCriteria() {
       ge("date", sinceDateTime)

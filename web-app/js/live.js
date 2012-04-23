@@ -480,7 +480,7 @@ $(function () {
 
       // Text
       var tipText = "Dein aktueller Verbrauch von " + lastSum + " entspricht " + powerLevel + " deines" +
-          " höchsten Verbrauchs innerhalb der letzten zwei Tage.";
+          " höchsten Verbrauchs innerhalb der letzten drei Tage.";
 
       // Create or update tooltip
       if ($("#ui-tooltip-powerLevelIndicator").length) {
