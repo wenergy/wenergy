@@ -57,16 +57,35 @@ class HomeController {
     def ranking = peergroup.households.collect { h ->
       def currentSum = rankingService.determineRankingValue(h.id)
       def rankingValue = currentSum / (h.referenceRankingValue ?: 1.0)
-      rankingValue = rankingValue.min(1.0).max(0.0)
-      rankingValue *= 100.0
+
+      // Display max 200%
+      def displayValue = rankingValue.min(2.0).max(0.0)
+      displayValue *= 100.0
+      displayValue /= 2.0
+      displayValue = displayValue.setScale(2, RoundingMode.HALF_UP)
+
+      // Ranking value unlimited (tooltip)
+      rankingValue = rankingValue.max(0.0)
+      rankingValue *= 100
       rankingValue = rankingValue.setScale(2, RoundingMode.HALF_UP)
 
-      [name: h.fullName, rankingValue: rankingValue, display: (h.referenceRankingValue > 0)]
+      // Determine display class
+      def displayClass
+      if (displayValue >= 200.0) {
+        displayClass = "progress-danger"
+      } else if (displayValue >= 150.0) {
+        displayClass = "progress-warning"
+      } else {
+        displayClass = "progress-success"
+      }
+
+      [name: h.fullName, rankingValue: rankingValue, displayValue: displayValue, displayClass: displayClass,
+          display: (h.referenceRankingValue > 0)]
     }
 
     ranking = ranking.sort { a, b ->
       (a.display ? a.rankingValue : Double.MAX_VALUE) <=> (b.display ? b.rankingValue : Double.MAX_VALUE) ?:
-      a.name <=> b.name
+        a.name <=> b.name
     }
 
     // Badge classes
