@@ -40,7 +40,7 @@
           <th>Name</th>
           <th>Zuletzt Angemeldet</th>
           <th>Batteriestand</th>
-          <th>Ranking</th>
+          <th>Bezugswert Ranking</th>
           <th>Bezugswert Verbrauch</th>
           <th class="linkColumn nonSortable"></th>
         </tr>
@@ -51,7 +51,7 @@
             <td>${map?.household?.fullName}</td>
             <td>${map?.lastLogin}</td>
             <td>${map?.batteryLevel}</td>
-            <td class="sortByTitleAttr"><span title="${(map?.ranking ?: 0.0) / (map?.household?.referenceRankingValue ?: 1.0)}"></span>${map?.ranking ?: 0.0} / ${map?.household?.referenceRankingValue ?: 1.0}</td>
+            <td>${map?.household?.referenceRankingValue}</td>
             <td>${map?.household?.referenceConsumptionValue}</td>
             <td><g:render template="usermenu" model="[household: map.household, currentUser: currentUser]"/></td>
           </tr>

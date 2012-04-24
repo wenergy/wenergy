@@ -143,11 +143,6 @@ class AdminController {
         householdMap.lastLogin = dateFormatter.print(lastLogin.date)
       }
 
-      def ranking = rankingService.determineRankingValue(household.id)
-      if (ranking) {
-        householdMap.ranking = ranking
-      }
-
       stats << householdMap
     }
 
