@@ -21,7 +21,7 @@
 <div class="navbar navbar-fixed-top">
   <div class="navbar-inner">
     <div class="container">
-      <g:link controller="home" class="brand"><r:img dir="images" file="wEnergy.png"/></g:link>
+      <g:link controller="home" class="brand"><wen:themeLogo/></g:link>
       <ul class="nav">
         <sec:ifLoggedIn>
           <% if (nav == "live") liveActive = "active" %>

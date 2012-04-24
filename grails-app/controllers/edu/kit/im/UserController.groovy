@@ -49,4 +49,22 @@ class UserController {
     }
     map
   }
+
+  def themes() {
+    def household = springSecurityService.currentUser
+    [themes: ThemeType.values(), currentTheme: household.theme]
+  }
+
+  def changeTheme() {
+    if (params.id) {
+      def household = springSecurityService.currentUser
+      try {
+        household.theme = ThemeType.valueOf(params.id)
+        household.save()
+      } catch (Exception e) {
+        log.error e
+      }
+    }
+    redirect(action: "themes")
+  }
 }

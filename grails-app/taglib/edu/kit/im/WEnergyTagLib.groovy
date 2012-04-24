@@ -60,4 +60,32 @@ class WEnergyTagLib {
       out << household?.fullName?.encodeAsHTML()
     }
   }
+
+  // Theming
+  def themeResources = { attrs, body ->
+    Household household = springSecurityService.currentUser
+    if (household && household?.theme != ThemeType.wenergy) {
+      out << r.require([modules: household?.theme?.key])
+    }
+  }
+
+  def themeLogo = { attrs, body ->
+    Household household = springSecurityService.currentUser
+    def key = ThemeType.wenergy.key
+    if (household) {
+      key = household.theme.key
+    }
+    out << r.img([dir: "images", file: "${key}.png"])
+  }
+
+  def isTheme = { attrs, body ->
+    Household household = springSecurityService.currentUser
+    def theme = ThemeType.wenergy
+    if (household) {
+      theme = household.theme
+    }
+    if (theme == ThemeType.valueOf(attrs.key)) {
+      out << body()
+    }
+  }
 }

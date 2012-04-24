@@ -131,4 +131,8 @@ modules = {
     resource url: [dir: "js", file: "admin.js"], disposition: "head"
     resource url: [dir: "css", file: "admin.css"], disposition: "head"
   }
+
+  fzi {
+    resource url: [dir: "css", file: "fzi.css"], disposition: "head"
+  }
 }

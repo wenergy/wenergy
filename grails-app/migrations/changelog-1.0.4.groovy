@@ -17,17 +17,17 @@
 
 databaseChangeLog = {
 
-	changeSet(author: "ddauer (generated)", id: "changelog") {
-		// TODO add changes and preconditions here
+  changeSet(author: "ddauer (generated)", id: "1335266596767-1") {
+		addColumn(tableName: "household") {
+			column(name: "theme", type: "varchar(255)")
+		}
 	}
 
-	include file: 'changelog-1.0.groovy'
+	changeSet(author: "ddauer (generated)", id: "1335266596767-2") {
+		sql("update household set theme = 'wenergy'")
+	}
 
-	include file: 'changelog-1.0.1.groovy'
-
-	include file: 'changelog-1.0.2.groovy'
-
-	include file: 'changelog-1.0.3.groovy'
-
-	include file: 'changelog-1.0.4.groovy'
+	changeSet(author: "ddauer (generated)", id: "1335266596767-3") {
+		addNotNullConstraint(columnDataType: "varchar(255)", columnName: "theme", tableName: "household")
+	}
 }

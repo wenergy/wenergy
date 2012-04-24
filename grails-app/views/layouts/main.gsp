@@ -20,6 +20,7 @@
 <head>
   <title>wEnergy - <g:layoutTitle/></title>
   <r:require modules="core, wenergyjs"/>
+  <wen:themeResources/>
   <r:layoutResources/>
 </head>
 

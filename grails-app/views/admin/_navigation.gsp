@@ -45,13 +45,15 @@
       informationActive = 'class="active"'
       informationActiveIcon = "icon-white"
     } %>
-    <li ${informationActive}><g:link action="information"><i class="icon-info-sign ${informationActiveIcon}"></i> Informationen</g:link></li>
+    <li ${informationActive}><g:link action="information"><i
+        class="icon-info-sign ${informationActiveIcon}"></i> Informationen</g:link></li>
 
     <% if (nav == "controllers") {
       controllersActive = 'class="active"'
       controllersActiveIcon = "icon-white"
     } %>
-    <li ${controllersActive}><g:link action="controllers"><i class="icon-cog ${controllersActiveIcon}"></i> Controller</g:link></li>
+    <li ${controllersActive}><g:link action="controllers"><i
+        class="icon-cog ${controllersActiveIcon}"></i> Controller</g:link></li>
 
     <% if (nav == "jobs") {
       jobsActive = 'class="active"'

@@ -32,5 +32,12 @@
     <li ${passwordActive}><g:link action="password"><i
         class="icon-lock ${passwordActiveIcon}"></i> Passwort</g:link></li>
 
+    <% if (nav == "themes") {
+      themesActive = 'class="active"'
+      themesActiveIcon = "icon-white"
+    } %>
+    <li ${themesActive}><g:link action="themes"><i class="icon-tint ${themesActiveIcon}"></i> Themes</g:link>
+    </li>
+
   </ul>
 </div> <!-- /well -->

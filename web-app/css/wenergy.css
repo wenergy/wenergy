@@ -66,10 +66,6 @@ body {
   color: #ffffff;
 }
 
-.navbar .nav .home {
-  background-image: url("../images/home.png");
-}
-
 .navbar .nav .live {
   background-image: url("../images/live.png");
 }
@@ -289,4 +285,8 @@ body {
 
 #ranking .progress {
   margin-bottom: 0;
+}
+
+#user .linkColumn {
+  width: 40px;
 }

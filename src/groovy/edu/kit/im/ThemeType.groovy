@@ -15,19 +15,24 @@
  * limitations under the License.
  */
 
-databaseChangeLog = {
+package edu.kit.im
 
-	changeSet(author: "ddauer (generated)", id: "changelog") {
-		// TODO add changes and preconditions here
-	}
+public enum ThemeType {
+  wenergy("wEnergy"),
+  fzi("FZI HoLL")
 
-	include file: 'changelog-1.0.groovy'
+  private final String value
 
-	include file: 'changelog-1.0.1.groovy'
+  ThemeType(String value) {
+    this.value = value
+  }
 
-	include file: 'changelog-1.0.2.groovy'
+  String toString() {
+    value
+  }
 
-	include file: 'changelog-1.0.3.groovy'
+  String getKey() {
+    name()
+  }
 
-	include file: 'changelog-1.0.4.groovy'
 }

@@ -39,6 +39,9 @@ class Household implements Serializable {
   // Ranking reference value
   BigDecimal referenceRankingValue
 
+  // Theming
+  ThemeType theme = ThemeType.wenergy
+
   // Grails information
   DateTime dateCreated
 
@@ -62,6 +65,7 @@ class Household implements Serializable {
     city(blank: false)
     referenceConsumptionValue(nullable: true)
     referenceRankingValue(nullable: true)
+    theme(nullable: false)
     username(blank: false, unique: true, minSize: 3)
     password(blank: false, password: true, minSize: 3)
     consumptions(bindable: true)
