@@ -71,9 +71,9 @@ class HomeController {
 
       // Determine display class
       def displayClass
-      if (displayValue >= 150.0) {
+      if (rankingValue >= 150.0) {
         displayClass = "progress-danger"
-      } else if (displayValue >= 100.0) {
+      } else if (rankingValue >= 100.0) {
         displayClass = "progress-warning"
       } else {
         displayClass = "progress-success"
