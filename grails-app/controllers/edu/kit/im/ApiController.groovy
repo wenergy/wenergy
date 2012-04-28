@@ -36,14 +36,14 @@ class ApiController {
 
     } catch (ApiException e) {
       log.error e
-      log.error "IP: ${request.getRemoteAddr()}, JSON: ${params.json}"
+      log.error "IP: ${request.getHeader("X-Cluster-Client-IP")}, JSON: ${params.json}"
 
       response.status = e.code // Bad Request
       jsonStatus = [status: [code: e.code, message: e.message]] as JSON
 
     } catch (Exception e) {
       log.error e
-      log.error "IP: ${request.getRemoteAddr()}, Params: ${params}"
+      log.error "IP: ${request.getHeader("X-Cluster-Client-IP")}, Params: ${params}"
 
       response.status = 400 // Bad Request
       jsonStatus = [status: [code: 400, message: "Invalid JSON"]] as JSON
