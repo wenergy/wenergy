@@ -55,7 +55,7 @@
           </div>
 
           <div class="tab-pane" id="t2">
-            <p>Das Projekt bietet euch die einmalige Gelegenheit, einen detaillierten Einblick in euer eigenes Energieprofil zu bekommen.
+            <p><r:img dir="images" file="project_desc.png" class="thumbnail teaserImage"/>Das Projekt bietet euch die einmalige Gelegenheit, einen detaillierten Einblick in euer eigenes Energieprofil zu bekommen.
             Wieviel Strom (oder Euro!) verbraucht euer Haushalt oder die WG an einem Tag? Wie ändert sich die Verbrauchskurve bei der Benutzung
             von Wasserkocher und Waschmaschine? Was verbraucht ihr nachts, oder wenn alle außer Haus sind? Wo ist Einsparpotential?</p>
 
@@ -68,7 +68,7 @@
           </div>
 
           <div class="tab-pane" id="t3">
-            <p><r:img dir="images" file="hardware.png" class="thumbnail hardware"/> Der Stromverbrauch wird mit dem
+            <p><r:img dir="images" file="hardware.png" class="thumbnail teaserImage"/> Der Stromverbrauch wird mit dem
             von uns produzierten wEnergy-Sensor gemessen. Dabei wird um jede der drei Hauptphasen eines normalen (deutschen) Sicherungskastens
             eine Klemme montiert, die den Stromfluss induktiv misst. Der Sensor ist batteriebetrieben und sendet diese Daten über Funk an
             die mitgelieferte Kommunikationseinheit. Diese ist mit eurem Router verbunden und schickt die Daten über das Internet an unseren
@@ -77,7 +77,7 @@
           </div>
 
           <div class="tab-pane" id="t4">
-            <p>Ihr wollt am wEnergy-Projekt teilnehmen? Gerne!</p>
+            <p><r:img dir="images" file="participation.png" class="thumbnail teaserImage"/>Ihr wollt am wEnergy-Projekt teilnehmen? Gerne!</p>
 
             <p>Das Projekt richtet sich an studentische WGs in Karlsruhe mit 2 bis 4 Bewohnern. Die Teilnahme ist kostenlos –
             die benötigte Technik wird euch für den Zeitraum der Studie zur Verfügung gestellt. Natürlich verpflichtet ihr euch,
