@@ -21,18 +21,19 @@ import org.joda.time.DateTime
 
 class ApiError implements Serializable {
 
-  ApiErrorType type
-  String ipAddress
+  String description
+  String clientIp
+  String householdId
+  String json
 
   // Grails information
   DateTime dateCreated
 
-  // Relationships
-  static belongsTo = [household: Household]
-
   static constraints = {
-    type(nullable: false)
-    ipAddress(nullable: false)
+    description(nullable: true)
+    clientIp(nullable: false)
+    householdId(nullable: true)
+    json(nullable: true)
     dateCreated()
   }
 
