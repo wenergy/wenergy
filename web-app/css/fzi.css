@@ -49,14 +49,23 @@ body {
   background: rgba(0, 0, 0, 0.3);
 }
 
-.navbar .nav .dropdown-toggle .caret,
-.navbar .nav .open.dropdown .caret {
+.navbar .nav li.dropdown .dropdown-toggle .caret,
+.navbar .nav li.dropdown.open .caret {
   border-top-color: #383838;
   border-bottom-color: #383838;
 }
 
-.navbar .nav .active > .dropdown-toggle:hover {
+.navbar .nav li.dropdown.active > .dropdown-toggle:hover {
   color: #383838;
+}
+
+.nav li.dropdown.open .caret,
+.nav li.dropdown.open.active .caret,
+.nav li.dropdown.open a:hover .caret {
+  border-top-color: #383838;
+  border-bottom-color: #383838;
+  opacity: 1;
+  filter: alpha(opacity=100);
 }
 
 .navbar .brand {
