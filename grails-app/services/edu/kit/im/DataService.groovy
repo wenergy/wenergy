@@ -20,6 +20,7 @@ package edu.kit.im
 import java.math.RoundingMode
 import org.joda.time.DateTime
 import org.joda.time.LocalTime
+import org.joda.time.DateTimeConstants
 
 class DataService {
 
@@ -152,6 +153,14 @@ class DataService {
         eq("type", type)
         household {
           eq("id", householdId())
+        }
+        // Distinguish between weekday and weekend in daily view
+        if (type in [ConsumptionType.MIN5, ConsumptionType.MIN15]) {
+          if (low.dayOfWeek in (DateTimeConstants.MONDAY..DateTimeConstants.FRIDAY)) {
+            between("dayOfWeek", DateTimeConstants.MONDAY, DateTimeConstants.FRIDAY)
+          } else {
+            between("dayOfWeek", DateTimeConstants.SATURDAY, DateTimeConstants.SUNDAY)
+          }
         }
         if (interval == "weekly") order("dayOfWeek", "asc")
         else if (interval == "monthly") order("dayOfMonth", "asc")

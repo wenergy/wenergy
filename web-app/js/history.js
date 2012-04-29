@@ -190,7 +190,10 @@ $(function () {
 
     // Chart (phase) colors
     Highcharts.setOptions({
-      colors:["#004B8A", "#007CC3", "#6CAEDF"]
+      colors:["#004B8A", "#007CC3", "#6CAEDF"],
+      lang:{
+        weekdays:["Sonntag", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag"]
+      }
     });
 
     // Save in history section
@@ -552,8 +555,7 @@ $(function () {
       xAxis:{
         type:"datetime",
         dateTimeLabelFormats:{
-          day:"%d. %m",
-          week:"%d. %m"
+          day:"%a<br/>%d.%m"
         },
         title:{
           text:'Zeit',
@@ -702,11 +704,15 @@ $(function () {
   function chartAverageSeriesNameForDateAndInterval(date, interval) {
     switch (interval) {
       case "daily":
-        return "Durchschnittlicher " + date.toString("dddd"); // Monday
+        var day = date.getDay();
+        if (day >= 1 /* Mon */ && day <= 5 /* Fri */) {
+          return "Durchschnittlicher Wochentag";
+        } else {
+          return "Durchschnittliches Wochenende";
+        }
       case "weekly":
-        return "Durchschnittliche Woche";
       case "monthly":
-        return "Durchschnittlicher Monat";
+        return "Durchschnittlicher Wochentag";
     }
     // Fallback
     return "Durchschnitt";
@@ -715,7 +721,7 @@ $(function () {
   function chartSeriesNameForInterval(interval) {
     switch (interval) {
       case "daily":
-        return "Verbrauch heute"
+        return "Verbrauch heute";
       case "weekly":
         return "Verbrauch aktuelle Woche";
       case "monthly":

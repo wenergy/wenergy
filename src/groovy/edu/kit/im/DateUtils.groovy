@@ -22,6 +22,7 @@ import org.joda.time.Period
 import org.joda.time.DateTimeZone
 import org.joda.time.format.DateTimeFormatter
 import org.joda.time.format.DateTimeFormat
+import org.joda.time.DateTimeConstants
 
 class DateUtils {
 
@@ -106,9 +107,15 @@ class DateUtils {
     switch (type) {
       case ConsumptionType.MIN5:
       case ConsumptionType.MIN15:
+        if (startDateTime.dayOfWeek in (DateTimeConstants.MONDAY..DateTimeConstants.FRIDAY)) {
+          startPattern += "'Durchschnittlicher Wochentag' "
+        } else {
+          startPattern += "'Durchschnittliches Wochenende' "
+        }
+        break
       case ConsumptionType.MIN30:
       case ConsumptionType.H3:
-        startPattern += "EEEE's' "
+        startPattern += "'Durchschnittlicher ' EEEE "
         break
       default:
         startPattern += "dd.MM.YYYY "
