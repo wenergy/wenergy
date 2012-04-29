@@ -44,9 +44,9 @@ modules = {
     resource url: [dir: "js/bootstrap", file: "bootstrap.js"], disposition: "head"
   }
 
-  highstockjs {
+  highchartsjs {
     dependsOn "jquery"
-    resource url: [dir: "js/highstock", file: "highstock.js"], disposition: "head", exclude:"yuijsminify"
+    resource url: [dir: "js/highcharts", file: "highcharts.js"], disposition: "head", exclude:"yuijsminify"
   }
 
   raphaeljs {
@@ -107,17 +107,17 @@ modules = {
   }
 
   welcomejs {
-    dependsOn "jqbbq, jqchrono, jqqtip, datejs, highstockjs, spinjs, raphaeljs, wenergyjs"
+    dependsOn "jqbbq, jqchrono, jqqtip, datejs, highchartsjs, spinjs, raphaeljs, wenergyjs"
     resource url: [dir: "js", file: "welcome.js"], disposition: "head"
   }
 
   historyjs {
-    dependsOn "jqbbq, jqchrono, jqqtip, jqui, datejs, highstockjs, spinjs, raphaeljs, wenergyjs"
+    dependsOn "jqbbq, jqchrono, jqqtip, jqui, datejs, highchartsjs, spinjs, raphaeljs, wenergyjs"
     resource url: [dir: "js", file: "history.js"], disposition: "head"
   }
 
   livejs {
-    dependsOn "jqbbq, jqchrono, jqqtip, datejs, highstockjs, spinjs, raphaeljs, wenergyjs"
+    dependsOn "jqbbq, jqchrono, jqqtip, datejs, highchartsjs, spinjs, raphaeljs, wenergyjs"
     resource url: [dir: "js", file: "live.js"], disposition: "head"
   }
 
