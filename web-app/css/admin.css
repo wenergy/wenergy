@@ -73,3 +73,9 @@ table.table thead .sorting_asc_disabled {
 table.table thead .sorting_desc_disabled {
   background: url('../img/sort_desc_disabled.png') no-repeat center right;
 }
+
+.wenergy-admin-tooltip .ui-tooltip-content {
+  text-align: center;
+  font-size: 13px;
+  line-height: 18px;
+}

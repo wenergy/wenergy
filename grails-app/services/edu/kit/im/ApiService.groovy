@@ -20,7 +20,6 @@ package edu.kit.im
 import org.joda.time.DateTime
 import org.codehaus.groovy.runtime.typehandling.GroovyCastException
 import grails.validation.ValidationException
-import org.joda.time.DateTimeZone
 
 class ApiService {
 
@@ -33,20 +32,12 @@ class ApiService {
       def error = jsonPayload.error
 
       if (error.id && error.code) {
-        def household = Household.findById(error.id)
-        if (household) {
-          def apiError = new ApiError()
-          try {
-            apiError.type = ApiErrorType.valueOf(error.code?.toUpperCase())
-          } catch (IllegalArgumentException e) {
-            throw new ApiException("Invalid error code", 400)
-          }
-          apiError.ipAddress = request.getRemoteAddr()
-          household.addToApiErrors(apiError)
-          household.save()
-        } else {
-          throw new ApiException("Invalid device id", 400)
-        }
+        def apiError = new ApiError()
+        apiError.description = "Nanode: ${error.code?.toUpperCase()}"
+        apiError.clientIp = request.getHeader("X-Cluster-Client-IP") ?: request.getRemoteAddr()
+        apiError.householdId = error.id
+        apiError.json = jsonPayload
+        apiError.save()
       } else {
         throw new ApiException("Invalid error", 400)
       }

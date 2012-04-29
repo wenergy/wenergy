@@ -17,21 +17,29 @@
 
 databaseChangeLog = {
 
-	changeSet(author: "ddauer (generated)", id: "changelog") {
-		// TODO add changes and preconditions here
+	changeSet(author: "ddauer (generated)", id: "1335730737704-1") {
+		createTable(tableName: "api_error") {
+			column(autoIncrement: "true", name: "id", type: "bigint") {
+				constraints(nullable: "false", primaryKey: "true", primaryKeyName: "api_errorPK")
+			}
+
+			column(name: "version", type: "bigint") {
+				constraints(nullable: "false")
+			}
+
+			column(name: "client_ip", type: "varchar(255)") {
+				constraints(nullable: "false")
+			}
+
+			column(name: "date_created", type: "datetime") {
+				constraints(nullable: "false")
+			}
+
+			column(name: "description", type: "varchar(255)")
+
+			column(name: "household_id", type: "varchar(255)")
+
+			column(name: "json", type: "varchar(255)")
+		}
 	}
-
-	include file: 'changelog-1.0.groovy'
-
-	include file: 'changelog-1.0.1.groovy'
-
-	include file: 'changelog-1.0.2.groovy'
-
-	include file: 'changelog-1.0.3.groovy'
-
-	include file: 'changelog-1.0.4.groovy'
-
-	include file: 'changelog-1.0.5.groovy'
-
-	include file: 'changelog-1.1.groovy'
 }

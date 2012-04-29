@@ -127,7 +127,7 @@ modules = {
   }
 
   admin {
-    dependsOn "prettify, datatablesjs"
+    dependsOn "prettify, datatablesjs, jqqtip"
     resource url: [dir: "js", file: "admin.js"], disposition: "head"
     resource url: [dir: "css", file: "admin.css"], disposition: "head"
   }

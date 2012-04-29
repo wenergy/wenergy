@@ -17,21 +17,11 @@
 
 databaseChangeLog = {
 
-	changeSet(author: "ddauer (generated)", id: "changelog") {
-		// TODO add changes and preconditions here
+	changeSet(author: "ddauer (generated)", id: "1335700576444-1") {
+		dropForeignKeyConstraint(baseTableName: "api_error", /*baseTableSchemaName: "wenergy",*/ constraintName: "FKFAC133A3B9AF2C40")
 	}
 
-	include file: 'changelog-1.0.groovy'
-
-	include file: 'changelog-1.0.1.groovy'
-
-	include file: 'changelog-1.0.2.groovy'
-
-	include file: 'changelog-1.0.3.groovy'
-
-	include file: 'changelog-1.0.4.groovy'
-
-	include file: 'changelog-1.0.5.groovy'
-
-	include file: 'changelog-1.1.groovy'
+	changeSet(author: "ddauer (generated)", id: "1335700576444-2") {
+		dropTable(tableName: "api_error")
+	}
 }

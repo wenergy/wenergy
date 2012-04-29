@@ -19,6 +19,28 @@ $(function () {
   // Format all pre-blocks
   prettyPrint();
 
+  // Tooltips
+  $(".json[title]").qtip({
+    position:{
+      my:"top center",
+      at:"bottom center",
+      adjust:{
+        x:($(this).find(".bar").width())
+      },
+      viewport:$(window)
+    },
+    show:{
+      delay:0,
+      effect:false
+    },
+    hide:{
+      effect:false
+    },
+    style:{
+      classes:"ui-tooltip-light ui-tooltip-rounded wenergy-admin-tooltip"
+    }
+  });
+
   // Datatables
   /* Default class modification */
   $.extend($.fn.dataTableExt.oStdClasses, {

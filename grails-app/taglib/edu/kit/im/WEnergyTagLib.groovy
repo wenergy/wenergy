@@ -35,6 +35,17 @@ class WEnergyTagLib {
     }
   }
 
+  // Resolve id to user
+  def fullNameForId = { attrs, body ->
+    Long id = attrs.householdId as Long
+    if (id) {
+      Household household = Household.findById(id)
+      if (household) {
+        out << household.fullName
+      }
+    }
+  }
+
   // Security additions for individual user queries
   def ifGrantedForUser = { attrs, body ->
     def authorities = Household.findById(attrs.user)?.getAuthorities()?.collect { it.authority }

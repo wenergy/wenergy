@@ -35,15 +35,21 @@ class ApiController {
       jsonStatus = [status: [code: 200]] as JSON
 
     } catch (ApiException e) {
-      log.error e
-      log.error "IP: ${request.getHeader("X-Cluster-Client-IP")}, JSON: ${params.json}"
+      def apiError = new ApiError()
+      apiError.description = e.message
+      apiError.clientIp = request.getHeader("X-Cluster-Client-IP") ?: request.getRemoteAddr()
+      apiError.json = params.json
+      apiError.save()
 
       response.status = e.code // Bad Request
       jsonStatus = [status: [code: e.code, message: e.message]] as JSON
 
     } catch (Exception e) {
-      log.error e
-      log.error "IP: ${request.getHeader("X-Cluster-Client-IP")}, Params: ${params}"
+      def apiError = new ApiError()
+      apiError.description = e.message
+      apiError.clientIp = request.getHeader("X-Cluster-Client-IP") ?: request.getRemoteAddr()
+      apiError.json = params.json
+      apiError.save()
 
       response.status = 400 // Bad Request
       jsonStatus = [status: [code: 400, message: "Invalid JSON"]] as JSON
