@@ -17,6 +17,6 @@
 
 <%
   out <<  '<span class="help-inline">'
-  out << "Collection editing has been disabled for performance reasons"// (size: ${value?.size()})."
+  out << "Collection editing has been disabled for performance reasons."// (size: ${value?.size()})."
   out << '</span>'
 %>

@@ -9,7 +9,7 @@
 	</head>
 	<body>
 		<div class="row-fluid">
-			
+
 			<div class="span3">
 				<div class="well">
 					<ul class="nav nav-list">
@@ -29,7 +29,7 @@
 					</ul>
 				</div>
 			</div>
-			
+
 			<div class="span9">
 
 				<div class="page-header">
@@ -50,7 +50,8 @@
 						<dt><g:message code="${domainClass.propertyName}.${p.name}.label" default="${p.naturalName}" /></dt>
 						<%  if (p.isEnum()) { %>
 							<dd><g:fieldValue bean="\${${propertyName}}" field="${p.name}"/></dd>
-						%{--<%  } else if (p.oneToMany || p.manyToMany) { %>--}%
+						<%  } else if (p.oneToMany || p.manyToMany) { %>
+              <dd>Collection viewing has been disabled for performance reasons.</dd>
               %{--<g:if test="\${${propertyName}.${p.name}?.size() < 100}">--}%
 							  %{--<g:each in="\${${propertyName}.${p.name}}" var="${p.name[0]}">--}%
 							  %{--<dd><g:link controller="${p.referencedDomainClass?.propertyName}" action="show" id="\${${p.name[0]}.id}">\${${p.name[0]}?.encodeAsHTML()}</g:link></dd>--}%
