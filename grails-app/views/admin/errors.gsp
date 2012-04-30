@@ -52,7 +52,7 @@
             <td>${error.clientIp}</td>
             <td>${error.description}</td>
             <td><wen:fullNameForId householdId="${error.householdId}"/></td>
-            <td><span class="json" title="${error.json?.encodeAsHTML()}">${StringUtils.abbreviate(error.json, 20)}</span></td>
+            <td><span class="json" <g:if test="${error.json}">title="${error.json?.encodeAsHTML()}"</g:if>>${StringUtils.abbreviate(error.json, 20)}</span></td>
           </tr>
         </g:each>
         </tbody>
