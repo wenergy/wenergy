@@ -154,10 +154,11 @@ class AdminController {
         "Grails Version": grailsApplication.metadata.'app.grails.version',
         "Groovy Version": InvokerHelper.getVersion(),
         "JVM Version": System.getProperty("java.version"),
-        "Controllers": grailsApplication.controllerClasses.size(),
-        "Domains": grailsApplication.domainClasses.size(),
-        "Services": grailsApplication.serviceClasses.size(),
-        "Tag Libraries": grailsApplication.tagLibClasses.size(),
+        "Controllers": grailsApplication.controllerClasses?.size(),
+        "Domains": grailsApplication.domainClasses?.size(),
+        "Services": grailsApplication.serviceClasses?.size(),
+        "Tag Libraries": grailsApplication.tagLibClasses?.size(),
+        "Jobs": grailsApplication.jobClasses?.size(),
         "Systemzeit": new DateTime(),
         "Zeitzone": new DateTime().getZone()
     ]
@@ -168,6 +169,8 @@ class AdminController {
     dataInfo["Gruppen"] = Peergroup.count()
     dataInfo["Verbrauchswerte"] = Consumption.count()
     dataInfo["Aggregierte Verbrauchswerte"] = AggregatedConsumption.count()
+    dataInfo["Events"] = Event.count()
+    dataInfo["Api-Fehler"] = ApiError.count()
 
     def vcapApplicationString = System.getenv("VCAP_APPLICATION")
     def vcapApplication
