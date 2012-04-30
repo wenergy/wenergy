@@ -84,6 +84,9 @@ class Household implements Serializable {
   static mapping = {
     cache(true)
     password column: '`password`'
+    consumptions(cascade: "all-delete-orphan")
+    aggregatedConsumptions(cascade: "all-delete-orphan")
+    events(cascade: "all-delete-orphan")
   }
 
   def beforeInsert() {
@@ -94,6 +97,10 @@ class Household implements Serializable {
     if (isDirty('password')) {
       encodePassword()
     }
+  }
+
+  def beforeDelete() {
+    HouseholdRole.removeAll(this)
   }
 
   protected void encodePassword() {
