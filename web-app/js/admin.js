@@ -156,9 +156,10 @@ $(function () {
 
   // Determine default sort column
   var defaultSortColumn = $("#adminTable th").index($(".defaultSortCol"));
+  var defaultSortDirectionDesc = $(".defaultSortCol").hasClass("defaultSortOrderDesc");
   var sorting = [0, "asc"]; // default
   if (defaultSortColumn >= 0) {
-    sorting = [defaultSortColumn, "asc"];
+    sorting = [defaultSortColumn, (defaultSortDirectionDesc ? "desc" : "asc")];
   }
 
   // Make table sortable

@@ -38,7 +38,7 @@
       <table class="table" id="adminTable">
         <thead>
         <tr>
-          <th>Datum</th>
+          <th class="defaultSortCol defaultSortOrderDesc">Datum</th>
           <th>IP</th>
           <th>Beschreibung</th>
           <th>Teilnehmer</th>
