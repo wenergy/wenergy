@@ -145,7 +145,9 @@ grails.plugins.springsecurity.interceptUrlMap = [
     // User profile
     '/user/**': ["hasRole('ROLE_USER')"],
     // Spring Security
-    '/j_spring_security_switch_user': ["hasRole('ROLE_ADMIN')"]
+    '/j_spring_security_switch_user': ["hasRole('ROLE_ADMIN')"],
+    // Console
+    '/console/**': ["hasRole('ROLE_ADMIN')"]
 ]
 
 // Always use latest jQuery version
