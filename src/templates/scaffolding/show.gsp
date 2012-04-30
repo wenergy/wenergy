@@ -41,7 +41,7 @@
 				</g:if>
 
 				<dl>
-				<%  excludedProps = Event.allEvents.toList() << 'id' << 'version'
+				<%  excludedProps = Event.allEvents.toList() << 'id' << 'version' << 'consumptions' << 'aggregatedConsumptions' << 'events'
 					allowedNames = domainClass.persistentProperties*.name << 'dateCreated' << 'lastUpdated'
 					props = domainClass.properties.findAll { allowedNames.contains(it.name) && !excludedProps.contains(it.name) }
 					Collections.sort(props, comparator.constructors[0].newInstance([domainClass] as Object[]))
