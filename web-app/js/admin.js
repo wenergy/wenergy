@@ -170,7 +170,7 @@ $(function () {
       [10, 25, 50, 100, -1],
       [10, 25, 50, 100, "Alle"]
     ],
-    "iDisplayLength":50,
+    "iDisplayLength":25,
     "aoColumnDefs":[
       { "bSortable":false, "aTargets":[ "nonSortable" ] },
       { "sType":"title-numeric", "aTargets":[ "sortByTitleAttr" ] }
