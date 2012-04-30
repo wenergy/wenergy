@@ -41,7 +41,7 @@ class WEnergyTagLib {
     if (id) {
       Household household = Household.findById(id)
       if (household) {
-        out << household.fullName
+        out << g.link(controller: "household", action: "show", id: household.id) { household.fullName }
       }
     }
   }

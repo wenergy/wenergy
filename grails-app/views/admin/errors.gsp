@@ -48,11 +48,15 @@
         <tbody>
         <g:each var="error" in="${errors}">
           <tr>
-            <td>${DateTimeFormat.mediumDateTime().withLocale(Locale.GERMAN).print(error.dateCreated)}</td>
+            <td><g:link controller="apiError" action="show" id="${error.id}">
+              ${DateTimeFormat.mediumDateTime().withLocale(Locale.GERMAN).print(error.dateCreated)}
+            </g:link></td>
             <td>${error.clientIp}</td>
             <td>${error.description}</td>
             <td><wen:fullNameForId householdId="${error.householdId}"/></td>
-            <td><span class="json" <g:if test="${error.json}">title="${error.json?.encodeAsHTML()}"</g:if>>${StringUtils.abbreviate(error.json, 20)}</span></td>
+            <td><span class="json" <g:if
+                test="${error.json}">title="${error.json?.encodeAsHTML()}"</g:if>>${StringUtils.abbreviate(error.json, 20)}</span>
+            </td>
           </tr>
         </g:each>
         </tbody>
