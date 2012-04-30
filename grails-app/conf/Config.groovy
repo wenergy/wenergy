@@ -127,6 +127,10 @@ grails.plugins.springsecurity.useSecurityEventListener = true
 
 grails.plugins.springsecurity.securityConfigType = SecurityConfigType.InterceptUrlMap
 grails.plugins.springsecurity.interceptUrlMap = [
+    // Console
+    '/console/**': ["hasRole('ROLE_ADMIN')"],
+    // Spring Security
+    '/j_spring_security_switch_user': ["hasRole('ROLE_ADMIN')"],
     // Allow unrestricted access to API
     '/api/**': ["permitAll"],
     '/*': ["permitAll"],
@@ -134,6 +138,8 @@ grails.plugins.springsecurity.interceptUrlMap = [
     '/imprint/**': ["permitAll"],
     '/registration/**': ["permitAll"],
     '/data/welcome': ["permitAll"],
+    // User profile
+    '/user/**': ["hasRole('ROLE_USER')"],
     // Block controllers
     '/admin/**': ["hasRole('ROLE_ADMIN')"],
     '/aggregatedConsumption/**': ["hasRole('ROLE_ADMIN')"],
@@ -141,13 +147,7 @@ grails.plugins.springsecurity.interceptUrlMap = [
     '/data/**': ["hasRole('ROLE_USER')"],
     '/home/**': ["hasRole('ROLE_USER')"],
     '/household/**': ["hasRole('ROLE_ADMIN')"],
-    '/peergroup/**': ["hasRole('ROLE_ADMIN')"],
-    // User profile
-    '/user/**': ["hasRole('ROLE_USER')"],
-    // Spring Security
-    '/j_spring_security_switch_user': ["hasRole('ROLE_ADMIN')"],
-    // Console
-    '/console/**': ["hasRole('ROLE_ADMIN')"]
+    '/peergroup/**': ["hasRole('ROLE_ADMIN')"]
 ]
 
 // Always use latest jQuery version
