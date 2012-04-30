@@ -89,7 +89,7 @@ class HomeController {
     }
 
     // Badge classes
-    def badgeClasses = ["badge-success", "badge-warning", "badge-info", "badge-error", "badge-inverse"]
+    def badgeClasses = ["badge-success", "badge-warning", "badge-info", "badge-important", "badge-inverse"]
     ranking.eachWithIndex { map, i ->
       map.badge = (i < badgeClasses.size()) ? badgeClasses.get(i) : ""
     }
