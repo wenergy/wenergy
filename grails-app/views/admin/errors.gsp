@@ -51,7 +51,7 @@
             <td><g:link controller="apiError" action="show" id="${error.id}">
               ${DateTimeFormat.mediumDateTime().withLocale(Locale.GERMAN).print(error.dateCreated)}
             </g:link></td>
-            <td>${error.clientIp}</td>
+            <td><a href="http://www.utrace.de/?query=${error.clientIp}" target="_blank">${error.clientIp}</a></td>
             <td>${error.description}</td>
             <td><wen:fullNameForId householdId="${error.householdId}"/></td>
             <td><span class="json" <g:if
