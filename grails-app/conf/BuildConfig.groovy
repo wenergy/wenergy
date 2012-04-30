@@ -49,6 +49,7 @@ grails.project.dependency.resolution = {
     compile ":quartz2:0.2.2"
     compile ":rocks:1.0.1"
     compile ":fields:1.1"
+    compile ":console:1.1"
 
     // Uncomment these (or add new ones) to enable additional resources capabilities
     runtime ":zipped-resources:1.0"

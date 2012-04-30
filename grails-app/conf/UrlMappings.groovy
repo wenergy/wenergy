@@ -4,8 +4,11 @@ class UrlMappings {
 
     "/"(controller: "home")
 
+    "/admin/console"(controller: "console")
+
     "/$controller/$action?/$id?" {
       constraints {
+        controller(notEqual: "console")
         // apply constraints here
       }
     }
