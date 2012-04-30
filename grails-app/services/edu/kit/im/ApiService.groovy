@@ -180,11 +180,11 @@ class ApiService {
   }
 
   def getClientIP(def request) {
-    def clusterIP = request?.getHeader("X-Cluster-Client-IP")
-    def forwardedIP = request?.getHeader("X-Forwarded-For")?.tokenize(",")?.first()?.trim()
+    def realIp = request?.getHeader("x-real_ip")
+    def forwardedIP = request?.getHeader("x-forwarded_for")?.tokenize(",")?.first()?.trim()
     def remoteAddr = request?.getRemoteAddr()
 
     // Prioritize return value
-    clusterIP ?: (forwardedIP ?: (remoteAddr ?: ""))
+    realIp ?: (forwardedIP ?: (remoteAddr ?: ""))
   }
 }
