@@ -34,7 +34,7 @@ class ApiService {
       if (error.id && error.code) {
         def apiError = new ApiError()
         apiError.description = "Nanode: ${error.code?.toUpperCase()}"
-        apiError.clientIp = request.getHeader("X-Cluster-Client-IP") ?: request.getRemoteAddr()
+        apiError.clientIp = getClientIP(request)
         apiError.householdId = error.id
         apiError.json = jsonPayload
         apiError.save()
@@ -177,5 +177,14 @@ class ApiService {
       newAggregatedConsumption.addToConsumptions(consumption)
       newAggregatedConsumption.save(failOnError: true)
     }
+  }
+
+  def getClientIP(def request) {
+    def clusterIP = request?.getHeader("X-Cluster-Client-IP")
+    def forwardedIP = request?.getHeader("X-Forwarded-For")?.tokenize(",")?.first()?.trim()
+    def remoteAddr = request?.getRemoteAddr()
+
+    // Prioritize return value
+    clusterIP ?: (forwardedIP ?: (remoteAddr ?: ""))
   }
 }

@@ -37,7 +37,7 @@ class ApiController {
     } catch (ApiException e) {
       def apiError = new ApiError()
       apiError.description = e.message
-      apiError.clientIp = request.getHeader("X-Cluster-Client-IP") ?: request.getRemoteAddr()
+      apiError.clientIp = apiService.getClientIP(request)
       apiError.json = params.json
       apiError.save()
 
@@ -47,7 +47,7 @@ class ApiController {
     } catch (Exception e) {
       def apiError = new ApiError()
       apiError.description = e.message
-      apiError.clientIp = request.getHeader("X-Cluster-Client-IP") ?: request.getRemoteAddr()
+      apiError.clientIp = apiService.getClientIP(request)
       apiError.json = params.json
       apiError.save()
 
