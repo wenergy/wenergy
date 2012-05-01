@@ -38,7 +38,7 @@
         <thead>
         <tr>
           <th>Name</th>
-          <th>Zuletzt Angemeldet</th>
+          <th class="sortByEuroDate">Zuletzt Angemeldet</th>
           <th>Batteriestand</th>
           <th>Bezugswert Ranking</th>
           <th>Bezugswert Verbrauch</th>
