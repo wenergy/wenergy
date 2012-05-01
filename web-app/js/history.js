@@ -438,7 +438,38 @@ $(function () {
 
         if (cache.isDelta) {
           // Delta updates - append values
-          //TODO:delta
+          // We only append and ignore edge cases in which day/week/month changes
+          // e.g. Sun 23:59:59 -> Mon 00:00:00 requires a page reload
+
+          // Make sure data really exists to avoid "undefined" errors
+          if (json.data) {
+            if (json.data.phase1Data) {
+              $.merge(cache.phase1Data, json.data.phase1Data);
+            }
+            if (json.data.phase2Data) {
+              $.merge(cache.phase2Data, json.data.phase2Data);
+            }
+            if (json.data.phase3Data) {
+              $.merge(cache.phase3Data, json.data.phase3Data);
+            }
+            if (json.data.consumptionData) {
+              $.merge(cache.consumptionData, json.data.consumptionData);
+            }
+            if (json.data.averageData) {
+              $.merge(cache.averageData, json.data.averageData);
+            }
+
+            // Update graph but don't redraw
+            if (cache.dataType == "averages") {
+              cache.consumptionChart.series[0].setData(cache.consumptionData, false);
+              cache.consumptionChart.series[1].setData(cache.averageData, false);
+            } else {
+              cache.consumptionChart.series[0].setData(cache.phase1Data, false);
+              cache.consumptionChart.series[1].setData(cache.phase2Data, false);
+              cache.consumptionChart.series[2].setData(cache.phase3Data, false);
+            }
+            cache.consumptionChart.redraw();
+          }
         } else {
           // Reset data and extract new values from json
           cache.phase1Data = [];
@@ -486,7 +517,7 @@ $(function () {
         }
 
         // Plot
-        updateChart();  //TODO: json.time.low/.high
+        updateChart();
 
         // Update delta to current time
         if (json.data) {
@@ -686,7 +717,7 @@ $(function () {
 
     if (live && !timer) {
       // Create and save timer
-      cache.timer = $.every(5, "seconds", function () {
+      cache.timer = $.every(30, "seconds", function () {
         // No parallel loading
         if (cache.loadingInProgress) {
           return;
