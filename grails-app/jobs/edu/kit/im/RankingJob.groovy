@@ -20,7 +20,7 @@ package edu.kit.im
 class RankingJob {
 
   static triggers = {
-    cron cronExpression: "0 0 1 ? * MON" // wEnergy Scheduler, every monday at 1am
+    cron cronExpression: "0 0 4 ? * MON" // wEnergy Scheduler, every monday at 1am
   }
 
   def rankingService
