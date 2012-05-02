@@ -273,9 +273,12 @@ class DataService {
     // Battery level from last consumption
     if (consumptions.size() > 0) {
       def consumption = consumptions.last()
-      def maxBatteryLevel = 3200.0
+      def minBatteryLevel = 2650.0 // V
+      def maxBatteryLevel = 3300.0 - minBatteryLevel // V
 
       BigDecimal batteryLevel = new BigDecimal((Double) consumption[4])
+      batteryLevel -= minBatteryLevel
+      batteryLevel = batteryLevel.max(0.0)
       batteryLevel /= maxBatteryLevel
       batteryLevel = batteryLevel.min(1.0).max(0.0)
       batteryLevel = batteryLevel.setScale(2, RoundingMode.HALF_UP)

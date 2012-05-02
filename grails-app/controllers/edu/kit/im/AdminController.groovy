@@ -130,7 +130,10 @@ class AdminController {
 
       def batteryLevel = Consumption.findByHousehold(household, [max: 1, sort: "date", order: "desc"])?.batteryLevel
       if (batteryLevel) {
-        def maxBatteryLevel = 3200.0
+        def minBatteryLevel = 2650.0 // V
+        def maxBatteryLevel = 3300.0 - minBatteryLevel // V
+        batteryLevel -= minBatteryLevel
+        batteryLevel = batteryLevel.max(0.0)
         batteryLevel /= maxBatteryLevel
         batteryLevel = batteryLevel.min(1.0).max(0.0)
         batteryLevel = batteryLevel.setScale(2, RoundingMode.HALF_UP)
