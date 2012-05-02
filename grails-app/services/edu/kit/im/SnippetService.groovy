@@ -46,4 +46,9 @@ class SnippetService {
     def household = Household.findById(1)
     def consumption = Consumption.findByHousehold(household, [sort: "date", order: "desc", max: 1])
   }
+
+  def executeService() {
+    def service = ctx.getBean("myService")
+    service?.method()
+  }
 }
