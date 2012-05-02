@@ -38,7 +38,7 @@
       <table class="table" id="adminTable">
         <thead>
         <tr>
-          <th class="defaultSortCol defaultSortOrderDesc sortByEuroDate">Datum</th>
+          <th class="defaultSortCol defaultSortOrderDesc sortByTitleAttr">Datum</th>
           <th>IP</th>
           <th>Beschreibung</th>
           <th>Teilnehmer</th>
@@ -48,7 +48,7 @@
         <tbody>
         <g:each var="error" in="${errors}">
           <tr>
-            <td><g:link controller="apiError" action="show" id="${error.id}">
+            <td><span title="<wen:sortableDate date="${error.dateCreated}"/>"></span><g:link controller="apiError" action="show" id="${error.id}">
               ${DateTimeFormat.mediumDateTime().withLocale(Locale.GERMAN).print(error.dateCreated)}
             </g:link></td>
             <td><a href="http://www.utrace.de/?query=${error.clientIp}" target="_blank">${error.clientIp}</a></td>

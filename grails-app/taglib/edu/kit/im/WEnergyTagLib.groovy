@@ -20,6 +20,9 @@
 package edu.kit.im
 
 import org.codehaus.groovy.grails.plugins.springsecurity.SpringSecurityUtils
+import org.joda.time.DateTime
+import org.joda.time.format.DateTimeFormatter
+import org.joda.time.format.DateTimeFormat
 
 class WEnergyTagLib {
 
@@ -103,6 +106,15 @@ class WEnergyTagLib {
     }
     if (theme == ThemeType.valueOf(attrs.key)) {
       out << body()
+    }
+  }
+
+  // Sorting
+  def sortableDate = { attrs, body ->
+    DateTime date = attrs.date
+    if (date) {
+      DateTimeFormatter formatter = DateTimeFormat.forPattern("YYYYMMddHHmmss").withLocale(Locale.GERMAN)
+      out << formatter.print(date)
     }
   }
 }
