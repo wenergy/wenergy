@@ -37,4 +37,13 @@ class SnippetService {
       household.save(flush: true)
     }
   }
+
+  def deleteInstancesOfDomainClass() {
+    ApiError.executeUpdate("delete from ApiError")
+  }
+
+  def getLastConsumptionOfHousehold() {
+    def household = Household.findById(1)
+    def consumption = Consumption.findByHousehold(household, [sort: "date", order: "desc", max: 1])
+  }
 }
