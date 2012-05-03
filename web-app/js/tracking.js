@@ -15,37 +15,25 @@
  * limitations under the License.
  */
 
-package edu.kit.im
+$(function () {
 
-import org.joda.time.DateTime
-import org.joda.time.Duration
+  var trackingStartTime = new Date();
 
-class Event implements Serializable {
+  $(window).unload(function () {
+    var location = window.location.pathname;
+    var parameters = window.location.hash;
+    var trackingEndTime = new Date() - trackingStartTime;
 
-  EventType type
-  DateTime date = new DateTime()
-
-  // Viewer information
-  Duration duration
-  String url
-  String parameters
-
-  // Grails information
-  DateTime dateCreated
-
-  // Relationships
-  static belongsTo = [household: Household]
-
-  static constraints = {
-    type(nullable: false)
-    date(nullable: false)
-    duration(nullable: true)
-    url(nullable: true)
-    parameters(nullable: true)
-    dateCreated()
-  }
-
-  static mapping = {
-    cache(true)
-  }
-}
+    $.ajax({
+      async:false,
+      type:"POST",
+      url:rootPath + "data/event",
+      data:{
+        uid:trackingId,
+        loc:location,
+        par:parameters,
+        dur:trackingEndTime
+      }
+    });
+  });
+});

@@ -112,18 +112,22 @@ modules = {
   }
 
   historyjs {
-    dependsOn "jqbbq, jqchrono, jqqtip, jqui, datejs, highchartsjs, spinjs, raphaeljs, wenergyjs"
+    dependsOn "jqbbq, jqchrono, jqqtip, jqui, datejs, highchartsjs, spinjs, raphaeljs, wenergyjs, trackingjs"
     resource url: [dir: "js", file: "history.js"], disposition: "head"
   }
 
   livejs {
-    dependsOn "jqbbq, jqchrono, jqqtip, datejs, highchartsjs, spinjs, raphaeljs, wenergyjs"
+    dependsOn "jqbbq, jqchrono, jqqtip, datejs, highchartsjs, spinjs, raphaeljs, wenergyjs, trackingjs"
     resource url: [dir: "js", file: "live.js"], disposition: "head"
   }
 
   rankingjs {
-    dependsOn "jqqtip"
+    dependsOn "jqqtip, trackingjs"
     resource url: [dir: "js", file: "ranking.js"], disposition: "head"
+  }
+
+  trackingjs {
+    resource url: [dir: "js", file: "tracking.js"], disposition: "head"
   }
 
   admin {

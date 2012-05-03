@@ -143,8 +143,10 @@ grails.plugins.springsecurity.interceptUrlMap = [
     // Block controllers
     '/admin/**': ["hasRole('ROLE_ADMIN')"],
     '/aggregatedConsumption/**': ["hasRole('ROLE_ADMIN')"],
+    '/apiError/**': ["hasRole('ROLE_ADMIN')"],
     '/consumption/**': ["hasRole('ROLE_ADMIN')"],
     '/data/**': ["hasRole('ROLE_USER')"],
+    '/event/**': ["hasRole('ROLE_ADMIN')"],
     '/home/**': ["hasRole('ROLE_USER')"],
     '/household/**': ["hasRole('ROLE_ADMIN')"],
     '/peergroup/**': ["hasRole('ROLE_ADMIN')"]

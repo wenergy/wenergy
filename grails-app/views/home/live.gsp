@@ -23,6 +23,7 @@
   <r:require modules="livejs"/>
   <r:script disposition="head">
     var rootPath = "${ConfigurationHolder.config?.grails?.relativeServerURL}";
+    var trackingId = "<wen:householdId/>";
   </r:script>
 </head>
 

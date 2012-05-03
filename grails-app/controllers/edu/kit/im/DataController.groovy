@@ -19,10 +19,11 @@ package edu.kit.im
 
 import grails.converters.JSON
 import org.joda.time.DateTime
+import org.joda.time.Duration
 
 class DataController {
 
-  def allowedMethods = [index: "POST", data: "POST"]
+  def allowedMethods = [index: "POST", welcome: "POST", consumption: "POST", live: "POST", event: "POST"]
 
   def dataService
 
@@ -121,6 +122,36 @@ class DataController {
       ] as JSON
 
       response.status = 200
+      render json
+    } catch (Exception e) {
+      def json = [
+          status:
+              [
+                  code: 500,
+                  message: e.toString().encodeAsHTML()
+                  //stack: ApiUtils.getStackTraceAsString(e).encodeAsHTML()
+              ]
+      ] as JSON
+
+      response.status = 500
+      render json
+    }
+  }
+
+  def event() {
+    try {
+      def householdId = params.uid as Long
+      def household = Household.findById(householdId)
+      def url = params.loc
+      def parameters = params.par
+      def duration = params.dur as Long
+
+      household.addToEvents(new Event(type: EventType.PAGE_VIEW, url: url,
+          parameters: parameters, duration: new Duration(duration)));
+      household.save(failOnError: true)
+
+      response.status = 200 // OK
+      def json = [status: [code: 200]] as JSON
       render json
     } catch (Exception e) {
       def json = [

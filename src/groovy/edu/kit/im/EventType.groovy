@@ -18,5 +18,5 @@
 package edu.kit.im
 
 public enum EventType {
-  LOGIN, LOGOUT
+  LOGIN, LOGOUT, PAGE_VIEW
 }

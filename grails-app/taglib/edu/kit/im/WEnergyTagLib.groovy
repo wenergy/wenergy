@@ -49,6 +49,16 @@ class WEnergyTagLib {
     }
   }
 
+  // Get user id
+  def householdId = {
+    if (springSecurityService.isLoggedIn()) {
+      Household user = springSecurityService.currentUser
+      out << user.id
+    } else {
+      out << "-1"
+    }
+  }
+
   // Security additions for individual user queries
   def ifGrantedForUser = { attrs, body ->
     def authorities = Household.findById(attrs.user)?.getAuthorities()?.collect { it.authority }
