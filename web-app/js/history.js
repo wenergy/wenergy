@@ -324,6 +324,18 @@ $(function () {
       }
     }
 
+    // Validate chart legend
+    var allowedBooleanValues = ["true", "false"];
+    var booleanKeysToVerify = ["phase1", "phase2", "phase3", "consumption", "averages"];
+
+    // Remove invalid parameter from URL
+    $.each(booleanKeysToVerify, function (index, value) {
+      var bbqState = $.bbq.getState(value);
+      if (bbqState && $.inArray(bbqState, allowedBooleanValues) == -1) {
+        invalidHashValues.push(value);
+      }
+    });
+
     // Remove if necessary
     if (invalidHashValues.length > 0) {
       $.bbq.removeState(invalidHashValues);
@@ -391,9 +403,49 @@ $(function () {
       // Dispatch loading
       reloadData();
     } else {
-      // We get here only if <nothing!> has changed, therefore no reloading is necessary
-      // Force update chart
-      updateChart(true);
+      // We get here only if legend states have changed, therefore no reloading is necessary
+      // Series visibility
+      if (dataType == "averages") {
+        var bbqCon = $.bbq.getState("consumption");
+        var consumptionVisible = bbqCon ? (bbqCon == "true") : true;
+        if (consumptionVisible) {
+          cache.consumptionChart.series[0].show();
+        } else {
+          cache.consumptionChart.series[0].hide();
+        }
+
+        var bbqAvg = $.bbq.getState("averages");
+        var averagesVisible = bbqAvg ? (bbqAvg == "true") : true;
+        if (averagesVisible) {
+          cache.consumptionChart.series[1].show();
+        } else {
+          cache.consumptionChart.series[1].hide();
+        }
+      } else {
+        var bbqP1 = $.bbq.getState("phase1");
+        var phase1Visible = bbqP1 ? (bbqP1 == "true") : true;
+        if (phase1Visible) {
+          cache.consumptionChart.series[0].show();
+        } else {
+          cache.consumptionChart.series[0].hide();
+        }
+
+        var bbqP2 = $.bbq.getState("phase2");
+        var phase2Visible = bbqP2 ? (bbqP2 == "true") : true;
+        if (phase2Visible) {
+          cache.consumptionChart.series[1].show();
+        } else {
+          cache.consumptionChart.series[1].hide();
+        }
+
+        var bbqP3 = $.bbq.getState("phase3");
+        var phase3Visible = bbqP3 ? (bbqP3 == "true") : true;
+        if (phase3Visible) {
+          cache.consumptionChart.series[2].show();
+        } else {
+          cache.consumptionChart.series[2].hide();
+        }
+      }
     }
   });
 
@@ -572,6 +624,23 @@ $(function () {
       return;
     }
 
+    // Series visibility
+    var bbqP1 = $.bbq.getState("phase1");
+    var phase1Visible = bbqP1 ? (bbqP1 == "true") : true;
+
+    var bbqP2 = $.bbq.getState("phase2");
+    var phase2Visible = bbqP2 ? (bbqP2 == "true") : true;
+
+    var bbqP3 = $.bbq.getState("phase3");
+    var phase3Visible = bbqP3 ? (bbqP3 == "true") : true;
+
+    var bbqCon = $.bbq.getState("consumption");
+    var consumptionVisible = bbqCon ? (bbqCon == "true") : true;
+
+    var bbqAvg = $.bbq.getState("averages");
+    var averagesVisible = bbqAvg ? (bbqAvg == "true") : true;
+
+    // Chart options
     var consumptionChartOptions = {
       chart:{
         renderTo:'consumptionChart',
@@ -645,6 +714,16 @@ $(function () {
           shadow:false,
           marker:{
             enabled:false
+          },
+          events:{
+            legendItemClick:function (event) {
+              var name = this.options.id;
+              var visible = this.visible ? false : true; // BEFORE switch, so invert
+              var state = {};
+              state[name] = visible;
+
+              $.bbq.pushState(state);
+            }
           }
         }
       },
@@ -657,30 +736,40 @@ $(function () {
     if (cache.dataType == "averages") {
       consumptionChartOptions.series = [
         {
+          id:'consumption',
           name:chartSeriesNameForInterval(cache.interval),
           data:cache.consumptionData,
-          zIndex:1
+          zIndex:1,
+          visible:consumptionVisible
         },
         {
+          id:'averages',
           name:chartAverageSeriesNameForDateAndInterval(new Date(cache.date), cache.interval),
           data:cache.averageData,
           color:"#8F8F8F",
-          zIndex:0
+          zIndex:0,
+          visible:averagesVisible
         }
       ];
     } else {
       consumptionChartOptions.series = [
         {
+          id:'phase1',
           name:'Phase 1',
-          data:cache.phase1Data
+          data:cache.phase1Data,
+          visible:phase1Visible
         },
         {
+          id:'phase2',
           name:'Phase 2',
-          data:cache.phase2Data
+          data:cache.phase2Data,
+          visible:phase2Visible
         },
         {
+          id:'phase3',
           name:'Phase 3',
-          data:cache.phase3Data
+          data:cache.phase3Data,
+          visible:phase3Visible
         }
       ];
     }
