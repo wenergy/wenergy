@@ -20,6 +20,11 @@ $(function () {
   var trackingStartTime = new Date();
 
   $(window).unload(function () {
+
+    if (!trackingEnabled) {
+      return;
+    }
+
     var location = window.location.pathname;
     var parameters = window.location.hash;
     var trackingEndTime = new Date() - trackingStartTime;

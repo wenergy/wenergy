@@ -26,6 +26,7 @@
   <r:script disposition="head">
     var rootPath = "${ConfigurationHolder.config?.grails?.relativeServerURL}";
     var trackingId = "<wen:householdId/>";
+    var trackingEnabled = <sec:ifSwitched>false</sec:ifSwitched><sec:ifNotSwitched>true</sec:ifNotSwitched>;
   </r:script>
 </head>
 
