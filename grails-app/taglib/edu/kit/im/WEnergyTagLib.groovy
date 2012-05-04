@@ -127,4 +127,19 @@ class WEnergyTagLib {
       out << formatter.print(date)
     }
   }
+
+  // Chart exporing
+  def exportingEnabled = { attrs, body ->
+    if (springSecurityService.isLoggedIn()) {
+      Household household = springSecurityService.currentUser
+      def authorities = household?.getAuthorities()?.collect { it.authority }
+      if (SpringSecurityUtils.isSwitched() || authorities?.contains("ROLE_ADMIN")) {
+        out << "true"
+      } else {
+        out << "false"
+      }
+    } else {
+      out << "false"
+    }
+  }
 }

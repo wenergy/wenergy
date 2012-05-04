@@ -730,6 +730,12 @@ $(function () {
 
       credits:{
         enabled:false
+      },
+
+      exporting:{
+        url:'http://www2.wenergy-project.de',
+        width:1024,
+        enabled:chartExportingEnabled
       }
     };
 

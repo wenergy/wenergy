@@ -47,6 +47,7 @@ modules = {
   highchartsjs {
     dependsOn "jquery"
     resource url: [dir: "js/highcharts", file: "highcharts.js"], disposition: "head", exclude:"yuijsminify"
+    resource url: [dir: "js/highcharts/modules", file: "exporting.js"], disposition: "head", exclude:"yuijsminify"
   }
 
   raphaeljs {

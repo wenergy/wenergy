@@ -25,6 +25,7 @@
     var rootPath = "${ConfigurationHolder.config?.grails?.relativeServerURL}";
     var trackingId = "<wen:householdId/>";
     var trackingEnabled = <sec:ifSwitched>false</sec:ifSwitched><sec:ifNotSwitched>true</sec:ifNotSwitched>;
+    var chartExportingEnabled = <wen:exportingEnabled/>;
   </r:script>
 </head>
 
