@@ -736,6 +736,13 @@ $(function () {
         url:'http://www2.wenergy-project.de',
         width:1024,
         enabled:chartExportingEnabled
+      },
+
+      navigation:{
+        buttonOptions:{
+          verticalAlign:'bottom',
+          y:-20
+        }
       }
     };
 

@@ -456,6 +456,13 @@ $(function () {
         enabled:chartExportingEnabled
       },
 
+      navigation:{
+        buttonOptions:{
+          verticalAlign:'bottom',
+          y:-20
+        }
+      },
+
       series:[
         {
           id:'phase1',
