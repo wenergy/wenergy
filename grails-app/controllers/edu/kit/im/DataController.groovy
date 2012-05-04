@@ -23,7 +23,7 @@ import org.joda.time.Duration
 
 class DataController {
 
-  def allowedMethods = [index: "POST", welcome: "POST", consumption: "POST", live: "POST", event: "POST"]
+  static allowedMethods = [index: "POST", welcome: "POST", consumption: "POST", live: "POST", event: "POST"]
 
   def dataService
 

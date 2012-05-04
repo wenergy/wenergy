@@ -19,26 +19,25 @@ $(function () {
 
   var trackingStartTime = new Date();
 
-  $(window).unload(function () {
+  $(window).bind("beforeunload", function (event) {
 
-    if (!trackingEnabled) {
-      return;
+    if (trackingEnabled) {
+
+      var location = window.location.pathname;
+      var parameters = window.location.hash;
+      var trackingEndTime = new Date() - trackingStartTime;
+
+      $.ajax({
+        async:false,
+        type:"POST",
+        url:rootPath + "data/event",
+        data:{
+          uid:trackingId,
+          loc:location,
+          par:parameters,
+          dur:trackingEndTime
+        }
+      });
     }
-
-    var location = window.location.pathname;
-    var parameters = window.location.hash;
-    var trackingEndTime = new Date() - trackingStartTime;
-
-    $.ajax({
-      async:false,
-      type:"POST",
-      url:rootPath + "data/event",
-      data:{
-        uid:trackingId,
-        loc:location,
-        par:parameters,
-        dur:trackingEndTime
-      }
-    });
   });
 });

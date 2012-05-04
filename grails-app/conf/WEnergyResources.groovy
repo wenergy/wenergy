@@ -128,7 +128,7 @@ modules = {
   }
 
   trackingjs {
-//    resource url: [dir: "js", file: "tracking.js"], disposition: "head"
+    resource url: [dir: "js", file: "tracking.js"], disposition: "head"
   }
 
   admin {
