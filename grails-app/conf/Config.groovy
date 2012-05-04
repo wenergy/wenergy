@@ -138,6 +138,7 @@ grails.plugins.springsecurity.interceptUrlMap = [
     '/imprint/**': ["permitAll"],
     '/registration/**': ["permitAll"],
     '/data/welcome': ["permitAll"],
+    '/data/event': ["permitAll"],
     // User profile
     '/user/**': ["hasRole('ROLE_USER')"],
     // Block controllers
