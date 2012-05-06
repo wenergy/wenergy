@@ -662,7 +662,7 @@ $(function () {
 
     // Tooltip
     // Text
-    var tipText = "Der Batteriestand des wEnergy-Sensor beträgt " +
+    var tipText = "Der Batteriestand des wEnergy-Sensors beträgt " +
         Highcharts.numberFormat(cache.batteryLevel * 100.0, 0, ".", "") + "&nbsp;%.";
 
     // Create or update tooltip
