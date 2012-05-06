@@ -25,7 +25,7 @@ class RankingService {
   def run() {
     // Last two days of consumption records are used to determine reference level
     Household.getAll().each {h ->
-      Household.withSession { session ->
+      Household.withNewSession { session ->
         determineRankingValue(h.id, true)
       }
     }
