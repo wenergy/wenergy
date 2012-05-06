@@ -56,6 +56,8 @@ class RankingService {
         sum("sumPowerPhase2")
         sum("sumPowerPhase3")
       }
+      timeout(60)
+      readOnly(true)
     }
 
     def aggregatedConsumptionSum = aggregatedConsumptions.collect {

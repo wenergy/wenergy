@@ -25,6 +25,8 @@ class HouseholdService {
         property("powerPhase2")
         property("powerPhase3")
       }
+      timeout(60)
+      readOnly(true)
     }
 
     def aggregatedConsumptions = consumptions.collect {
