@@ -18,6 +18,7 @@
 package edu.kit.im
 
 import org.joda.time.DateTime
+import edu.kit.im.enums.ThemeType
 
 class Household implements Serializable {
 

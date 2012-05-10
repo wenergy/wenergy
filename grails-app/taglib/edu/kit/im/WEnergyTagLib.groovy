@@ -23,6 +23,7 @@ import org.codehaus.groovy.grails.plugins.springsecurity.SpringSecurityUtils
 import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormatter
 import org.joda.time.format.DateTimeFormat
+import edu.kit.im.enums.ThemeType
 
 class WEnergyTagLib {
 

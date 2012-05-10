@@ -18,6 +18,7 @@
 package edu.kit.im
 
 import grails.validation.ValidationException
+import edu.kit.im.enums.ThemeType
 
 class UserController {
 
