@@ -37,7 +37,7 @@ class ApiService {
       def jsonObject = JSON.parse(message.json)
       processConsumption(message, jsonObject)
     } catch (Exception e) {
-      rabbitSend "api", new ApiErrorMessage(e.message, message.clientIp, null, message.json)
+      rabbitSend "wenergy", "api", new ApiErrorMessage(e.message, message.clientIp, null, message.json)
     }
   }
 
@@ -61,7 +61,7 @@ class ApiService {
 
       if (error.id && error.code) {
         def description = "Nanode: ${error.code?.toUpperCase()}"
-        rabbitSend "api", new ApiErrorMessage(description, message.clientIp, error.id as String, message.json)
+        rabbitSend "wenergy", "api", new ApiErrorMessage(description, message.clientIp, error.id as String, message.json)
       } else {
         throw new ApiException("Invalid error", 400)
       }

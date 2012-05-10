@@ -27,7 +27,7 @@ class ApiController {
 
   def consumption() {
     String jsonParam = params.json
-    rabbitSend "api", new ConsumptionMessage(apiService.getClientIP(request), jsonParam, new DateTime())
+    rabbitSend "wenergy", "api", new ConsumptionMessage(apiService.getClientIP(request), jsonParam, new DateTime())
 
     def jsonStatus = [status: [code: 200]] as JSON
     response.status = 200 // OK

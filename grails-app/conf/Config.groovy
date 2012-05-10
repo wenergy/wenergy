@@ -196,7 +196,7 @@ rabbitmq {
     hostname = "localhost"
   }
   queues = {
-    exchange name: "api", type: direct, autoDelete: false, durable: true, {
+    exchange name: "wenergy", type: direct, autoDelete: false, durable: true, {
       api autoDelete: false, durable: true
     }
   }
