@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package edu.kit.im
+package edu.kit.im.utils
 
 import org.joda.time.DateTime
 import org.joda.time.Period

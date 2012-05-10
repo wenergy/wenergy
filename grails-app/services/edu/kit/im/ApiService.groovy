@@ -23,6 +23,7 @@ import grails.converters.JSON
 import grails.validation.ValidationException
 import org.codehaus.groovy.runtime.typehandling.GroovyCastException
 import edu.kit.im.enums.ConsumptionType
+import edu.kit.im.utils.DateUtils
 
 class ApiService {
 
