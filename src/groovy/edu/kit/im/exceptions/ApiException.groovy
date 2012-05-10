@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package edu.kit.im
+package edu.kit.im.exceptions
 
 public class ApiException extends RuntimeException {
   // HTTP status code
