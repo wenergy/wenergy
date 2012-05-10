@@ -15,27 +15,30 @@
  * limitations under the License.
  */
 
-package edu.kit.im
+package edu.kit.im.messages
 
-import grails.converters.JSON
-import edu.kit.im.messages.ConsumptionMessage
-import org.joda.time.DateTime
+import org.apache.commons.lang.builder.ToStringBuilder
 
-class ApiController {
+class ApiErrorMessage implements Serializable {
+  String description
+  String clientIp
+  String householdId
+  String json
 
-  def apiService
-
-  def consumption() {
-    String jsonParam = params.json
-    rabbitSend "api", new ConsumptionMessage(apiService.getClientIP(request), jsonParam, new DateTime())
-
-    def jsonStatus = [status: [code: 200]] as JSON
-    response.status = 200 // OK
-    render jsonStatus
+  ApiErrorMessage(String description, String clientIp, String householdId, String json) {
+    this.description = description
+    this.clientIp = clientIp
+    this.householdId = householdId
+    this.json = json
   }
 
-  def fail() {
-    response.status = 502
-    render "502 Bad Gateway (API FAIL)"
+  @Override
+  public String toString() {
+    return new ToStringBuilder(this).
+        append("description", description).
+        append("clientIp", clientIp).
+        append("householdId", householdId).
+        append("json", json).
+        toString();
   }
 }

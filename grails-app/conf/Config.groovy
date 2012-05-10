@@ -187,3 +187,17 @@ grails.plugin.databasemigration.updateOnStartFileNames = ["changelog.groovy"]
 // Deployment
 grails.plugin.cloudfoundry.target = "api.wenergy-project.de"
 grails.plugin.cloudfoundry.appname = "www"
+
+// Messaging
+rabbitmq {
+  connectionfactory {
+    username = "guest"
+    password = "guest"
+    hostname = "localhost"
+  }
+  queues = {
+    exchange name: "api", type: direct, autoDelete: false, durable: true, {
+      api autoDelete: false, durable: true
+    }
+  }
+}

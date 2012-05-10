@@ -17,27 +17,48 @@
 
 package edu.kit.im
 
-import org.joda.time.DateTime
-import org.codehaus.groovy.runtime.typehandling.GroovyCastException
+import edu.kit.im.messages.ApiErrorMessage
+import edu.kit.im.messages.ConsumptionMessage
+import grails.converters.JSON
 import grails.validation.ValidationException
+import org.codehaus.groovy.runtime.typehandling.GroovyCastException
 
 class ApiService {
 
+  static rabbitQueue = "api"
+
   def householdService
 
-  def processConsumption(def request, def jsonPayload) {
+  void handleMessage(ConsumptionMessage message) {
+    try {
+      def jsonObject = JSON.parse(message.json)
+      processConsumption(message, jsonObject)
+    } catch (Exception e) {
+      rabbitSend "api", new ApiErrorMessage(e.message, message.clientIp, null, message.json)
+    }
+  }
 
+  void handleMessage(ApiErrorMessage message) {
+    def apiError = new ApiError()
+    apiError.description = message.description
+    apiError.clientIp = message.clientIp
+    apiError.householdId = message.householdId
+    apiError.json = message.json
+    try {
+      apiError.save(failOnError: true)
+    } catch (ValidationException e) {
+      log.error apiError.errors
+    }
+  }
+
+  def processConsumption(def message, def jsonObject) {
     // Process error first
-    if (jsonPayload.error) {
-      def error = jsonPayload.error
+    if (jsonObject.error) {
+      def error = jsonObject.error
 
       if (error.id && error.code) {
-        def apiError = new ApiError()
-        apiError.description = "Nanode: ${error.code?.toUpperCase()}"
-        apiError.clientIp = getClientIP(request)
-        apiError.householdId = error.id
-        apiError.json = jsonPayload
-        apiError.save()
+        def description = "Nanode: ${error.code?.toUpperCase()}"
+        rabbitSend "api", new ApiErrorMessage(description, message.clientIp, error.id as String, message.json)
       } else {
         throw new ApiException("Invalid error", 400)
       }
@@ -55,31 +76,31 @@ class ApiService {
 
     // The following exceptions can throw since variables are statically typed
     try {
-      deviceId = jsonPayload.id
+      deviceId = jsonObject.id
     } catch (GroovyCastException e) {
       throw new ApiException("Invalid device id type", 400)
     }
 
     try {
-      powerPhase1 = jsonPayload.p1
+      powerPhase1 = jsonObject.p1
     } catch (GroovyCastException e) {
       throw new ApiException("Invalid phase 1 power type", 400)
     }
 
     try {
-      powerPhase2 = jsonPayload.p2
+      powerPhase2 = jsonObject.p2
     } catch (GroovyCastException e) {
       throw new ApiException("Invalid phase 2 power type", 400)
     }
 
     try {
-      powerPhase3 = jsonPayload.p3
+      powerPhase3 = jsonObject.p3
     } catch (GroovyCastException e) {
       throw new ApiException("Invalid phase 3 power type", 400)
     }
 
     try {
-      batteryLevel = jsonPayload.b
+      batteryLevel = jsonObject.b
     } catch (GroovyCastException e) {
       throw new ApiException("Invalid battery level type", 400)
     }
@@ -95,7 +116,7 @@ class ApiService {
     if (!household) throw new ApiException("Invalid device id", 400)
 
     // All checks passed - create Consumption instance
-    def now = DateUtils.addUTCOffset(new DateTime())
+    def now = DateUtils.addUTCOffset(message.dateTime)
 
     def consumption = new Consumption(household: household, date: now, powerPhase1: powerPhase1,
         powerPhase2: powerPhase2, powerPhase3: powerPhase3, batteryLevel: batteryLevel)
@@ -110,12 +131,22 @@ class ApiService {
     // Post processing
     try {
       determineAggregation(consumption)
+    } catch (Exception e) {
+      log.error e
+      throw new ApiException("Aggregation processing error", 500)
+    }
 
+    try {
       // Set reference value once
       if (household.referenceConsumptionValue == null) {
         householdService.determineReferenceConsumptionValue(household.id)
       }
+    } catch (Exception e) {
+      log.error e
+      throw new ApiException("Reference value processing error", 500)
+    }
 
+    try {
       // Cache power level
       def referenceConsumptionValue = household.referenceConsumptionValue
       BigDecimal sumPower = powerPhase1 + powerPhase2 + powerPhase3
@@ -124,10 +155,9 @@ class ApiService {
 
       household.currentPowerLevelValue = powerLevel
       household.save()
-
     } catch (Exception e) {
       log.error e
-      throw new ApiException("Post processing error", 500)
+      throw new ApiException("Power level processing error", 500)
     }
   }
 
