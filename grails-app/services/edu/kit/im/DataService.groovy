@@ -225,7 +225,7 @@ class DataService {
     // Load consumptions
     def consumptions = Consumption.withCriteria() {
       if (deltaTime) {
-        gt("date", deltaTime)
+        gt("dateCreated", deltaTime)
       }
       household {
         eq("id", householdId())
