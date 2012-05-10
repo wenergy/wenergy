@@ -12,6 +12,7 @@ $WENERGY_VCAP_HOME/vcap/dev_setup/bin/vcap_dev stop
 # Get latest source
 cd $WENERGY_VCAP/vap/
 git pull origin master
+git submodule foreach git pull origin master
 git submodule update --recursive
 
 # Run setup script again
