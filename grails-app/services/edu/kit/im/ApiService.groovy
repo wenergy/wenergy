@@ -116,6 +116,15 @@ class ApiService {
         householdService.determineReferenceConsumptionValue(household.id)
       }
 
+      // Cache power level
+      def referenceConsumptionValue = household.referenceConsumptionValue
+      BigDecimal sumPower = powerPhase1 + powerPhase2 + powerPhase3
+      def powerLevel = (referenceConsumptionValue > 0) ? sumPower / referenceConsumptionValue : 0.0
+      powerLevel = powerLevel.max(0.0)
+
+      household.currentPowerLevelValue = powerLevel
+      household.save()
+
     } catch (Exception e) {
       log.error e
       throw new ApiException("Post processing error", 500)

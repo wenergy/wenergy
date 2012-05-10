@@ -33,35 +33,9 @@ class DataService {
 
     // Get all households
     Household.getAll().each {h ->
-      // Get latest consumption
-      def consumption = Consumption.withCriteria() {
-        household {
-          eq("id", h.id)
-        }
-        order("date", "desc")
-        projections {
-          property("powerPhase1")
-          property("powerPhase2")
-          property("powerPhase3")
-        }
-        maxResults(1)
-      }
-
-      if (consumption.size()) {
-        def consumptionVal = consumption[0]
-        BigDecimal powerPhase1 = (BigDecimal) consumptionVal[0]
-        BigDecimal powerPhase2 = (BigDecimal) consumptionVal[1]
-        BigDecimal powerPhase3 = (BigDecimal) consumptionVal[2]
-        BigDecimal sumPower = powerPhase1 + powerPhase2 + powerPhase3
-
-        def referenceValue = h.referenceConsumptionValue
-        def powerLevel = (referenceValue > 0) ? sumPower / referenceValue : 0.0
-        powerLevel = powerLevel.max(0.0)
-        powerLevel = powerLevel.setScale(2, RoundingMode.HALF_UP)
-
-        if (powerLevel > 0) {
-          powerLevels << powerLevel
-        }
+      def powerLevel = h.currentPowerLevelValue
+      if (powerLevel != null) {
+        powerLevels << powerLevel.setScale(2, RoundingMode.HALF_UP)
       }
     }
 

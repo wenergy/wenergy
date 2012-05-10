@@ -39,6 +39,9 @@ class Household implements Serializable {
   // Ranking reference value
   BigDecimal referenceRankingValue
 
+  // Power level
+  BigDecimal currentPowerLevelValue
+
   // Theming
   ThemeType theme = ThemeType.wenergy
 
@@ -63,6 +66,7 @@ class Household implements Serializable {
     city(blank: false)
     referenceConsumptionValue(nullable: true)
     referenceRankingValue(nullable: true)
+    currentPowerLevelValue(nullable: true)
     theme(nullable: false)
     username(blank: false, unique: true, minSize: 3)
     password(blank: false, password: true, minSize: 3)

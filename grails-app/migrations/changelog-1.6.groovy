@@ -17,25 +17,9 @@
 
 databaseChangeLog = {
 
-	changeSet(author: "ddauer (generated)", id: "changelog") {
-		// TODO add changes and preconditions here
+	changeSet(author: "ddauer (generated)", id: "1336634572854-1") {
+		addColumn(tableName: "household") {
+			column(name: "current_power_level_value", type: "decimal(19,2)")
+		}
 	}
-
-	include file: 'changelog-1.0.groovy'
-
-	include file: 'changelog-1.0.1.groovy'
-
-	include file: 'changelog-1.0.2.groovy'
-
-	include file: 'changelog-1.0.3.groovy'
-
-	include file: 'changelog-1.0.4.groovy'
-
-	include file: 'changelog-1.0.5.groovy'
-
-	include file: 'changelog-1.1.groovy'
-
-	include file: 'changelog-1.4.groovy'
-
-	include file: 'changelog-1.6.groovy'
 }
