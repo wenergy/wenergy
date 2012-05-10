@@ -15,13 +15,15 @@
  * limitations under the License.
  */
 
-package edu.kit.im
+package edu.kit.im.listeners
 
 import org.springframework.context.ApplicationListener
 import org.springframework.security.authentication.event.AuthenticationSuccessEvent
 import org.springframework.security.core.userdetails.User
 import grails.validation.ValidationException
 import edu.kit.im.enums.EventType
+import edu.kit.im.Household
+import edu.kit.im.Event
 
 class AuthenticationSuccessEventListener implements ApplicationListener<AuthenticationSuccessEvent> {
 
