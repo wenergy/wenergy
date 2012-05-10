@@ -21,6 +21,7 @@ import java.math.RoundingMode
 import org.joda.time.DateTime
 import org.joda.time.LocalTime
 import org.joda.time.DateTimeConstants
+import edu.kit.im.enums.ConsumptionType
 
 class DataService {
 

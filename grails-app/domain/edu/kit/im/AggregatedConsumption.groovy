@@ -19,6 +19,7 @@ package edu.kit.im
 
 import org.joda.time.DateTime
 import org.joda.time.LocalTime
+import edu.kit.im.enums.ConsumptionType
 
 class AggregatedConsumption implements Serializable {
   // Aggregation type

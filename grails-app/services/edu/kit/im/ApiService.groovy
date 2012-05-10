@@ -22,6 +22,7 @@ import edu.kit.im.messages.ConsumptionMessage
 import grails.converters.JSON
 import grails.validation.ValidationException
 import org.codehaus.groovy.runtime.typehandling.GroovyCastException
+import edu.kit.im.enums.ConsumptionType
 
 class ApiService {
 

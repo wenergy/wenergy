@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package edu.kit.im
+package edu.kit.im.enums
 
 public enum ConsumptionType {
   MIN5(5), // 5 minute interval

@@ -19,6 +19,7 @@ package edu.kit.im
 
 import org.joda.time.DateTime
 import org.joda.time.DateTimeConstants
+import edu.kit.im.enums.ConsumptionType
 
 class RankingService {
 

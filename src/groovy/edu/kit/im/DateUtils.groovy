@@ -23,6 +23,7 @@ import org.joda.time.DateTimeZone
 import org.joda.time.format.DateTimeFormatter
 import org.joda.time.format.DateTimeFormat
 import org.joda.time.DateTimeConstants
+import edu.kit.im.enums.ConsumptionType
 
 class DateUtils {
 
