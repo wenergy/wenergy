@@ -20,6 +20,7 @@ package edu.kit.im
 import grails.converters.JSON
 import org.joda.time.DateTime
 import org.joda.time.Duration
+import edu.kit.im.enums.EventType
 
 class DataController {
 

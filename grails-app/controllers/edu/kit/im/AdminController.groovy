@@ -28,6 +28,7 @@ import org.quartz.Scheduler
 import org.quartz.SchedulerException
 import org.quartz.impl.matchers.GroupMatcher
 import java.math.RoundingMode
+import edu.kit.im.enums.EventType
 
 class AdminController {
 

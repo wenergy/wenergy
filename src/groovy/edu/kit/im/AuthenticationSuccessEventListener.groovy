@@ -21,6 +21,7 @@ import org.springframework.context.ApplicationListener
 import org.springframework.security.authentication.event.AuthenticationSuccessEvent
 import org.springframework.security.core.userdetails.User
 import grails.validation.ValidationException
+import edu.kit.im.enums.EventType
 
 class AuthenticationSuccessEventListener implements ApplicationListener<AuthenticationSuccessEvent> {
 

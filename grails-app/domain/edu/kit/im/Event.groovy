@@ -19,6 +19,7 @@ package edu.kit.im
 
 import org.joda.time.DateTime
 import org.joda.time.Duration
+import edu.kit.im.enums.EventType
 
 class Event implements Serializable {
 
