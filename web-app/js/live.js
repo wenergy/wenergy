@@ -652,8 +652,8 @@ $(function () {
     // Update width and color
     // Display values < 0.05 as 0.05!
     var relativeWidth = Math.max(0.05, cache.batteryLevel) * cache.batteryLevelIndicatorFillMaxWidth;
-    // Red threshold is 20 %
-    var fillColor = (cache.batteryLevel < 0.2) ? cache.batteryLevelColorLow : cache.batteryLevelColor;
+    // Red threshold is 10 %
+    var fillColor = (cache.batteryLevel < 0.1) ? cache.batteryLevelColorLow : cache.batteryLevelColor;
 
     cache.batteryLevelIndicatorFiller.attr({width:relativeWidth});
     cache.batteryLevelIndicatorParts.forEach(function (e) {
