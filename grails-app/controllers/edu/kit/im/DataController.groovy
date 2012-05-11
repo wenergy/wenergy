@@ -148,9 +148,9 @@ class DataController {
       def parameters = params.par
       def duration = params.dur as Long
 
-      household.addToEvents(new Event(type: EventType.PAGE_VIEW, url: url,
-          parameters: parameters, duration: new Duration(duration)));
-      household.save(failOnError: true)
+      def event = new Event(type: EventType.PAGE_VIEW, url: url, parameters: parameters,
+          duration: new Duration(duration), household: household)
+      event.save(failOnError: true)
 
       response.status = 200 // OK
       def json = [status: [code: 200]] as JSON

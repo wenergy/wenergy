@@ -30,13 +30,13 @@ class AuthenticationSuccessEventListener implements ApplicationListener<Authenti
   void onApplicationEvent(AuthenticationSuccessEvent e) {
     User user = (User) e?.authentication?.principal
 
-    Household.withTransaction {
+    Event.withTransaction {
       def household = Household.findByUsername(user.username)
-      household.addToEvents(new Event(type: EventType.LOGIN))
+      def event = new Event(type: EventType.LOGIN, household: household)
       try {
-        household.save(failOnError: true)
+        event.save(failOnError: true)
       } catch (ValidationException exception) {
-        log.error household.errors
+        log.error event.errors
       }
     }
   }
