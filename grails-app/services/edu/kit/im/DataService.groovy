@@ -34,7 +34,7 @@ class DataService {
     def powerLevels = []
 
     // Get all households
-    Household.getAll().each {h ->
+    Household.getAll().sort{ it.id }.each {h ->
       def powerLevel = h.currentPowerLevelValue
       if (powerLevel != null) {
         powerLevels << powerLevel.setScale(2, RoundingMode.HALF_UP)
