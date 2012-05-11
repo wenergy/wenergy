@@ -37,6 +37,7 @@ $(function () {
 
     // Power level indicator
     cache.powerLevels = [];
+    cache.maxPowerLevels = 15;
     cache.powerLevelColorInactive = "#CCCCCC";
     cache.powerLevelColors = ["#AD0000", "#B10D05", "#B51A0B", "#B92610", "#BD3315", "#C2401B", "#C64D20", "#CA5925",
       "#CE662B", "#D27330", "#D68036", "#DA8C3B", "#DE9940", "#E2A646", "#E6B34B", "#EBBF50", "#EFCC56", "#F3D95B",
@@ -64,11 +65,9 @@ $(function () {
         if (json.data) {
           if (json.data.powerLevels) {
             cache.powerLevels = json.data.powerLevels;
-
-            // Require at least 15 values
-            while (cache.powerLevels.length < 15) {
-              cache.powerLevels.push(0.0);
-            }
+          }
+          if (json.data.maxPowerLevels) {
+            cache.maxPowerLevels = json.data.maxPowerLevels;
           }
         }
 
@@ -110,6 +109,11 @@ $(function () {
   // Create power level indicator
   function updatePowerLevelIndicator() {
     var cache = $("#welcome").data("bbq");
+
+    // Require at least maxPowerLevels values
+    while (cache.powerLevels.length < cache.maxPowerLevels) {
+      cache.powerLevels.push(0.0);
+    }
 
     if (cache.powerLevelIndicator == null) {
       // Create
@@ -195,5 +199,6 @@ $(function () {
   }
 
   // Trigger once
+  updatePowerLevelIndicator();
   reloadData();
 });

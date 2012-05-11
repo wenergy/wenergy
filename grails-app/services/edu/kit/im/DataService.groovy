@@ -33,8 +33,11 @@ class DataService {
     def dataMap = [:]
     def powerLevels = []
 
+    def maxPowerLevels = 15
+
     // Get all households
-    Household.getAll().sort{ it.id }.each {h ->
+    // (param max should be identical in welcome.js:updatePowerLevelIndicator())
+    Household.findAll(sort: "id", max: maxPowerLevels, readOnly: true) {}.each {h ->
       def powerLevel = h.currentPowerLevelValue
       if (powerLevel != null) {
         powerLevels << powerLevel.setScale(2, RoundingMode.HALF_UP)
@@ -42,6 +45,7 @@ class DataService {
     }
 
     dataMap["powerLevels"] = powerLevels
+    dataMap["maxPowerLevels"] = maxPowerLevels
 
     dataMap
   }
@@ -252,8 +256,8 @@ class DataService {
     // Battery level from last consumption
     if (consumptions.size() > 0) {
       def consumption = consumptions.last()
-      def minBatteryLevel = 2650.0 // V
-      def maxBatteryLevel = 3300.0 - minBatteryLevel // V
+      def minBatteryLevel = 2700.0 // V
+      def maxBatteryLevel = 3200.0 - minBatteryLevel // V
 
       BigDecimal batteryLevel = new BigDecimal((Double) consumption[4])
       batteryLevel -= minBatteryLevel
