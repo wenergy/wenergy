@@ -17,6 +17,7 @@
 
 package edu.kit.im
 
+import org.apache.commons.lang.builder.ToStringBuilder
 import org.joda.time.DateTime
 
 class ApiError implements Serializable {
@@ -39,5 +40,18 @@ class ApiError implements Serializable {
 
   static mapping = {
     cache(true)
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringBuilder(this).
+        append("id", id).
+        append("description", description).
+        append("clientIp", clientIp).
+        append("householdId", householdId).
+        append("json", json).
+        append("dateCreated", dateCreated).
+        append("version", version).
+        toString();
   }
 }

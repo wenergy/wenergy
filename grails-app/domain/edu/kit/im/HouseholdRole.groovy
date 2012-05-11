@@ -18,6 +18,7 @@
 package edu.kit.im
 
 import org.apache.commons.lang.builder.HashCodeBuilder
+import org.apache.commons.lang.builder.ToStringBuilder
 
 class HouseholdRole implements Serializable {
 
@@ -70,5 +71,15 @@ class HouseholdRole implements Serializable {
   static mapping = {
     id composite: ['role', 'household']
     version false
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringBuilder(this).
+        append("id", id).
+        append("household", household).
+        append("role", role).
+        append("version", version).
+        toString();
   }
 }

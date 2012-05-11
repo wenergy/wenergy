@@ -17,9 +17,10 @@
 
 package edu.kit.im
 
+import edu.kit.im.enums.EventType
+import org.apache.commons.lang.builder.ToStringBuilder
 import org.joda.time.DateTime
 import org.joda.time.Duration
-import edu.kit.im.enums.EventType
 
 class Event implements Serializable {
 
@@ -48,5 +49,19 @@ class Event implements Serializable {
 
   static mapping = {
     cache(true)
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringBuilder(this).
+        append("id", id).
+        append("type", type).
+        append("date", date).
+        append("duration", duration).
+        append("url", url).
+        append("parameters", parameters).
+        append("dateCreated", dateCreated).
+        append("version", version).
+        toString();
   }
 }

@@ -17,6 +17,7 @@
 
 package edu.kit.im
 
+import org.apache.commons.lang.builder.ToStringBuilder
 import org.joda.time.DateTime
 
 class Consumption implements Serializable {
@@ -50,5 +51,19 @@ class Consumption implements Serializable {
   static mapping = {
     date(index: "date_idx")
     cache(true)
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringBuilder(this).
+        append("id", id).
+        append("date", date).
+        append("powerPhase1", powerPhase1).
+        append("powerPhase2", powerPhase2).
+        append("powerPhase3", powerPhase3).
+        append("batteryLevel", batteryLevel).
+        append("dateCreated", dateCreated).
+        append("version", version).
+        toString();
   }
 }

@@ -17,6 +17,7 @@
 
 package edu.kit.im
 
+import org.apache.commons.lang.builder.ToStringBuilder
 import org.joda.time.DateTime
 
 class Peergroup implements Serializable {
@@ -34,5 +35,15 @@ class Peergroup implements Serializable {
 
   static mapping = {
     cache(true)
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringBuilder(this).
+        append("id", id).
+        append("name", name).
+        append("dateCreated", dateCreated).
+        append("version", version).
+        toString();
   }
 }

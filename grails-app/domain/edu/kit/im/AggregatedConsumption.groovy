@@ -17,9 +17,10 @@
 
 package edu.kit.im
 
+import edu.kit.im.enums.ConsumptionType
+import org.apache.commons.lang.builder.ToStringBuilder
 import org.joda.time.DateTime
 import org.joda.time.LocalTime
-import edu.kit.im.enums.ConsumptionType
 
 class AggregatedConsumption implements Serializable {
   // Aggregation type
@@ -80,4 +81,25 @@ class AggregatedConsumption implements Serializable {
     cache(true)
   }
 
+  @Override
+  public String toString() {
+    return new ToStringBuilder(this).
+        append("id", id).
+        append("type", type).
+        append("intervalStart", intervalStart).
+        append("intervalEnd", intervalEnd).
+        append("intervalStartTime", intervalStartTime).
+        append("intervalEndTime", intervalEndTime).
+        append("dayOfWeek", dayOfWeek).
+        append("dayOfMonth", dayOfMonth).
+        append("sumPowerPhase1", sumPowerPhase1).
+        append("avgPowerPhase1", avgPowerPhase1).
+        append("sumPowerPhase2", sumPowerPhase2).
+        append("avgPowerPhase2", avgPowerPhase2).
+        append("sumPowerPhase3", sumPowerPhase3).
+        append("avgPowerPhase3", avgPowerPhase3).
+        append("dateCreated", dateCreated).
+        append("version", version).
+        toString();
+  }
 }

@@ -17,8 +17,9 @@
 
 package edu.kit.im
 
-import org.joda.time.DateTime
 import edu.kit.im.enums.ThemeType
+import org.apache.commons.lang.builder.ToStringBuilder
+import org.joda.time.DateTime
 
 class Household implements Serializable {
 
@@ -114,5 +115,30 @@ class Household implements Serializable {
 
   Set<Role> getAuthorities() {
     HouseholdRole.findAllByHousehold(this).collect { it.role } as Set
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringBuilder(this).
+        append("id", id).
+        append("deviceId", deviceId).
+        append("fullName", fullName).
+        append("eMail", eMail).
+        append("address", address).
+        append("zipCode", zipCode).
+        append("city", city).
+        append("referenceConsumptionValue", referenceConsumptionValue).
+        append("referenceRankingValue", referenceRankingValue).
+        append("currentPowerLevelValue", currentPowerLevelValue).
+        append("theme", theme).
+        append("dateCreated", dateCreated).
+        append("username", username).
+        append("password", password).
+        append("enabled", enabled).
+        append("accountExpired", accountExpired).
+        append("accountLocked", accountLocked).
+        append("passwordExpired", passwordExpired).
+        append("version", version).
+        toString();
   }
 }

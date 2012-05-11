@@ -17,6 +17,8 @@
 
 package edu.kit.im
 
+import org.apache.commons.lang.builder.ToStringBuilder
+
 class Role implements Serializable {
 
   String authority
@@ -27,5 +29,14 @@ class Role implements Serializable {
 
   static constraints = {
     authority blank: false, unique: true
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringBuilder(this).
+        append("id", id).
+        append("authority", authority).
+        append("version", version).
+        toString();
   }
 }
