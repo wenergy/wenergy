@@ -110,7 +110,7 @@ class DataController {
       if (params.deltaTime) {
         long jsDate = params.deltaTime as long
         if (jsDate > 0) {
-          deltaTime = DateUtils.addUTCOffset(new DateTime(jsDate))
+          deltaTime = new DateTime(jsDate)
         }
       }
 
