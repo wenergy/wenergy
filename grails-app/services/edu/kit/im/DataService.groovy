@@ -103,6 +103,7 @@ class DataService {
         property("avgPowerPhase2")
         property("avgPowerPhase3")
       }
+      readOnly(true)
     }
 
     // Format consumptions according to dataType
@@ -150,6 +151,7 @@ class DataService {
           avg("avgPowerPhase2")
           avg("avgPowerPhase3")
         }
+        readOnly(true)
       }
 
       def formattedAverageConsumptions = averageConsumptions.collect {
@@ -239,6 +241,7 @@ class DataService {
         property("batteryLevel")
       }
       maxResults(numberOfValues)
+      readOnly(true)
     }
 
     Collections.reverse(consumptions)
