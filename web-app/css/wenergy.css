@@ -372,6 +372,10 @@ hr.soften {
 
 /* Smartphones, tablets and down */
 @media (max-width: 767px) {
+  .phoneHeader {
+    margin-bottom: 15px;
+  }
+
   #live #powerLevelIndicator {
     height: 30px;
     margin-bottom: 0;
@@ -411,9 +415,6 @@ hr.soften {
 
 /* Landscape phones and down */
 @media (max-width: 480px) {
-  .phoneHeader {
-    margin-bottom: 15px;
-  }
 
   .wenergy-tooltip .ui-tooltip-content {
     text-align: center;
