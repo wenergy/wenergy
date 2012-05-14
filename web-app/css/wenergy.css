@@ -423,11 +423,11 @@ hr.soften {
   }
 
   #centralLoaderContainer {
-    padding-top: 55px;
+    padding-top: 65px;
   }
 
   #centralLoaderErrorContainer {
-    padding-top: 555px;
+    padding-top: 65px;
   }
 
   #live #consumptionChart {
