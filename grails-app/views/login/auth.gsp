@@ -32,7 +32,7 @@
   </div>
 
   <div class="row">
-    <div class="offset3">
+    <div class="span9">
       <form action="${postUrl}" method="post" class="login">
         <fieldset>
 

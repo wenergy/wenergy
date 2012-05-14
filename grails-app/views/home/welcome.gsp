@@ -37,7 +37,7 @@
     <div class="span6">
 
       <div class="tabbable">
-        <ul class="nav nav-tabs">
+        <ul id="welcome-tabs" class="nav nav-tabs">
           <li class="active"><a href="#t1" id="at1" data-toggle="tab">Willkommen</a></li>
           <li><a id="at2" href="#t2" data-toggle="tab">Projektbeschreibung</a></li>
           <li><a id="at3" href="#t3" data-toggle="tab">Hardware</a></li>
@@ -55,7 +55,8 @@
           </div>
 
           <div class="tab-pane" id="t2">
-            <p><r:img dir="images" file="project_desc.png" class="thumbnail teaserImage"/>Das Projekt bietet euch die einmalige Gelegenheit, einen detaillierten Einblick in euer eigenes Energieprofil zu bekommen.
+            <p><r:img dir="images" file="project_desc.png"
+                      class="thumbnail teaserImage"/>Das Projekt bietet euch die einmalige Gelegenheit, einen detaillierten Einblick in euer eigenes Energieprofil zu bekommen.
             Wieviel Strom (oder Euro!) verbraucht euer Haushalt oder die WG an einem Tag? Wie ändert sich die Verbrauchskurve bei der Benutzung
             von Wasserkocher und Waschmaschine? Was verbraucht ihr nachts, oder wenn alle außer Haus sind? Wo ist Einsparpotential?</p>
 
@@ -77,7 +78,8 @@
           </div>
 
           <div class="tab-pane" id="t4">
-            <p><r:img dir="images" file="participation.png" class="thumbnail teaserImage"/>Ihr wollt am wEnergy-Projekt teilnehmen? Gerne!</p>
+            <p><r:img dir="images" file="participation.png"
+                      class="thumbnail teaserImage"/>Ihr wollt am wEnergy-Projekt teilnehmen? Gerne!</p>
 
             <p>Das Projekt richtet sich an studentische WGs in Karlsruhe mit 2 bis 4 Bewohnern. Die Teilnahme ist kostenlos –
             die benötigte Technik wird euch für den Zeitraum der Studie zur Verfügung gestellt. Natürlich verpflichtet ihr euch,
@@ -91,6 +93,9 @@
         </div>
       </div>
     </div>
+
+    <hr class="soften visible-phone">
+    <h4 class="centered phoneHeader visible-phone">Live-Aktivität im wEnergy-System</h4>
 
     <div id="powerLevelIndicator" class="span6"></div>
 

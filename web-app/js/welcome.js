@@ -26,6 +26,14 @@ $(function () {
       e.preventDefault();
       $("#at2").tab("show");
     });
+
+    $("#welcome-tabs").watch("width", function () {
+      adjustWelcomeTabs();
+    });
+
+    $("#powerLevelIndicator").watch("width", function () {
+      updatePowerLevelIndicator(true);
+    });
   }
 
   // Save initial options for caching purposes
@@ -107,7 +115,8 @@ $(function () {
   }
 
   // Create power level indicator
-  function updatePowerLevelIndicator() {
+  function updatePowerLevelIndicator(reset) {
+    reset = typeof reset !== 'undefined' ? reset : false;
     var cache = $("#welcome").data("bbq");
 
     // Require at least maxPowerLevels values
@@ -115,9 +124,15 @@ $(function () {
       cache.powerLevels.push(0.0);
     }
 
-    if (cache.powerLevelIndicator == null) {
-      // Create
-      var pli = Raphael("powerLevelIndicator", "100%", "100%");
+    if (reset || cache.powerLevelIndicator == null) {
+      // Create or get from cache
+      var pli
+      if (reset && cache.powerLevelIndicator != null) {
+        pli = cache.powerLevelIndicator;
+        pli.clear();
+      } else {
+        pli = Raphael("powerLevelIndicator", "100%", "100%");
+      }
 
       // Configuration
       var height = $("#powerLevelIndicator").height();
@@ -198,7 +213,25 @@ $(function () {
     }
   }
 
+  function adjustWelcomeTabs() {
+    var tabClass = "#welcome-tabs";
+    var width = parseFloat($(tabClass).width());
+    var isAutoWidth = ($(tabClass).closest(".span6").css("float") == "none");
+    var hasStackedClass = $(tabClass).hasClass("nav-stacked");
+
+    var stackedThreshold = (isAutoWidth ? 480 : 352);
+
+    if (width <= stackedThreshold && !hasStackedClass) {
+      $(tabClass).addClass("nav-stacked");
+      $(".teaserImage").css({"float":"none", "margin-left":"auto", "margin-right":"auto"});
+    } else if (width > stackedThreshold && hasStackedClass) {
+      $(tabClass).removeClass("nav-stacked");
+      $(".teaserImage").css({"float":"left", "margin-left":"0", "margin-right":""});
+    }
+  }
+
   // Trigger once
+  adjustWelcomeTabs();
   updatePowerLevelIndicator();
   reloadData();
 });

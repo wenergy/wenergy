@@ -93,6 +93,7 @@ $(function () {
 //      buttonImage: '../images/calendar.png',
       changeMonth:true,
       changeYear:true,
+      closeText:"Fertig",
       showWeek:true,
       minDate:"-5Y",
       maxDate:new Date(),
@@ -107,13 +108,13 @@ $(function () {
           // Change "Today" button title appropriately
           switch (cache.interval) {
             case "daily":
-              $(".ui-datepicker-current").text("Today");
+              $(".ui-datepicker-current").text("Heute");
               break;
             case "weekly":
-              $(".ui-datepicker-current").text("Current week");
+              $(".ui-datepicker-current").text("Aktuelle Woche");
               break;
             case "monthly":
-              $(".ui-datepicker-current").text("Current month");
+              $(".ui-datepicker-current").text("Aktueller Monat");
               //$(".ui-datepicker-calendar").hide(); // offset will be wrong, so leave this for now
               break;
           }
@@ -173,6 +174,13 @@ $(function () {
         dp.hide();
       }
     });
+
+     // Responsiveness
+    $("#loaderErrorContainerContainer").watch("float", function () {
+      var cache = $("#history").data("bbq");
+      cache.smallDeciveScreen = !!($(this).css("float") == "none");
+      cache.deltaTime = 0;
+    });
   }
 
   // Save initial options for caching purposes
@@ -187,6 +195,7 @@ $(function () {
     cache.deltaTime = 0;
 
     cache.date = Date.today().setTimezone("UTC").getTime();
+    cache.smallDeciveScreen = !!($("#loaderErrorContainerContainer").css("float") == "none");
 
     // Chart (phase) colors
     Highcharts.setOptions({
@@ -600,7 +609,7 @@ $(function () {
 
           $("#centralLoaderErrorContainer").html(alertMessage);
           $("#centralLoaderError").show();
-        } else {
+        } else if (jqXHR.status != 0) {
           var alertMessage = "<div id=\"loaderError\" class=\"alert alert-error hide fade in\">" +
               "<a class=\"close\" data-dismiss=\"alert\">&times;</a>" +
               "<strong>Error " + jqXHR.status + " (" + errorThrown + ")</strong> " + statusMessage + "</div>";
@@ -664,7 +673,7 @@ $(function () {
             fontWeight:'bold'
           }
         },
-        tickInterval:(cache.interval == "daily" ? 7200000 /* 2h */ : null /* default */),
+        tickInterval:((cache.interval == "daily" && !cache.smallDeciveScreen) ? 7200000 /* 2h */ : null /* default */),
         min:cache.timeLow,
         max:cache.timeHigh
       },
@@ -735,7 +744,7 @@ $(function () {
       exporting:{
         url:'http://www2.wenergy-project.de',
         width:1024,
-        enabled:chartExportingEnabled
+        enabled:(chartExportingEnabled && !cache.smallDeciveScreen)
       },
 
       navigation:{

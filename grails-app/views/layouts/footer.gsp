@@ -17,20 +17,19 @@
 <!-- Footer
 ================================================== -->
 <footer class="footer">
-  <div class="container">
-    <wen:isTheme key="wenergy">
-      <p>wEnergy Version <g:meta name="app.version"/> - <g:link controller="imprint">Impressum</g:link>.<br/>
-      &copy; Copyright 2011-2012 <a href="http://www.im.uni-karlsruhe.de/"
-                                    target="_blank">Institut für Informationswirtschaft und -management (IISM)</a> am <a
-          href="http://www.kit.edu/" target="_blank">Karlsruher Institut für Technologie (KIT)</a>.
-      </p>
-    </wen:isTheme>
-    <wen:isTheme key="fzi">
-      <p>Smart Energy Version <g:meta name="app.version"/> - <g:link controller="imprint">Impressum</g:link>.<br/>
-      &copy; Copyright 2011-2012 <a href="http://www.fzi.de/"
-                                    target="_blank">Forschungszentrum Informatik (FZI)</a> und <a
-          href="http://www.kit.edu/" target="_blank">Karlsruher Institut für Technologie (KIT)</a>.
-      </p>
-    </wen:isTheme>
-  </div>
+  <hr class="soften">
+  <wen:isTheme key="wenergy">
+    <p>wEnergy Version <g:meta name="app.version"/> - <g:link controller="imprint">Impressum</g:link><br/>
+    &copy; Copyright 2011-2012 <a href="http://www.im.uni-karlsruhe.de/"
+                                  target="_blank">Institut für Informationswirtschaft und -management (IISM)</a> am <a
+        href="http://www.kit.edu/" target="_blank">Karlsruher Institut für Technologie (KIT)</a>
+    </p>
+  </wen:isTheme>
+  <wen:isTheme key="fzi">
+    <p>Smart Energy Version <g:meta name="app.version"/> - <g:link controller="imprint">Impressum</g:link><br/>
+    &copy; Copyright 2011-2012 <a href="http://www.fzi.de/"
+                                  target="_blank">Forschungszentrum Informatik (FZI)</a> und <a
+        href="http://www.kit.edu/" target="_blank">Karlsruher Institut für Technologie (KIT)</a>
+    </p>
+  </wen:isTheme>
 </footer>

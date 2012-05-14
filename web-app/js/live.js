@@ -34,6 +34,18 @@ $(function () {
 
       $.bbq.pushState(state);
     });
+
+    // Responsiveness
+    $("#sideInformation").watch("width", function () {
+      updatePowerLevelIndicator(true);
+      updateBatteryLevelIndicator(true);
+    });
+
+    $("#loaderErrorContainerContainer").watch("float", function () {
+      var cache = $("#live").data("bbq");
+      cache.smallDeciveScreen = !!($(this).css("float") == "none");
+      cache.deltaTime = 0;
+    });
   }
 
   // Save initial options for caching purposes
@@ -44,6 +56,8 @@ $(function () {
     cache.initialLoading = true;
     cache.loadingInProgress = false;
     cache.deltaTime = 0;
+
+    cache.smallDeciveScreen = !!($("#loaderErrorContainerContainer").css("float") == "none");
 
     // Battery level indicator
     cache.batteryLevel = 0.0;
@@ -330,7 +344,7 @@ $(function () {
 
           $("#centralLoaderErrorContainer").html(alertMessage);
           $("#centralLoaderError").show();
-        } else {
+        } else if (jqXHR.status != 0) {
           var alertMessage = "<div id=\"loaderError\" class=\"alert alert-error hide fade in\">" +
               "<a class=\"close\" data-dismiss=\"alert\">&times;</a>" +
               "<strong>Error " + jqXHR.status + " (" + errorThrown + ")</strong> " + statusMessage + "</div>";
@@ -453,7 +467,7 @@ $(function () {
       exporting:{
         url:'http://www2.wenergy-project.de',
         width:1024,
-        enabled:chartExportingEnabled
+        enabled:(chartExportingEnabled && !cache.smallDeciveScreen)
       },
 
       navigation:{
@@ -493,23 +507,32 @@ $(function () {
     cache.consumptionChart = new Highcharts.Chart(consumptionChartOptions);
   }
 
-  function updatePowerLevelIndicator() {
+  function updatePowerLevelIndicator(reset) {
+    reset = typeof reset !== 'undefined' ? reset : false;
     var cache = $("#live").data("bbq");
 
-    if (cache.powerLevelIndicator == null) {
+    var height = $("#powerLevelIndicator").height();
+    var width = $("#powerLevelIndicator").width();
+    var isVertical = (height > width);
+
+    if (reset || cache.powerLevelIndicator == null) {
       // Create
-      var pli = Raphael("powerLevelIndicator", "100%", "100%");
+      var pli;
+      if (reset && cache.powerLevelIndicator != null) {
+        pli = cache.powerLevelIndicator;
+        pli.clear();
+      } else {
+        pli = Raphael("powerLevelIndicator", "100%", "100%");
+      }
 
       // Configuration
-      var height = $("#powerLevelIndicator").height();
-      var width = $("#powerLevelIndicator").width();
       var numberOfCells = cache.powerLevelColors.length;
       var cellPadding = 4.0;
-      var cellWidth = width - 20;
-      var cellHeight = (height - (numberOfCells + 1 /* top space */) * cellPadding) / numberOfCells;
-      var cellCornerRadius = cellHeight / 2;
-      var xOffset = (width - cellWidth) / 2;
-      var yOffset = cellPadding;
+      var cellWidth = (isVertical ? width : ((width - (numberOfCells + 1 /* top space */) * cellPadding) / numberOfCells));
+      var cellHeight = (isVertical ? ((height - (numberOfCells + 1 /* top space */) * cellPadding) / numberOfCells) : height);
+      var cellCornerRadius = (isVertical ? (cellHeight / 2) : (cellWidth / 2));
+      var xOffset = (isVertical ? ((width - cellWidth) / 2) : cellPadding);
+      var yOffset = (isVertical ? cellPadding : ((height - cellHeight) / 2));
 
       // Initialize
       cache.powerLevelCells = [];
@@ -522,7 +545,11 @@ $(function () {
         // Save cell
         cache.powerLevelCells.push(cell);
 
-        yOffset += cellHeight + cellPadding;
+        if (isVertical) {
+          yOffset += cellHeight + cellPadding;
+        } else {
+          xOffset += cellWidth + cellPadding;
+        }
       }
 
       // Save
@@ -533,7 +560,9 @@ $(function () {
     var powerLevelCorrected = Math.min(1.0, cache.powerLevel);
     var powerLevelThreshold = cache.powerLevelCells.length - (cache.powerLevelCells.length * powerLevelCorrected);
     $.each(cache.powerLevelCells, function (index, cell) {
-      cell.attr({fill:(index >= powerLevelThreshold) ? cache.powerLevelColors[index] : cache.powerLevelColorInactive});
+      var fill = (isVertical ? (index >= powerLevelThreshold) : (index < powerLevelThreshold));
+      var fillColor = (isVertical ? cache.powerLevelColors[index] : cache.powerLevelColors[cache.powerLevelCells.length - index]);
+      cell.attr({fill: fill ? fillColor : cache.powerLevelColorInactive});
     });
 
     // Create tooltip text
@@ -587,12 +616,19 @@ $(function () {
     }
   }
 
-  function updateBatteryLevelIndicator() {
+  function updateBatteryLevelIndicator(reset) {
+    reset = typeof reset !== 'undefined' ? reset : false;
     var cache = $("#live").data("bbq");
 
-    if (cache.batteryLevelIndicator == null) {
-      // Create
-      var bli = Raphael("batteryLevelIndicator", "100%", "100%");
+    if (reset || cache.batteryLevelIndicator == null) {
+      // Create or get from cache
+      var bli;
+      if (reset && cache.batteryLevelIndicator != null) {
+        bli = cache.batteryLevelIndicator;
+        bli.clear();
+      } else {
+        bli = Raphael("batteryLevelIndicator", "100%", "100%");
+      }
       var batteryParts = bli.set();
 
       // Configuration
@@ -606,7 +642,7 @@ $(function () {
       var batteryHeadHeight = batteryHeight / 2;
       var batteryHeadWidth = 4;
 
-      var batteryWidth = width - 20 - batteryHeadWidth;
+      var batteryWidth = width - batteryHeadWidth;
       var batteryXOffset = (width - batteryWidth) / 2;
       var batteryYOffset = 0;
 

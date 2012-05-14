@@ -28,7 +28,7 @@ modules = {
 
   core {
     dependsOn "jquery, bootstrapjs, bootstrapcss, wenergyjs"
-    resource url: [dir: "css", file: "wenergy.css"], attrs: [media: 'screen, projection'], disposition: "head"
+    resource url: [dir: "css", file: "wenergy.css"], disposition: "head"
   }
 
   bootstrap {
@@ -36,7 +36,8 @@ modules = {
   }
 
   bootstrapcss {
-    resource url: [dir: "css", file: "bootstrap.min.css"], attrs: [media: 'screen, projection'], disposition: "head"
+    resource url: [dir: "css", file: "bootstrap.min.css"], disposition: "head"
+    resource url: [dir: "css", file: "bootstrap-responsive.min.css"], disposition: "head"
   }
 
   bootstrapjs {
@@ -67,7 +68,7 @@ modules = {
   jqui {
     dependsOn "jquery"
     resource url: [dir: "js", file: "jquery/jquery-ui-1.8.18.custom.min.js"], disposition: "head"
-    resource url: [dir: "css", file: "jquery-ui-1.8.18.custom.css"], attrs: [media: 'screen, projection'], disposition: "head"
+    resource url: [dir: "css", file: "jquery-ui-1.8.18.custom.css"], disposition: "head"
   }
 
   jqbbq {
@@ -84,6 +85,11 @@ modules = {
     dependsOn "jquery"
     resource url: [dir: "js", file: "jquery/jquery.qtip.min.js"], disposition: "head"
     resource url: [dir: "css", file: "jquery.qtip.min.css"], disposition: "head"
+  }
+
+  jqwatch {
+    dependsOn "jquery"
+    resource url: [dir: "js", file: "jquery/jquery.watch.js"], disposition: "head"
   }
 
   spinjs {
@@ -104,6 +110,7 @@ modules = {
   }
 
   wenergyjs {
+    dependsOn "jquery,  jqwatch"
     resource url: [dir: "js", file: "wenergy.js"], disposition: "head"
   }
 
@@ -137,7 +144,13 @@ modules = {
     resource url: [dir: "css", file: "admin.css"], disposition: "head"
   }
 
+  /* Themes */
+  wenergy {
+    resource url: [dir: "js/themes", file: "wenergy.js"], disposition: "head"
+  }
+
   fzi {
     resource url: [dir: "css", file: "fzi.css"], disposition: "head"
+    resource url: [dir: "js/themes", file: "fzi.js"], disposition: "head"
   }
 }

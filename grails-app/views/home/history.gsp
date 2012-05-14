@@ -35,7 +35,7 @@
 ================================================== -->
 <section id="history">
   <div class="row">
-    <div class="span12">
+    <div id="loaderErrorContainerContainer" class="span12">
       <div id="loaderErrorContainer"></div>
     </div>
   </div>
@@ -47,25 +47,29 @@
   </div>
 
   <div class="row">
-      <div id="consumptionChart">
-        %{-- Needs to be nested to avoid sudden jumps --}%
-        <div id="centralLoaderContainer"><div id="centralLoader"></div>Loading...</div>
+    <div id="consumptionChart">
+      %{-- Needs to be nested to avoid sudden jumps --}%
+      <div id="centralLoaderContainer"><div id="centralLoader"></div>Loading...</div>
 
-        <div id="centralLoaderErrorContainer"></div>
-      </div>
+      <div id="centralLoaderErrorContainer"></div>
+    </div>
   </div>
 
   <form id="optionsForm" class="form-horizontal historyForm">
 
     <div class="row">
-      <div class="span2 offset1 control-group inline">
-        <button class="btn" name="dateMinus"><i class="icon-chevron-left"></i></button>
-        <button class="btn" name="datePlus"><i class="icon-chevron-right"></i></button>
-        <button class="btn" name="dateCalendar"><i class="icon-calendar"></i></button>
-        <input type="hidden" id="dateCalendarWidget"/>
+      <div class="span2 offset1 control-group inline" id="dateOptionsGroup">
+        <label class="control-label visible-phone">Navigation</label>
+
+        <div class="controls">
+          <button class="btn inline" name="dateMinus"><i class="icon-chevron-left"></i></button>
+          <button class="btn inline" name="datePlus"><i class="icon-chevron-right"></i></button>
+          <button class="btn inline" name="dateCalendar"><i class="icon-calendar"></i></button>
+          <input type="hidden" id="dateCalendarWidget"/>
+        </div>
       </div>
 
-      <div class="span4 control-group inline">
+      <div class="span4 control-group inline" id="intervalOptionsGroup">
         <label class="control-label">Zeitraum</label>
 
         <div class="controls">
@@ -84,7 +88,7 @@
         </div>
       </div>
 
-      <div class="span5 control-group inline">
+      <div class="span5 control-group inline" id="dataOptionsGroup">
         <label class="control-label">Daten</label>
 
         <div class="controls">

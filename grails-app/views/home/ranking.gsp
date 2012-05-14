@@ -37,6 +37,7 @@
 <section id="ranking">
   <div class="row">
     <div class="span12">
+      <h3 id="phoneHeader" class="centered visible-phone visible-tablet">Rangliste</h3>
       <table class="table">
         <thead>
         <tr>

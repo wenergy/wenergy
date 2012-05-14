@@ -90,7 +90,7 @@ class WEnergyTagLib {
   def themeResources = { attrs, body ->
     if (springSecurityService.isLoggedIn()) {
       Household household = springSecurityService.currentUser
-      if (household && household?.theme != ThemeType.wenergy) {
+      if (household) {
         out << r.require([modules: household?.theme?.key])
       }
     }

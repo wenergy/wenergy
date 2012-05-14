@@ -35,13 +35,14 @@
 ================================================== -->
 <section id="live">
   <div class="row">
-    <div class="span12">
+    <div id="loaderErrorContainerContainer" class="span12">
       <div id="loaderErrorContainer"></div>
     </div>
   </div>
 
   <div class="row">
     <div class="span11">
+      <h3 id="phoneHeader" class="centered visible-phone visible-tablet">Live</h3>
       <div id="consumptionChart">
         %{-- Needs to be nested to avoid sudden jumps --}%
         <div id="centralLoaderContainer"><div id="centralLoader"></div>Loading...</div>
