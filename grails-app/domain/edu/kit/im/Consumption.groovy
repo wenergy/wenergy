@@ -50,6 +50,7 @@ class Consumption implements Serializable {
 
   static mapping = {
     date(index: "date_idx")
+    dateCreated(index: "date_created_index")
     cache(true)
   }
 

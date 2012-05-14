@@ -17,27 +17,9 @@
 
 databaseChangeLog = {
 
-	changeSet(author: "ddauer (generated)", id: "changelog") {
-		// TODO add changes and preconditions here
+	changeSet(author: "ddauer (generated)", id: "1337007615126-1") {
+		createIndex(indexName: "date_created_index", tableName: "consumption") {
+			column(name: "date_created")
+		}
 	}
-
-	include file: 'changelog-1.0.groovy'
-
-	include file: 'changelog-1.0.1.groovy'
-
-	include file: 'changelog-1.0.2.groovy'
-
-	include file: 'changelog-1.0.3.groovy'
-
-	include file: 'changelog-1.0.4.groovy'
-
-	include file: 'changelog-1.0.5.groovy'
-
-	include file: 'changelog-1.1.groovy'
-
-	include file: 'changelog-1.4.groovy'
-
-	include file: 'changelog-1.6.groovy'
-
-	include file: 'changelog-1.8.1.groovy'
 }
