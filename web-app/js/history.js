@@ -609,7 +609,7 @@ $(function () {
 
           $("#centralLoaderErrorContainer").html(alertMessage);
           $("#centralLoaderError").show();
-        } else if (jqXHR.status != 0) {
+        } else if (parseInt(jqXHR.status) != 0) {
           var alertMessage = "<div id=\"loaderError\" class=\"alert alert-error hide fade in\">" +
               "<a class=\"close\" data-dismiss=\"alert\">&times;</a>" +
               "<strong>Error " + jqXHR.status + " (" + errorThrown + ")</strong> " + statusMessage + "</div>";
