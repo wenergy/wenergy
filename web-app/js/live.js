@@ -558,6 +558,9 @@ $(function () {
 
     // Update colors (backwards, top to bottom)
     var powerLevelCorrected = Math.min(1.0, cache.powerLevel);
+    if (!isVertical) {
+      powerLevelCorrected = 1.0 - powerLevelCorrected;
+    }
     var powerLevelThreshold = cache.powerLevelCells.length - (cache.powerLevelCells.length * powerLevelCorrected);
     $.each(cache.powerLevelCells, function (index, cell) {
       var fill = (isVertical ? (index >= powerLevelThreshold) : (index < powerLevelThreshold));
