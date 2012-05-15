@@ -40,8 +40,9 @@
           <th>Name</th>
           <th>Benutzername</th>
           <th class="sortByTitleAttr">Aktiviert</th>
-          <th class="sortByTitleAttr">Benutzerrechte</th>
-          <th class="sortByTitleAttr">Adminrechte</th>
+          <th class="sortByTitleAttr">Benutzer</th>
+          <th class="sortByTitleAttr">Ranking</th>
+          <th class="sortByTitleAttr">Admin</th>
           <th class="linkColumn nonSortable"></th>
         </tr>
         </thead>
@@ -75,6 +76,19 @@
                   id="${household.id}"
                   class="btn btn-mini btn-success"
                   title="Benutzerrechte hinzufügen"><i
+                    class="icon-white icon-plus"></i></g:link></wen:ifNotGrantedForUser>
+            </td>
+            <td><wen:ifGrantedForUser user="${household.id}" role="ROLE_RANKING"><span title="0"></span><g:link
+                action="permissionsRemoveFromRanking"
+                id="${household.id}"
+                class="btn btn-mini btn-danger"
+                title="Rankingrechte entfernen"><i
+                  class="icon-white icon-minus"></i></g:link></wen:ifGrantedForUser>
+              <wen:ifNotGrantedForUser user="${household.id}" role="ROLE_RANKING"><span title="1"></span><g:link
+                  action="permissionsAddToRanking"
+                  id="${household.id}"
+                  class="btn btn-mini btn-success"
+                  title="Rankingrechte hinzufügen"><i
                     class="icon-white icon-plus"></i></g:link></wen:ifNotGrantedForUser>
             </td>
             <td><wen:ifGrantedForUser user="${household.id}" role="ROLE_ADMIN"><span title="0"></span><g:link

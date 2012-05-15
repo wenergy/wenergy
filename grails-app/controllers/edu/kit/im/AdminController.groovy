@@ -62,12 +62,12 @@ class AdminController {
     redirect(action: "permissions")
   }
 
-  private def removeUserFromRole(def userId, def targetRole) {
+  private def removeUserFromRole(def userId, def targetRole, def force = false) {
     def role = Role.findByAuthority(targetRole)
     def user = Household.findById(userId, [readOnly: true])
     def currentUser = springSecurityService.currentUser
 
-    if (currentUser == user) {
+    if (currentUser == user && !force) {
       flash.error = "Die Rechte für \"${user.fullName}\" können nicht entfernt werden"
     } else {
       if (user?.authorities?.contains(role)) {
@@ -83,7 +83,15 @@ class AdminController {
   }
 
   def permissionsRemoveFromUser() {
-    removeUserFromRole(params.id, "ROLE_USER")
+    removeUserFromRole(params.id, "ROLE_USER", true)
+  }
+
+  def permissionsAddToRanking() {
+    addUserToRole(params.id, "ROLE_RANKING")
+  }
+
+  def permissionsRemoveFromRanking() {
+    removeUserFromRole(params.id, "ROLE_RANKING", true)
   }
 
   def permissionsAddToAdmin() {

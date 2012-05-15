@@ -39,8 +39,10 @@
             <li><g:link controller="home" action="history" class="navlink ${historyActive}"><span
                 class="navlogo history"></span>Historie</g:link></li>
             <% if (nav == "ranking") rankingActive = "active" %>
-            <li><g:link controller="home" action="ranking" class="navlink ${rankingActive}"><span
-                class="navlogo ranking"></span>Rangliste</g:link></li>
+            <sec:ifAllGranted roles="ROLE_RANKING">
+              <li><g:link controller="home" action="ranking" class="navlink ${rankingActive}"><span
+                  class="navlogo ranking"></span>Rangliste</g:link></li>
+            </sec:ifAllGranted>
           </sec:ifLoggedIn>
         </ul>
         <sec:ifNotLoggedIn>

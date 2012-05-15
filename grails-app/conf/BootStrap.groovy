@@ -34,6 +34,7 @@ class BootStrap {
 
     // Define security roles
     def userRole = Role.findOrSaveByAuthority("ROLE_USER")
+    def rankingRole = Role.findOrSaveByAuthority("ROLE_RANKING")
     def adminRole = Role.findOrSaveByAuthority("ROLE_ADMIN")
 
     // Define temporary debug household
