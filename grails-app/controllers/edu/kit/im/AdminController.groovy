@@ -17,18 +17,23 @@
 
 package edu.kit.im
 
+import edu.kit.im.enums.EventType
+import edu.kit.im.utils.DateUtils
 import grails.converters.JSON
 import org.codehaus.groovy.runtime.InvokerHelper
 import org.joda.time.DateTime
 import org.joda.time.DateTimeZone
+import org.joda.time.Period
+import org.joda.time.PeriodType
 import org.joda.time.format.DateTimeFormat
+import org.joda.time.format.PeriodFormatterBuilder
 import org.quartz.CronTrigger
 import org.quartz.JobKey
 import org.quartz.Scheduler
 import org.quartz.SchedulerException
 import org.quartz.impl.matchers.GroupMatcher
+
 import java.math.RoundingMode
-import edu.kit.im.enums.EventType
 
 class AdminController {
 
@@ -46,7 +51,7 @@ class AdminController {
 
   private def addUserToRole(def userId, def targetRole) {
     def role = Role.findByAuthority(targetRole)
-    def user = Household.findById(userId)
+    def user = Household.findById(userId, [readOnly: true])
 
     if (user?.authorities?.contains(role)) {
       flash.warning = "\"${user.fullName}\" hat bereits die gewünschten Rechte"
@@ -59,7 +64,7 @@ class AdminController {
 
   private def removeUserFromRole(def userId, def targetRole) {
     def role = Role.findByAuthority(targetRole)
-    def user = Household.findById(userId)
+    def user = Household.findById(userId, [readOnly: true])
     def currentUser = springSecurityService.currentUser
 
     if (currentUser == user) {
@@ -118,7 +123,7 @@ class AdminController {
   }
 
   def switchUser() {
-    def household = Household.findById(params.id)
+    def household = Household.findById(params.id, [readOnly: true])
     redirect(uri: "/j_spring_security_switch_user?j_username=${household?.username}")
   }
 
@@ -129,7 +134,39 @@ class AdminController {
       def householdMap = [:]
       householdMap.household = household
 
-      def batteryLevel = Consumption.findByHousehold(household, [max: 1, sort: "date", order: "desc"])?.batteryLevel
+      def consumption = Consumption.findByHousehold(household, [max: 1, sort: "date", order: "desc", readOnly: true])
+      def consumptionDate = consumption?.date
+      def batteryLevel = consumption?.batteryLevel
+
+      if (consumptionDate) {
+        def periodFormatter = new PeriodFormatterBuilder().
+            appendDays().appendSuffix("d").appendSeparator(" ").
+            appendHours().appendSuffix("h").appendSeparator(" ").
+            appendMinutes().appendSuffix("m").appendSeparator(" ").
+            appendSeconds().appendSuffix("s").toFormatter()
+
+        def periodType = PeriodType.dayTime().withMillisRemoved()
+        def now = DateUtils.addUTCOffset(new DateTime())
+        def period = new Period(consumptionDate, now, periodType)
+        def seconds = period.toStandardSeconds().seconds
+        def badge
+
+        switch (seconds) {
+          case 0..59:
+            badge = "badge-success"
+            break
+          case 60..299:
+            badge = "badge-warning"
+            break
+          default:
+            badge = "badge-important"
+        }
+
+        householdMap.sensor = [badge: badge, duration: periodFormatter.print(period), sort: seconds]
+      } else {
+        householdMap.sensor = [badge: "", duration: "-", sort: Integer.MAX_VALUE]
+      }
+
       if (batteryLevel) {
         def minBatteryLevel = 2700.0 // V
         def maxBatteryLevel = 3200.0 - minBatteryLevel // V
@@ -141,7 +178,7 @@ class AdminController {
       }
       householdMap.batteryLevel = batteryLevel
 
-      def lastLogin = Event.findByHouseholdAndType(household, EventType.LOGIN, [max: 1, sort: "date", order: "desc"])
+      def lastLogin = Event.findByHouseholdAndType(household, EventType.LOGIN, [max: 1, sort: "date", order: "desc", readOnly: true])
       if (lastLogin) {
         def dateFormatter = DateTimeFormat.mediumDateTime().withLocale(Locale.GERMAN)
         householdMap.lastLogin = dateFormatter.print(lastLogin.date)

@@ -38,10 +38,11 @@
         <thead>
         <tr>
           <th>Name</th>
-          <th class="sortByEuroDate">Zuletzt Angemeldet</th>
-          <th>Batteriestand</th>
-          <th>Bezugswert Ranking</th>
-          <th>Bezugswert Verbrauch</th>
+          <th class="sortByTitleAttr">Sensor</th>
+          <th class="sortByEuroDate">Anmeldung</th>
+          <th>Batterie</th>
+          <th>Ranking</th>
+          <th>Verbrauch</th>
           <th class="linkColumn nonSortable"></th>
         </tr>
         </thead>
@@ -49,6 +50,7 @@
         <g:each var="map" in="${stats}">
           <tr>
             <td>${map?.household?.fullName}</td>
+            <td><span title="${map?.sensor?.sort}"></span><span class="badge ${map?.sensor?.badge}">${map?.sensor?.duration}</span></td>
             <td>${map?.lastLogin}</td>
             <td>${map?.batteryLevel}</td>
             <td>${map?.household?.referenceRankingValue}</td>
