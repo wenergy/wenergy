@@ -127,8 +127,9 @@ grails.plugins.springsecurity.useSecurityEventListener = true
 
 grails.plugins.springsecurity.securityConfigType = SecurityConfigType.InterceptUrlMap
 grails.plugins.springsecurity.interceptUrlMap = [
-    // Console
+    // Admin tools
     '/console/**': ["hasRole('ROLE_ADMIN')"],
+    '/monitoring/**': ["hasRole('ROLE_ADMIN')"],
     // Spring Security
     '/j_spring_security_switch_user': ["hasRole('ROLE_ADMIN')"],
     // Allow unrestricted access to API
