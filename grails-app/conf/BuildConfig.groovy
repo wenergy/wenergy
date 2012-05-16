@@ -51,7 +51,6 @@ grails.project.dependency.resolution = {
     compile ":fields:1.1"
     compile ":console:1.1"
     compile ":rabbitmq:0.3.3"
-    compile ":grails-melody:1.14"
 
     // Uncomment these (or add new ones) to enable additional resources capabilities
     runtime ":zipped-resources:1.0"

@@ -129,7 +129,6 @@ grails.plugins.springsecurity.securityConfigType = SecurityConfigType.InterceptU
 grails.plugins.springsecurity.interceptUrlMap = [
     // Admin tools
     '/console/**': ["hasRole('ROLE_ADMIN')"],
-    '/monitoring/**': ["hasRole('ROLE_ADMIN')"],
     // Spring Security
     '/j_spring_security_switch_user': ["hasRole('ROLE_ADMIN')"],
     // Allow unrestricted access to API
