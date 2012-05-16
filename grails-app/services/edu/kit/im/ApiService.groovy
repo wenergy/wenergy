@@ -85,7 +85,6 @@ class ApiService {
   }
 
   def processConsumption(def message, def jsonObject) {
-    log.error "process $message"
     // Process error first
     if (jsonObject.error) {
       def error = jsonObject.error
