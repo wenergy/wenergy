@@ -68,41 +68,41 @@
             <td><wen:ifGrantedForUser user="${household.id}" role="ROLE_USER"><span title="0"></span><g:link
                 action="permissionsRemoveFromUser"
                 id="${household.id}"
-                class="btn btn-mini btn-danger"
+                class="btn btn-mini btn-success"
                 title="Benutzerrechte entfernen"><i
-                  class="icon-white icon-minus"></i></g:link></wen:ifGrantedForUser>
+                  class="icon-white icon-ok"></i></g:link></wen:ifGrantedForUser>
               <wen:ifNotGrantedForUser user="${household.id}" role="ROLE_USER"><span title="1"></span><g:link
                   action="permissionsAddToUser"
                   id="${household.id}"
-                  class="btn btn-mini btn-success"
+                  class="btn btn-mini btn-danger"
                   title="Benutzerrechte hinzufügen"><i
-                    class="icon-white icon-plus"></i></g:link></wen:ifNotGrantedForUser>
+                    class="icon-white icon-remove"></i></g:link></wen:ifNotGrantedForUser>
             </td>
             <td><wen:ifGrantedForUser user="${household.id}" role="ROLE_RANKING"><span title="0"></span><g:link
                 action="permissionsRemoveFromRanking"
                 id="${household.id}"
-                class="btn btn-mini btn-danger"
+                class="btn btn-mini btn-success"
                 title="Rankingrechte entfernen"><i
-                  class="icon-white icon-minus"></i></g:link></wen:ifGrantedForUser>
+                  class="icon-white icon-ok"></i></g:link></wen:ifGrantedForUser>
               <wen:ifNotGrantedForUser user="${household.id}" role="ROLE_RANKING"><span title="1"></span><g:link
                   action="permissionsAddToRanking"
                   id="${household.id}"
-                  class="btn btn-mini btn-success"
+                  class="btn btn-mini btn-danger"
                   title="Rankingrechte hinzufügen"><i
-                    class="icon-white icon-plus"></i></g:link></wen:ifNotGrantedForUser>
+                    class="icon-white icon-remove"></i></g:link></wen:ifNotGrantedForUser>
             </td>
             <td><wen:ifGrantedForUser user="${household.id}" role="ROLE_ADMIN"><span title="0"></span><g:link
                 action="permissionsRemoveFromAdmin"
                 id="${household.id}"
-                class="btn btn-mini btn-danger"
+                class="btn btn-mini btn-success"
                 title="Adminrechte entfernen"><i
-                  class="icon-white icon-minus"></i></g:link></wen:ifGrantedForUser>
+                  class="icon-white icon-ok"></i></g:link></wen:ifGrantedForUser>
               <wen:ifNotGrantedForUser user="${household.id}" role="ROLE_ADMIN"><span title="1"></span><g:link
                   action="permissionsAddToAdmin"
                   id="${household.id}"
-                  class="btn btn-mini btn-success"
+                  class="btn btn-mini btn-danger"
                   title="Adminrechte hinzufügen"><i
-                    class="icon-white icon-plus"></i></g:link></wen:ifNotGrantedForUser>
+                    class="icon-white icon-remove"></i></g:link></wen:ifNotGrantedForUser>
             </td>
             <td><g:render template="usermenu" model="[household: household, currentUser: currentUser]"/></td>
           </tr>
