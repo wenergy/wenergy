@@ -197,7 +197,7 @@ rabbitmq {
   }
   queues = {
     exchange name: "wenergy", type: direct, autoDelete: false, durable: true, {
-      api autoDelete: false, durable: true
+      db autoDelete: false, durable: true
     }
   }
 }

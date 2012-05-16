@@ -28,31 +28,7 @@ import edu.kit.im.exceptions.ApiException
 
 class ApiService {
 
-  static rabbitQueue = "api"
-
   def householdService
-
-  void handleMessage(ConsumptionMessage message) {
-    try {
-      def jsonObject = JSON.parse(message.json)
-      processConsumption(message, jsonObject)
-    } catch (Exception e) {
-      rabbitSend "wenergy", "api", new ApiErrorMessage(e.message, message.clientIp, null, message.json)
-    }
-  }
-
-  void handleMessage(ApiErrorMessage message) {
-    def apiError = new ApiError()
-    apiError.description = message.description
-    apiError.clientIp = message.clientIp
-    apiError.householdId = message.householdId
-    apiError.json = message.json
-    try {
-      apiError.save(failOnError: true)
-    } catch (ValidationException e) {
-      log.error apiError.errors
-    }
-  }
 
   def processConsumption(def message, def jsonObject) {
     // Process error first
@@ -61,7 +37,7 @@ class ApiService {
 
       if (error.id && error.code) {
         def description = "Nanode: ${error.code?.toUpperCase()}"
-        rabbitSend "wenergy", "api", new ApiErrorMessage(description, message.clientIp, error.id as String, message.json)
+        rabbitSend "wenergy", "db", new ApiErrorMessage(description, message.clientIp, error.id as String, message.json)
       } else {
         throw new ApiException("Invalid error", 400)
       }

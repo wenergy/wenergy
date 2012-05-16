@@ -15,27 +15,24 @@
  * limitations under the License.
  */
 
-package edu.kit.im
+package edu.kit.im.messages
 
-import grails.converters.JSON
-import edu.kit.im.messages.ConsumptionMessage
-import org.joda.time.DateTime
+import org.apache.commons.lang.builder.ToStringBuilder
 
-class ApiController {
+class ReferenceConsumptionMessage implements Serializable {
+  Long householdId
+  BigDecimal referenceValue
 
-  def apiService
-
-  def consumption() {
-    String jsonParam = params.json
-    rabbitSend "wenergy", "db", new ConsumptionMessage(apiService.getClientIP(request), jsonParam, new DateTime())
-
-    def jsonStatus = [status: [code: 200]] as JSON
-    response.status = 200 // OK
-    render jsonStatus
+  ReferenceConsumptionMessage(Long householdId, BigDecimal referenceValue) {
+    this.householdId = householdId
+    this.referenceValue = referenceValue
   }
 
-  def fail() {
-    response.status = 502
-    render "502 Bad Gateway (API FAIL)"
+  @Override
+  public String toString() {
+    return new ToStringBuilder(this).
+        append("householdId", householdId).
+        append("referenceValue", referenceValue).
+        toString();
   }
 }

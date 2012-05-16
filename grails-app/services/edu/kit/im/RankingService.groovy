@@ -17,18 +17,17 @@
 
 package edu.kit.im
 
+import edu.kit.im.enums.ConsumptionType
+import edu.kit.im.messages.ReferenceRankingMessage
 import org.joda.time.DateTime
 import org.joda.time.DateTimeConstants
-import edu.kit.im.enums.ConsumptionType
 
 class RankingService {
 
   def run() {
     // Last two days of consumption records are used to determine reference level
     Household.getAll().each {h ->
-      Household.withNewSession { session ->
-        determineRankingValue(h.id, true)
-      }
+      determineRankingValue(h.id, true)
     }
   }
 
@@ -71,13 +70,12 @@ class RankingService {
     }
 
     if (fromJob && aggregatedConsumptionSum?.size()) {
-      Household h = Household.findById(householdId)
-      h.referenceRankingValue = aggregatedConsumptionSum.first()
-      h.save()
+      rabbitSend "wenergy", "db", new ReferenceRankingMessage(householdId, aggregatedConsumptionSum.first())
+      return null
     } else if (aggregatedConsumptionSum?.size()) {
       return aggregatedConsumptionSum.first()
     }
 
-    null
+    return null
   }
 }

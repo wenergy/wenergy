@@ -1,14 +1,14 @@
 package edu.kit.im
 
+import edu.kit.im.messages.ReferenceConsumptionMessage
 import org.joda.time.DateTime
 
 class HouseholdService {
   def run() {
     // Last two days of consumption records are used to determine reference level
     def referenceTime = new DateTime().minusDays(3)
-    def ids = Household.getAll().collect { it.id }
-    ids.each {id ->
-      determineReferenceConsumptionValue(id, referenceTime)
+    Household.getAll().each {h ->
+      determineReferenceConsumptionValue(h.id, referenceTime)
     }
   }
 
@@ -40,17 +40,11 @@ class HouseholdService {
     // Sort sums
     Collections.sort(aggregatedConsumptions)
 
-    try {
-      // Get quantile
-      def numberOfConsumptions = aggregatedConsumptions.size()
-      def index = (0.99 * numberOfConsumptions) as Integer
-      if (index < aggregatedConsumptions.size()) {
-        Household h = Household.findById(householdId)
-        h.referenceConsumptionValue = aggregatedConsumptions.get(index)
-        h.save()
-      }
-    } catch (Exception e) {
-      log.error e
+    // Get quantile
+    def numberOfConsumptions = aggregatedConsumptions.size()
+    def index = (0.99 * numberOfConsumptions) as Integer
+    if (index < aggregatedConsumptions.size()) {
+      rabbitSend "wenergy", "db", new ReferenceConsumptionMessage(householdId, aggregatedConsumptions.get(index))
     }
   }
 }
