@@ -288,10 +288,6 @@ hr.soften {
 
 /* Responsiveness
 -------------------------------------------------- */
-#welcome .teaserImage {
-  float: none;
-  margin-left: 71px;
-}
 
 /* Desktops and down */
 @media (max-width: 979px) {
