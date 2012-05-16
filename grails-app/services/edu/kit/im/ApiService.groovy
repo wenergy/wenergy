@@ -17,41 +17,34 @@
 
 package edu.kit.im
 
-import edu.kit.im.messages.ApiErrorMessage
-import edu.kit.im.messages.ConsumptionMessage
-import grails.converters.JSON
-import grails.validation.ValidationException
-import org.codehaus.groovy.runtime.typehandling.GroovyCastException
 import edu.kit.im.enums.ConsumptionType
-import edu.kit.im.utils.DateUtils
 import edu.kit.im.exceptions.ApiException
+import edu.kit.im.messages.ApiErrorMessage
+import edu.kit.im.utils.DateUtils
+import grails.validation.ValidationException
+import org.codehaus.groovy.grails.web.json.JSONObject
+import org.codehaus.groovy.runtime.typehandling.GroovyCastException
 
 class ApiService {
 
   def householdService
 
-  def processConsumption(def message, def jsonObject) {
-    // Process error first
+  def validateConsumption(def jsonObject) {
+    // Load and verify JSON content
+
     if (jsonObject.error) {
       def error = jsonObject.error
-
-      if (error.id && error.code) {
-        def description = "Nanode: ${error.code?.toUpperCase()}"
-        rabbitSend "wenergy", "db", new ApiErrorMessage(description, message.clientIp, error.id as String, message.json)
-      } else {
+      if (!(jsonObject.error instanceof JSONObject) || !error.id || !error.code) {
         throw new ApiException("Invalid error", 400)
       }
-
       return
     }
 
-    // Load and verify JSON content
     Long deviceId
     BigDecimal powerPhase1
     BigDecimal powerPhase2
     BigDecimal powerPhase3
     BigDecimal batteryLevel
-    BigInteger timestamp
 
     // The following exceptions can throw since variables are statically typed
     try {
@@ -89,10 +82,32 @@ class ApiService {
     if (powerPhase2 == null) throw new ApiException("No phase 2 power provided", 400)
     if (powerPhase3 == null) throw new ApiException("No phase 3 power provided", 400)
     if (batteryLevel == null) throw new ApiException("No battery level provided", 400)
+  }
+
+  def processConsumption(def message, def jsonObject) {
+    log.error "process $message"
+    // Process error first
+    if (jsonObject.error) {
+      def error = jsonObject.error
+
+      if (error.id && error.code) {
+        def description = "Nanode: ${error.code?.toUpperCase()}"
+        rabbitSend "wenergy", "db", new ApiErrorMessage(description, message.clientIp, error.id as String, message.json)
+      }
+
+      return
+    }
+
+    // Load JSON content
+    Long deviceId = jsonObject.id
+    BigDecimal powerPhase1 = jsonObject.p1
+    BigDecimal powerPhase2 = jsonObject.p2
+    BigDecimal powerPhase3 = jsonObject.p3
+    BigDecimal batteryLevel = jsonObject.b
 
     // Get household
     def household = Household.findByDeviceId(deviceId, [cache: true])
-    if (!household) throw new ApiException("Invalid device id", 400)
+    if (!household) return error("Invalid device id", message)
 
     // All checks passed - create Consumption instance
     def now = DateUtils.addUTCOffset(message.dateTime)
@@ -101,10 +116,10 @@ class ApiService {
         powerPhase2: powerPhase2, powerPhase3: powerPhase3, batteryLevel: batteryLevel)
 
     try {
-      consumption.save(failOnError: true)
+      consumption.save()
     } catch (ValidationException e) {
       log.error consumption.errors
-      throw new ApiException("Could not save consumption", 500)
+      return error("Could not save consumption", message)
     }
 
     // Post processing
@@ -112,7 +127,7 @@ class ApiService {
       determineAggregation(consumption)
     } catch (Exception e) {
       log.error e
-      throw new ApiException("Aggregation processing error", 500)
+      return error("Aggregation processing error", message)
     }
 
     try {
@@ -122,7 +137,7 @@ class ApiService {
       }
     } catch (Exception e) {
       log.error e
-      throw new ApiException("Reference value processing error", 500)
+      return error("Reference value processing error", message)
     }
 
     try {
@@ -136,7 +151,7 @@ class ApiService {
       household.save()
     } catch (Exception e) {
       log.error e
-      throw new ApiException("Power level processing error", 500)
+      return error("Power level processing error", 500)
     }
   }
 
@@ -193,7 +208,7 @@ class ApiService {
 
       // Relationships
       newAggregatedConsumption.addToConsumptions(consumption)
-      newAggregatedConsumption.save(failOnError: true)
+      newAggregatedConsumption.save()
     }
   }
 
@@ -204,5 +219,10 @@ class ApiService {
 
     // Prioritize return value
     realIp ?: (forwardedIP ?: (remoteAddr ?: ""))
+  }
+
+  def error(def description, def message) {
+    rabbitSend "wenergy", "db", new ApiErrorMessage(description, message.clientIp, null, message.json)
+    null
   }
 }

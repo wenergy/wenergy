@@ -44,7 +44,7 @@ class DatabaseService {
     apiError.householdId = message.householdId
     apiError.json = message.json
     try {
-      apiError.save(failOnError: true)
+      apiError.save()
     } catch (ValidationException e) {
       log.error apiError.errors
     }
@@ -54,7 +54,7 @@ class DatabaseService {
     Household household = Household.get(message.householdId)
     household.referenceConsumptionValue = message.referenceValue
     try {
-      household.save(failOnError: true)
+      household.save()
     } catch (ValidationException e) {
       log.error household.errors
     }
@@ -64,7 +64,7 @@ class DatabaseService {
     Household household = Household.get(message.householdId)
     household.referenceRankingValue = message.referenceValue
     try {
-      household.save(failOnError: true)
+      household.save()
     } catch (ValidationException e) {
       log.error household.errors
     }
@@ -84,7 +84,7 @@ class DatabaseService {
             duration: message.duration, household: household)
     }
     try {
-      event?.save(failOnError: true)
+      event?.save()
     } catch (ValidationException e) {
       log.error event?.errors
     }
