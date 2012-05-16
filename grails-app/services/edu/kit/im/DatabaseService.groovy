@@ -17,12 +17,10 @@
 
 package edu.kit.im
 
-import edu.kit.im.messages.ApiErrorMessage
-import edu.kit.im.messages.ConsumptionMessage
-import edu.kit.im.messages.ReferenceConsumptionMessage
+import edu.kit.im.enums.EventType
 import grails.converters.JSON
 import grails.validation.ValidationException
-import edu.kit.im.messages.ReferenceRankingMessage
+import edu.kit.im.messages.*
 
 class DatabaseService {
 
@@ -69,6 +67,26 @@ class DatabaseService {
       household.save(failOnError: true)
     } catch (ValidationException e) {
       log.error household.errors
+    }
+  }
+
+  void handleMessage(EventMessage message) {
+    def household = Household.get(message.householdId)
+    def event
+
+    switch (message.type) {
+      case EventType.LOGIN:
+      case EventType.LOGOUT:
+        event = new Event(type: message.type, household: household)
+        break
+      default:
+        event = new Event(type: message.type, url: message.url, parameters: message.parameters,
+            duration: message.duration, household: household)
+    }
+    try {
+      event?.save(failOnError: true)
+    } catch (ValidationException e) {
+      log.error event?.errors
     }
   }
 }

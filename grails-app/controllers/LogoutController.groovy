@@ -15,15 +15,20 @@
  * limitations under the License.
  */
 
+import edu.kit.im.enums.EventType
+import edu.kit.im.messages.EventMessage
 import org.codehaus.groovy.grails.plugins.springsecurity.SpringSecurityUtils
 
 class LogoutController {
 
-    /**
-     * Index action. Redirects to the Spring security logout uri.
-     */
-    def index = {
-        // TODO  put any pre-logout code here
-        redirect uri: SpringSecurityUtils.securityConfig.logout.filterProcessesUrl // '/j_spring_security_logout'
-    }
+  def springSecurityService
+
+  /**
+   * Index action. Redirects to the Spring security logout uri.
+   */
+  def index = {
+    def householdId = springSecurityService.currentUser?.id
+    rabbitSend "wenergy", "db", new EventMessage(EventType.LOGOUT, householdId)
+    redirect uri: SpringSecurityUtils.securityConfig.logout.filterProcessesUrl // '/j_spring_security_logout'
+  }
 }

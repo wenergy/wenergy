@@ -22,6 +22,8 @@ import org.joda.time.DateTime
 import org.joda.time.Duration
 import edu.kit.im.enums.EventType
 import edu.kit.im.utils.DateUtils
+import edu.kit.im.messages.ApiErrorMessage
+import edu.kit.im.messages.EventMessage
 
 class DataController {
 
@@ -143,14 +145,12 @@ class DataController {
   def event() {
     try {
       def householdId = params.uid as Long
-      def household = Household.findById(householdId)
       def url = params.loc
       def parameters = params.par
       def duration = params.dur as Long
 
-      def event = new Event(type: EventType.PAGE_VIEW, url: url, parameters: parameters,
-          duration: new Duration(duration), household: household)
-      event.save(failOnError: true)
+      rabbitSend "wenergy", "db", new EventMessage(EventType.PAGE_VIEW, new DateTime(),
+          new Duration(duration), url, parameters, householdId)
 
       response.status = 200 // OK
       def json = [status: [code: 200]] as JSON
