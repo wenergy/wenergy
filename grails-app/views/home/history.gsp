@@ -49,7 +49,7 @@
   <div class="row">
     <div id="consumptionChart">
       %{-- Needs to be nested to avoid sudden jumps --}%
-      <div id="centralLoaderContainer"><div id="centralLoader"></div>Loading...</div>
+      <div id="centralLoaderContainer"><div id="centralLoader"></div>Laden...</div>
 
       <div id="centralLoaderErrorContainer"></div>
     </div>
