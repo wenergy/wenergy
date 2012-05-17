@@ -7,4 +7,5 @@
 
 SCRIPT="/home/cf/cloudfoundry/vcap/dev_setup/bin/vcap_dev start"
 
+cd /home/cf/
 sudo -u cf $SCRIPT
