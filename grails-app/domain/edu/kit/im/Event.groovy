@@ -48,6 +48,8 @@ class Event implements Serializable {
   }
 
   static mapping = {
+    url(type: "text")
+    parameters(type: "text")
     cache(true)
   }
 

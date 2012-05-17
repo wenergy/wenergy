@@ -17,29 +17,19 @@
 
 databaseChangeLog = {
 
-	changeSet(author: "ddauer (generated)", id: "changelog") {
-		// TODO add changes and preconditions here
-	}
+  changeSet(author: "ddauer (generated)", id: "1337244108404-1") {
+    modifyDataType(tableName: "api_error", columnName: "description", newDataType: "longtext")
+  }
 
-	include file: 'changelog-1.0.groovy'
+  changeSet(author: "ddauer (generated)", id: "1337244108404-2") {
+    modifyDataType(tableName: "api_error", columnName: "json", newDataType: "longtext")
+  }
 
-	include file: 'changelog-1.0.1.groovy'
+  changeSet(author: "ddauer (generated)", id: "1337244108404-3") {
+    modifyDataType(tableName: "event", columnName: "url", newDataType: "longtext")
+  }
 
-	include file: 'changelog-1.0.2.groovy'
-
-	include file: 'changelog-1.0.3.groovy'
-
-	include file: 'changelog-1.0.4.groovy'
-
-	include file: 'changelog-1.0.5.groovy'
-
-	include file: 'changelog-1.1.groovy'
-
-	include file: 'changelog-1.4.groovy'
-
-	include file: 'changelog-1.6.groovy'
-
-	include file: 'changelog-1.8.1.groovy'
-
-	include file: 'changelog-1.8.6.groovy'
+  changeSet(author: "ddauer (generated)", id: "1337244108404-4") {
+    modifyDataType(tableName: "event", columnName: "parameters", newDataType: "longtext")
+  }
 }

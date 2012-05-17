@@ -39,6 +39,8 @@ class ApiError implements Serializable {
   }
 
   static mapping = {
+    description(type: "text")
+    json(type: "text")
     cache(true)
   }
 
