@@ -88,6 +88,7 @@ environments {
     // set per-environment serverURL stem for creating absolute links
     grails.serverURL = "http://www.wenergy-project.de"
     grails.relativeServerURL = "/"
+    grails.dbconsole.enabled = true
 
     // log4j configuration
     log4j = {
@@ -129,6 +130,7 @@ grails.plugins.springsecurity.securityConfigType = SecurityConfigType.InterceptU
 grails.plugins.springsecurity.interceptUrlMap = [
     // Admin tools
     '/console/**': ["hasRole('ROLE_ADMIN')"],
+    '/dbconsole/**': ["hasRole('ROLE_ADMIN')"],
     // Spring Security
     '/j_spring_security_switch_user': ["hasRole('ROLE_ADMIN')"],
     // Allow unrestricted access to API
