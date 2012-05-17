@@ -22,13 +22,22 @@ def jqver = ConfigurationHolder.config?.jquery?.version
 modules = {
   overrides {
     jquery {
-      resource id: "js", url: [dir: "js/jquery", file: "jquery-${jqver}.min.js"], disposition: "head", exclude:"yuijsminify"
+      resource id: "js", url: [dir: "js/jquery", file: "jquery-${jqver}.min.js"], disposition: "head", exclude: "yuijsminify"
     }
   }
 
   core {
     dependsOn "jquery, bootstrapjs, bootstrapcss, wenergyjs"
     resource url: [dir: "css", file: "wenergy.css"], disposition: "head"
+  }
+
+  appicons {
+    resource url: [dir: "images", file: "wenergy-16x16.png"], attrs: [rel: "shortcut icon"], disposition: "head"
+    resource url: [dir: "images", file: "wenergy-57x57.png"], attrs: [rel: "apple-touch-icon"/*, sizes: "57x57"*/], disposition: "head"
+    resource url: [dir: "images", file: "wenergy-72x72.png"], attrs: [rel: "apple-touch-icon", sizes: "72x72"], disposition: "head"
+    resource url: [dir: "images", file: "wenergy-114x114.png"], attrs: [rel: "apple-touch-icon", sizes: "114x114"], disposition: "head"
+    resource url: [dir: "images", file: "wenergy-144x144.png"], attrs: [rel: "apple-touch-icon", sizes: "144x144"], disposition: "head"
+
   }
 
   bootstrap {
@@ -47,13 +56,13 @@ modules = {
 
   highchartsjs {
     dependsOn "jquery"
-    resource url: [dir: "js/highcharts", file: "highcharts.js"], disposition: "head", exclude:"yuijsminify"
-    resource url: [dir: "js/highcharts/modules", file: "exporting.js"], disposition: "head", exclude:"yuijsminify"
+    resource url: [dir: "js/highcharts", file: "highcharts.js"], disposition: "head", exclude: "yuijsminify"
+    resource url: [dir: "js/highcharts/modules", file: "exporting.js"], disposition: "head", exclude: "yuijsminify"
   }
 
   raphaeljs {
     dependsOn "jquery"
-    resource url: [dir: "js/raphael", file: "raphael-min.js"], disposition: "head", exclude:"yuijsminify"
+    resource url: [dir: "js/raphael", file: "raphael-min.js"], disposition: "head", exclude: "yuijsminify"
   }
 
   datejs {
@@ -100,7 +109,7 @@ modules = {
 
   prettify {
     dependsOn "jquery"
-    resource url: [dir: "js", file: "prettify/prettify.js"], disposition: "head", exclude:"yuijsminify"
+    resource url: [dir: "js", file: "prettify/prettify.js"], disposition: "head", exclude: "yuijsminify"
     resource url: [dir: "css", file: "prettify.css"], disposition: "head"
   }
 
@@ -142,6 +151,12 @@ modules = {
     dependsOn "prettify, datatablesjs, jqqtip"
     resource url: [dir: "js", file: "admin.js"], disposition: "head"
     resource url: [dir: "css", file: "admin.css"], disposition: "head"
+  }
+
+  add2home {
+    resource url: [dir: "js", file: "add2home.config.js"], disposition: "head"
+    resource url: [dir: "js", file: "add2home.js"], disposition: "head"
+    resource url: [dir: "css", file: "add2home.css"], disposition: "head"
   }
 
   /* Themes */

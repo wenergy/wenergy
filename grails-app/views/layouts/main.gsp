@@ -20,8 +20,12 @@
 <head>
   <title>wEnergy - <g:layoutTitle/></title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-  <r:require modules="core, wenergyjs"/>
-  <wen:themeResources/>
+  <meta name="apple-mobile-web-app-capable" content="yes"/>
+  <r:require modules="appicons, core"/>
+  <sec:ifLoggedIn>
+    <r:require modules="add2home"/>
+    <wen:themeResources/>
+  </sec:ifLoggedIn>
   <r:layoutResources/>
 </head>
 
