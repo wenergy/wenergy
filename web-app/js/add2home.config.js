@@ -19,7 +19,7 @@ var addToHomeConfig = {
   animationIn:'bubble',
   animationOut:'drop',
   expire:10080, /* 24 * 60 * 7 */
-  lifespan:10000, /* 10s */
+  lifespan:20000, /* 20s */
   startDelay:1000, /* 1s */
   touchIcon:true,
   message:'Installiere wEnergy auf deinem %device: %icon antippen und dann <strong>Zum Home-Bildschirm</strong>.'
