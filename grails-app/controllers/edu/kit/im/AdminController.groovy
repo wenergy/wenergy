@@ -138,11 +138,21 @@ class AdminController {
   def statistics() {
     def stats = []
 
-    Household.getAll().each { household ->
+    Household.getAll().each { currentHousehold ->
       def householdMap = [:]
-      householdMap.household = household
+      householdMap.household = currentHousehold
 
-      def consumption = Consumption.findByHousehold(household, [max: 1, sort: "date", order: "desc", readOnly: true])
+      def consumptionId = Consumption.withCriteria(uniqueResult: true) {
+        household {
+          eq("id", currentHousehold.id)
+        }
+        projections {
+          max("id")
+        }
+        readOnly(true)
+      }
+
+      def consumption = consumptionId ? Consumption.get(consumptionId) : null
       def consumptionDate = consumption?.date
       def batteryLevel = consumption?.batteryLevel
 
@@ -186,7 +196,7 @@ class AdminController {
       }
       householdMap.batteryLevel = batteryLevel
 
-      def lastLogin = Event.findByHouseholdAndType(household, EventType.LOGIN, [max: 1, sort: "date", order: "desc", readOnly: true])
+      def lastLogin = Event.findByHouseholdAndType(currentHousehold, EventType.LOGIN, [max: 1, sort: "date", order: "desc", readOnly: true])
       if (lastLogin) {
         def dateFormatter = DateTimeFormat.mediumDateTime().withLocale(Locale.GERMAN)
         householdMap.lastLogin = dateFormatter.print(lastLogin.date)
