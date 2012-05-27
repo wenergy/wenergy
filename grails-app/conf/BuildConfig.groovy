@@ -20,6 +20,8 @@ grails.project.dependency.resolution = {
     grailsCentral()
     mavenCentral()
 
+    mavenRepo "http://maven.springframework.org/milestone"
+
     // uncomment these to enable remote dependency resolution from public Maven repositories
     //mavenCentral()
     //mavenLocal()
@@ -43,14 +45,15 @@ grails.project.dependency.resolution = {
     compile ":database-migration:1.1"
     compile ":jquery:1.7.1"
     compile ":resources:1.1.6"
-    compile ":cloud-foundry:1.2.1"
+    compile ":cloud-foundry:1.2.2"
     compile ":spring-security-core:1.2.7.3"
     compile ":joda-time:1.4"
-    compile ":quartz2:0.2.2"
+    compile ":quartz2:0.2.3"
     compile ":rocks:1.0.1"
     compile ":fields:1.1"
     compile ":console:1.1"
     compile ":rabbitmq:0.3.3"
+    compile ":svn:1.0.2"
 
     // Uncomment these (or add new ones) to enable additional resources capabilities
     runtime ":zipped-resources:1.0"
