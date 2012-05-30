@@ -22,9 +22,9 @@ rm $BACKUP_LOG_FILE
 echo "$BACKUP_DATE:\tBacking up vcap config"
 tar -czpf $BACKUP_VCAP/vcap.$BACKUP_DATE.tar.gz /home/cf/cloudfoundry/.deployments/devbox/config
 
-# Remove backups older than 5 days
-find $BACKUP_MYSQL -name mysql.\* -ctime +5 -exec rm '{}' \;
-find $BACKUP_VCAP -name vcap.\* -ctime +5 -exec rm '{}' \;
+# Remove backups older than 2 days
+find $BACKUP_MYSQL -name mysql.\* -ctime +2 -exec rm '{}' \;
+find $BACKUP_VCAP -name vcap.\* -ctime +2 -exec rm '{}' \;
 
 # Manual commands
 #sudo innobackupex --defaults-file=/etc/mysql/my.cnf --user=root --password=mysql --use-memory=1G $BACKUP_MYSQL
