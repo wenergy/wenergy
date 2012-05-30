@@ -34,6 +34,9 @@ class HomeController {
 
   // Displayed to users that are not logged in
   def welcome() {
+    if (springSecurityService.isLoggedIn()) {
+      redirect(action: "live")
+    }
     [nav: "welcome"]
   }
 
