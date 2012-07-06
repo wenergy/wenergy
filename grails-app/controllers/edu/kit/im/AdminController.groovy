@@ -94,6 +94,14 @@ class AdminController {
     removeUserFromRole(params.id, "ROLE_RANKING", true)
   }
 
+  def permissionsAddToTheme() {
+    addUserToRole(params.id, "ROLE_THEME")
+  }
+
+  def permissionsRemoveFromTheme() {
+    removeUserFromRole(params.id, "ROLE_THEME", true)
+  }
+
   def permissionsAddToAdmin() {
     addUserToRole(params.id, "ROLE_ADMIN")
   }

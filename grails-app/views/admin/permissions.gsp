@@ -42,6 +42,7 @@
           <th class="sortByTitleAttr">Aktiviert</th>
           <th class="sortByTitleAttr">Benutzer</th>
           <th class="sortByTitleAttr">Ranking</th>
+          <th class="sortByTitleAttr">Theme</th>
           <th class="sortByTitleAttr">Admin</th>
           <th class="linkColumn nonSortable"></th>
         </tr>
@@ -89,6 +90,19 @@
                   id="${household.id}"
                   class="btn btn-mini btn-danger"
                   title="Rankingrechte hinzufügen"><i
+                    class="icon-white icon-remove"></i></g:link></wen:ifNotGrantedForUser>
+            </td>
+            <td><wen:ifGrantedForUser user="${household.id}" role="ROLE_THEME"><span title="0"></span><g:link
+                action="permissionsRemoveFromTheme"
+                id="${household.id}"
+                class="btn btn-mini btn-success"
+                title="Themerechte entfernen"><i
+                  class="icon-white icon-ok"></i></g:link></wen:ifGrantedForUser>
+              <wen:ifNotGrantedForUser user="${household.id}" role="ROLE_THEME"><span title="1"></span><g:link
+                  action="permissionsAddToTheme"
+                  id="${household.id}"
+                  class="btn btn-mini btn-danger"
+                  title="Themerechte hinzufügen"><i
                     class="icon-white icon-remove"></i></g:link></wen:ifNotGrantedForUser>
             </td>
             <td><wen:ifGrantedForUser user="${household.id}" role="ROLE_ADMIN"><span title="0"></span><g:link

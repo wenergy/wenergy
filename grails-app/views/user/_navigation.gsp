@@ -36,8 +36,8 @@
       themesActive = 'class="active"'
       themesActiveIcon = "icon-white"
     } %>
-    <li ${themesActive}><g:link action="themes"><i class="icon-tint ${themesActiveIcon}"></i> Themes</g:link>
-    </li>
-
+    <sec:ifAllGranted roles="ROLE_THEME">
+      <li ${themesActive}><g:link action="themes"><i class="icon-tint ${themesActiveIcon}"></i> Themes</g:link></li>
+    </sec:ifAllGranted>
   </ul>
 </div> <!-- /well -->
