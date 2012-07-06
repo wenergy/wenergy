@@ -40,6 +40,7 @@ class DataService {
 
       def households = Household.withCriteria() {
         isNotNull("currentPowerLevelValue")
+        gt("currentPowerLevelValue", 0.0)
         maxResults(maxPowerLevels)
         readOnly(true)
       }
