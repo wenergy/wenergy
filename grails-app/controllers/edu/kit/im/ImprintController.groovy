@@ -20,4 +20,6 @@ package edu.kit.im
 class ImprintController {
 
   def index() { }
+
+  def contact() { }
 }
