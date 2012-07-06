@@ -29,21 +29,45 @@ class DataService {
   def springSecurityService
 
   // Get power level indicator information
-  def getWelcomeData() {
+  def getWelcomeData(List householdIds) {
     def dataMap = [:]
     def powerLevels = []
 
+    // (param max should be identical in welcome.js:updatePowerLevelIndicator())
     def maxPowerLevels = 15
 
-    // Get all households
-    // (param max should be identical in welcome.js:updatePowerLevelIndicator())
-    Household.findAll(sort: "id", max: maxPowerLevels, readOnly: true) {}.each {h ->
-      def powerLevel = h.currentPowerLevelValue
-      if (powerLevel != null) {
-        powerLevels << powerLevel.setScale(2, RoundingMode.HALF_UP)
+    if (!householdIds) {
+
+      def households = Household.withCriteria() {
+        isNotNull("currentPowerLevelValue")
+        maxResults(maxPowerLevels)
+        readOnly(true)
       }
+
+      Collections.shuffle(households)
+
+      householdIds = []
+      households.each { h ->
+        powerLevels << h.currentPowerLevelValue.setScale(2, RoundingMode.HALF_UP)
+        householdIds << h.id
+      }
+    } else {
+
+      def households = Household.withCriteria() {
+        isNotNull("currentPowerLevelValue")
+        "in"("id", householdIds)
+        readOnly(true)
+      }
+
+      // Keep initial random order
+      householdIds.each { hid ->
+        def h = households.find { it.id == hid }
+        powerLevels << h.currentPowerLevelValue.setScale(2, RoundingMode.HALF_UP)
+      }
+
     }
 
+    dataMap["randomIds"] = householdIds.join(",")
     dataMap["powerLevels"] = powerLevels
     dataMap["maxPowerLevels"] = maxPowerLevels
 

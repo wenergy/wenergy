@@ -39,8 +39,8 @@ class DataController {
 
   def welcome() {
     try {
-      // Dispatch
-      def data = dataService.getWelcomeData()
+      def householdIds = params.ids?.tokenize(",")?.collect { it as Long } ?: null
+      def data = dataService.getWelcomeData(householdIds)
       def json = [
           status: [code: 200],
           data: data

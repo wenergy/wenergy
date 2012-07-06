@@ -45,6 +45,7 @@ $(function () {
 
     // Power level indicator
     cache.powerLevels = [];
+    cache.randomIds = [];
     cache.maxPowerLevels = 15;
     cache.powerLevelColorInactive = "#CCCCCC";
     cache.powerLevelColors = ["#AD0000", "#B10D05", "#B51A0B", "#B92610", "#BD3315", "#C2401B", "#C64D20", "#CA5925",
@@ -64,13 +65,18 @@ $(function () {
     $.ajax({
       type:"POST",
       url:rootPath + "data/welcome",
-      data:null,
+      data:{
+        ids:cache.randomIds
+      },
       beforeSend:function () {
         cache.loadingInProgress = true;
       },
       success:function (json) {
         // Power level
         if (json.data) {
+          if (json.data.randomIds) {
+            cache.randomIds = json.data.randomIds;
+          }
           if (json.data.powerLevels) {
             cache.powerLevels = json.data.powerLevels;
           }
